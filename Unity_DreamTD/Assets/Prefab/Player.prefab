@@ -78,7 +78,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6149849494789762011}
-  - component: {fileID: 3008282643190323437}
+  - component: {fileID: 8890139381512864415}
+  - component: {fileID: 8161869139464702577}
   - component: {fileID: 4552044184977025975}
   m_Layer: 0
   m_Name: Player
@@ -103,7 +104,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3008282643190323437
+--- !u!114 &8890139381512864415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,10 +113,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 6149849494789762010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9179f3cd431e2ea45a4b4df4a90208de, type: 3}
+  m_Script: {fileID: 11500000, guid: bdcf9cf79c610cd44a234a788fa88728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
+  _camera: {fileID: 6149849495121591627}
+  _hasMoveBoundaries: 1
+  _speed: 20
+  _minX: -50
+  _maxX: 50
+  _minZ: -50
+  _maxZ: 50
+  _speedZoom: 8
+  _zoomNumber: 4
+--- !u!114 &8161869139464702577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6149849494789762010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0d298c5f6a47c47bb7d1806e4f10dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactibleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &4552044184977025975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,13 +167,53 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8890139381512864415}
+        m_TargetAssemblyTypeName: Controller, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 73723add-fc5a-4d56-9661-acccd3ea31eb
     m_ActionName: ActionMap/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8161869139464702577}
+        m_TargetAssemblyTypeName: Select, Assembly-CSharp
+        m_MethodName: Selecting
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fd416ea9-f492-425a-a178-e772bc1a43f4
     m_ActionName: ActionMap/Select[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8890139381512864415}
+        m_TargetAssemblyTypeName: Controller, Assembly-CSharp
+        m_MethodName: Zoom
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1d1a40ca-ced4-4d76-8515-00d7d6967d7c
+    m_ActionName: ActionMap/Zoom[/Mouse/scroll/up,/Mouse/scroll/down]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ActionMap
