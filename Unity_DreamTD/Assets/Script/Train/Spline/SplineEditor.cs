@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
+//Original code by CodeMonkey: https://unitycodemonkey.com/video.php?v=7j_BNf9s0jM, Modified by Melinon Remy
 [CustomEditor(typeof(SplineDone))]
 public class SplineEditor : Editor
 {

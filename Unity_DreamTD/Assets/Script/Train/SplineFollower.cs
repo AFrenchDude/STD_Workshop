@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-//Made by Remy Melinon
+//Original code by CodeMonkey: https://unitycodemonkey.com/video.php?v=7j_BNf9s0jM, Modified by Melinon Remy
 public class SplineFollower : MonoBehaviour
 {
     [Header("Settings")]
