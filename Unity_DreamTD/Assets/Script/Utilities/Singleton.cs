@@ -1,4 +1,4 @@
-﻿//Take from the Template, no modification
+﻿//From Template
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
