@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PathFollower : MonoBehaviour
 {
@@ -13,9 +14,10 @@ public class PathFollower : MonoBehaviour
     private List<Transform> _pathWaypoints;
     private int _waypointIndex = 0;
 
-    public void SetPath(List<Transform> path)
+    public UnityEvent LastWaypointReached;
+    public void SetPath(Path path)
     {
-        _pathWaypoints = path;
+        _pathWaypoints = path.Waypoints;
 
         Transform spawnLocation = _pathWaypoints[0];
         if (spawnLocation != null)
@@ -30,11 +32,14 @@ public class PathFollower : MonoBehaviour
         {
             return;
         }
+
         RotateToGoalDirection();
+        transform.position += transform.forward * _movementSpeed * Time.deltaTime;
+        CheckTargetReached();
+    }
 
-        Vector3 normalizedDirection = GetGoalDirection().normalized;
-        transform.position += normalizedDirection * _movementSpeed * Time.deltaTime;
-
+    private void CheckTargetReached()
+    {
         if (GetGoalDirection().magnitude <= _waypointThreshold)
         {
             if (_waypointIndex + 1 < _pathWaypoints.Count)
@@ -48,7 +53,6 @@ public class PathFollower : MonoBehaviour
         }
     }
 
-
     private Vector3 GetGoalDirection()
     {
         Vector3 goalDirection = _pathWaypoints[_waypointIndex].position - transform.position;
@@ -61,6 +65,7 @@ public class PathFollower : MonoBehaviour
     }
     private void LastWayPointReached()
     {
+        LastWaypointReached.Invoke();
         if (_loop)
         {
             _waypointIndex = 0;

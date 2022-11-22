@@ -13,16 +13,15 @@ public class Path : MonoBehaviour
     [SerializeField] private bool _showGizmos = true;
     [SerializeField] private Color _lineColor = Color.white;
 
-    [SerializeField] private PathFollower _pathFollower = null; //For testing purpose until spawning is properly implemented
+    //[SerializeField] private PathFollower _pathFollower = null; //For testing purpose until spawning is properly implemented
 
     private readonly Vector3 _offset = new Vector3(0, 0.5f, 0);
 
     public List<Transform> Waypoints => _waypoints;
 
-
     private void Awake()
     {
-        _pathFollower.SetPath(_waypoints); //For testing purpose until spawning is properly implemented
+        //_pathFollower.SetPath(this); //For testing purpose until spawning is properly implemented
     }
 
 #if UNITY_EDITOR
