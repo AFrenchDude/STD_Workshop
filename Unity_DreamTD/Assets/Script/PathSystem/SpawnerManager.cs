@@ -31,6 +31,9 @@ public class SpawnerManager : MonoBehaviour
     [System.NonSerialized]
     private int _currentWaveRunning = 0;
 
+    [System.NonSerialized]
+    private Coroutine _waitForNextWaveCoroutine;
+
     private int _waveEntityListCount = 0;
     private bool _isWaitingForLastEntityDeath = false;
 
@@ -127,7 +130,29 @@ public class SpawnerManager : MonoBehaviour
         // should we run a new wave?
         if (_autoStartNextWaves == true && _currentWaveRunning <= 0)
         {
-            StartNewWaveSet();
+            // prevent overlapping routines
+            if (_waitForNextWaveCoroutine != null)
+            {
+                StopCoroutine(_waitForNextWaveCoroutine);
+            }
+            _waitForNextWaveCoroutine = StartCoroutine(WaitForNewWaveSet());
         }
+    }
+
+    private IEnumerator WaitForNewWaveSet()
+    {
+        var waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
+        float waitingDuration = waveDatabase.Waves[_currentWaveSetIndex].WaitingDurationBefore;
+
+        if (_currentWaveSetIndex - 1 > 0)
+        {
+            waitingDuration += waveDatabase.Waves[_currentWaveSetIndex - 1].WaitingDurationAfter;
+        }
+
+        Debug.LogFormat("Waiting {0} seconds until next wave.", waitingDuration);
+        yield return new WaitForSeconds(waitingDuration);
+
+        _waitForNextWaveCoroutine = null;
+        StartNewWaveSet();
     }
 }
