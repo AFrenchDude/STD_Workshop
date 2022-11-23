@@ -1,4 +1,4 @@
-//From Template
+//From Template, modified by ALBERT Esteban
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,11 +31,41 @@ public class SpawnerManager : MonoBehaviour
     [System.NonSerialized]
     private int _currentWaveRunning = 0;
 
+    private int _waveEntityListCount = 0;
+    private bool _isWaitingForLastEntityDeath = false;
+
     [SerializeField]
     public UnityEvent<SpawnerManager, SpawnerStatus, int> WaveStatusChanged_UnityEvent = null;
 
     public delegate void SpawnerEvent(SpawnerManager sender, SpawnerStatus status, int runningWaveCount);
     public event SpawnerEvent WaveStatusChanged = null;
+
+    private void Update()
+    {
+        if (_isWaitingForLastEntityDeath)
+        {
+            if (_waveEntityListCount <= 0)
+            {
+                EndGameCondition.Instance.PlayerVictory(); // No enemy left: end game
+                _isWaitingForLastEntityDeath = false;
+            }
+        }
+    }
+
+    public void AddWaveEntityToList(WaveEntity waveEntity)
+    {
+        if (waveEntity != null)
+        {
+            _waveEntityListCount++;
+        }
+    }
+    public void RemoveWaveEntityToList(WaveEntity waveEntity)
+    {
+        if (waveEntity != null)
+        {
+            _waveEntityListCount--;
+        }
+    }
 
     [ContextMenu("Start waves")]
     public void StartWaves()
@@ -81,7 +111,7 @@ public class SpawnerManager : MonoBehaviour
         }
         else
         {
-            EndGameCondition.Instance.PlayerVictory(); // No Waves left: end game
+            _isWaitingForLastEntityDeath = true; //No Waves left => Set flag to wait for game's end
         }
     }
 
