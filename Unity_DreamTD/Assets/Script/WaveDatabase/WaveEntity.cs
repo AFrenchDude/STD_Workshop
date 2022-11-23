@@ -12,4 +12,18 @@ public class WaveEntity : MonoBehaviour
     {
         _pathFollower.SetPath(path);
     }
+    private void Awake()
+    {
+        if (LevelReferences.HasInstance)
+        {
+            LevelReferences.Instance.SpawnerManager.AddWaveEntityToList(this);
+        }
+    }
+    private void OnDestroy()
+    {
+        if (LevelReferences.HasInstance)
+        {
+            LevelReferences.Instance.SpawnerManager.RemoveWaveEntityToList(this);
+        }
+    }
 }
