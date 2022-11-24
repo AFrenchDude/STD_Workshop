@@ -197,8 +197,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6149849494789762011}
   - component: {fileID: 8890139381512864415}
-  - component: {fileID: 8161869139464702577}
   - component: {fileID: 4552044184977025975}
+  - component: {fileID: 65957332153635282}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -243,21 +243,6 @@ MonoBehaviour:
   _maxZ: 50
   _speedZoom: 8
   _zoomNumber: 4
---- !u!114 &8161869139464702577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6149849494789762010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb0d298c5f6a47c47bb7d1806e4f10dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactibleLayer:
-    serializedVersion: 2
-    m_Bits: 2048
 --- !u!114 &4552044184977025975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +287,7 @@ MonoBehaviour:
     m_ActionName: ActionMap/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8161869139464702577}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Select, Assembly-CSharp
         m_MethodName: Selecting
         m_Mode: 0
@@ -337,6 +322,25 @@ MonoBehaviour:
   m_DefaultActionMap: ActionMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 6149849495121591627}
+--- !u!114 &65957332153635282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6149849494789762010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d47322efeb4a442b7f4031fb94ff78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactibleLayer:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  _interactibleLayerSpline:
+    serializedVersion: 2
+    m_Bits: 0
+  _spherecastRadius: 3
 --- !u!1 &6149849495121591621
 GameObject:
   m_ObjectHideFlags: 0

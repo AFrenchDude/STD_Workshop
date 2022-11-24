@@ -125,11 +125,26 @@ public class SplineDone : MonoBehaviour
         {
             if (Mathf.Abs(t - point.t) < Mathf.Abs(t - closestPoint.t))
             {
+                Vector3 testPos = pointList[0].position;
                 closestPoint = point;
             }
         }
         return closestPoint;
     }
+    public Point GetClosestPoint(Vector3 callerPosition)
+    {
+        Point closestPoint = pointList[0];
+        foreach (Point point in pointList)
+        {
+            if ((callerPosition - point.position).magnitude < (callerPosition - closestPoint.position).magnitude)
+            {
+                Vector3 testPos = pointList[0].position;
+                closestPoint = point;
+            }
+        }
+        return closestPoint;
+    }
+
 
     public Vector3 GetPositionAtUnits(float unitDistance, float stepSize = .01f)
     {
