@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿//From Template
+using UnityEngine;
 
 public interface IPickerGhost
 {
