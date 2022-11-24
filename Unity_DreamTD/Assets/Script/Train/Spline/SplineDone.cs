@@ -74,10 +74,9 @@ public class SplineDone : MonoBehaviour
             float tAnchor = tFull - anchorIndex;
 
             Anchor anchorA, anchorB;
-
-            if (anchorIndex < anchorList.Count - 1) 
+            if (anchorIndex >= 0 && anchorIndex < anchorList.Count - 1) 
             {
-                anchorA = anchorList[anchorIndex + 0];
+                anchorA = anchorList[anchorIndex];
                 anchorB = anchorList[anchorIndex + 1];
             } 
             else 
