@@ -6,7 +6,9 @@ using UnityEngine;
 public class LevelReferences : Singleton<LevelReferences>
 {
     [SerializeField] SpawnerManager _spawnerManager = null;
+    [SerializeField] PlayerDrag _playerDrag = null;
 
 
     public SpawnerManager SpawnerManager => _spawnerManager;
+    public PlayerDrag PlayerDrag => _playerDrag;
 }
