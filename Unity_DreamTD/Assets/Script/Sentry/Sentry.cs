@@ -55,9 +55,9 @@ public class Sentry : MonoBehaviour, IPickerGhost
     [SerializeField] private List<Collider> _colliders = null;
     [SerializeField] private Material _materialGreen = null;
     [SerializeField] private Material _materialRed = null;
-
+    [SerializeField] private LayerMask _dragNDroppableLayer;
+    [SerializeField] private float _collisionCheckRadius = 2.0f;
     [SerializeField] private List<IPickerGhost> _pickeableConflictList = null;
-    [SerializeField] private List<Sentry> _sentryConflictList = null;
     public Transform GetTransform()
     {
         return transform;
@@ -67,16 +67,11 @@ public class Sentry : MonoBehaviour, IPickerGhost
     {
         if (Base.Instance.Gold >= _price)
         {
-            if (_pickeableConflictList == null)
-            {
-                return true;
-            }
-            if (_pickeableConflictList.Count <= 0)
+            if (SearchForNearbyBuldings() == false)
             {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -107,6 +102,22 @@ public class Sentry : MonoBehaviour, IPickerGhost
             _dragNDropObject.GetComponent<MeshRenderer>().material = _materialRed;
         }
     }
+    private bool SearchForNearbyBuldings()
+    {
+        Vector3 rayDirection = new Vector3(0, 1, 0);
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, rayDirection);
+        if (Physics.SphereCast(transform.position, _collisionCheckRadius, transform.forward ,out hit, _dragNDroppableLayer))
+        {
+            Debug.Log("FOUND SOMETHING");
+            return true;
+        }
+        else
+        {
+            Debug.Log("FOUND NOTHING");
+            return false;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -115,7 +126,6 @@ public class Sentry : MonoBehaviour, IPickerGhost
             _pickeableConflictList = new List<IPickerGhost>();
         }
         IPickerGhost otherPickable = other.GetComponentInParent<IPickerGhost>();
-        Debug.Log(otherPickable != null);
         if (otherPickable != null)
         {
             _pickeableConflictList.Add(otherPickable);
