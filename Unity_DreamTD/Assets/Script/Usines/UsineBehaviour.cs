@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Made By Melinon Remy
 public class UsineBehaviour : MonoBehaviour
 {
     public Type type;
@@ -16,37 +17,38 @@ public class UsineBehaviour : MonoBehaviour
             projectiles.Add(type.projectile);
         }
     }
-
-    public void TransferCoroutine(int numberToGive, int maxWagonCapacity, float secondsToWait, Locomotive locomotive)
+    /*
+    public void TransferCoroutine(int numberToGive, float secondsToWait, Locomotive locomotive)
     {
-        StartCoroutine(Transfer(numberToGive, maxWagonCapacity, secondsToWait, locomotive));
-    }
-
-    public IEnumerator Transfer(int numberToGive, int maxWagonCapacity, float secondsToWait, Locomotive locomotive)
-    {
-        if (numberToGive != maxWagonCapacity || projectiles.Count != 0)
+        if (projectiles.Count > numberToGive)
         {
-            if(projectiles.Count - 1 >= 0)
-            {
-                projectiles.RemoveAt(projectiles.Count - 1);
-                numberToGive++;
-                yield return new WaitForSeconds(secondsToWait);
-                StartCoroutine(Transfer(numberToGive, maxWagonCapacity, secondsToWait, locomotive));
-            }
-            else
-            {
-                locomotive.usineBehaviour = null;
-                locomotive.isTransferring = false;
-                locomotive.splineFollower.speed = locomotive.maxSpeed;
-                locomotive.SetWagonSpeed();
-            }
+            StartCoroutine(Transfer(numberToGive, secondsToWait, locomotive));
         }
         else
         {
-            locomotive.usineBehaviour = null;
-            locomotive.isTransferring = false;
-            locomotive.splineFollower.speed = locomotive.maxSpeed;
-            locomotive.SetWagonSpeed();
+            StartCoroutine(Transfer(projectiles.Count, secondsToWait, locomotive));
         }
     }
+
+    public IEnumerator Transfer(int numberToGive, float secondsToWait, Locomotive locomotive)
+    {
+        if (numberToGive != 0)
+        {
+            numberToGive--;
+            projectiles.RemoveAt(projectiles.Count - 1);
+            yield return new WaitForSeconds(secondsToWait);
+            StartCoroutine(Transfer(numberToGive, secondsToWait, locomotive));
+        }
+        else
+        {
+            if (locomotive.wagons[locomotive.index + 1] != null)
+            {
+                //locomotive.SetUsine(locomotive.wagons[locomotive.index + 1], this);
+            }
+            else
+            {
+                locomotive.index = 0;
+            }
+        }
+    }*/
 }
