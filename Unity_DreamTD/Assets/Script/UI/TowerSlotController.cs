@@ -1,4 +1,4 @@
-﻿//From Template
+﻿//From Template modified by ALBERT Esteban
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -59,27 +59,16 @@ public class TowerSlotController : MonoBehaviour
 
     public void Selecting(InputAction.CallbackContext obj) //left click confirm
     {
-
+        if (_state == State.GhostVisible && GetPlayerDrag.TrySetSentryInAction())
+        {
+                ChangeState(State.Available);
+        }
     }
-    public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
-    {
-
-    }
-    //private void Update()
+    //public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
     //{
     //    if (_state == State.GhostVisible)
     //    {
-    //        if (Input.GetMouseButtonDown(0) == true)
-    //        {
-    //            if (PlayerPickerController.TrySetGhostAsCellChild() == true)
-    //            {
-    //                ChangeState(State.Available);
-    //            }
-    //        }
-    //        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape) == true)
-    //        {
-    //            ChangeState(State.Available);
-    //        }
+    //        ChangeState(State.Available);
     //    }
     //}
 

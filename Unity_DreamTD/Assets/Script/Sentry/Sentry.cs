@@ -1,9 +1,10 @@
 //By ALBERT Esteban
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Sentry : MonoBehaviour,IPickerGhost, ICellChild
+public class Sentry : MonoBehaviour, IPickerGhost
 {
 
     [SerializeField] TargetPriority _targetPriority = TargetPriority.Nearest;
@@ -12,13 +13,12 @@ public class Sentry : MonoBehaviour,IPickerGhost, ICellChild
 
     private int _price = 0;
 
-    private BuildableSlot _cellParent = null;
 
     public int Price => _price;
 
     private void Awake()
     {
-        enabled = false;
+        Enable(false);
         _weaponController.enabled = false;
     }
     public void Enable(bool isEnabled)
@@ -50,7 +50,14 @@ public class Sentry : MonoBehaviour,IPickerGhost, ICellChild
         }
     }
 
-    // Interfaces
+    #region DragNDrop Interface & system
+    [SerializeField] private GameObject _dragNDropObject = null;
+    [SerializeField] private List<Collider> _colliders = null;
+    [SerializeField] private Material _materialGreen = null;
+    [SerializeField] private Material _materialRed = null;
+
+    [SerializeField] private List<IPickerGhost> _pickeableConflictList = null;
+    [SerializeField] private List<Sentry> _sentryConflictList = null;
     public Transform GetTransform()
     {
         return transform;
@@ -60,15 +67,67 @@ public class Sentry : MonoBehaviour,IPickerGhost, ICellChild
     {
         if (Base.Instance.Gold >= _price)
         {
-            return true;
+            if (_pickeableConflictList == null)
+            {
+                return true;
+            }
+            if (_pickeableConflictList.Count <= 0)
+            {
+                return true;
+            }
         }
+
         return false;
     }
 
-    public void OnSetChild()
+    public void PlaceGhost()
     {
-        Base.Instance.RemoveGold(_price);
-        _cellParent = GetComponentInParent<BuildableSlot>();
         Enable(true);
+        foreach (var collider in _colliders)
+        {
+            collider.enabled = true;
+        }
+        Base.Instance.RemoveGold(_price);
     }
+
+    public void EnableDragNDropVFX(bool enable)
+    {
+        _dragNDropObject.SetActive(enable);
+    }
+
+    public void SetDragNDropVFXColorToGreen(bool setToGreen)
+    {
+        if (setToGreen)
+        {
+            _dragNDropObject.GetComponent<MeshRenderer>().material = _materialGreen;
+
+        }
+        else
+        {
+            _dragNDropObject.GetComponent<MeshRenderer>().material = _materialRed;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (_pickeableConflictList == null)
+        {
+            _pickeableConflictList = new List<IPickerGhost>();
+        }
+        IPickerGhost otherPickable = other.GetComponentInParent<IPickerGhost>();
+        Debug.Log(otherPickable != null);
+        if (otherPickable != null)
+        {
+            _pickeableConflictList.Add(otherPickable);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        IPickerGhost otherPickable = other.GetComponentInParent<IPickerGhost>();
+        if (otherPickable != null)
+        {
+            _pickeableConflictList.Remove(otherPickable);
+        }
+    }
+    #endregion
 }
