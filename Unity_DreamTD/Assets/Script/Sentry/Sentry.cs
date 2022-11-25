@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Sentry : MonoBehaviour, IPickerGhost
@@ -104,12 +105,12 @@ public class Sentry : MonoBehaviour, IPickerGhost
     }
     private bool SearchForNearbyBuldings()
     {
-        Vector3 rayDirection = new Vector3(0, 1, 0);
+        Vector3 rayDirection = new Vector3(0, 0, 0);
         RaycastHit hit;
         Ray ray = new Ray(transform.position, rayDirection);
-        if (Physics.SphereCast(transform.position, _collisionCheckRadius, transform.forward ,out hit, _dragNDroppableLayer))
+        if (Physics.SphereCast(transform.position, _collisionCheckRadius, rayDirection, out hit, 100f, _dragNDroppableLayer))
         {
-            Debug.Log("FOUND SOMETHING");
+            Debug.Log("FOUND SOMETHING " + hit.collider.gameObject.ToString());
             return true;
         }
         else
@@ -117,6 +118,14 @@ public class Sentry : MonoBehaviour, IPickerGhost
             Debug.Log("FOUND NOTHING");
             return false;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0, 0, 1f);
+        Gizmos.DrawWireSphere(transform.position, _collisionCheckRadius);
+
+        Debug.Log("Draw wire sphere");
     }
 
     private void OnTriggerEnter(Collider other)
