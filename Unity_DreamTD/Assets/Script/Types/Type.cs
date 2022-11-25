@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Made By Melinon Remy
 [CreateAssetMenu(menuName = "Type/Projectile")]
 public class Type : ScriptableObject
 {
