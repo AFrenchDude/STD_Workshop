@@ -760,6 +760,37 @@ Transform:
   m_Father: {fileID: 1577873908}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &234949425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 234949426}
+  m_Layer: 0
+  m_Name: SceneRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &234949426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234949425}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &289317578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,11 +1557,31 @@ PrefabInstance:
       propertyPath: _interactibleLayerSpline.m_Bits
       value: 2048
       objectReference: {fileID: 0}
+    - target: {fileID: 3480181440342405739, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_LookAt
+      value: 
+      objectReference: {fileID: 234949426}
+    - target: {fileID: 4552044184977025975, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552044184977025975, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4552044184977025975, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 361276920}
+    - target: {fileID: 4552044184977025975, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4552044184977025975, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1540,6 +1591,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: TowerSlotController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552044184977025975, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6149849494789762010, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
@@ -1600,6 +1656,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149849495121591624, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9819564
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149849495121591624, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.18910755
+      objectReference: {fileID: 0}
+    - target: {fileID: 7309219407840395395, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7309219407840395395, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2085885483a13104c9cd897da10014a0, type: 3}
@@ -2035,12 +2111,6 @@ Transform:
   m_Father: {fileID: 1577873908}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1159271616 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4080392254088345263, guid: a560cd9bc16f920448c313bfb919b373,
-    type: 3}
-  m_PrefabInstance: {fileID: 4981473463278747245}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1204795293
 GameObject:
   m_ObjectHideFlags: 0
@@ -3320,7 +3390,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _dragNDropObject
       value: 
-      objectReference: {fileID: 1159271616}
+      objectReference: {fileID: 0}
     - target: {fileID: 4981473463761837405, guid: a560cd9bc16f920448c313bfb919b373,
         type: 3}
       propertyPath: _weaponController
