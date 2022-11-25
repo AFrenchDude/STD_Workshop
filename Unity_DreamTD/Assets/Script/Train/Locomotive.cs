@@ -30,7 +30,6 @@ public class Locomotive : MonoBehaviour
         {
             wagon.GetComponent<SplineFollower>().speed = maxSpeed;
         }
-        //SetWagonSpeed();
     }
 
     private void OnTriggerEnter(Collider other)
