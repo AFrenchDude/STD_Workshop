@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public enum State
 {
@@ -56,6 +57,14 @@ public class TowerSlotController : MonoBehaviour
         }
     }
 
+    public void Selecting(InputAction.CallbackContext obj) //left click confirm
+    {
+
+    }
+    public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
+    {
+
+    }
     //private void Update()
     //{
     //    if (_state == State.GhostVisible)
