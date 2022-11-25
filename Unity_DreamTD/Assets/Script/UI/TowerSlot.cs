@@ -1,6 +1,7 @@
 //From Template
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,9 @@ public class TowerSlot : MonoBehaviour
 
     [SerializeField]
     private Image _icon = null;
+
+    [SerializeField]
+    private TextMeshProUGUI _priceTxt= null;
 
     public TowerDescription TowerDescription => _towerDescription;
 
@@ -36,6 +40,7 @@ public class TowerSlot : MonoBehaviour
 
         _icon.sprite = _towerDescription.Icon;
         _icon.color = _towerDescription.IconColor;
+        _priceTxt.SetText(_towerDescription.Price + "$");
     }
 
     private void OnEnable()

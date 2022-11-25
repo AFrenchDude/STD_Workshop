@@ -10,6 +10,7 @@ public class PlayerDrag : MonoBehaviour
 
     private IPickerGhost _ghost = null;
     private bool _isDragging = false;
+    private bool _isSnappedToRail = false;
 
 
     private void Update()
@@ -39,11 +40,17 @@ public class PlayerDrag : MonoBehaviour
 
 
                         SnapDraggedItemToRail(towerSnapVector, nearestSplinePoint);
+                        if (_ghost.GetIsPlaceable())
+                        {
+                            _ghost.SetDragNDropVFXColorToGreen(true);
+                        }
                         return;
                     }
                 }
                 _ghost.GetTransform().position = cursorHit.point;
                 _ghost.GetTransform().rotation = Quaternion.Euler(0, 0, 0);
+                _ghost.SetDragNDropVFXColorToGreen(false);
+                _isSnappedToRail = false;
             }
         }
     }
@@ -52,10 +59,12 @@ public class PlayerDrag : MonoBehaviour
     {
         _ghost.GetTransform().position = towerSnapLocation;
         _ghost.GetTransform().LookAt(nearestSplinePoint.position);
+        _isSnappedToRail = true;
     }
     public void ActivateWithGhost(IPickerGhost ghost)
     {
         _ghost = ghost;
+        EnableDragnDropGhostVFX(true);
         ActivateDrag(true);
     }
     public void ActivateDrag(bool enable)
@@ -71,6 +80,21 @@ public class PlayerDrag : MonoBehaviour
         }
     }
 
+    public bool TrySetSentryInAction()
+    {
+        if (_isSnappedToRail && _ghost.GetIsPlaceable())
+        {
+            _ghost.PlaceGhost();
+            EnableDragnDropGhostVFX(false);
+            _ghost = null;
+            return true;
+        }
+        return false;
+    }
+    public void EnableDragnDropGhostVFX(bool enable)
+    {
+        _ghost.EnableDragNDropVFX(enable);
+    }
 
     [ContextMenu("Activate")]
     private void DoActivate() => ActivateDrag(true);
