@@ -59,7 +59,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: {fileID: 11400000, guid: a6ed1d2dcab2689418bf34f47b41496f, type: 2}
-  ressourcesToGet: 20
+  projectiles: []
+  maxRessource: 20
 --- !u!1 &4981473462060767208
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +219,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 4981473462865336313}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
@@ -316,7 +317,7 @@ BoxCollider:
   m_GameObject: {fileID: 4981473463144235027}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -329,7 +330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4981473463554689024}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4981473463912515793}
   - component: {fileID: 4981473463912515792}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DetectionCollision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +493,7 @@ SphereCollider:
   m_GameObject: {fileID: 4981473463912515798}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
@@ -589,7 +590,7 @@ SphereCollider:
   m_GameObject: {fileID: 4981473464012254110}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
