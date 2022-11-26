@@ -52,13 +52,12 @@ public class Sentry : MonoBehaviour, IPickerGhost
     }
 
     #region DragNDrop Interface & system
-    [SerializeField] private GameObject _dragNDropObject = null;
-    [SerializeField] private List<Collider> _colliders = null;
-    [SerializeField] private Material _materialGreen = null;
-    [SerializeField] private Material _materialRed = null;
+    [SerializeField] private GameObject _dragNDropObject = null; //For testing as the green/red indicator
+    [SerializeField] private List<Collider> _colliders = null; //Enable train and damageable detector colliders after being blaced to prevent weird behaviours
+    [SerializeField] private Material _materialGreen = null; //For testing
+    [SerializeField] private Material _materialRed = null; //For testing
     [SerializeField] private LayerMask _dragNDroppableLayer;
     [SerializeField] private float _collisionCheckRadius = 2.0f;
-    [SerializeField] private List<IPickerGhost> _pickeableConflictList = null;
     public Transform GetTransform()
     {
         return transform;
@@ -88,7 +87,7 @@ public class Sentry : MonoBehaviour, IPickerGhost
 
     public void EnableDragNDropVFX(bool enable)
     {
-        _dragNDropObject.SetActive(enable);
+        _dragNDropObject.GetComponent<MeshRenderer>().enabled = enable;
     }
 
     public void SetDragNDropVFXColorToGreen(bool setToGreen)
@@ -103,50 +102,24 @@ public class Sentry : MonoBehaviour, IPickerGhost
             _dragNDropObject.GetComponent<MeshRenderer>().material = _materialRed;
         }
     }
+
     private bool SearchForNearbyBuldings()
     {
-        Vector3 rayDirection = new Vector3(0, 0, 0);
-        RaycastHit hit;
-        Ray ray = new Ray(transform.position, rayDirection);
-        if (Physics.SphereCast(transform.position, _collisionCheckRadius, rayDirection, out hit, 100f, _dragNDroppableLayer))
+        Collider[] colliderList = Physics.OverlapSphere(transform.position, _collisionCheckRadius, _dragNDroppableLayer);
+        foreach (var testedCollider in colliderList)
         {
-            Debug.Log("FOUND SOMETHING " + hit.collider.gameObject.ToString());
-            return true;
+            if (testedCollider.transform.root != transform)
+            {
+                return true;
+            }
         }
-        else
-        {
-            Debug.Log("FOUND NOTHING");
-            return false;
-        }
+        return false;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0, 0, 1f);
         Gizmos.DrawWireSphere(transform.position, _collisionCheckRadius);
-
-        Debug.Log("Draw wire sphere");
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (_pickeableConflictList == null)
-        {
-            _pickeableConflictList = new List<IPickerGhost>();
-        }
-        IPickerGhost otherPickable = other.GetComponentInParent<IPickerGhost>();
-        if (otherPickable != null)
-        {
-            _pickeableConflictList.Add(otherPickable);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        IPickerGhost otherPickable = other.GetComponentInParent<IPickerGhost>();
-        if (otherPickable != null)
-        {
-            _pickeableConflictList.Remove(otherPickable);
-        }
     }
     #endregion
 }
