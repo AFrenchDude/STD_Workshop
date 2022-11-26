@@ -143,7 +143,7 @@ public class Locomotive : MonoBehaviour
             yield return new WaitForSeconds(waitFor);
             StartCoroutine(TransferingUsine(wagon, usine, numberToGet, waitFor));
         }
-        else if(wagon.projectiles.Count == wagon.maxResources && numberToGet > 0 && wagonsToCheck[wagonNumber + 1] != null)
+        else if(wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles.Count != wagonsToCheck[wagonNumber + 1].maxResources && numberToGet > 0)
         {
             wagonNumber++;
             StartCoroutine(TransferingUsine(wagonsToCheck[wagonNumber], usine, numberToGet, waitFor));
