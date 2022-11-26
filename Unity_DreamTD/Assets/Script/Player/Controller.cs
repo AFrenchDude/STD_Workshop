@@ -1,8 +1,5 @@
-//By ALBERT Esteban, modified by Melinon Remy
+//Made by Melinon Remy
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

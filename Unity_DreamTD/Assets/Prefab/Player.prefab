@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 6149849494789762011}
   - component: {fileID: 8890139381512864415}
   - component: {fileID: 65957332153635282}
+  - component: {fileID: 4458188123564486178}
   - component: {fileID: 4552044184977025975}
   m_Layer: 0
   m_Name: Player
@@ -287,6 +288,18 @@ MonoBehaviour:
     m_Bits: 0
   _snapDetectionRange: 5
   _towerToRailDistance: 3
+--- !u!114 &4458188123564486178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6149849494789762010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2cfee0a2684bb4baeab10e2f5082c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4552044184977025975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +343,19 @@ MonoBehaviour:
     m_ActionId: 73723add-fc5a-4d56-9661-acccd3ea31eb
     m_ActionName: ActionMap/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4458188123564486178}
+        m_TargetAssemblyTypeName: Selector, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fd416ea9-f492-425a-a178-e772bc1a43f4
     m_ActionName: ActionMap/Select[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]
   - m_PersistentCalls:

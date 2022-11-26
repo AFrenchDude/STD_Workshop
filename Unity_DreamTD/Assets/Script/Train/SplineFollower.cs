@@ -4,7 +4,7 @@
 public class SplineFollower : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private SplineDone spline;
+    public SplineDone spline;
     public float speed = 1f;
     [Header("Space betweew each wagon")]
     [Tooltip("5 between each, dont set locomotives")]
