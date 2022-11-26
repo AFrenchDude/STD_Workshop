@@ -64,13 +64,13 @@ public class TowerSlotController : MonoBehaviour
                 ChangeState(State.Available);
         }
     }
-    //public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
-    //{
-    //    if (_state == State.GhostVisible)
-    //    {
-    //        ChangeState(State.Available);
-    //    }
-    //}
+    public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
+    {
+        if (_state == State.GhostVisible)
+        {
+            ChangeState(State.Available);
+        }
+    }
 
     public void ChangeState(State newState)
     {
