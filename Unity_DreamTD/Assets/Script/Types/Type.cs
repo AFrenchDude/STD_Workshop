@@ -6,6 +6,7 @@ public class Type : ScriptableObject
 {
     public enum projectileType
     {
+        Neutral,
         Food,
         Energy,
         Trap

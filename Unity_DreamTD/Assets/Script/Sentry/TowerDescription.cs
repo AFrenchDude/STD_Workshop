@@ -7,6 +7,9 @@ using UnityEngine;
 public class TowerDescription : ScriptableObject
 {
     [SerializeField]
+    private string _name = null;
+
+    [SerializeField]
     private Sentry _prefab = null;
 
     [SerializeField]
@@ -18,10 +21,15 @@ public class TowerDescription : ScriptableObject
     [SerializeField]
     private int _price =0;
 
+    [SerializeField]
+    private TowersDatas _towersDatas;
+
+    public string Name => _name;
     public Sentry Prefab => _prefab;
     public Sprite Icon => _icon;
     public Color IconColor => _iconColor;
     public int Price => _price;
+    public TowersDatas TowersDatas => _towersDatas; 
 
     public Sentry Instantiate()
     {

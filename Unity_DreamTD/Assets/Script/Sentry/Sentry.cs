@@ -120,6 +120,7 @@ public class Sentry : MonoBehaviour, IPickerGhost
         }
     }
 
+    /*
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0, 0, 1f);
@@ -127,6 +128,7 @@ public class Sentry : MonoBehaviour, IPickerGhost
 
         Debug.Log("Draw wire sphere");
     }
+    */
 
     private void OnTriggerEnter(Collider other)
     {
