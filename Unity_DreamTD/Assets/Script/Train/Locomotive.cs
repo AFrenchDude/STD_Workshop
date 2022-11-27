@@ -24,7 +24,7 @@ public class Locomotive : MonoBehaviour
     private float t = 0.0f;
 
     [HideInInspector] public UsineBehaviour usineBehaviour;
-    [HideInInspector] public SentryGetProjectile sentryGetProjectile;
+    [HideInInspector] public TowerGetProjectile sentryGetProjectile;
 
     private void Start()
     {
@@ -47,7 +47,7 @@ public class Locomotive : MonoBehaviour
             objectCollided.Add(other.gameObject);
             OnTriggerUsine(other.gameObject);
         }
-        if (other.gameObject.GetComponent<SentryGetProjectile>() != null)
+        if (other.gameObject.GetComponent<TowerGetProjectile>() != null)
         {
             objectCollided.Add(other.gameObject);
             OnTriggerSentry(other.gameObject);
@@ -87,7 +87,7 @@ public class Locomotive : MonoBehaviour
     }
     private void OnTriggerSentry(GameObject triggeredSentry)
     {
-        sentryGetProjectile = triggeredSentry.GetComponent<SentryGetProjectile>();
+        sentryGetProjectile = triggeredSentry.GetComponent<TowerGetProjectile>();
         if (sentryGetProjectile.projectiles.Count != sentryGetProjectile.maxRessource && !isTransfering)
         {
             foreach (Wagon wagon in wagons)
@@ -158,7 +158,7 @@ public class Locomotive : MonoBehaviour
         isTransfering = true;
         StartCoroutine(TransferingUsine(wagon, usine, usine.projectiles.Count, waitTime));
     }
-    void CheckTransfertSentry(SentryGetProjectile sentry)
+    void CheckTransfertSentry(TowerGetProjectile sentry)
     {
         isTransfering = true;
         StartCoroutine(TransferingSentry(sentry, waitTime));
@@ -184,7 +184,7 @@ public class Locomotive : MonoBehaviour
             FinishTransfer();
         }
     }
-    private IEnumerator TransferingSentry(SentryGetProjectile sentry, float waitFor)
+    private IEnumerator TransferingSentry(TowerGetProjectile sentry, float waitFor)
     {
         if (wagonsToCheck[wagonNumber].projectiles.Count > 0 && wagonsToCheck[wagonNumber].type.typeSelected == sentry.type.typeSelected)
         {
@@ -215,7 +215,7 @@ public class Locomotive : MonoBehaviour
             {
                 OnTriggerUsine(objectCollided[0]);
             }
-            else if (objectCollided[0].GetComponent<SentryGetProjectile>() != null)
+            else if (objectCollided[0].GetComponent<TowerGetProjectile>() != null)
             {
                 OnTriggerSentry(objectCollided[0]);
             }

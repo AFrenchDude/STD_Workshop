@@ -27,7 +27,7 @@ public class UsineHUD : MonoBehaviour
     public void OnPick()
     {
         productionValueTextHUD.usineBehaviour = usineBehaviour;
-        productionIcon.sprite = usineBehaviour.type.icon;
+        //productionIcon.sprite = usineBehaviour.type.icon;
         toggle.isOn = usineBehaviour.isProducing;
     }
 
