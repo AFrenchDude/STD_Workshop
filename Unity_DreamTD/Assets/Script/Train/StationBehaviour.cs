@@ -1,5 +1,3 @@
-
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,6 +52,12 @@ public class StationBehaviour : MonoBehaviour
             if (container.transform.GetChild(i).GetComponent<TrainsHUD>().train != null)
             {
                 container.transform.GetChild(i).GetComponent<TrainsHUD>().PickTrain();
+            }
+            else
+            {
+                currentTrainCreated--;
+                Destroy(container.transform.GetChild(i).gameObject);
+                createButton.SetActive(true);
             }
         }
     }
