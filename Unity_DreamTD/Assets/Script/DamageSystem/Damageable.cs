@@ -18,8 +18,9 @@ public class Damageable : MonoBehaviour
     public int CurrentHealth => _health;
     public Transform TargetAnchor => _targetAnchor;
 
-    private void Awake()
+    public void setMaxHp(float maxHp)
     {
+        _maxHealth = (int)maxHp;
         _health = _maxHealth;
     }
 
