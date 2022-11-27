@@ -6,6 +6,7 @@ public class Type : ScriptableObject
 {
     public enum projectileType
     {
+        None,
         Food,
         Energy,
         Trap
@@ -13,4 +14,6 @@ public class Type : ScriptableObject
     public projectileType typeSelected;
 
     public GameObject projectile;
+
+    public Sprite icon;
 }

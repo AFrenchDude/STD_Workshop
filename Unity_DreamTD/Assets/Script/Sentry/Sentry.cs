@@ -122,10 +122,11 @@ public class Sentry : MonoBehaviour, IPickerGhost
 
     private void OnDrawGizmos()
     {
+        /*
         Gizmos.color = new Color(0, 0, 1f);
         Gizmos.DrawWireSphere(transform.position, _collisionCheckRadius);
 
-        Debug.Log("Draw wire sphere");
+        Debug.Log("Draw wire sphere");*/
     }
 
     private void OnTriggerEnter(Collider other)
