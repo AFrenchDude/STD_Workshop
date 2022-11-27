@@ -59,7 +59,7 @@ public class TowerSlotController : MonoBehaviour
 
     public void Selecting(InputAction.CallbackContext obj) //left click confirm
     {
-        if (_state == State.GhostVisible && GetPlayerDrag.TrySetSentryInAction())
+        if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
         {
                 ChangeState(State.Available);
         }

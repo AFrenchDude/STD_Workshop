@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerDrag : MonoBehaviour
 {
     [SerializeField] private LayerMask _interactibleLayer;
-    [SerializeField] private LayerMask _interactibleLayerSpline;
     [SerializeField] private float _snapDetectionRange = 5.0f;
     [SerializeField] private float _towerToRailDistance = 3.0f;
 
@@ -19,41 +18,51 @@ public class PlayerDrag : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             bool hasFoundSurface = Physics.Raycast(ray, out RaycastHit cursorHit, float.MaxValue, _interactibleLayer);
-            if (hasFoundSurface)
-            {
-                if (LevelReferences.HasInstance)
-                {
-                    SplineDone splineRefTest = LevelReferences.Instance.RailSpline;
-                    SplineDone.Point nearestSplinePoint = splineRefTest.GetClosestPoint(cursorHit.point);
-                    if ((nearestSplinePoint.position - cursorHit.point).magnitude <= _snapDetectionRange)
-                    {
-                        Vector3 splinePointForward = LevelReferences.Instance.RailSpline.GetForwardAt(nearestSplinePoint.t);
-                        Vector3 towerSnapDirection = Vector3.Cross(Vector3.up, splinePointForward).normalized;
-                        Vector3 splinePointToCursorHit = cursorHit.point - nearestSplinePoint.position;
-
-                        if (Vector3.Dot(towerSnapDirection, splinePointToCursorHit) < 0)
-                        {
-                            towerSnapDirection = towerSnapDirection * (-1);
-                        }
-
-                        Vector3 towerSnapVector = nearestSplinePoint.position + towerSnapDirection * _towerToRailDistance;
-
-
-                        SnapDraggedItemToRail(towerSnapVector, nearestSplinePoint);
-                        if (_ghost.GetIsPlaceable())
-                        {
-                            _ghost.SetDragNDropVFXColorToGreen(true);
-                        }
-                        return;
-                    }
-                }
-                _ghost.GetTransform().position = cursorHit.point;
-                _ghost.GetTransform().rotation = Quaternion.Euler(0, 0, 0);
-                _ghost.SetDragNDropVFXColorToGreen(false);
-                _isSnappedToRail = false;
-            }
+            BuildingDragNDrop(hasFoundSurface, cursorHit);
         }
     }
+
+    private void BuildingDragNDrop(bool hasFoundSurface, RaycastHit cursorHit)
+    {
+        if (hasFoundSurface)
+        {
+            if (LevelReferences.HasInstance)
+            {
+                SplineDone splineRefTest = LevelReferences.Instance.RailSpline;
+                SplineDone.Point nearestSplinePoint = splineRefTest.GetClosestPoint(cursorHit.point);
+                if ((nearestSplinePoint.position - cursorHit.point).magnitude <= _snapDetectionRange)
+                {
+                    Vector3 splinePointForward = LevelReferences.Instance.RailSpline.GetForwardAt(nearestSplinePoint.t);
+                    Vector3 towerSnapDirection = Vector3.Cross(Vector3.up, splinePointForward).normalized;
+                    Vector3 splinePointToCursorHit = cursorHit.point - nearestSplinePoint.position;
+
+                    if (Vector3.Dot(towerSnapDirection, splinePointToCursorHit) < 0)
+                    {
+                        towerSnapDirection = towerSnapDirection * (-1);
+                    }
+
+                    Vector3 towerSnapVector = nearestSplinePoint.position + towerSnapDirection * _towerToRailDistance;
+
+
+                    SnapDraggedItemToRail(towerSnapVector, nearestSplinePoint);
+                    if (_ghost.GetIsPlaceable() == true)
+                    {
+                        _ghost.SetDragNDropVFXColorToGreen(true);
+                    }
+                    else
+                    {
+                        _ghost.SetDragNDropVFXColorToGreen(false);
+                    }
+                    return;
+                }
+            }
+            _ghost.GetTransform().position = cursorHit.point;
+            _ghost.GetTransform().rotation = Quaternion.Euler(0, 0, 0);
+            _ghost.SetDragNDropVFXColorToGreen(false);
+            _isSnappedToRail = false;
+        }
+    }
+
 
     private void SnapDraggedItemToRail(Vector3 towerSnapLocation, SplineDone.Point nearestSplinePoint)
     {
@@ -80,7 +89,7 @@ public class PlayerDrag : MonoBehaviour
         }
     }
 
-    public bool TrySetSentryInAction()
+    public bool TrySetBuildingInAction()
     {
         if (_isSnappedToRail && _ghost.GetIsPlaceable())
         {
