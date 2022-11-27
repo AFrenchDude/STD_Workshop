@@ -12,11 +12,18 @@ public class Tower : MonoBehaviour, IPickerGhost
     [SerializeField] DamageableDetector _damageableDetector = null;
     [SerializeField] WeaponController _weaponController = null;
 
+    private TowersDatas _datas;
+    private List<Damageable> allTargetedDamageable = new List<Damageable> ();
+
     private int _price = 0;
 
 
     public int Price => _price;
 
+    public void SetTowerDatas(TowersDatas datas)
+    {
+        _datas = datas;
+    }
     private void Awake()
     {
         Enable(false);
@@ -40,13 +47,13 @@ public class Tower : MonoBehaviour, IPickerGhost
                 _weaponController.enabled = true;
             }
 
-            if (_damageableDetector.Detect_WeakNightmareType(_weaponController.getCurrentProjectileType.convertProjectileToNightmare()))
+            allTargetedDamageable.Clear();
+            foreach (Projectile projectile in _datas.Projectiles)
             {
-                _damageableDetector.Focus_WeakNightmareType(_weaponController.getCurrentProjectileType.convertProjectileToNightmare());
+                allTargetedDamageable.Add(_damageableDetector.GetDamageable(_targetPriority, projectile.ProjectileType.convertProjectileToNightmare()));
             }
-
-            Damageable targetedDamageable = _damageableDetector.GetDamageable(_targetPriority);
-            _weaponController.SetTarget(targetedDamageable);
+            //Damageable targetedDamageable = _damageableDetector.GetDamageable(_targetPriority, _weaponController.getCurrentProjectileType.convertProjectileToNightmare());
+            _weaponController.SetTarget(allTargetedDamageable);
         }
         else
         {

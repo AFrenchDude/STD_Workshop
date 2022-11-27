@@ -139,7 +139,7 @@ BoxCollider:
   m_GameObject: {fileID: 4716529220386043550}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 8, y: 1, z: 8}
   m_Center: {x: 0, y: 0, z: 0}
@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 4981473463761837378}
   - component: {fileID: 4981473463761837404}
   - component: {fileID: 4981473463761837407}
+  - component: {fileID: 1032386382057798182}
   m_Layer: 0
   m_Name: Tower.Test
   m_TagString: Untagged
@@ -539,11 +540,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c97d7255bb0c5d42a375cc0de7b3a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireCooldown: 1
-  _projectilePrefab: {fileID: 2685485626335918886, guid: b1718ebaa40db9d4180cb48160c3b27d,
-    type: 3}
-  _canonMuzzle: {fileID: 4981473462642917239}
-  _canonPivot: {fileID: 4981473462060767211}
+  _neutralProjectile: {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
+  _rotationSpeed: 8
+  _canonMuzzle:
+  - {fileID: 4981473462642917239}
+  _canonPivot:
+  - {fileID: 4981473462060767211}
 --- !u!54 &4981473463761837407
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -560,6 +562,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1032386382057798182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4981473463761837376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5b39691f20a28409d6a11aa310527f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _towersDatas: {fileID: 11400000, guid: 272081a013a6d704aab6b2408e1cf2bf, type: 2}
+  _rangeDetector: {fileID: 4981473463912515792}
 --- !u!1 &4981473463912515798
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +617,7 @@ SphereCollider:
   m_GameObject: {fileID: 4981473463912515798}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}

@@ -11,13 +11,16 @@ public class WeaponController : MonoBehaviour
     private ProjectileType _neutralProjectile;
 
     [SerializeField]
+    private float _rotationSpeed = 1;
+
+    [SerializeField]
     private List<Transform> _canonMuzzle = new List<Transform>();
     private int _muzzleIndx = 0;
 
-    [SerializeField] 
-    Transform _canonPivot = null;
+    [SerializeField]
+    private List<Transform> _canonPivot = new List<Transform>();
 
-    private Damageable _target = null;
+    private List<Damageable> _target = new List<Damageable>();
     private float _lastShotTime;
 
     public void setTowerData(TowersDatas towerData)
@@ -25,22 +28,31 @@ public class WeaponController : MonoBehaviour
         _towersData = towerData;
     }
 
-    public void SetTarget(Damageable target)
+    public void SetTarget(List<Damageable> target)
     {
         _target = target;
     }
 
+    private void FixedUpdate()
+    {
+        for(int i = 0; i < _canonMuzzle.Count; i++)
+        {
+            Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
+            _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Quaternion.LookRotation(targetDirection), Time.deltaTime * _rotationSpeed);
+        }
+        
+    }
+
     private void Update()
     {
-        Vector3 targetDirection = _target.TargetAnchor.transform.position - _canonPivot.transform.position;
-        _canonPivot.transform.rotation = Quaternion.LookRotation(targetDirection);
+
         if (Time.time >= _lastShotTime + _towersData.FireRate)
         {
             Shoot();
             _lastShotTime = Time.time;
         }
     }
-    
+
     private void Shoot()
     {
         AProjectile spawnedProjectile;
@@ -51,7 +63,7 @@ public class WeaponController : MonoBehaviour
         {
             spawnedProjectile = Instantiate(currentProjectile.projectile.GetComponent<AProjectile>());
             _towersData.ReduceProjAmmount(_muzzleIndx, 1);
-            
+
         }
         else
         {
@@ -65,7 +77,7 @@ public class WeaponController : MonoBehaviour
 
         //Set up muzzle index (For Double canon)
 
-        if(_muzzleIndx >= _canonMuzzle.Count - 1)
+        if (_muzzleIndx >= _canonMuzzle.Count - 1)
         {
             _muzzleIndx = 0;
         }
@@ -80,5 +92,5 @@ public class WeaponController : MonoBehaviour
     {
         get { return _towersData.Projectiles[_muzzleIndx].ProjectileType; }
     }
-    
+
 }

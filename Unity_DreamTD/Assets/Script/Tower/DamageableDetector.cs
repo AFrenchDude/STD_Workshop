@@ -15,7 +15,7 @@ public class DamageableDetector : MonoBehaviour
     [System.NonSerialized]
     private List<Damageable> _damageablesInRange = new List<Damageable>();
 
-    private NightmareData.NighmareType _projectileNightmareType;
+    //private NightmareData.NighmareType _projectileNightmareType;
 
     public bool HasAnyDamageableInRange()
     {
@@ -44,26 +44,6 @@ public class DamageableDetector : MonoBehaviour
         }
     }
 
-    // Nightmare type Priority functions
-
-    public bool Detect_WeakNightmareType(NightmareData.NighmareType nightmareType)
-    {
-        foreach (Damageable damageable in _damageablesInRange)
-        {
-            NightmareManager nightmareManager = damageable.GetComponent<NightmareManager>();
-
-            if (nightmareManager.getNighmareType == nightmareType)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void Focus_WeakNightmareType(NightmareData.NighmareType nightmareType)
-    {
-        _projectileNightmareType = nightmareType;
-    }
 
     // Damageable functions
 
@@ -72,28 +52,28 @@ public class DamageableDetector : MonoBehaviour
         _damageablesInRange.Remove(caller);
     }
 
-    public Damageable GetDamageable(TargetPriority targetPriority)
+    public Damageable GetDamageable(TargetPriority targetPriority, NightmareData.NighmareType projectileNightmareType)
     {
         switch (targetPriority)
         {
             case TargetPriority.Nearest:
-                return GetNearestOrFurthestDamageable(true);
+                return GetNearestOrFurthestDamageable(true, projectileNightmareType);
 
             case TargetPriority.Furthest:
-                return GetNearestOrFurthestDamageable(false);
+                return GetNearestOrFurthestDamageable(false, projectileNightmareType);
 
             case TargetPriority.LowestHP:
-                return GetLowestHPDamageable();
+                return GetLowestHPDamageable(projectileNightmareType);
 
             case TargetPriority.HighestMaxHP:
-                return GetHighestMaxHPDamageable();
+                return GetHighestMaxHPDamageable(projectileNightmareType);
 
             default:
-                return GetNearestOrFurthestDamageable(true);
+                return GetNearestOrFurthestDamageable(true, projectileNightmareType);
         }
     }
 
-    private Damageable GetNearestOrFurthestDamageable(bool gettingNearest)
+    private Damageable GetNearestOrFurthestDamageable(bool gettingNearest, NightmareData.NighmareType projectileNightmareType)
     {
         bool foundRightType = false;
 
@@ -107,7 +87,7 @@ public class DamageableDetector : MonoBehaviour
         {
             NightmareManager nightmareManager = _damageablesInRange[i].GetComponent<NightmareManager>();
 
-            if (foundRightType == false || nightmareManager.getNighmareType == _projectileNightmareType)
+            if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType)
             {
                 float checkedDistance = (_damageablesInRange[i].transform.position - transform.position).magnitude;
                 if (gettingNearest)
@@ -128,7 +108,7 @@ public class DamageableDetector : MonoBehaviour
                 }
 
                 //Test if it was a right nightmare type
-                if (nightmareManager.getNighmareType == _projectileNightmareType & foundRightType == false)
+                if (nightmareManager.getNighmareType == projectileNightmareType & foundRightType == false)
                 {
                     recordDistance = checkedDistance;
                     currentDamageable = _damageablesInRange[i];
@@ -140,7 +120,7 @@ public class DamageableDetector : MonoBehaviour
         return currentDamageable;
     }
 
-    private Damageable GetLowestHPDamageable()
+    private Damageable GetLowestHPDamageable(NightmareData.NighmareType projectileNightmareType)
     {
         bool foundRightType = false;
 
@@ -151,7 +131,7 @@ public class DamageableDetector : MonoBehaviour
         {
             NightmareManager nightmareManager = _damageablesInRange[i].GetComponent<NightmareManager>();
 
-            if (foundRightType == false || nightmareManager.getNighmareType == _projectileNightmareType)
+            if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType)
             {
 
                 int checkedHP = _damageablesInRange[i].CurrentHealth;
@@ -163,7 +143,7 @@ public class DamageableDetector : MonoBehaviour
             }
 
             //Test if it was a right nightmare type
-            if (nightmareManager.getNighmareType == _projectileNightmareType & foundRightType == false)
+            if (nightmareManager.getNighmareType == projectileNightmareType & foundRightType == false)
             {
                 int checkedHP = _damageablesInRange[i].CurrentHealth;
                 lowestHP = checkedHP;
@@ -175,7 +155,7 @@ public class DamageableDetector : MonoBehaviour
         return currentDamageable;
     }
 
-    private Damageable GetHighestMaxHPDamageable()
+    private Damageable GetHighestMaxHPDamageable(NightmareData.NighmareType projectileNightmareType)
     {
         bool foundRightType = false;
 
@@ -186,7 +166,7 @@ public class DamageableDetector : MonoBehaviour
         {
             NightmareManager nightmareManager = _damageablesInRange[i].GetComponent<NightmareManager>();
 
-            if (foundRightType == false || nightmareManager.getNighmareType == _projectileNightmareType)
+            if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType)
             {
 
                 int checkedHP = _damageablesInRange[i].MaxHP;
@@ -198,7 +178,7 @@ public class DamageableDetector : MonoBehaviour
             }
 
             //Test if it was a right nightmare type
-            if (nightmareManager.getNighmareType == _projectileNightmareType & foundRightType == false)
+            if (nightmareManager.getNighmareType == projectileNightmareType & foundRightType == false)
             {
                 int checkedHP = _damageablesInRange[i].CurrentHealth;
                 highestMaxHP = checkedHP;
