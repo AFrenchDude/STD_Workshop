@@ -1,4 +1,4 @@
-﻿//From Template
+﻿//From Template, modified by ALBERT Esteban
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,6 +10,8 @@ public class EntitySpawner : MonoBehaviour
 
     [SerializeField]
     private Path _path = null;
+
+    private int _pathLaneIndex = 0;
 
     [System.NonSerialized]
     private Timer _timer = new Timer();
@@ -51,7 +53,12 @@ public class EntitySpawner : MonoBehaviour
             if (WaveDatabaseManager.Instance.WaveDatabase.GetWaveElementFromType(nextEntity.EntityType, out WaveEntity outEntity) == true)
             {
                 outEntity = InstantiateEntity(outEntity);
-                outEntity.SetPath(_path);
+                outEntity.SetPath(_path.LanesList[_pathLaneIndex]);
+                _pathLaneIndex++;
+                if (_pathLaneIndex >= _path.LanesList.Count)
+                {
+                    _pathLaneIndex = 0;
+                }
                 _timer.Set(_wave.DurationBetweenSpawnedEntity + nextEntity.ExtraDurationAfterSpawned).Start();
             }
             else
