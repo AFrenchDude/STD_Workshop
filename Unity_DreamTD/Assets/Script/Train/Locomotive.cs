@@ -20,7 +20,7 @@ public class Locomotive : MonoBehaviour
     private int wagonNumber;
 
     [HideInInspector] public UsineBehaviour usineBehaviour;
-    [HideInInspector] public SentryGetProjectile sentryGetProjectile;
+    [HideInInspector] public TowerGetProjectile TowerGetProjectile;
 
     private void Start()
     {
@@ -63,15 +63,15 @@ public class Locomotive : MonoBehaviour
                 }
             }
         }
-        if (other.gameObject.GetComponent<SentryGetProjectile>() != null)
+        if (other.gameObject.GetComponent<TowerGetProjectile>() != null)
         {
-            sentryGetProjectile = other.gameObject.GetComponent<SentryGetProjectile>();
-            if (sentryGetProjectile.projectiles.Count != sentryGetProjectile.maxRessource)
+            TowerGetProjectile = other.gameObject.GetComponent<TowerGetProjectile>();
+            if (TowerGetProjectile.projectiles.Count != TowerGetProjectile.maxRessource)
             {
                 objectCollided.Add(other.transform.parent.gameObject);
                 foreach (Wagon wagon in wagons)
                 {
-                    if (wagon.type.typeSelected == sentryGetProjectile.type.typeSelected)
+                    if (wagon.type.typeSelected == TowerGetProjectile.type.typeSelected)
                     {
                         //Stop train
                         isBraking = true;
@@ -80,7 +80,7 @@ public class Locomotive : MonoBehaviour
                 }
                 if(wagonsToCheck.Count > 0)
                 {
-                    CheckTransfertSentry(sentryGetProjectile);
+                    CheckTransfertSentry(TowerGetProjectile);
                 }
                 else
                 {
@@ -128,7 +128,7 @@ public class Locomotive : MonoBehaviour
     {
         StartCoroutine(TransferingUsine(wagon, usine, usine.projectiles.Count, waitTime));
     }
-    void CheckTransfertSentry(SentryGetProjectile sentry)
+    void CheckTransfertSentry(TowerGetProjectile sentry)
     {
         StartCoroutine(TransferingSentry(sentry, waitTime));
     }
@@ -158,7 +158,7 @@ public class Locomotive : MonoBehaviour
             }
         }
     }
-    private IEnumerator TransferingSentry(SentryGetProjectile sentry, float waitFor)
+    private IEnumerator TransferingSentry(TowerGetProjectile sentry, float waitFor)
     {
         if (wagonsToCheck[wagonNumber].projectiles.Count > 0)
         {
