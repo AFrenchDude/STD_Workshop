@@ -10,8 +10,10 @@ public class SplineFollower : MonoBehaviour
     [Tooltip("5 between each, dont set locomotives")]
     public float margin;
 
-    private float moveAmount;
-    private float maxMoveAmount;
+    //[HideInInspector] 
+    public float moveAmount;
+    //[HideInInspector] 
+    public float maxMoveAmount;
 
     private void Start()
     {
