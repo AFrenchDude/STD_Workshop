@@ -1,21 +1,20 @@
-using System.Diagnostics;
+using TMPro;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class TrainsHUD : MonoBehaviour
 {
     public GameObject train;
+    public TextMeshProUGUI text;
     [SerializeField] private GameObject wagonsHUD;
     [SerializeField] private GameObject changeType;
-    [SerializeField] private LevelTrainText levelText;
-    private TrainLevel trainLevel;
     [SerializeField] private GameObject upgradeButton;
+    private TrainLevel trainLevel;
 
     //HUD info
     public void PickTrain()
     {
-        levelText.trainLevel = train.transform.GetComponentInChildren<TrainLevel>();
-        levelText.text.SetText("Level " + levelText.trainLevel.currentLevel);
+        trainLevel = train.transform.GetComponentInChildren<TrainLevel>();
+        text.SetText("Level " + trainLevel.currentLevel);
         trainLevel = train.transform.GetComponentInChildren<TrainLevel>();
         for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
         {
@@ -60,7 +59,8 @@ public class TrainsHUD : MonoBehaviour
     //HUD button effect
     public void Upgrade()
     {
-        levelText.OnUpgrade();
+        trainLevel.currentLevel++;
+        text.SetText("Level " + trainLevel.currentLevel);
         if (trainLevel.currentLevel >= trainLevel.maxLevel)
         {
             upgradeButton.SetActive(false);
