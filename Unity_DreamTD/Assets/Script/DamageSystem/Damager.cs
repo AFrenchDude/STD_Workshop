@@ -12,6 +12,10 @@ public class Damager : MonoBehaviour
     {
         _attack = ((int)damage);
     }
+    public int getDamage
+    {
+        get { return _attack; }
+    }
 
     public UnityEvent DamageDone;
     private void OnTriggerEnter(Collider other)

@@ -25,6 +25,9 @@ public class TowersDatas : ScriptableObject
     private float _range;
 
     [SerializeField]
+    private float _projectileSpeed;
+
+    [SerializeField]
     private fireType _fireType;
 
     /*
@@ -44,6 +47,7 @@ public class TowersDatas : ScriptableObject
     public float Damage => _damage;
     public float FireRate => _fireRate;
     public float Range => _range;
+    public float ProjectileSpeed => _projectileSpeed;
     public fireType FireType => _fireType;
     //public Type Projectile => _projectile;
     //public int ProjectilesAmmount => _projectilesAmmount;

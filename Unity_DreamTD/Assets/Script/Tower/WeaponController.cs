@@ -35,6 +35,7 @@ public class WeaponController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         for(int i = 0; i < _canonMuzzle.Count; i++)
         {
             Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
@@ -73,6 +74,9 @@ public class WeaponController : MonoBehaviour
         spawnedProjectile.transform.position = _canonMuzzle[_muzzleIndx].transform.position;
         spawnedProjectile.transform.rotation = _canonMuzzle[_muzzleIndx].transform.rotation;
 
+        spawnedProjectile.GetComponent<AProjectile>().SetTarget(_target[_muzzleIndx].transform);
+        spawnedProjectile.GetComponent<AProjectile>().SetSpeed(_towersData.ProjectileSpeed);
+
         spawnedProjectile.GetComponent<Damager>().SetDamage(_towersData.Damage);
 
         //Set up muzzle index (For Double canon)
@@ -85,6 +89,25 @@ public class WeaponController : MonoBehaviour
         {
             _muzzleIndx++;
         }
+
+        //Set up mortar curve (For Mortar)
+        BellShapedCurve curve = spawnedProjectile.GetComponent<BellShapedCurve>();
+
+        if(_towersData.FireType == TowersDatas.fireType.Mortar)
+        {
+            curve.enabled = true;
+            curve.SetUpCurve(_target[_muzzleIndx].transform);
+
+
+            // Adapt projectile speed by enemy distance
+            float speed = _towersData.ProjectileSpeed * (_target[_muzzleIndx].transform.position - transform.position).magnitude / _towersData.Range;
+            spawnedProjectile.GetComponent<AProjectile>().SetSpeed(speed);
+        }
+        else
+        {
+            curve.enabled = false;
+        }
+        
 
     }
 
