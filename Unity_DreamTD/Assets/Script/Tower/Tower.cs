@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Sentry : MonoBehaviour, IPickerGhost
+public class Tower : MonoBehaviour, IPickerGhost
 {
 
     [SerializeField] TargetPriority _targetPriority = TargetPriority.Nearest;
