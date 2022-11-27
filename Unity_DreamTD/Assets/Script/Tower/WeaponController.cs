@@ -8,13 +8,14 @@ public class WeaponController : MonoBehaviour
     private TowersDatas _towersData;
 
     [SerializeField]
-    private Type _neutralProjectile;
+    private ProjectileType _neutralProjectile;
 
     [SerializeField]
     private List<Transform> _canonMuzzle = new List<Transform>();
     private int _muzzleIndx = 0;
 
-    [SerializeField] Transform _canonPivot = null;
+    [SerializeField] 
+    Transform _canonPivot = null;
 
     private Damageable _target = null;
     private float _lastShotTime;
@@ -44,7 +45,7 @@ public class WeaponController : MonoBehaviour
     {
         AProjectile spawnedProjectile;
 
-        Type currentProjectile = _towersData.Projectiles[_muzzleIndx].ProjectileType;
+        ProjectileType currentProjectile = _towersData.Projectiles[_muzzleIndx].ProjectileType;
 
         if (_towersData.hasProjectiles(_muzzleIndx))
         {
@@ -73,6 +74,11 @@ public class WeaponController : MonoBehaviour
             _muzzleIndx++;
         }
 
+    }
+
+    public ProjectileType getCurrentProjectileType
+    {
+        get { return _towersData.Projectiles[_muzzleIndx].ProjectileType; }
     }
     
 }

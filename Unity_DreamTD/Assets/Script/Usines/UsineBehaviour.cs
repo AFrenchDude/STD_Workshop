@@ -5,7 +5,7 @@ using UnityEngine;
 //Made By Melinon Remy
 public class UsineBehaviour : MonoBehaviour
 {
-    public Type type;
+    public ProjectileType type;
     public List<GameObject> projectiles;
 
     public int maxRessource = 20;

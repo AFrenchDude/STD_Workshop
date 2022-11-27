@@ -15,6 +15,13 @@ public class PathFollower : MonoBehaviour
     private int _waypointIndex = 0;
 
     public UnityEvent LastWaypointReached;
+
+    public void SetSpeed(float speed)
+    {
+        _movementSpeed = speed;
+        _rotationSpeed = speed;
+    }
+    
     public void SetPath(List<Vector3> path)
     {
         _pathWaypoints = path;
