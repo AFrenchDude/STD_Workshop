@@ -10,7 +10,7 @@ public class TowerManager : MonoBehaviour
 
     [Header("References")]
 
-    private Sentry _sentry;
+    private Tower _tower;
     private WeaponController _weaponController;
 
     [SerializeField]
@@ -18,7 +18,7 @@ public class TowerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _sentry = GetComponent<Sentry>();
+        _tower = GetComponent<Tower>();
         _weaponController = GetComponent<WeaponController>();
 
         //Apply statistics to every scripts

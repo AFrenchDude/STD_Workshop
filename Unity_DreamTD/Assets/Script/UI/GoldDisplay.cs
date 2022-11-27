@@ -14,16 +14,21 @@ public class GoldDisplay : MonoBehaviour
     }
     private void OnDisable()
     {
-        Base.Instance.GoldUpdated.RemoveListener(UpdateText);
+        if (Application.isFocused && Base.HasInstance) //To prevent Base call error when leaving the game
+        {
+            Base.Instance.GoldUpdated.RemoveListener(UpdateText);
+        }
     }
 
     private void Start()
     {
         UpdateText(Base.Instance.Gold);
-        
     }
     private void UpdateText(int newGold)
     {
-        _goldTxt.SetText("Gold: " + newGold);
+        if (Base.HasInstance)
+        {
+            _goldTxt.SetText("Gold: " + newGold);
+        }
     }
 }

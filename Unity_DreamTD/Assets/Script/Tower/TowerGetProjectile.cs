@@ -4,7 +4,7 @@ using System.Resources;
 using UnityEngine;
 
 //Made By Melinon Remy
-public class SentryGetProjectile : MonoBehaviour
+public class TowerGetProjectile : MonoBehaviour
 {
     public Type type;
     public List<GameObject> projectiles;
