@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DebugAutoStartWave : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
         LevelReferences.Instance.SpawnerManager.StartWaves();
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 //Made By Melinon Remy
 public class Wagon : MonoBehaviour
 {
-    public Type type;
+    public ProjectileType type;
     public List<GameObject> projectiles;
 
     public int maxResources = 20;
