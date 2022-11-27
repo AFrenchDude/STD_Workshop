@@ -79,7 +79,7 @@ public class TowersDatas : ScriptableObject
 public class Projectile
 {
     [SerializeField]
-    public Type ProjectileType;
+    public ProjectileType ProjectileType;
 
     [SerializeField]
     public int ProjectileAmmount;

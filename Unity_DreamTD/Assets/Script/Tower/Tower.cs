@@ -39,6 +39,12 @@ public class Tower : MonoBehaviour, IPickerGhost
             {
                 _weaponController.enabled = true;
             }
+
+            if (_damageableDetector.Detect_WeakNightmareType(_weaponController.getCurrentProjectileType.convertProjectileToNightmare()))
+            {
+                _damageableDetector.Focus_WeakNightmareType(_weaponController.getCurrentProjectileType.convertProjectileToNightmare());
+            }
+
             Damageable targetedDamageable = _damageableDetector.GetDamageable(_targetPriority);
             _weaponController.SetTarget(targetedDamageable);
         }
@@ -50,6 +56,8 @@ public class Tower : MonoBehaviour, IPickerGhost
             }
         }
     }
+
+    
 
     #region DragNDrop Interface & system
     [SerializeField] private GameObject _dragNDropObject = null; //For testing as the green/red indicator

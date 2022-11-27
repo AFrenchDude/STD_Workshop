@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb87de8875d651541ba3e0b1392476e4, type: 3}
-  m_Name: TrapType
+  m_Script: {fileID: 11500000, guid: 624e2cfa14be1234abb5b6efd8dd3caa, type: 3}
+  m_Name: InsectBasic
   m_EditorClassIdentifier: 
-  typeSelected: 2
-  projectile: {fileID: 2685485626335918881, guid: c6b50fb8fbf1f0445aa213893b357965,
-    type: 3}
+  _nighmareType: 2
+  _nightmareFunction: 0
+  _speed: 3
+  _rewardGold: 10
+  _maxLife: 100
+  _debugColor: {r: 0.5764706, g: 0.23289956, b: 0.21960784, a: 1}
