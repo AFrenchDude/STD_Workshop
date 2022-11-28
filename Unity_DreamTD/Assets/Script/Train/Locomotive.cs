@@ -97,7 +97,7 @@ public class Locomotive : MonoBehaviour
         {
             foreach (Wagon wagon in wagons)
             {
-                if (wagon.type.typeSelected == sentryGetProjectile.type.typeSelected)
+                if (wagon.type.typeSelected == sentryGetProjectile.type.typeSelected && wagon.projectiles.Count != wagon.maxResources && wagon.isActiveAndEnabled)
                 {
                     wagonsToCheck.Add(wagon);
                 }

@@ -22,6 +22,7 @@ public class WeaponController : MonoBehaviour
 
     private List<Damageable> _target = new List<Damageable>();
     private float _lastShotTime;
+    public bool canShoot = false;
 
     public void setTowerData(TowersDatas towerData)
     {
@@ -49,8 +50,7 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
-
-        if (Time.time >= _lastShotTime + _towersData.FireRate)
+        if (Time.time >= _lastShotTime + _towersData.FireRate && canShoot)
         {
             Shoot();
             _lastShotTime = Time.time;
