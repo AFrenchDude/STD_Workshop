@@ -9,25 +9,21 @@ public class RangeIndicator : MonoBehaviour
     [Range(0, 50)][SerializeField] private int _segments = 50;
     private float _radius = 0;
     private LineRenderer _line;
+    private TowersDatas _towerDatas = null;
 
     private void Awake()
     {
         _line = gameObject.GetComponent<LineRenderer>();
         _line.positionCount = _segments + 1;
         _line.useWorldSpace = false;
-        TowersDatas towerDatas = GetComponentInParent<TowerManager>().TowersData;
-        _radius = towerDatas.Range;
+        _towerDatas = GetComponentInParent<TowerManager>().TowersData;
         CreatePoints();
     }
-    void Start()
-    {
 
-    }
-
-    void CreatePoints()
+    public void CreatePoints()
     {
+        _radius = _towerDatas.Range;
         float x;
-        float y;
         float z;
 
         float angle = 20f;
@@ -41,5 +37,16 @@ public class RangeIndicator : MonoBehaviour
 
             angle += (360f / _segments);
         }
+    }
+
+
+    public void EnableRangeIndicator(bool enabled)
+    {
+        _line.enabled = enabled;
+    }
+
+    public void ChangeIndicatorColor(Material material)
+    {
+        _line.material = material;
     }
 }

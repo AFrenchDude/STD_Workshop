@@ -31,6 +31,8 @@ public class TowerManager : MonoBehaviour
     {
         _towersDatas = Instantiate(towerData); // Create a new instance for scriptable object
 
+        _towersDatas.ApplyUpgrade();
+
         _weaponController.setTowerData(_towersDatas);
         _tower.SetTowerDatas(_towersDatas);
         _rangeDetector.radius = _towersDatas.Range;

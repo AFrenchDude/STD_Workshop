@@ -6,7 +6,7 @@ public class TrainsHUD : MonoBehaviour
     public GameObject train;
     public TextMeshProUGUI text;
     [SerializeField] private GameObject wagonsHUD;
-    [SerializeField] private GameObject changeType;
+    [SerializeField] private GameObject changeTypeHUD;
     [SerializeField] private GameObject upgradeButton;
     private TrainLevel trainLevel;
 
@@ -35,13 +35,14 @@ public class TrainsHUD : MonoBehaviour
         {
             upgradeButton.SetActive(true);
         }
-        changeType.GetComponent<ChangeType>().openHUD = gameObject;
+        changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
     }
 
+    //Add new wagon in HUD
     public void SetWagons(int wagonRef)
     {
-        changeType.GetComponent<ChangeType>().objectToChange = train.GetComponentInChildren<Locomotive>().wagons[wagonRef].gameObject;
-        changeType.SetActive(true);
+        changeTypeHUD.GetComponent<ChangeType>().objectToChange = train.GetComponentInChildren<Locomotive>().wagons[wagonRef].gameObject;
+        changeTypeHUD.SetActive(true);
         for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
         {
             if (train.GetComponentInChildren<Locomotive>().wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
@@ -76,7 +77,7 @@ public class TrainsHUD : MonoBehaviour
     public void DestroyTrain()
     {
         gameObject.SetActive(false);
-        changeType.SetActive(false);
+        changeTypeHUD.SetActive(false);
         Destroy(train);
     }
 }
