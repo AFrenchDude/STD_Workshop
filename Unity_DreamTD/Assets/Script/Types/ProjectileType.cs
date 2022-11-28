@@ -22,7 +22,7 @@ public class ProjectileType : ScriptableObject
         switch (typeSelected)
         {
             case (projectileType.Neutral):
-                return NightmareData.NighmareType.Vegetables;
+                return NightmareData.NighmareType.Neutral;
 
             case (projectileType.Food):
                 return NightmareData.NighmareType.Vegetables;

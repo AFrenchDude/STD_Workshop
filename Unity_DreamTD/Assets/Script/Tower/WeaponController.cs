@@ -1,4 +1,4 @@
-//By ALBERT Estbeban & ALEXANDRE Dorian
+//By ALBERT Esteban & ALEXANDRE Dorian
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
