@@ -1,21 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UsineHUD : MonoBehaviour
 {
     public UsineBehaviour usineBehaviour;
+    [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image productionIcon;
     [SerializeField] private Toggle toggle;
     [SerializeField] private Slider slider;
-    [SerializeField] private ProductionValueTextHUD productionValueTextHUD;
+    [HideInInspector] public float productionValue;
 
     private float currentResources;
     private float maxResources;
 
     private void Update()
     {
+        text.SetText("Production: " + productionValue);
         if (usineBehaviour != null)
         {
             currentResources = usineBehaviour.projectiles.Count;
@@ -24,10 +26,14 @@ public class UsineHUD : MonoBehaviour
         }
     }
 
+    public void OnProductionValueChange(Single newValue)
+    {
+        productionValue = newValue * usineBehaviour.maxRessource;
+    }
+
     public void OnPick()
     {
-        productionValueTextHUD.usineBehaviour = usineBehaviour;
-        //productionIcon.sprite = usineBehaviour.type.icon;
+        productionIcon.sprite = usineBehaviour.type.icon;
         toggle.isOn = usineBehaviour.isProducing;
     }
 

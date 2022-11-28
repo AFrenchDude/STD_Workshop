@@ -15,6 +15,8 @@ public class ProjectileType : ScriptableObject
 
     public GameObject projectile;
 
+    public Sprite icon;
+
     public NightmareData.NighmareType convertProjectileToNightmare()
     {
         switch (typeSelected)

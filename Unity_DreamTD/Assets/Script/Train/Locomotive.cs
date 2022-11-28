@@ -1,33 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 //Made By Melinon Remy
 public class Locomotive : MonoBehaviour
 {
     public List<Wagon> wagons;
-    public List<Wagon> wagonsToCheck;
+    [Tooltip("Time between each transfer")]
     public float waitTime;
 
+    //Move var
     [HideInInspector] public SplineFollower splineFollower;
     [HideInInspector] public float maxSpeed;
+    private float timeToRestartRef = 0.0f;
     private float deceleration;
-    private Transform closeTo;
     [HideInInspector] public bool isBraking;
-    [HideInInspector] public int index = 0;
+    //Trigger var
+    private Transform closeTo;
     [HideInInspector] public List<GameObject> objectCollided;
+    //Transfer var
+    [HideInInspector] public List<Wagon> wagonsToCheck;
     private int wagonNumber;
     private bool isTransfering;
-    private float t = 0.0f;
-
+    //Object collided script
     [HideInInspector] public UsineBehaviour usineBehaviour;
     [HideInInspector] public TowerGetProjectile sentryGetProjectile;
 
     private void Start()
     {
+        //Set spline and speed
         splineFollower = GetComponent<SplineFollower>();
         maxSpeed = splineFollower.speed;
         foreach (Wagon wagon in wagons)
@@ -38,15 +39,18 @@ public class Locomotive : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Collide with train
         if (other.tag == "Train" && other.GetComponent<MeshRenderer>().enabled == true)
         {
             closeTo = other.transform;
         }
+        //Collide with usine
         if (other.gameObject.GetComponent<UsineBehaviour>() != null)
         {
             objectCollided.Add(other.gameObject);
             OnTriggerUsine(other.gameObject);
         }
+        //Collide with tower
         if (other.gameObject.GetComponent<TowerGetProjectile>() != null)
         {
             objectCollided.Add(other.gameObject);
@@ -56,6 +60,7 @@ public class Locomotive : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        //remove train to start moving
         if (other.transform == closeTo)
         {
             closeTo = null;
@@ -111,6 +116,7 @@ public class Locomotive : MonoBehaviour
 
     private void StopTrain(int margin)
     {
+        //Stop train when close enough
         if (deceleration < margin)
         {
             splineFollower.speed = 0;
@@ -119,7 +125,7 @@ public class Locomotive : MonoBehaviour
                 wagon.GetComponent<SplineFollower>().speed = 0;
             }
             isBraking = false;
-            t = 0;
+            timeToRestartRef = 0;
         }
         else
         {
@@ -133,22 +139,25 @@ public class Locomotive : MonoBehaviour
 
     private void Update()
     {
+        //If a train is close
         if (closeTo != null)
         {
             StopTrain(6);
         }
+        //Decelaration
         if (isBraking && objectCollided.Count > 0)
         {
             deceleration = (objectCollided[0].transform.position - transform.position).magnitude;
             StopTrain(5);
         }
+        //Start moving
         else if (!isTransfering)
         {
-            t += 0.5f * Time.deltaTime;
-            splineFollower.speed = Mathf.Lerp(0, maxSpeed, t);
+            timeToRestartRef += 0.5f * Time.deltaTime;
+            splineFollower.speed = Mathf.Lerp(0, maxSpeed, timeToRestartRef);
             foreach (Wagon wagon in wagons)
             {
-                wagon.GetComponent<SplineFollower>().speed = Mathf.Lerp(0, maxSpeed, t);
+                wagon.GetComponent<SplineFollower>().speed = Mathf.Lerp(0, maxSpeed, timeToRestartRef);
             }
         }
     }
@@ -190,7 +199,7 @@ public class Locomotive : MonoBehaviour
         {
             sentry.projectiles.Add(sentry.type.projectile);
             wagonsToCheck[wagonNumber].projectiles.RemoveAt(wagonsToCheck[wagonNumber].projectiles.Count - 1);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(waitFor);
             StartCoroutine(TransferingSentry(sentry, waitFor));
         }
         else if (wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles.Count > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == sentry.type.typeSelected)
@@ -209,6 +218,7 @@ public class Locomotive : MonoBehaviour
         wagonsToCheck.Clear();
         isTransfering = false;
         objectCollided.RemoveAt(0);
+        //Check if there's other object to transfer with
         if (objectCollided.Count > 0)
         {
             if (objectCollided[0].GetComponent<UsineBehaviour>() != null)
@@ -222,6 +232,7 @@ public class Locomotive : MonoBehaviour
         }
         else
         {
+            //Start moving
             splineFollower.speed = maxSpeed;
             foreach (Wagon wagons in wagons)
             {

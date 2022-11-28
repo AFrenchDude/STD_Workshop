@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChangeType : MonoBehaviour
@@ -7,6 +5,7 @@ public class ChangeType : MonoBehaviour
     public GameObject objectToChange;
     public GameObject openHUD;
 
+    //Set new type
     public void ChangingType(ProjectileType type)
     {
         if(objectToChange.GetComponent<Wagon>() != null)
