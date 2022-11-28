@@ -22,6 +22,7 @@ public class WeaponController : MonoBehaviour
 
     private List<Damageable> _target = new List<Damageable>();
     private float _lastShotTime;
+    public bool canShoot = false;
 
     public void setTowerData(TowersDatas towerData)
     {
@@ -35,19 +36,21 @@ public class WeaponController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        for(int i = 0; i < _canonMuzzle.Count; i++)
+
+        for (int i = 0; i < _canonMuzzle.Count; i++)
         {
-            Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
-            _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Quaternion.LookRotation(targetDirection), Time.deltaTime * _rotationSpeed);
+            if (_target[i] != null)
+            {
+                Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
+                _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Quaternion.LookRotation(targetDirection), Time.deltaTime * _rotationSpeed);
+            }
         }
-        
+
     }
 
     private void Update()
     {
-
-        if (Time.time >= _lastShotTime + _towersData.FireRate)
+        if (Time.time >= _lastShotTime + _towersData.FireRate && canShoot)
         {
             Shoot();
             _lastShotTime = Time.time;
@@ -93,7 +96,7 @@ public class WeaponController : MonoBehaviour
         //Set up mortar curve (For Mortar)
         BellShapedCurve curve = spawnedProjectile.GetComponent<BellShapedCurve>();
 
-        if(_towersData.FireType == TowersDatas.fireType.Mortar)
+        if (_towersData.FireType == TowersDatas.fireType.Mortar)
         {
             curve.enabled = true;
             curve.SetUpCurve(_target[_muzzleIndx].transform);
@@ -107,7 +110,7 @@ public class WeaponController : MonoBehaviour
         {
             curve.enabled = false;
         }
-        
+
 
     }
 

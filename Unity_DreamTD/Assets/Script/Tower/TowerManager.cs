@@ -16,6 +16,8 @@ public class TowerManager : MonoBehaviour
     [SerializeField]
     private SphereCollider _rangeDetector;
 
+    public TowersDatas TowersData => _towersDatas;
+
     private void OnEnable()
     {
         _tower = GetComponent<Tower>();
@@ -28,6 +30,8 @@ public class TowerManager : MonoBehaviour
     public void ApplyStats(TowersDatas towerData)
     {
         _towersDatas = Instantiate(towerData); // Create a new instance for scriptable object
+
+        _towersDatas.ApplyUpgrade();
 
         _weaponController.setTowerData(_towersDatas);
         _tower.SetTowerDatas(_towersDatas);
