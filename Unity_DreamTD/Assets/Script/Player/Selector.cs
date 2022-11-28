@@ -26,6 +26,7 @@ public class Selector : MonoBehaviour
                 if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
                 {
                     openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
+                    //give tower hud to tower
                     if (hit.transform.gameObject.GetComponent<Tower>() != null)
                     {
                         openHUDref.hudRef = towerHUD;
@@ -35,11 +36,16 @@ public class Selector : MonoBehaviour
             }
             else if (openHUDref != null && !isMouseOnUI)
             {
+                if (openHUDref.hudRef.GetComponent<TowerHUD>() != null)
+                {
+                    openHUDref.hudRef.GetComponent<TowerHUD>().towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
+                }
                 openHUDref.OnClick(false);
             }
         }
     }
 
+    //Check if mouse is on UI
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject(PointerInputModule.kMouseLeftId))

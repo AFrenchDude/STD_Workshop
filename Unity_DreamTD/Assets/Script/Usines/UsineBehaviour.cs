@@ -10,10 +10,10 @@ public class UsineBehaviour : MonoBehaviour
     public int projectiles;
     public int maxRessource = 20;
     public bool isProducing = true;
-
     public float cooldown = 1;
     private float lastProduction;
 
+    //Production
     private void Update()
     {
         if(type.typeSelected.ToString() != "None" && projectiles < maxRessource && Time.time > lastProduction + cooldown && isProducing)

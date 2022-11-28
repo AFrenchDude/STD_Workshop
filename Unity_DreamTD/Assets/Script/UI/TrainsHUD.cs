@@ -82,6 +82,7 @@ public class TrainsHUD : MonoBehaviour
         Destroy(train);
     }
 
+    //Set wagons resources text
     private void Update()
     {
         for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)

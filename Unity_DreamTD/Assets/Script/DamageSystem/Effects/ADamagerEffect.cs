@@ -1,11 +1,8 @@
 //By ALBERT Esteban
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ADamagerEffect : MonoBehaviour
 {
-
     [SerializeField] ProjectileType _projectileType = null;
     private Damager _damager = null;
 

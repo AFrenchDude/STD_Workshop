@@ -16,6 +16,7 @@ public class UsineHUD : MonoBehaviour
     private float currentResources;
     private float maxResources;
 
+    //Set resources text and slider
     private void Update()
     {
         text.SetText("Production: " + productionValue);
