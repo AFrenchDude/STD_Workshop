@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Made by Melinon Remy
 public class HUDwhenSelect : MonoBehaviour
 {
     public GameObject hudRef;
@@ -25,8 +26,13 @@ public class HUDwhenSelect : MonoBehaviour
         else if(hudRef.GetComponent<TowerHUD>() != null && gameObject.GetComponent<Tower>().enabled == true)
         {
             hudRef.SetActive(isActive);
-            hudRef.GetComponent<TowerHUD>().tower = GetComponentInChildren<TowerGetProjectile>();
+            hudRef.GetComponent<TowerHUD>().tower = transform.gameObject;
             hudRef.GetComponent<TowerHUD>().OnPick();
+        }
+        //If click on station
+        else if (hudRef.GetComponent<TowerHUD>() == null)
+        {
+            hudRef.SetActive(isActive);
         }
     }
 }

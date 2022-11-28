@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Made by Melinon Remy
 public class StationBehaviour : MonoBehaviour
 {
     [SerializeField] private Transform station;
@@ -8,7 +9,6 @@ public class StationBehaviour : MonoBehaviour
     [SerializeField] private GameObject container;
     [SerializeField] private GameObject trainHUD;
     [SerializeField] private GameObject createButton;
-    [SerializeField] private SplineDone spline;
     public List<Locomotive> locomotive;
     [SerializeField] private int maxTrainsSpeed = 10;
     [SerializeField] private int currentTrainCreated;
@@ -27,7 +27,7 @@ public class StationBehaviour : MonoBehaviour
             //Set path and speed
             foreach (Transform child in newTrain.transform)
             {
-                child.GetComponent<SplineFollower>().spline = spline;
+                child.GetComponent<SplineFollower>().spline = LevelReferences.Instance.RailSpline;
                 child.GetComponent<SplineFollower>().speed = maxTrainsSpeed;
             }
             var locomotiveOfTrain = newTrain.GetComponentInChildren<Locomotive>();

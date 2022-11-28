@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Made by Melinon Remy
 public class UsineHUD : MonoBehaviour
 {
     public UsineBehaviour usineBehaviour;
@@ -15,12 +16,13 @@ public class UsineHUD : MonoBehaviour
     private float currentResources;
     private float maxResources;
 
+    //Set resources text and slider
     private void Update()
     {
         text.SetText("Production: " + productionValue);
         if (usineBehaviour != null)
         {
-            currentResources = usineBehaviour.projectiles.Count;
+            currentResources = usineBehaviour.projectiles;
             maxResources = usineBehaviour.maxRessource;
             slider.value = currentResources / maxResources;
         }
@@ -44,7 +46,7 @@ public class UsineHUD : MonoBehaviour
 
     public void EmptyUsine()
     {
-        usineBehaviour.projectiles.Clear();
+        usineBehaviour.projectiles = 0;
     }
 
     public void DestroyUsine()

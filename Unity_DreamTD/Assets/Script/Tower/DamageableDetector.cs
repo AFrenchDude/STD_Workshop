@@ -87,7 +87,7 @@ public class DamageableDetector : MonoBehaviour
         {
             NightmareManager nightmareManager = _damageablesInRange[i].GetComponent<NightmareManager>();
 
-            if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType)
+            if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType || projectileNightmareType == NightmareData.NighmareType.Neutral)
             {
                 float checkedDistance = (_damageablesInRange[i].transform.position - transform.position).magnitude;
                 if (gettingNearest)
