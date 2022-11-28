@@ -7,8 +7,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour, IPickerGhost
 {
-
-    [SerializeField] TargetPriority _targetPriority = TargetPriority.Nearest;
+    public TargetPriority _targetPriority = TargetPriority.Nearest;
     [SerializeField] DamageableDetector _damageableDetector = null;
     [SerializeField] WeaponController _weaponController = null;
 
@@ -92,6 +91,7 @@ public class Tower : MonoBehaviour, IPickerGhost
 
     public void PlaceGhost()
     {
+        _weaponController.canShoot = true;
         Enable(true);
         foreach (var collider in _colliders)
         {
