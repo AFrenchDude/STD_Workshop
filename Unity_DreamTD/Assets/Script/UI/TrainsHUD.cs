@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+//Made by Melinon Remy
 public class TrainsHUD : MonoBehaviour
 {
     public GameObject train;
@@ -79,5 +80,17 @@ public class TrainsHUD : MonoBehaviour
         gameObject.SetActive(false);
         changeTypeHUD.SetActive(false);
         Destroy(train);
+    }
+
+    //Set wagons resources text
+    private void Update()
+    {
+        for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
+        {
+            if (train.GetComponentInChildren<Locomotive>().wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
+            {
+                wagonsHUD.transform.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().SetText(train.GetComponentInChildren<Locomotive>().wagons[i].projectiles + "");
+            }
+        }
     }
 }

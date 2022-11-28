@@ -7,7 +7,7 @@ using UnityEngine;
 public class Wagon : MonoBehaviour
 {
     public ProjectileType type;
-    public List<GameObject> projectiles;
+    public int projectiles;
 
     public int maxResources = 20;
 }
