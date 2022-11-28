@@ -16,6 +16,7 @@ public class Controller : MonoBehaviour
     [SerializeField] private float speedMove = 1;
     private Vector2 moveValue;
     private bool isRotating;
+    private bool isPressingRightMouse;
 
     [Header("Zoom")]
     //Player's zoom
@@ -24,6 +25,7 @@ public class Controller : MonoBehaviour
     private Vector2 zoomValue;
     private bool isZooming;
     private int zoomStep;
+    
 
     private void Awake()
     {
@@ -46,12 +48,12 @@ public class Controller : MonoBehaviour
             if (zoomValue.y > 0 && zoomStep < zoomNumber)
             {
                 zoomStep++;
-                transposer.m_FollowOffset -= new Vector3(0, 0, -zoomValue.y * speedZoom);
+                transposer.m_FollowOffset += new Vector3(0, 0, zoomValue.y * speedZoom);
             }
             if (zoomValue.y < 0 && zoomStep > 0)
             {
                 zoomStep--;
-                transposer.m_FollowOffset -= new Vector3(0, 0, -zoomValue.y * speedZoom);
+                transposer.m_FollowOffset += new Vector3(0, 0, zoomValue.y * speedZoom);
             }
         }
     }
@@ -82,6 +84,50 @@ public class Controller : MonoBehaviour
         else if (obj.phase == InputActionPhase.Canceled)
         {
             isZooming = false;
+        }
+    }
+
+    public void OnScroll(InputAction.CallbackContext obj)
+    {
+        zoomValue = obj.ReadValue<Vector2>() / 120;
+        if (zoomValue.y > 0 && zoomStep < zoomNumber)
+        {
+            zoomStep++;
+            transposer.m_FollowOffset += new Vector3(0, 0, zoomValue.y * speedZoom);
+        }
+        if (zoomValue.y < 0 && zoomStep > 0)
+        {
+            zoomStep--;
+            transposer.m_FollowOffset += new Vector3(0, 0, zoomValue.y * speedZoom);
+        }
+    }
+
+    public void OnMouseMove(InputAction.CallbackContext obj)
+    {
+        if(isPressingRightMouse)
+        {
+            if (obj.ReadValue<Vector2>().x < 0)
+            {
+                moveValue.y = -1;
+                transform.rotation *= Quaternion.Euler(new Vector3(transform.rotation.x, moveValue.y * speedMove, transform.rotation.z));
+            }
+            else if (obj.ReadValue<Vector2>().x > 0)
+            {
+                moveValue.y = 1;
+                transform.rotation *= Quaternion.Euler(new Vector3(transform.rotation.x, moveValue.y * speedMove, transform.rotation.z));
+            }
+        }
+    }
+
+    public void RightClickPressed(InputAction.CallbackContext obj)
+    {
+        if (obj.ReadValue<float>() == 1)
+        {
+            isPressingRightMouse = true;
+        }
+        else if (obj.ReadValue<float>() == 0)
+        {
+            isPressingRightMouse = false;
         }
     }
 }

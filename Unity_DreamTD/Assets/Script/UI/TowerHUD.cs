@@ -1,6 +1,5 @@
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +22,7 @@ public class TowerHUD : MonoBehaviour
         text.SetText("Production: " + productionValue);
         if (tower != null)
         {
-            currentResources = tower.projectiles.Count;
+            currentResources = tower.projectiles;
             maxResources = tower.maxRessource;
             slider.value = currentResources / maxResources;
         }
@@ -54,7 +53,7 @@ public class TowerHUD : MonoBehaviour
 
     public void EmptyTower()
     {
-        tower.projectiles.Clear();
+        tower.projectiles = 0;
     }
 
     public void DestroyTower()

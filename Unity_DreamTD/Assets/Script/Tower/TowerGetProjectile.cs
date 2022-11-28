@@ -7,7 +7,7 @@ using UnityEngine;
 public class TowerGetProjectile : MonoBehaviour
 {
     public ProjectileType type;
-    public List<GameObject> projectiles;
+    public int projectiles;
 
     public int maxRessource = 20;
 }

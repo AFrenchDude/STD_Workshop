@@ -48,13 +48,13 @@ public class Locomotive : MonoBehaviour
         if (other.gameObject.GetComponent<UsineBehaviour>() != null)
         {
             objectCollided.Add(other.gameObject);
-            OnTriggerUsine(other.gameObject);
+            OnTriggerUsine(other.gameObject, true);
         }
         //Collide with tower
         if (other.gameObject.GetComponent<TowerGetProjectile>() != null)
         {
             objectCollided.Add(other.gameObject);
-            OnTriggerSentry(other.gameObject);
+            OnTriggerSentry(other.gameObject, true);
         }
     }
 
@@ -67,49 +67,65 @@ public class Locomotive : MonoBehaviour
         }
     }
 
-    private void OnTriggerUsine(GameObject triggeredUsine)
+    private void OnTriggerUsine(GameObject triggeredUsine, bool firstLoop)
     {
-        usineBehaviour = triggeredUsine.GetComponent<UsineBehaviour>();
-        if (usineBehaviour.projectiles.Count > 0 && !isTransfering)
+        if (triggeredUsine == objectCollided[0])
         {
-            foreach (Wagon wagon in wagons)
+            usineBehaviour = triggeredUsine.GetComponent<UsineBehaviour>();
+            if (usineBehaviour.projectiles > 0 && !isTransfering)
             {
-                if (wagon.type.typeSelected == usineBehaviour.type.typeSelected && wagon.projectiles.Count != wagon.maxResources && wagon.isActiveAndEnabled)
+                foreach (Wagon wagon in wagons)
                 {
-                    wagonsToCheck.Add(wagon);
+                    if (wagon.type.typeSelected == usineBehaviour.type.typeSelected && wagon.projectiles < wagon.maxResources && wagon.GetComponent<MeshRenderer>().enabled == true)
+                    {
+                        wagonsToCheck.Add(wagon);
+                    }
+                }
+                if (wagonsToCheck.Count > 0)
+                {
+                    //Stop train
+                    isBraking = true;
+                    CheckTransfertUsine(usineBehaviour, wagonsToCheck[0], firstLoop);
+                }
+                else
+                {
+                    FinishTransfer();
                 }
             }
-            if (wagonsToCheck.Count > 0)
+            else if (objectCollided.Count > 0)
             {
-                //Stop train
-                isBraking = true;
-                if (triggeredUsine == objectCollided[0])
-                {
-                    CheckTransfertUsine(usineBehaviour, wagonsToCheck[0]);
-                }
+                FinishTransfer();
             }
         }
     }
-    private void OnTriggerSentry(GameObject triggeredSentry)
+    private void OnTriggerSentry(GameObject triggeredSentry, bool firstLoop)
     {
-        sentryGetProjectile = triggeredSentry.GetComponent<TowerGetProjectile>();
-        if (sentryGetProjectile.projectiles.Count != sentryGetProjectile.maxRessource && !isTransfering)
+        if (triggeredSentry == objectCollided[0])
         {
-            foreach (Wagon wagon in wagons)
+            sentryGetProjectile = triggeredSentry.GetComponent<TowerGetProjectile>();
+            if (sentryGetProjectile.projectiles < sentryGetProjectile.maxRessource && !isTransfering)
             {
-                if (wagon.type.typeSelected == sentryGetProjectile.type.typeSelected && wagon.projectiles.Count != wagon.maxResources && wagon.isActiveAndEnabled)
+                foreach (Wagon wagon in wagons)
                 {
-                    wagonsToCheck.Add(wagon);
+                    if (wagon.type.typeSelected == sentryGetProjectile.type.typeSelected && wagon.projectiles > 0 && wagon.GetComponent<MeshRenderer>().enabled == true)
+                    {
+                        wagonsToCheck.Add(wagon);
+                    }
+                }
+                if (wagonsToCheck.Count > 0)
+                {
+                    //Stop train
+                    isBraking = true;
+                    CheckTransfertSentry(sentryGetProjectile, firstLoop);
+                }
+                else
+                {
+                    FinishTransfer();
                 }
             }
-            if (wagonsToCheck.Count > 0)
+            else if (objectCollided.Count > 0)
             {
-                //Stop train
-                isBraking = true;
-                if (triggeredSentry == objectCollided[0])
-                {
-                    CheckTransfertSentry(sentryGetProjectile);
-                }
+                FinishTransfer();
             }
         }
     }
@@ -162,50 +178,58 @@ public class Locomotive : MonoBehaviour
         }
     }
 
-    void CheckTransfertUsine(UsineBehaviour usine, Wagon wagon)
+    void CheckTransfertUsine(UsineBehaviour usine, Wagon wagon, bool firstLoop)
     {
         isTransfering = true;
-        StartCoroutine(TransferingUsine(wagon, usine, usine.projectiles.Count, waitTime));
+        StartCoroutine(TransferingUsine(wagon, usine, usine.projectiles, waitTime, firstLoop));
     }
-    void CheckTransfertSentry(TowerGetProjectile sentry)
+    void CheckTransfertSentry(TowerGetProjectile sentry, bool firstLoop)
     {
         isTransfering = true;
-        StartCoroutine(TransferingSentry(sentry, waitTime));
+        StartCoroutine(TransferingSentry(sentry, waitTime, firstLoop));
     }
 
-    private IEnumerator TransferingUsine(Wagon wagon, UsineBehaviour usine, int numberToGet, float waitFor)
+    private IEnumerator TransferingUsine(Wagon wagon, UsineBehaviour usine, int numberToGet, float waitFor, bool firstLoop)
     {
-        if (numberToGet > 0 && wagon.projectiles.Count != wagon.maxResources && wagon.type.typeSelected == usine.type.typeSelected)
+        if(firstLoop)
+        {
+            yield return new WaitForSeconds(1);
+        }
+        if (numberToGet > 0 && wagon.projectiles < wagon.maxResources && wagon.type.typeSelected == usine.type.typeSelected)
         {
             numberToGet--;
-            wagon.projectiles.Add(wagon.type.projectile);
-            usine.projectiles.RemoveAt(usine.projectiles.Count - 1);
+            wagon.projectiles++;
+            usine.projectiles--;
             yield return new WaitForSeconds(waitFor);
-            StartCoroutine(TransferingUsine(wagon, usine, numberToGet, waitFor));
+            StartCoroutine(TransferingUsine(wagon, usine, numberToGet, waitFor, false));
         }
-        else if(wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles.Count != wagonsToCheck[wagonNumber + 1].maxResources && numberToGet > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == usine.type.typeSelected)
+        else if(wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles < wagonsToCheck[wagonNumber + 1].maxResources && numberToGet > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == usine.type.typeSelected)
         {
             wagonNumber++;
-            StartCoroutine(TransferingUsine(wagonsToCheck[wagonNumber], usine, numberToGet, waitFor));
+            StartCoroutine(TransferingUsine(wagonsToCheck[wagonNumber], usine, numberToGet, waitFor, false));
         }
         else
         {
             FinishTransfer();
         }
     }
-    private IEnumerator TransferingSentry(TowerGetProjectile sentry, float waitFor)
+    private IEnumerator TransferingSentry(TowerGetProjectile sentry, float waitFor, bool firstLoop)
     {
-        if (wagonsToCheck[wagonNumber].projectiles.Count > 0 && wagonsToCheck[wagonNumber].type.typeSelected == sentry.type.typeSelected)
+        if (firstLoop)
         {
-            sentry.projectiles.Add(sentry.type.projectile);
-            wagonsToCheck[wagonNumber].projectiles.RemoveAt(wagonsToCheck[wagonNumber].projectiles.Count - 1);
-            yield return new WaitForSeconds(waitFor);
-            StartCoroutine(TransferingSentry(sentry, waitFor));
+            yield return new WaitForSeconds(1);
         }
-        else if (wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles.Count > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == sentry.type.typeSelected)
+        if (wagonsToCheck[wagonNumber].projectiles > 0 && wagonsToCheck[wagonNumber].type.typeSelected == sentry.type.typeSelected)
+        {
+            sentry.projectiles++;
+            wagonsToCheck[wagonNumber].projectiles--;
+            yield return new WaitForSeconds(waitFor);
+            StartCoroutine(TransferingSentry(sentry, waitFor, false));
+        }
+        else if (wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == sentry.type.typeSelected)
         {
             wagonNumber++;
-            StartCoroutine(TransferingSentry(sentry, waitFor));
+            StartCoroutine(TransferingSentry(sentry, waitFor, false));
         }
         else
         {
@@ -223,15 +247,16 @@ public class Locomotive : MonoBehaviour
         {
             if (objectCollided[0].GetComponent<UsineBehaviour>() != null)
             {
-                OnTriggerUsine(objectCollided[0]);
+                OnTriggerUsine(objectCollided[0], false);
             }
             else if (objectCollided[0].GetComponent<TowerGetProjectile>() != null)
             {
-                OnTriggerSentry(objectCollided[0]);
+                OnTriggerSentry(objectCollided[0], false);
             }
         }
         else
         {
+            objectCollided.Clear();
             //Start moving
             splineFollower.speed = maxSpeed;
             foreach (Wagon wagons in wagons)

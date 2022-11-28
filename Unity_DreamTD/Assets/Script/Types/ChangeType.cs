@@ -11,12 +11,12 @@ public class ChangeType : MonoBehaviour
         if(objectToChange.GetComponent<Wagon>() != null)
         {
             objectToChange.GetComponent<Wagon>().type = type;
-            objectToChange.GetComponent<Wagon>().projectiles.Clear();
+            objectToChange.GetComponent<Wagon>().projectiles = 0;
         }
         else if(objectToChange.GetComponent<TowerGetProjectile>() != null)
         {
             objectToChange.GetComponent<TowerGetProjectile>().type = type;
-            objectToChange.GetComponent<TowerGetProjectile>().projectiles.Clear();
+            objectToChange.GetComponent<TowerGetProjectile>().projectiles = 0;
             openHUD.GetComponent<TowerHUD>().OnPick();
         }
     }
