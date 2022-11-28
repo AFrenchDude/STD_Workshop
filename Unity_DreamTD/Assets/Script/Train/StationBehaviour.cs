@@ -14,6 +14,7 @@ public class StationBehaviour : MonoBehaviour
     [SerializeField] private int currentTrainCreated;
     [SerializeField] private int maxTrainCreatable = 4;
 
+    //Create train
     public void NewTrain()
     {
         if(currentTrainCreated < maxTrainCreatable)
@@ -45,6 +46,7 @@ public class StationBehaviour : MonoBehaviour
         }
     }
 
+    //Set trains list
     private void Update()
     {
         for (var i = 0; i != container.transform.childCount; i++)
