@@ -8,24 +8,25 @@ using UnityEngine;
 public class Tower : MonoBehaviour, IPickerGhost
 {
     public TargetPriority _targetPriority = TargetPriority.Nearest;
-    [SerializeField] DamageableDetector _damageableDetector = null;
-    [SerializeField] WeaponController _weaponController = null;
+    private DamageableDetector _damageableDetector = null;
+    private WeaponController _weaponController = null;
+    private RangeIndicator _rangeIndicator = null;
 
     private TowersDatas _datas;
-    private List<Damageable> allTargetedDamageable = new List<Damageable> ();
+    private List<Damageable> allTargetedDamageable = new List<Damageable>();
 
     private int _price = 0;
 
 
     public int Price => _price;
+    public RangeIndicator RangeIndicator => _rangeIndicator;
 
-    public void SetTowerDatas(TowersDatas datas)
-    {
-        _datas = datas;
-    }
     private void Awake()
     {
         Enable(false);
+        _rangeIndicator = gameObject.GetComponentInChildren<RangeIndicator>();
+        _damageableDetector = gameObject.GetComponent<DamageableDetector>();
+        _weaponController = gameObject.GetComponent<WeaponController>();
         _weaponController.enabled = false;
     }
     public void Enable(bool isEnabled)
@@ -35,6 +36,10 @@ public class Tower : MonoBehaviour, IPickerGhost
     public void SetPrice(int price)
     {
         _price = price;
+    }
+    public void SetTowerDatas(TowersDatas datas)
+    {
+        _datas = datas;
     }
 
     private void Update()
@@ -63,10 +68,10 @@ public class Tower : MonoBehaviour, IPickerGhost
         }
     }
 
-    
+
 
     #region DragNDrop Interface & system
-    [SerializeField] private GameObject _dragNDropObject = null; //For testing as the green/red indicator
+    [SerializeField] private List<MeshRenderer> _dragNDropMeshes = null; //For testing as the green/red indicator
     [SerializeField] private List<Collider> _colliders = null; //Enable train and damageable detector colliders after being blaced to prevent weird behaviours
     [SerializeField] private Material _materialGreen = null; //For testing
     [SerializeField] private Material _materialRed = null; //For testing
@@ -102,19 +107,30 @@ public class Tower : MonoBehaviour, IPickerGhost
 
     public void EnableDragNDropVFX(bool enable)
     {
-        _dragNDropObject.GetComponent<MeshRenderer>().enabled = enable;
+        foreach (var meshes in _dragNDropMeshes)
+        {
+            meshes.enabled = enable;
+        }
+        _rangeIndicator.EnableRangeIndicator(enable);
     }
 
     public void SetDragNDropVFXColorToGreen(bool setToGreen)
     {
         if (setToGreen)
         {
-            _dragNDropObject.GetComponent<MeshRenderer>().material = _materialGreen;
-
+            foreach (var meshes in _dragNDropMeshes)
+            {
+                meshes.material = _materialGreen;
+            }
+            _rangeIndicator.ChangeIndicatorColor(_materialGreen);
         }
         else
         {
-            _dragNDropObject.GetComponent<MeshRenderer>().material = _materialRed;
+            foreach (var meshes in _dragNDropMeshes)
+            {
+                meshes.material = _materialRed;
+            }
+            _rangeIndicator.ChangeIndicatorColor(_materialRed);
         }
     }
 
