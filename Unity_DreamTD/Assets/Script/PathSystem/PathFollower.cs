@@ -11,18 +11,25 @@ public class PathFollower : MonoBehaviour
     [SerializeField] private float _waypointThreshold = 1.0f;
     [SerializeField] private bool _loop = false;
 
-    private List<Transform> _pathWaypoints;
+    private List<Vector3> _pathWaypoints;
     private int _waypointIndex = 0;
 
     public UnityEvent LastWaypointReached;
-    public void SetPath(Path path)
-    {
-        _pathWaypoints = path.Waypoints;
 
-        Transform spawnLocation = _pathWaypoints[0];
+    public void SetSpeed(float speed)
+    {
+        _movementSpeed = speed;
+        _rotationSpeed = speed;
+    }
+    
+    public void SetPath(List<Vector3> path)
+    {
+        _pathWaypoints = path;
+
+        Vector3 spawnLocation = _pathWaypoints[0]; //If index exception, let the wave start after the path finished inizialising
         if (spawnLocation != null)
         {
-            transform.position = spawnLocation.position;
+            transform.position = spawnLocation;
         }
     }
 
@@ -55,7 +62,7 @@ public class PathFollower : MonoBehaviour
 
     private Vector3 GetGoalDirection()
     {
-        Vector3 goalDirection = _pathWaypoints[_waypointIndex].position - transform.position;
+        Vector3 goalDirection = _pathWaypoints[_waypointIndex] - transform.position;
         return goalDirection;
     }
     private void RotateToGoalDirection()

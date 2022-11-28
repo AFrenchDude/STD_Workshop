@@ -4,14 +4,16 @@
 public class SplineFollower : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private SplineDone spline;
+    public SplineDone spline;
     public float speed = 1f;
     [Header("Space betweew each wagon")]
     [Tooltip("5 between each, dont set locomotives")]
     public float margin;
 
-    private float moveAmount;
-    private float maxMoveAmount;
+    //[HideInInspector] 
+    public float moveAmount;
+    //[HideInInspector] 
+    public float maxMoveAmount;
 
     private void Start()
     {
