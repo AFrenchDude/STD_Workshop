@@ -30,13 +30,14 @@ public class TowersDatas : ScriptableObject
     [SerializeField]
     private fireType _fireType;
 
-    /*
+    [Header("Upgrades")]
     [SerializeField]
-    private Type _projectile;
+    private List<TowerUpgradeData> _upgradeDatas;
 
     [SerializeField]
-    private int _projectilesAmmount;
-    */
+    private int _currentUpgradeIndex = 1;
+
+    [Header("Projectiles")]
     [SerializeField]
     private List<Projectile> _projectileTypeList = new List<Projectile>();
 
@@ -49,11 +50,35 @@ public class TowersDatas : ScriptableObject
     public float Range => _range;
     public float ProjectileSpeed => _projectileSpeed;
     public fireType FireType => _fireType;
-    //public Type Projectile => _projectile;
-    //public int ProjectilesAmmount => _projectilesAmmount;
+    
+    public List<TowerUpgradeData> UpgradeDatas => _upgradeDatas;
+    public int CurrentUpgradeIndex => _currentUpgradeIndex;
+
+   
 
     public List<Projectile> Projectiles => _projectileTypeList;
 
+    public int MaxProjectilesAmmount => _maxProjectilesAmmount;
+    
+    public void Upgrade()
+    {
+        if(_currentUpgradeIndex < _upgradeDatas.Count - 1)
+        {
+            _currentUpgradeIndex++;
+            ApplyUpgrade();
+        }
+        
+    }
+
+    public void ApplyUpgrade()
+    {
+        TowerUpgradeData upgrade = _upgradeDatas[_currentUpgradeIndex];
+
+        _damage = upgrade.UpgradeDamage;
+        _fireRate = upgrade.UpgradeFireRate;
+        _range = upgrade.UpgradeRange;
+        _maxProjectilesAmmount = upgrade.UpgradeMaxProjectiles;
+    }
 
     public void SetProjAmmount(int index, int ammount)
     {
