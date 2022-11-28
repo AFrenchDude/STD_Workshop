@@ -80,4 +80,15 @@ public class TrainsHUD : MonoBehaviour
         changeTypeHUD.SetActive(false);
         Destroy(train);
     }
+
+    private void Update()
+    {
+        for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
+        {
+            if (train.GetComponentInChildren<Locomotive>().wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
+            {
+                wagonsHUD.transform.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().SetText(train.GetComponentInChildren<Locomotive>().wagons[i].projectiles + "");
+            }
+        }
+    }
 }

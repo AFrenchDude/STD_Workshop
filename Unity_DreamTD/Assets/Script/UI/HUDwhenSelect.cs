@@ -28,5 +28,10 @@ public class HUDwhenSelect : MonoBehaviour
             hudRef.GetComponent<TowerHUD>().tower = GetComponentInChildren<TowerGetProjectile>();
             hudRef.GetComponent<TowerHUD>().OnPick();
         }
+        //If click on station
+        else if (hudRef.GetComponent<TowerHUD>() == null)
+        {
+            hudRef.SetActive(isActive);
+        }
     }
 }

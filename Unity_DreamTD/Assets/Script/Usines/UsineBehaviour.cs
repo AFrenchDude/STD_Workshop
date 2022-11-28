@@ -7,7 +7,7 @@ using UnityEngine;
 public class UsineBehaviour : MonoBehaviour
 {
     public ProjectileType type;
-    public List<GameObject> projectiles;
+    public int projectiles;
     public int maxRessource = 20;
     public bool isProducing = true;
 
@@ -16,9 +16,9 @@ public class UsineBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if(type.typeSelected.ToString() != "None" && projectiles.Count < maxRessource && Time.time > lastProduction + cooldown && isProducing)
+        if(type.typeSelected.ToString() != "None" && projectiles < maxRessource && Time.time > lastProduction + cooldown && isProducing)
         {
-            projectiles.Add(type.projectile);
+            projectiles++;
             lastProduction = Time.time;
         }
     }

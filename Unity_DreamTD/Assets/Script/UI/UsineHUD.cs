@@ -20,7 +20,7 @@ public class UsineHUD : MonoBehaviour
         text.SetText("Production: " + productionValue);
         if (usineBehaviour != null)
         {
-            currentResources = usineBehaviour.projectiles.Count;
+            currentResources = usineBehaviour.projectiles;
             maxResources = usineBehaviour.maxRessource;
             slider.value = currentResources / maxResources;
         }
@@ -44,7 +44,7 @@ public class UsineHUD : MonoBehaviour
 
     public void EmptyUsine()
     {
-        usineBehaviour.projectiles.Clear();
+        usineBehaviour.projectiles = 0;
     }
 
     public void DestroyUsine()
