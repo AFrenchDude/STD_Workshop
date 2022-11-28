@@ -16,6 +16,8 @@ public class TowerManager : MonoBehaviour
     [SerializeField]
     private SphereCollider _rangeDetector;
 
+    public TowersDatas TowersData => _towersDatas;
+
     private void OnEnable()
     {
         _tower = GetComponent<Tower>();

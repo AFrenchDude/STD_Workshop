@@ -26,8 +26,29 @@ public class TowerHUD : MonoBehaviour
             currentResources = tower.projectiles.Count;
             maxResources = tower.maxRessource;
             slider.value = currentResources / maxResources;
+
         }
     }
+
+    // PLEASE REMY PUT THESE TWO TWIN METHOD IN THE CORRECT PLACE WHEN OPENING CLOSING THE UI, HAVING MULTIPLE TOWER CAUSE PROBLEMS
+    private void OnEnable()
+    {
+            Tower towerRef = tower.transform.parent.GetComponent<Tower>();
+            if (towerRef != null)
+            {
+                towerRef.RangeIndicator.EnableRangeIndicator(true);
+            }
+    }
+    // PLEASE REMY PUT THESE TWO TWIN METHOD IN THE CORRECT PLACE WHEN OPENING CLOSING THE UI, HAVING MULTIPLE TOWER CAUSE PROBLEMS
+    private void OnDisable()
+    {
+        Tower towerRef = tower.transform.parent.GetComponent<Tower>();
+        if (towerRef != null)
+        {
+            towerRef.RangeIndicator.EnableRangeIndicator(false);
+        }
+    }
+    // PLEASE REMY PUT THESE TWO TWIN METHOD IN THE CORRECT PLACE WHEN OPENING CLOSING THE UI, HAVING MULTIPLE TOWER CAUSE PROBLEMS
 
     public void OnProductionValueChange(Single newValue)
     {
@@ -40,6 +61,11 @@ public class TowerHUD : MonoBehaviour
         toggle.isOn = tower.transform.parent.GetComponent<WeaponController>().canShoot;
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
         dropdown.value = (int)tower.transform.parent.GetComponent<Tower>()._targetPriority;
+        //Tower towerRef = tower.transform.parent.GetComponent<Tower>();
+        //if (towerRef != null)
+        //{
+        //    towerRef.RangeIndicator.EnableRangeIndicator(true);
+        //}
     }
 
     public void ChangeTowerBehaviour(Int32 newBehaviour)
