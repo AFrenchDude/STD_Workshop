@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class Selector : MonoBehaviour
 {
+    [SerializeField] private GameObject towerHUD;
     [SerializeField] LayerMask interactibleLayer;
     private HUDwhenSelect openHUDref;
     private bool isMouseOnUI;
@@ -17,13 +19,17 @@ public class Selector : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, float.MaxValue, interactibleLayer) && !isMouseOnUI)
             {
-                if(openHUDref != null)
+                if (openHUDref != null)
                 {
                     openHUDref.OnClick(false);
                 }
                 if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
                 {
                     openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
+                    if (hit.transform.gameObject.GetComponent<Tower>() != null)
+                    {
+                        openHUDref.hudRef = towerHUD;
+                    }
                     openHUDref.OnClick(true);
                 }
             }
