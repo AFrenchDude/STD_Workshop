@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Made by Melinon Remy
 public class ChangeType : MonoBehaviour
 {
     public GameObject objectToChange;

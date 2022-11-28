@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Made by Melinon Remy
 public class HUDwhenSelect : MonoBehaviour
 {
     public GameObject hudRef;
