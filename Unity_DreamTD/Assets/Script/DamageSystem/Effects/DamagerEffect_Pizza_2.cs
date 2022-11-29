@@ -6,6 +6,7 @@ using UnityEngine;
 public class DamagerEffect_Pizza_2 : ADamagerEffect
 {
     [SerializeField] private DoTEffect _dotEffectData = null;
+    [SerializeField] ProjectileUpgradeData.FoodUpgrades _projectileUpgrade = ProjectileUpgradeData.FoodUpgrades.SpicyHotPizza;
 
     public override void DamageEffect(Damageable hitDamageable)
     {
@@ -22,5 +23,9 @@ public class DamagerEffect_Pizza_2 : ADamagerEffect
             currentEntityStatusDoT.SetTickCD(_dotEffectData.TickCD);
             currentEntityStatusDoT.SetDoTVFX(_dotEffectData.BurnVFX);
         }
+    }
+    public override ProjectileUpgradeData.FoodUpgrades GetFoodUpgradeValue()
+    {
+        return _projectileUpgrade;
     }
 }

@@ -110,6 +110,9 @@ GameObject:
   - component: {fileID: 2685485626335918887}
   - component: {fileID: 2685485626335918880}
   - component: {fileID: 171847270423093424}
+  - component: {fileID: 759477359177722491}
+  - component: {fileID: 3774022510723684348}
+  - component: {fileID: -151024879439833008}
   m_Layer: 0
   m_Name: Projectile.Food
   m_TagString: Untagged
@@ -161,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attack: 1
+  _attackType: {fileID: 11400000, guid: 877bcdfaa9dc7f945bce6b30dcbe218a, type: 2}
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
@@ -230,3 +234,45 @@ MonoBehaviour:
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &759477359177722491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27247b8d38ae865498a2cc3f6a0420d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectedProjectileType: 1
+  _upgradeManager: {fileID: 11400000, guid: 0a461dc62b8fcbc45bde1c3077d9dc74, type: 2}
+--- !u!114 &3774022510723684348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78410c19ee0ba24b810fe32c725f49c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pizzaEffectData: {fileID: 11400000, guid: 396ec0afa1de3b64296a82df27b6a354, type: 2}
+  _projectileUpgrade: 1
+--- !u!114 &-151024879439833008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e12c558a11b5e340b9d84ecd9a5290c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dotEffectData: {fileID: 11400000, guid: 9568d29ef8da58f4a99f331bdb63fe8b, type: 2}
+  _projectileUpgrade: 2

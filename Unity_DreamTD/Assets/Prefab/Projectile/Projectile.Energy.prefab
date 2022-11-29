@@ -110,6 +110,8 @@ GameObject:
   - component: {fileID: 2685485626335918887}
   - component: {fileID: 2685485626335918880}
   - component: {fileID: 1097664845125317261}
+  - component: {fileID: 5010167625462291186}
+  - component: {fileID: 191104363171241968}
   m_Layer: 0
   m_Name: Projectile.Energy
   m_TagString: Untagged
@@ -161,6 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attack: 1
+  _attackType: {fileID: 11400000, guid: b388f19e7a8730f4a8cd927f93160b44, type: 2}
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
@@ -230,3 +233,31 @@ MonoBehaviour:
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5010167625462291186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27247b8d38ae865498a2cc3f6a0420d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectedProjectileType: 2
+  _upgradeManager: {fileID: 11400000, guid: 0a461dc62b8fcbc45bde1c3077d9dc74, type: 2}
+--- !u!114 &191104363171241968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e9c69c49e6bf224097ae114c946a03e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _starEffectData: {fileID: 11400000, guid: ff43083872a83ce44b828110e08d324c, type: 2}
+  _projectileUpgrade: 1

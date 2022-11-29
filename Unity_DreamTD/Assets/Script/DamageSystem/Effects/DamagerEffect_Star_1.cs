@@ -6,9 +6,10 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class DamagerEffect_Star_1 : ADamagerEffect
 {
     [SerializeField] StarEffect_1 _starEffectData;
+    [SerializeField] ProjectileUpgradeData.EnergyUpgrades _projectileUpgrade = ProjectileUpgradeData.EnergyUpgrades.Bouncing;
     private int _bounceDone = 0;
     private AProjectile _aprojectileRef = null;
-    [SerializeField]private List<Damageable> _previousDamageable = new List<Damageable>();
+    private List<Damageable> _previousDamageable = new List<Damageable>();
 
     private void Start()
     {
@@ -100,5 +101,10 @@ public class DamagerEffect_Star_1 : ADamagerEffect
     {
         Gizmos.color = new Color(0, 0, 1f);
         Gizmos.DrawWireSphere(transform.position, _starEffectData.BounceRange);
+    }
+
+    public override ProjectileUpgradeData.EnergyUpgrades GetEnergyUpgradeValue()
+    {
+        return _projectileUpgrade;
     }
 }
