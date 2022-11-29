@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 //Made by Melinon Remy
 public class TrainsHUD : MonoBehaviour
@@ -12,8 +13,9 @@ public class TrainsHUD : MonoBehaviour
     private TrainLevel trainLevel;
 
     //HUD info
-    public void PickTrain()
+    public void PickTrain(GameObject pickedTrain)
     {
+        train = pickedTrain;
         trainLevel = train.transform.GetComponentInChildren<TrainLevel>();
         text.SetText("Level " + trainLevel.currentLevel);
         trainLevel = train.transform.GetComponentInChildren<TrainLevel>();
@@ -39,11 +41,17 @@ public class TrainsHUD : MonoBehaviour
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
     }
 
+    public void Unpick()
+    {
+        train = null;
+    }
+
     //Add new wagon in HUD
     public void SetWagons(int wagonRef)
     {
         changeTypeHUD.GetComponent<ChangeType>().objectToChange = train.GetComponentInChildren<Locomotive>().wagons[wagonRef].gameObject;
         changeTypeHUD.SetActive(true);
+        changeTypeHUD.GetComponent<ChangeType>().noTypeButton.SetActive(false);
         for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
         {
             if (train.GetComponentInChildren<Locomotive>().wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
@@ -55,7 +63,7 @@ public class TrainsHUD : MonoBehaviour
                 wagonsHUD.transform.GetChild(i).gameObject.SetActive(false);
             }
         }
-        PickTrain();
+        PickTrain(train);
     }
 
     //HUD button effect
@@ -72,17 +80,18 @@ public class TrainsHUD : MonoBehaviour
             upgradeButton.SetActive(true);
         }
         train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<MeshRenderer>().enabled = true;
-        PickTrain();
+        PickTrain(train);
     }
 
     public void DestroyTrain()
     {
+        Base.Instance.AddGold(train.GetComponentInChildren<Locomotive>().Price / 2);
         gameObject.SetActive(false);
         changeTypeHUD.SetActive(false);
         Destroy(train);
     }
 
-    //Set wagons resources text
+    //Set wagons resources text & images
     private void Update()
     {
         for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
@@ -90,6 +99,7 @@ public class TrainsHUD : MonoBehaviour
             if (train.GetComponentInChildren<Locomotive>().wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
             {
                 wagonsHUD.transform.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().SetText(train.GetComponentInChildren<Locomotive>().wagons[i].projectiles + "");
+                wagonsHUD.transform.GetChild(i).GetChild(1).GetComponent<Image>().sprite = train.GetComponentInChildren<Locomotive>().wagons[i].type.icon;
             }
         }
     }

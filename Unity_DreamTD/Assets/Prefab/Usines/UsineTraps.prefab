@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4577970345043640261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 216663294559897732}
+  - component: {fileID: 3086078203344557646}
+  m_Layer: 16
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &216663294559897732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4577970345043640261}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 1, z: 0.25}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6730867599809918076}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3086078203344557646
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4577970345043640261}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 1, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5444776394130304006
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,7 +60,7 @@ GameObject:
   - component: {fileID: 6894884414561967600}
   - component: {fileID: 8202913517724228190}
   m_Layer: 12
-  m_Name: Usine
+  m_Name: UsineTraps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +77,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 1, z: 4}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 216663294559897732}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -98,11 +144,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ab0a8ff7c790a4d916893bf2296ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: {fileID: 11400000, guid: 71c3a517fab48654d9b89390a1ac27c2, type: 2}
-  projectiles: []
+  type: {fileID: 11400000, guid: 998693a1e4db46c47b20aebd5b74935c, type: 2}
+  projectiles: 0
   maxRessource: 20
   isProducing: 1
   cooldown: 1
+  _dragNDropMeshes:
+  - {fileID: 5595601612408405804}
+  _colliders:
+  - {fileID: 6894884414561967600}
+  _materialGreen: {fileID: 2100000, guid: e21208de5972b604492d7810b240238c, type: 2}
+  _materialRed: {fileID: 2100000, guid: d6f519558150966419f3186d645c4b70, type: 2}
+  _dragNDroppableLayer:
+    serializedVersion: 2
+    m_Bits: 65536
+  _collisionCheckRadius: 2
 --- !u!65 &6894884414561967600
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -112,7 +168,7 @@ BoxCollider:
   m_GameObject: {fileID: 5444776394130304006}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}

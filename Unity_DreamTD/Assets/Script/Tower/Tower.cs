@@ -1,8 +1,5 @@
 //By ALBERT Esteban
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Tower : MonoBehaviour, IPickerGhost
@@ -16,8 +13,6 @@ public class Tower : MonoBehaviour, IPickerGhost
     private List<Damageable> allTargetedDamageable = new List<Damageable>();
 
     private int _price = 0;
-
-
     public int Price => _price;
     public RangeIndicator RangeIndicator => _rangeIndicator;
 

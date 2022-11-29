@@ -3,7 +3,6 @@ using UnityEngine;
 
 public abstract class ADamagerEffect : MonoBehaviour
 {
-    [SerializeField] ProjectileType _projectileType = null;
     private Damager _damager = null;
 
     private void Awake()
