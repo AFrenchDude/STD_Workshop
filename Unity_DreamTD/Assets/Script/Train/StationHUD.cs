@@ -4,16 +4,23 @@ using UnityEngine;
 //Made by Melinon Remy
 public class StationHUD : MonoBehaviour
 {
-    [SerializeField] private Transform station;
+    private Transform station;
+    [HideInInspector] public List<Locomotive> locomotive;
     [SerializeField] private GameObject train;
     [SerializeField] private GameObject container;
     [SerializeField] private GameObject trainHUD;
     [SerializeField] private GameObject createButton;
-    public List<Locomotive> locomotive;
+    private int currentTrainCreated;
+    private int stationLevel = 1;
+    [SerializeField] private int maxStationLevel;
+    [SerializeField] private int maxTrainCreatable = 2;
     [SerializeField] private int maxTrainsSpeed = 10;
-    [SerializeField] private int currentTrainCreated;
-    [SerializeField] private int maxTrainCreatable = 4;
     [SerializeField] private int trainPrice = 10;
+
+    private void Start()
+    {
+        station = LevelReferences.Instance.Station.transform;
+    }
 
     //Create train
     public void NewTrain()
@@ -39,8 +46,9 @@ public class StationHUD : MonoBehaviour
             newTrainInList.SetActive(true);
             newTrainInList.GetComponent<TrainsHUD>().train = newTrain;
             newTrainInList.GetComponent<RectTransform>().SetParent(container.transform);
-            newTrainInList.GetComponent<RectTransform>().localPosition = Vector3.zero;
             newTrainInList.GetComponent<RectTransform>().localScale = Vector3.one;
+            newTrainInList.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            newTrainInList.GetComponent<RectTransform>().localRotation = Quaternion.identity;
             if (currentTrainCreated >= maxTrainCreatable)
             {
                 createButton.SetActive(false);
@@ -50,7 +58,23 @@ public class StationHUD : MonoBehaviour
 
     public void Upgrade()
     {
-        
+        if(stationLevel < maxStationLevel)
+        {
+            stationLevel++;
+            maxTrainCreatable++;
+            maxTrainsSpeed *= 2;
+            //Set speed
+            foreach (Transform child in container.transform)
+            {
+                foreach (Transform child2 in child.GetComponent<TrainsHUD>().train.transform)
+                {
+                    if(child2.GetComponentInChildren<Locomotive>() != null)
+                    {
+                        child2.GetComponentInChildren<Locomotive>().maxSpeed = maxTrainsSpeed;
+                    }
+                }
+            }
+        }
     }
 
     //Set trains list
