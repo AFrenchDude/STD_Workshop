@@ -38,6 +38,7 @@ public class NightmareManager : MonoBehaviour
 
         //Speed
         _pathFollower.SetSpeed(_nightmareData.speed);
+        _pathFollower.SetOriginalSpeed(_nightmareData.speed);
 
         //gold receive
         _goldDrop.SetGold(_nightmareData.rewardGold);
