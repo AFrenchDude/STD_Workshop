@@ -226,6 +226,7 @@ public class Locomotive : MonoBehaviour
         if (wagonsToCheck[wagonNumber].projectiles > 0 && wagonsToCheck[wagonNumber].type.typeSelected == sentry.type.typeSelected)
         {
             sentry.projectiles++;
+            sentry.GetComponent<TowerManager>().TowersData.AddProjAmmount(0 , 1);
             wagonsToCheck[wagonNumber].projectiles--;
             yield return new WaitForSeconds(waitFor);
             StartCoroutine(TransferingSentry(sentry, waitFor, false));

@@ -6,6 +6,7 @@ public class ChangeType : MonoBehaviour
     public GameObject noTypeButton;
     public GameObject objectToChange;
     public GameObject openHUD;
+    [SerializeField] private GameObject stationHUD;
 
     //Set new type
     public void ChangingType(ProjectileType type)
@@ -28,7 +29,7 @@ public class ChangeType : MonoBehaviour
     //Check if parent HUD is open, else close this one
     private void Update()
     {
-        if(!openHUD.activeSelf)
+        if(!openHUD.activeSelf || !stationHUD.activeSelf)
         {
             gameObject.SetActive(false);
         }
