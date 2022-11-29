@@ -50,11 +50,11 @@ public class TowerHUD : MonoBehaviour
 
         if (tower.GetComponent<TowerManager>().TowersData.canUpgrade)
         {
-            upgradeButton.SetActive(false);
+            upgradeButton.SetActive(true);
         }
         else
         {
-            upgradeButton.SetActive(true);
+            upgradeButton.SetActive(false);
         }
     }
 

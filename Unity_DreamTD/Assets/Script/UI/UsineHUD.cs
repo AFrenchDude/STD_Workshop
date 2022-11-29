@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UsineHUD : MonoBehaviour
 {
     [SerializeField] private FactoryDatas _factoryData;
+    [SerializeField] private GameObject upgradeButton;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image productionIcon;
     [SerializeField] private Toggle toggle;
@@ -40,6 +41,14 @@ public class UsineHUD : MonoBehaviour
         _factoryTransform = pickedUsine.transform;
         productionIcon.sprite = _factoryData.ProjectileType.icon;
         toggle.isOn = _factoryData.IsProducing;
+        if (_factoryData.CurrentUpgrade == null || _factoryData.CurrentUpgrade.NextUpgrade == null)
+        {
+            upgradeButton.SetActive(false);
+        }
+        else
+        {
+            upgradeButton.SetActive(true);
+        }
     }
 
     public void OnUnpick()
@@ -54,7 +63,11 @@ public class UsineHUD : MonoBehaviour
 
     public void Upgrade()
     {
-
+        _factoryData.Upgrade();
+        if (_factoryData.CurrentUpgrade.NextUpgrade == null)
+        {
+            upgradeButton.SetActive(false);
+        }
     }
 
     public void EmptyUsine()
