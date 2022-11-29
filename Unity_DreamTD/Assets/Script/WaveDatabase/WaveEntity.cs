@@ -8,7 +8,7 @@ public class WaveEntity : MonoBehaviour
     [SerializeField]
     private PathFollower _pathFollower = null;
 
-    public void SetPath(Path path)
+    public void SetPath(List<Vector3> path)
     {
         _pathFollower.SetPath(path);
     }

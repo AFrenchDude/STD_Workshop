@@ -1,9 +1,6 @@
-﻿//From Template
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿//From Template modified by ALBERT Esteban
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public enum State
 {
@@ -56,23 +53,20 @@ public class TowerSlotController : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    if (_state == State.GhostVisible)
-    //    {
-    //        if (Input.GetMouseButtonDown(0) == true)
-    //        {
-    //            if (PlayerPickerController.TrySetGhostAsCellChild() == true)
-    //            {
-    //                ChangeState(State.Available);
-    //            }
-    //        }
-    //        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape) == true)
-    //        {
-    //            ChangeState(State.Available);
-    //        }
-    //    }
-    //}
+    public void Selecting(InputAction.CallbackContext obj) //left click confirm
+    {
+        if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
+        {
+                ChangeState(State.Available);
+        }
+    }
+    public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
+    {
+        if (_state == State.GhostVisible)
+        {
+            ChangeState(State.Available);
+        }
+    }
 
     public void ChangeState(State newState)
     {

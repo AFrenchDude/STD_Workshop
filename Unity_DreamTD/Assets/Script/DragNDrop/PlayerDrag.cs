@@ -1,28 +1,15 @@
 //By ALBERT Esteban
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using static UnityEditor.FilePathAttribute;
 
 public class PlayerDrag : MonoBehaviour
 {
     [SerializeField] private LayerMask _interactibleLayer;
-    [SerializeField] private float _spherecastRadius = 3.0f;
+    [SerializeField] private float _snapDetectionRange = 5.0f;
+    [SerializeField] private float _buildToRailDistance = 3.0f;
 
     private IPickerGhost _ghost = null;
     private bool _isDragging = false;
-
-    public void Selecting(InputAction.CallbackContext obj)
-    {
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //RaycastHit hit;
-        //if (Physics.Raycast(ray, out hit, float.MaxValue, interactibleLayer))
-        //{
-        //    Debug.Log("selected");
-        //}
-    }
+    private bool _isSnappedToRail = false;
 
     private void Update()
     {
@@ -30,57 +17,62 @@ public class PlayerDrag : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             bool hasFoundSurface = Physics.Raycast(ray, out RaycastHit cursorHit, float.MaxValue, _interactibleLayer);
-            if (hasFoundSurface)
-            {
-                RaycastHit[] splinePoints = Physics.SphereCastAll(cursorHit.transform.position, _spherecastRadius, cursorHit.transform.position, 500.0f, _interactibleLayer);
-
-                Transform nearestSplinePoint = GetNearestSplinePoint(cursorHit, splinePoints);
-
-                if (nearestSplinePoint != null)
-                {
-                    Vector3 slotPosition;
-                    slotPosition = nearestSplinePoint.position + (cursorHit.transform.position - nearestSplinePoint.transform.position).normalized * 3.0f;
-                    _ghost.GetTransform().position = slotPosition;
-                    _ghost.GetTransform().LookAt(nearestSplinePoint);
-                }
-                else
-                {
-                    _ghost.GetTransform().position = cursorHit.transform.position;
-                }
-            }
-
-
-
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //RaycastHit hit;
-
-            //_ghost.GetTransform().position = _gridPicker.HitPosition;
+            BuildingDragNDrop(hasFoundSurface, cursorHit);
         }
     }
 
-    private static Transform GetNearestSplinePoint(RaycastHit cursorHit, RaycastHit[] splinePoints)
+    private void BuildingDragNDrop(bool hasFoundSurface, RaycastHit cursorHit)
     {
-        float nearestDistance = float.MaxValue;
-        Transform nearestSplinePoint = null;
-
-        for (int i = 0; i < splinePoints.Count(); i++)
+        if (hasFoundSurface)
         {
-            if (splinePoints[i].transform != null)
+            if (LevelReferences.HasInstance)
             {
-                float checkedDistance = (cursorHit.transform.position - splinePoints[i].transform.position).magnitude;
-                if (checkedDistance < nearestDistance)
+                SplineDone splineRefTest = LevelReferences.Instance.RailSpline;
+                SplineDone.Point nearestSplinePoint = splineRefTest.GetClosestPoint(cursorHit.point);
+                if ((nearestSplinePoint.position - cursorHit.point).magnitude <= _snapDetectionRange)
                 {
-                    nearestDistance = checkedDistance;
-                    nearestSplinePoint = splinePoints[i].transform;
+                    Vector3 splinePointForward = LevelReferences.Instance.RailSpline.GetForwardAt(nearestSplinePoint.t);
+                    Vector3 towerSnapDirection = Vector3.Cross(Vector3.up, splinePointForward).normalized;
+                    Vector3 splinePointToCursorHit = cursorHit.point - nearestSplinePoint.position;
+
+                    if (Vector3.Dot(towerSnapDirection, splinePointToCursorHit) < 0)
+                    {
+                        towerSnapDirection = towerSnapDirection * (-1);
+                    }
+
+                    Vector3 towerSnapVector = nearestSplinePoint.position + towerSnapDirection * _buildToRailDistance;
+
+
+                    SnapDraggedItemToRail(towerSnapVector, nearestSplinePoint);
+                    if (_ghost.GetIsPlaceable() == true)
+                    {
+                        _ghost.SetDragNDropVFXColorToGreen(true);
+                    }
+                    else
+                    {
+                        _ghost.SetDragNDropVFXColorToGreen(false);
+                    }
+                    return;
                 }
             }
+            _ghost.GetTransform().position = cursorHit.point;
+            _ghost.GetTransform().rotation = Quaternion.Euler(0, 0, 0);
+            _ghost.SetDragNDropVFXColorToGreen(false);
+            _isSnappedToRail = false;
         }
-        return nearestSplinePoint;
     }
 
+
+    private void SnapDraggedItemToRail(Vector3 towerSnapLocation, SplineDone.Point nearestSplinePoint)
+    {
+        _ghost.GetTransform().position = towerSnapLocation;
+        _ghost.GetTransform().LookAt(nearestSplinePoint.position);
+        _isSnappedToRail = true;
+    }
     public void ActivateWithGhost(IPickerGhost ghost)
     {
         _ghost = ghost;
+        EnableDragnDropGhostVFX(true);
         ActivateDrag(true);
     }
     public void ActivateDrag(bool enable)
@@ -96,6 +88,21 @@ public class PlayerDrag : MonoBehaviour
         }
     }
 
+    public bool TrySetBuildingInAction()
+    {
+        if (_isSnappedToRail && _ghost.GetIsPlaceable())
+        {
+            _ghost.PlaceGhost();
+            EnableDragnDropGhostVFX(false);
+            _ghost = null;
+            return true;
+        }
+        return false;
+    }
+    public void EnableDragnDropGhostVFX(bool enable)
+    {
+        _ghost.EnableDragNDropVFX(enable);
+    }
 
     [ContextMenu("Activate")]
     private void DoActivate() => ActivateDrag(true);

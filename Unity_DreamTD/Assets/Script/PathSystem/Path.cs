@@ -1,4 +1,4 @@
-//From Template
+//From Template, modified by ALBERT Esteban
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,18 +10,56 @@ using UnityEditor;
 public class Path : MonoBehaviour
 {
     [SerializeField] private List<Transform> _waypoints = null;
+    private List<List<Vector3>> _laneList;
+    [Range(1, 5)] [SerializeField] private int _laneNumber = 1;
+    [SerializeField] private float _laneOffset = 1;
+
     [SerializeField] private bool _showGizmos = true;
     [SerializeField] private Color _lineColor = Color.white;
-
-    //[SerializeField] private PathFollower _pathFollower = null; //For testing purpose until spawning is properly implemented
-
     private readonly Vector3 _offset = new Vector3(0, 0.5f, 0);
 
-    public List<Transform> Waypoints => _waypoints;
+    public List<List<Vector3>> LanesList => _laneList;
 
     private void Awake()
     {
-        //_pathFollower.SetPath(this); //For testing purpose until spawning is properly implemented
+        _laneList = new List<List<Vector3>>();
+        int offsetIndex = 0;
+        for (int i = 0; i < _laneNumber; i++)
+        {
+            float newLaneOffset = offsetIndex * _laneOffset;
+            if (i % 2 == 0)
+            {
+                newLaneOffset = (-newLaneOffset);
+                offsetIndex++;
+            }
+            _laneList.Add(PopulateNewLaneList(newLaneOffset));
+        }
+    }
+
+    private List<Vector3> PopulateNewLaneList(float laneOffset)
+    {
+        List<Vector3> populatedList = new List<Vector3>();
+        Vector3 newPosition;
+
+        newPosition = (_waypoints[0 + 1].position - _waypoints[0].position).normalized;
+        newPosition = Vector3.Cross(Vector3.up, newPosition) * laneOffset;
+        newPosition += _waypoints[0].position;
+        populatedList.Add(newPosition);
+
+        for (int i = 1; i < _waypoints.Count - 1; i++)
+        {
+            newPosition = (_waypoints[i + 1].position - _waypoints[i - 1].position).normalized;
+            newPosition = Vector3.Cross(Vector3.up, newPosition) * laneOffset;
+            newPosition += _waypoints[i].position;
+            populatedList.Add(newPosition);
+        }
+
+        newPosition = (_waypoints[_waypoints.Count - 2].position - _waypoints[_waypoints.Count - 1].position).normalized;
+        newPosition = Vector3.Cross(Vector3.up, newPosition) * (-laneOffset);
+        newPosition += _waypoints[_waypoints.Count - 1].position;
+        populatedList.Add(newPosition);
+
+        return populatedList;
     }
 
 #if UNITY_EDITOR
