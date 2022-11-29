@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0775bbe1b408041a0abd538e2962a7, type: 3}
-  m_Name: EnergyType
+  m_Script: {fileID: 11500000, guid: d55e815f0eefffa4eb644a7a52ba35e6, type: 3}
+  m_Name: Food_Factory
   m_EditorClassIdentifier: 
-  typeSelected: 2
-  projectile: {fileID: 2685485626335918881, guid: 435bda60383bac04cbd92a735f69bdfc,
-    type: 3}
-  icon: {fileID: 21300000, guid: f50feae9eb1583f4aad55786a13ad037, type: 3}
+  _projectileType: {fileID: 11400000, guid: 877bcdfaa9dc7f945bce6b30dcbe218a, type: 2}
+  _ammount: 1
+  _maxAmmount: 20
+  _productionRate: 1
+  _isProduction: 1
+  _sellPrice: 20
+  _upgradeData: []
