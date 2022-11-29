@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49f7e9d667322f048b0d5b2054ee5004, type: 3}
-  m_Name: Test_01_up
+  m_Script: {fileID: 11500000, guid: f9ab7efca48add145a3b656105aa0f37, type: 3}
+  m_Name: DoTData
   m_EditorClassIdentifier: 
-  _upgradeDamage: 1
-  _upgradeFireRate: 2
-  _upgradeRange: 5
-  _upgradeMaxProjectiles: 99
-  _upgradePrice: 5
-  _nextUpgrade: {fileID: 11400000, guid: 85e3fe17e13d4514f87af1f6fdd5b0ea, type: 2}
+  _dotDuration: 10
+  _tickDamage: 1
+  _tickCD: 1
+  _burnVFX: {fileID: 1483258449977837103, guid: 3577651071b493447a40fcf4430c480f,
+    type: 3}

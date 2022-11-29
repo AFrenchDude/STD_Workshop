@@ -8,7 +8,7 @@ public class DamagerEffect_Star_1 : ADamagerEffect
     [SerializeField] StarEffect_1 _starEffectData;
     private int _bounceDone = 0;
     private AProjectile _aprojectileRef = null;
-    private List<Damageable> _previousDamageable = new List<Damageable>();
+    [SerializeField]private List<Damageable> _previousDamageable = new List<Damageable>();
 
     private void Start()
     {
@@ -21,8 +21,9 @@ public class DamagerEffect_Star_1 : ADamagerEffect
 
     public override void DamageEffect(Damageable hitDamageable)
     {
-
+        
         float diceRoll = Random.Range(0f, 1f);
+        
         if (diceRoll <= _starEffectData.StunChance)
         {
             Status_Stun entityStatusStun = hitDamageable.GetComponentInParent<Status_Stun>();
@@ -32,14 +33,13 @@ public class DamagerEffect_Star_1 : ADamagerEffect
                 currententityStatusSlow.SetStunDuration(_starEffectData.StunDuration);
             }
         }
-
         if (diceRoll <= _starEffectData.BounceChance)
         {
             _bounceDone++;
             if (_bounceDone <= _starEffectData.BounceNumber)
             {
                 Collider[] hitobjects = Physics.OverlapSphere(transform.position, _starEffectData.BounceRange, _starEffectData.LayerHitBox);
-                Damageable nearestDamageable = FindNearestDamageable(hitobjects, hitDamageable, false);
+                Damageable nearestDamageable = TryFindNearestDamageable(hitobjects, hitDamageable);
                 if (nearestDamageable != null)
                 {
                     _aprojectileRef.SetTarget(nearestDamageable.transform);
@@ -59,6 +59,17 @@ public class DamagerEffect_Star_1 : ADamagerEffect
         {
             Destroy(gameObject);
         }
+    }
+
+    private Damageable TryFindNearestDamageable(Collider[] colliders, Damageable hitDamageable)
+    {
+        Damageable targetedDamageable = null;
+        targetedDamageable = FindNearestDamageable(colliders, hitDamageable, false);
+        if (targetedDamageable == null)
+        {
+            targetedDamageable = FindNearestDamageable(colliders, hitDamageable, true);
+        }
+        return targetedDamageable;
     }
 
     private Damageable FindNearestDamageable(Collider[] colliders, Damageable hitDamageable, bool isSecondRun)
@@ -82,10 +93,12 @@ public class DamagerEffect_Star_1 : ADamagerEffect
         if (nearestDamageable == null && isSecondRun == false)
         {
             _previousDamageable.Clear();
-            FindNearestDamageable(colliders, hitDamageable, true);
         }
         return nearestDamageable;
     }
-
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0, 0, 1f);
+        Gizmos.DrawWireSphere(transform.position, _starEffectData.BounceRange);
+    }
 }
