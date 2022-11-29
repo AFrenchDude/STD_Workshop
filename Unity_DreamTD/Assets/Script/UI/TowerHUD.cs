@@ -41,8 +41,9 @@ public class TowerHUD : MonoBehaviour
         productionValue = newValue * towerGetProjectileScriptRef.maxRessource;
     }
 
-    public void OnPick()
+    public void OnPick(GameObject towerClicked)
     {
+        tower = towerClicked;
         towerScriptRef = tower.GetComponent<Tower>();
         towerGetProjectileScriptRef = tower.GetComponentInChildren<TowerGetProjectile>();
         productionIcon.sprite = towerGetProjectileScriptRef.type.icon;
@@ -50,6 +51,14 @@ public class TowerHUD : MonoBehaviour
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
         dropdown.value = (int)towerScriptRef._targetPriority;
         towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
+    }
+
+    public void OnUnpick()
+    {
+        towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
+        towerScriptRef = null;
+        towerGetProjectileScriptRef = null;
+        tower = null;
     }
 
     public void ChangeTowerBehaviour(Int32 newBehaviour)
@@ -62,20 +71,27 @@ public class TowerHUD : MonoBehaviour
         tower.GetComponent<WeaponController>().canShoot = isOn;
     }
 
+    public void Upgrade()
+    {
+        tower.GetComponent<TowerManager>().TowersData.Upgrade();
+    }
+
     public void EmptyTower()
     {
         towerGetProjectileScriptRef.projectiles = 0;
-    }
-
-    public void DestroyTower()
-    {
-        Destroy(tower);
-        gameObject.SetActive(false);
     }
 
     public void ChangeType()
     {
         changeTypeHUD.GetComponent<ChangeType>().objectToChange = tower;
         changeTypeHUD.SetActive(true);
+        changeTypeHUD.GetComponent<ChangeType>().noTypeButton.SetActive(true);
+    }
+
+    public void DestroyTower()
+    {
+        Base.Instance.AddGold(towerScriptRef.Price - (towerScriptRef.Price / 3));
+        Destroy(tower);
+        gameObject.SetActive(false);
     }
 }

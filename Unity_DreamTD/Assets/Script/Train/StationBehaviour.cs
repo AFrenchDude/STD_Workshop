@@ -13,12 +13,15 @@ public class StationBehaviour : MonoBehaviour
     [SerializeField] private int maxTrainsSpeed = 10;
     [SerializeField] private int currentTrainCreated;
     [SerializeField] private int maxTrainCreatable = 4;
+    [SerializeField] private int trainPrice = 10;
 
     //Create train
     public void NewTrain()
     {
-        if(currentTrainCreated < maxTrainCreatable)
+        if(currentTrainCreated < maxTrainCreatable && Base.Instance.Gold >= trainPrice)
         {
+            Base.Instance.RemoveGold(trainPrice);
+            trainPrice *= 2;
             currentTrainCreated++;
             //Create new train
             var newTrain = Instantiate(train, station.position, Quaternion.identity);
@@ -46,6 +49,11 @@ public class StationBehaviour : MonoBehaviour
         }
     }
 
+    public void Upgrade()
+    {
+
+    }
+
     //Set trains list
     private void Update()
     {
@@ -53,7 +61,7 @@ public class StationBehaviour : MonoBehaviour
         {
             if (container.transform.GetChild(i).GetComponent<TrainsHUD>().train != null)
             {
-                container.transform.GetChild(i).GetComponent<TrainsHUD>().PickTrain();
+                container.transform.GetChild(i).GetComponent<TrainsHUD>().PickTrain(container.transform.GetChild(i).GetComponent<TrainsHUD>().train);
             }
             else
             {

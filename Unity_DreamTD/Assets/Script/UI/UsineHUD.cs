@@ -33,15 +33,26 @@ public class UsineHUD : MonoBehaviour
         productionValue = newValue * usineBehaviour.maxRessource;
     }
 
-    public void OnPick()
+    public void OnPick(UsineBehaviour pickedUsine)
     {
+        usineBehaviour = pickedUsine;
         productionIcon.sprite = usineBehaviour.type.icon;
         toggle.isOn = usineBehaviour.isProducing;
+    }
+
+    public void OnUnpick()
+    {
+        usineBehaviour = null;
     }
 
     public void SetOnOff(bool isOn)
     {
         usineBehaviour.isProducing = isOn;
+    }
+
+    public void Upgrade()
+    {
+
     }
 
     public void EmptyUsine()
@@ -51,6 +62,7 @@ public class UsineHUD : MonoBehaviour
 
     public void DestroyUsine()
     {
+        Base.Instance.AddGold(usineBehaviour.Price - (usineBehaviour.Price / 3));
         Destroy(usineBehaviour.transform.gameObject);
         gameObject.SetActive(false);
     }

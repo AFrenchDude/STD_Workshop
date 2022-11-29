@@ -1,23 +1,16 @@
-﻿//From Template modified by ALBERT Esteban
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum State
-{
-    Available = 0,
-    GhostVisible
-}
-
-public class TowerSlotController : MonoBehaviour
+public class UsineSlotController : MonoBehaviour
 {
     [SerializeField]
-    private TowerSlot[] _towerSlots = null;
+    private UsineSlot[] usineSlot = null;
 
     [System.NonSerialized]
     private State _state = State.Available;
 
     [System.NonSerialized]
-    private TowerDescription _currentTowerDescription = null;
+    private UsineDescription usineDescription = null;
 
     public PlayerDrag GetPlayerDrag
     {
@@ -29,26 +22,26 @@ public class TowerSlotController : MonoBehaviour
 
     private void OnEnable()
     {
-        for (int i = 0, length = _towerSlots.Length; i < length; i++)
+        for (int i = 0, length = usineSlot.Length; i < length; i++)
         {
-            _towerSlots[i].OnTowerSlotClicked -= TowerSlotController_OnTowerSlotClicked;
-            _towerSlots[i].OnTowerSlotClicked += TowerSlotController_OnTowerSlotClicked;
+            usineSlot[i].OnUsineSlotClicked -= UsineSlotController_OnUsineSlotClicked;
+            usineSlot[i].OnUsineSlotClicked += UsineSlotController_OnUsineSlotClicked;
         }
     }
 
     private void OnDisable()
     {
-        for (int i = 0, length = _towerSlots.Length; i < length; i++)
+        for (int i = 0, length = usineSlot.Length; i < length; i++)
         {
-            _towerSlots[i].OnTowerSlotClicked -= TowerSlotController_OnTowerSlotClicked;
+            usineSlot[i].OnUsineSlotClicked -= UsineSlotController_OnUsineSlotClicked;
         }
     }
 
-    private void TowerSlotController_OnTowerSlotClicked(TowerSlot sender)
+    private void UsineSlotController_OnUsineSlotClicked(UsineSlot sender)
     {
         if (_state == State.Available)
         {
-            _currentTowerDescription = sender.TowerDescription;
+            usineDescription = sender.UsineDescription;
             ChangeState(State.GhostVisible);
         }
     }
@@ -57,7 +50,7 @@ public class TowerSlotController : MonoBehaviour
     {
         if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
         {
-                ChangeState(State.Available);
+            ChangeState(State.Available);
         }
     }
     public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
@@ -76,12 +69,12 @@ public class TowerSlotController : MonoBehaviour
                 {
                     GetPlayerDrag.DestroyDraggedItem();
                     GetPlayerDrag.ActivateDrag(false);
-                    _currentTowerDescription = null;
+                    usineDescription = null;
                 }
                 break;
             case State.GhostVisible:
                 {
-                    GetPlayerDrag.ActivateWithGhost(_currentTowerDescription.Instantiate());
+                    GetPlayerDrag.ActivateWithGhost(usineDescription.Instantiate());
                 }
                 break;
             default:

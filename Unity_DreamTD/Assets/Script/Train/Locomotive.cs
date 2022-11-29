@@ -26,6 +26,10 @@ public class Locomotive : MonoBehaviour
     [HideInInspector] public UsineBehaviour usineBehaviour;
     [HideInInspector] public TowerGetProjectile sentryGetProjectile;
 
+    //Prices
+    private int _price = 0;
+    public int Price => _price;
+
     private void Start()
     {
         //Set spline and speed
