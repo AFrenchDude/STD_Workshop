@@ -98,6 +98,7 @@ public class TowersDatas : ScriptableObject
     public void SetProjectileType(int index, ProjectileType projectileType)
     {
         _projectileTypeList[index].ProjectileType = projectileType;
+        _projectileTypeList[index].ProjectileAmmount = 0;
     }
 
     //Test if a specific projectil has ammount
