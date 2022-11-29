@@ -107,12 +107,11 @@ public class TowersDatas : ScriptableObject
 
     public bool canUpgrade
     {
-        get { return _currentUpgrade.NextUpgrade != null; }
+        get 
+        {
+            return _currentUpgrade.NextUpgrade != null;
+        }
     }
-
-
-
-
 }
 
 [System.Serializable]

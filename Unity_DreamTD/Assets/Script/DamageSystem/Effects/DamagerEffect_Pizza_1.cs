@@ -1,9 +1,10 @@
-//By ALBERT ESteban
+//By ALBERT Esteban
 using UnityEngine;
 
 public class DamagerEffect_Pizza_1 : ADamagerEffect
 {
     [SerializeField] PizzaEffect_1 _pizzaEffectData;
+    [SerializeField] ProjectileUpgradeData.FoodUpgrades _projectileUpgrade = ProjectileUpgradeData.FoodUpgrades.ExplosivePepperoni;
 
     public override void DamageEffect(Damageable hitDamageable)
     {
@@ -21,5 +22,10 @@ public class DamagerEffect_Pizza_1 : ADamagerEffect
         GameObject vfx = Instantiate(_pizzaEffectData.ExplosionVFX);
         vfx.transform.position = transform.position;
         Destroy(vfx, 5.0f);
+    }
+
+    public override ProjectileUpgradeData.FoodUpgrades GetFoodUpgradeValue()
+    {
+        return _projectileUpgrade;
     }
 }
