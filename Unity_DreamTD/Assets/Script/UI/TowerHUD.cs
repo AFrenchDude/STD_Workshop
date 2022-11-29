@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 //Made by Melinon Remy
 public class TowerHUD : MonoBehaviour
@@ -17,29 +18,24 @@ public class TowerHUD : MonoBehaviour
 
     [HideInInspector] public Tower towerScriptRef;
     private TowerGetProjectile towerGetProjectileScriptRef;
-    [HideInInspector] public float productionValue;
+    [HideInInspector] public int productionValue;
     private float currentResources;
     private float maxResources;
 
     //Set resources text and slider
     private void Update()
     {
-        text.SetText("Production: " + productionValue);
+        currentResources = tower.GetComponent<TowerManager>().TowersData.Projectiles[0].ProjectileAmmount;
+        text.SetText("Production: " + currentResources);
         if (tower != null && towerGetProjectileScriptRef != null)
         {
-            currentResources = towerGetProjectileScriptRef.projectiles;
-            maxResources = towerGetProjectileScriptRef.maxRessource;
-            slider.value = currentResources / maxResources;
+            maxResources = tower.GetComponent<TowerManager>().TowersData.MaxProjectilesAmmount;
+            slider.value = (currentResources / maxResources);
         }
         if (gameObject.activeSelf)
         {
             towerScriptRef.RangeIndicator.EnableRangeIndicator(true);
         }
-    }
-
-    public void OnProductionValueChange(Single newValue)
-    {
-        productionValue = newValue * towerGetProjectileScriptRef.maxRessource;
     }
 
     public void OnPick(GameObject towerClicked)

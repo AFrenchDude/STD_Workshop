@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 //Made By Melinon Remy
 public class Locomotive : MonoBehaviour
@@ -25,6 +26,7 @@ public class Locomotive : MonoBehaviour
     //Object collided script
     [HideInInspector] public UsineBehaviour usineBehaviour;
     [HideInInspector] public TowerGetProjectile sentryGetProjectile;
+    private TowersDatas towersDatas;
 
     //Prices
     private int _price = 0;
@@ -185,32 +187,32 @@ public class Locomotive : MonoBehaviour
     void CheckTransfertUsine(UsineBehaviour usine, Wagon wagon, bool firstLoop)
     {
         isTransfering = true;
-        StartCoroutine(TransferingUsine(wagon, usine, usine.projectiles, waitTime, firstLoop));
+        StartCoroutine(TransferingUsine(wagon, usine, waitTime, firstLoop));
     }
     void CheckTransfertSentry(TowerGetProjectile sentry, bool firstLoop)
     {
         isTransfering = true;
+        towersDatas = sentry.transform.parent.GetComponent<TowerManager>().TowersData;
         StartCoroutine(TransferingSentry(sentry, waitTime, firstLoop));
     }
 
-    private IEnumerator TransferingUsine(Wagon wagon, UsineBehaviour usine, int numberToGet, float waitFor, bool firstLoop)
+    private IEnumerator TransferingUsine(Wagon wagon, UsineBehaviour usine, float waitFor, bool firstLoop)
     {
         if(firstLoop)
         {
             yield return new WaitForSeconds(1);
         }
-        if (numberToGet > 0 && wagon.projectiles < wagon.maxResources && wagon.type.typeSelected == usine.type.typeSelected)
+        if (usine.projectiles > 0 && wagon.projectiles < wagon.maxResources && wagon.type.typeSelected == usine.type.typeSelected)
         {
-            numberToGet--;
             wagon.projectiles++;
             usine.projectiles--;
             yield return new WaitForSeconds(waitFor);
-            StartCoroutine(TransferingUsine(wagon, usine, numberToGet, waitFor, false));
+            StartCoroutine(TransferingUsine(wagon, usine, waitFor, false));
         }
-        else if(wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles < wagonsToCheck[wagonNumber + 1].maxResources && numberToGet > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == usine.type.typeSelected)
+        else if(wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles < wagonsToCheck[wagonNumber + 1].maxResources && usine.projectiles > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == usine.type.typeSelected)
         {
             wagonNumber++;
-            StartCoroutine(TransferingUsine(wagonsToCheck[wagonNumber], usine, numberToGet, waitFor, false));
+            StartCoroutine(TransferingUsine(wagonsToCheck[wagonNumber], usine, waitFor, false));
         }
         else
         {
@@ -223,15 +225,15 @@ public class Locomotive : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
         }
-        if (wagonsToCheck[wagonNumber].projectiles > 0 && wagonsToCheck[wagonNumber].type.typeSelected == sentry.type.typeSelected)
+        if (wagonsToCheck[wagonNumber].projectiles > 0 && wagonsToCheck[wagonNumber].type.typeSelected == sentry.type.typeSelected && towersDatas.Projectiles[0].ProjectileAmmount < towersDatas.MaxProjectilesAmmount)
         {
             sentry.projectiles++;
-            sentry.GetComponent<TowerManager>().TowersData.AddProjAmmount(0 , 1);
+            sentry.transform.parent.GetComponent<TowerManager>().TowersData.AddProjAmmount(0 , 1);
             wagonsToCheck[wagonNumber].projectiles--;
             yield return new WaitForSeconds(waitFor);
             StartCoroutine(TransferingSentry(sentry, waitFor, false));
         }
-        else if (wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == sentry.type.typeSelected)
+        else if (wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == sentry.type.typeSelected && towersDatas.Projectiles[0].ProjectileAmmount < towersDatas.MaxProjectilesAmmount)
         {
             wagonNumber++;
             StartCoroutine(TransferingSentry(sentry, waitFor, false));
