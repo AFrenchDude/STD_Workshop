@@ -6,18 +6,14 @@ using UnityEngine.UI;
 //Made by Melinon Remy
 public class UsineHUD : MonoBehaviour
 {
-    [SerializeField]
-    private FactoryDatas _factoryData;
-
-    private Transform _factoryTransform;
-
-
+    [SerializeField] private FactoryDatas _factoryData;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image productionIcon;
     [SerializeField] private Toggle toggle;
     [SerializeField] private Slider slider;
     [HideInInspector] public float productionValue;
 
+    private Transform _factoryTransform;
     private float currentResources;
     private float maxResources;
 
