@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TrainsHUD : MonoBehaviour
 {
     public GameObject train;
-    public TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject wagonsHUD;
     [SerializeField] private GameObject changeTypeHUD;
     [SerializeField] private GameObject upgradeButton;

@@ -51,6 +51,10 @@ public class WeaponController : MonoBehaviour
         }
 
     }
+    private void OnEnable()
+    {
+        _lastShotTime = -_towersData.FireRate;
+    }
 
     private void Update()
     {

@@ -4,16 +4,24 @@ using UnityEngine;
 //Made by Melinon Remy
 public class StationHUD : MonoBehaviour
 {
-    [SerializeField] private Transform station;
+    private Transform station;
+    [HideInInspector] public List<Locomotive> locomotive;
     [SerializeField] private GameObject train;
     [SerializeField] private GameObject container;
     [SerializeField] private GameObject trainHUD;
     [SerializeField] private GameObject createButton;
-    public List<Locomotive> locomotive;
+    [SerializeField] private GameObject upgradeButton;
+    private int currentTrainCreated;
+    private int stationLevel = 1;
+    [SerializeField] private int maxStationLevel = 3;
+    [SerializeField] private int maxTrainCreatable = 2;
     [SerializeField] private int maxTrainsSpeed = 10;
-    [SerializeField] private int currentTrainCreated;
-    [SerializeField] private int maxTrainCreatable = 4;
     [SerializeField] private int trainPrice = 10;
+
+    private void Start()
+    {
+        station = LevelReferences.Instance.Station.transform;
+    }
 
     //Create train
     public void NewTrain()
@@ -25,10 +33,10 @@ public class StationHUD : MonoBehaviour
             //Create new train
             var newTrain = Instantiate(train, station.position, Quaternion.identity);
             newTrain.GetComponentInChildren<TrainLevel>().currentLevel = 1;
-            newTrain.GetComponentInChildren<HUDwhenSelect>().hudRef = trainHUD;
             //Set path and speed
             foreach (Transform child in newTrain.transform)
             {
+                child.GetComponent<HUDwhenSelect>().hudRef = trainHUD;
                 child.GetComponent<SplineFollower>().spline = LevelReferences.Instance.RailSpline;
                 child.GetComponent<SplineFollower>().speed = maxTrainsSpeed;
             }
@@ -39,8 +47,9 @@ public class StationHUD : MonoBehaviour
             newTrainInList.SetActive(true);
             newTrainInList.GetComponent<TrainsHUD>().train = newTrain;
             newTrainInList.GetComponent<RectTransform>().SetParent(container.transform);
-            newTrainInList.GetComponent<RectTransform>().localPosition = Vector3.zero;
             newTrainInList.GetComponent<RectTransform>().localScale = Vector3.one;
+            newTrainInList.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            newTrainInList.GetComponent<RectTransform>().localRotation = Quaternion.identity;
             if (currentTrainCreated >= maxTrainCreatable)
             {
                 createButton.SetActive(false);
@@ -50,7 +59,31 @@ public class StationHUD : MonoBehaviour
 
     public void Upgrade()
     {
-        
+        if(stationLevel < maxStationLevel)
+        {
+            stationLevel++;
+            maxTrainCreatable++;
+            maxTrainsSpeed *= 2;
+            //Set speed
+            foreach (Transform child in container.transform)
+            {
+                foreach (Transform child2 in child.GetComponent<TrainsHUD>().train.transform)
+                {
+                    if(child2.GetComponentInChildren<Locomotive>() != null)
+                    {
+                        child2.GetComponentInChildren<Locomotive>().maxSpeed = maxTrainsSpeed;
+                    }
+                }
+            }
+        }
+        if (currentTrainCreated < maxTrainCreatable)
+        {
+            createButton.SetActive(true);
+        }
+        if (stationLevel >= maxStationLevel)
+        {
+            upgradeButton.SetActive(false);
+        }
     }
 
     //Set trains list
