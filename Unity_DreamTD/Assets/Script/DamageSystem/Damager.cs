@@ -37,12 +37,12 @@ public class Damager : MonoBehaviour
         float newdamage = _attack;
 
         NightmareData.NighmareType projectileNightmareWeak = _attackType.convertProjectileToNightmare();
-        NightmareData.NighmareType projectileNightmareresisted = _attackType.convertProjectileToNightmareResistance();
+        NightmareData.NighmareType projectileNightmareResisted = _attackType.convertProjectileToNightmareResistance();
         if (projectileNightmareWeak == otherNightmareType)
         {
             newdamage = _attack * 1.2f;
         }
-        if (projectileNightmareresisted == otherNightmareType)
+        if (projectileNightmareResisted == otherNightmareType)
         {
             newdamage = _attack * 0.8f;
         }

@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 5974698860043961438}
   - component: {fileID: 4657986383582066743}
   - component: {fileID: 360645828426267403}
+  - component: {fileID: -3691944367726694987}
   m_Layer: 0
   m_Name: Projectile.Traps
   m_TagString: Untagged
@@ -254,7 +255,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2685485626335918881}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c89e32db80606343b0bd4fe24998427, type: 3}
   m_Name: 
@@ -267,9 +268,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2685485626335918881}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e9c69c49e6bf224097ae114c946a03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _starEffectData: {fileID: 11400000, guid: ff43083872a83ce44b828110e08d324c, type: 2}
+  _previousDamageable: []
+--- !u!114 &-3691944367726694987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e12c558a11b5e340b9d84ecd9a5290c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dotEffectData: {fileID: 11400000, guid: 9568d29ef8da58f4a99f331bdb63fe8b, type: 2}
