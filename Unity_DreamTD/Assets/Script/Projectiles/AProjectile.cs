@@ -7,6 +7,16 @@ public abstract class AProjectile : MonoBehaviour
     [SerializeField] private bool _destroyOnAttack = true;
     [SerializeField] private float _movementSpeed = 0.0f;
 
+    private TowersDatas.fireType _fireType;
+    public TowersDatas.fireType getFireType
+    {
+        get { return _fireType; }
+    }
+    public void SetFireType(TowersDatas.fireType fireType)
+    {
+        _fireType = fireType;
+    }
+
     private Transform _target;
 
     public void SetSpeed(float speed)

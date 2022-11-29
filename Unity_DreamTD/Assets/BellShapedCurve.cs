@@ -18,6 +18,8 @@ public class BellShapedCurve : MonoBehaviour
     [SerializeField]
     private float _height;
 
+    private ADamagerEffect _effect;
+
     public UnityEvent DamageDone;
 
 
@@ -28,6 +30,11 @@ public class BellShapedCurve : MonoBehaviour
         _startedPosisiton = new Vector2(transform.localPosition.x, transform.localPosition.z);
     }
 
+    public void SetupEffect(ADamagerEffect effect)
+    {
+        _effect = effect;
+    }
+
     public void Update()
     {
         Vector2 current_pos = new Vector2(transform.localPosition.x, transform.localPosition.z);
@@ -36,13 +43,19 @@ public class BellShapedCurve : MonoBehaviour
 
         transform.localPosition = new Vector3(transform.localPosition.x, _bellCurveShape.Evaluate(lerpValue) * _height, transform.localPosition.z);
 
-        if (transform.localPosition.magnitude <= 0.5f)
+        if (transform.localPosition.magnitude <= 2f)
         {
+            _radiusCollider.enabled = true;
+            /*
             float Damage = GetComponent<Damager>().getDamage;
             transform.root.GetComponent<Damageable>().TakeDamage(Damage, out float health);
             DamageDone.Invoke();
 
             Destroy(gameObject);
+            */
+
+            
+            
         }
     }
 
