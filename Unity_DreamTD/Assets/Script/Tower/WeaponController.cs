@@ -24,6 +24,9 @@ public class WeaponController : MonoBehaviour
     private float _lastShotTime;
     public bool canShoot = false;
 
+    //Allow to spawn One projectile by one for mortar.
+    private AProjectile _lastProjectile = null;
+
     public void setTowerData(TowersDatas towerData)
     {
         _towersData = towerData;
@@ -58,7 +61,7 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time >= _lastShotTime + _towersData.FireRate && canShoot)
+        if (Time.time >= _lastShotTime + _towersData.FireRate && canShoot && _lastProjectile == null)
         {
             Shoot();
             _lastShotTime = Time.time;
@@ -68,7 +71,6 @@ public class WeaponController : MonoBehaviour
     private void Shoot()
     {
         AProjectile spawnedProjectile;
-        Debug.Log(_muzzleIndx);
         
         if(_towersData.Projectiles.Count > 0)
         {
@@ -96,6 +98,7 @@ public class WeaponController : MonoBehaviour
 
         spawnedProjectile.GetComponent<AProjectile>().SetTarget(_target[_muzzleIndx].transform);
         spawnedProjectile.GetComponent<AProjectile>().SetSpeed(_towersData.ProjectileSpeed);
+        spawnedProjectile.GetComponent<AProjectile>().SetFireType(_towersData.FireType);
 
         spawnedProjectile.GetComponent<Damager>().SetDamage(_towersData.Damage);
 
@@ -118,6 +121,7 @@ public class WeaponController : MonoBehaviour
             curve.enabled = true;
             curve.SetUpCurve(_target[_muzzleIndx].transform);
 
+            _lastProjectile = spawnedProjectile;
 
             // Adapt projectile speed by enemy distance
             float speed = _towersData.ProjectileSpeed * (_target[_muzzleIndx].transform.position - transform.position).magnitude / _towersData.Range;
