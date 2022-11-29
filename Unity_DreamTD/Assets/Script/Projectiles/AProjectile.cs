@@ -44,7 +44,7 @@ public abstract class AProjectile : MonoBehaviour
         }
     }
 
-    protected virtual void OnDamageDone()
+    protected virtual void OnDamageDone(Damageable hitDamageable)
     {
         if (_destroyOnAttack)
         {
@@ -55,5 +55,10 @@ public abstract class AProjectile : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _target = target;
+    }
+
+    public void SetDestroyOnAttack(bool destroyOnAttack)
+    {
+        _destroyOnAttack = destroyOnAttack;
     }
 }

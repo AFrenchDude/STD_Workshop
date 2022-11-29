@@ -25,7 +25,7 @@ public class FactoryDatas : ScriptableObject
     private int _sellPrice;
 
     [SerializeField]
-    private List<FactoryUpgradeData> _upgradeData = new List<FactoryUpgradeData>();
+    private FactoryUpgradeData _currentUpgrade;
 
 
     //References
@@ -35,7 +35,7 @@ public class FactoryDatas : ScriptableObject
     public float ProductionRate => _productionRate;
     public bool IsProducing => _isProduction;
     public int SellPrice => _sellPrice;
-    public List<FactoryUpgradeData> UpgradeData => _upgradeData;
+    public FactoryUpgradeData CurrentUpgrade => _currentUpgrade;
 
 
     //Functions
@@ -60,4 +60,20 @@ public class FactoryDatas : ScriptableObject
         _isProduction = productionEnable;
     }
 
+    public void Upgrade()
+    {
+        if(_currentUpgrade.NextUpgrade != null)
+        {
+            _currentUpgrade = _currentUpgrade.NextUpgrade;
+
+            ApplyUpgrade();
+        }
+    }
+
+    public void ApplyUpgrade()
+    {
+        _productionRate = _currentUpgrade.UpgradeCooldown;
+        _maxAmmount = _currentUpgrade.UpgradeMaxResource;
+        _sellPrice += _currentUpgrade.UpgradePrice;
+    }
 }

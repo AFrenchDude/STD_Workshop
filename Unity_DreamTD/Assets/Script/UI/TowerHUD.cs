@@ -47,7 +47,8 @@ public class TowerHUD : MonoBehaviour
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
         dropdown.value = (int)towerScriptRef._targetPriority;
         towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
-        if (tower.GetComponent<TowerManager>().TowersData.CurrentUpgradeIndex >= tower.GetComponent<TowerManager>().TowersData.UpgradeDatas.Count - 1)
+
+        if (tower.GetComponent<TowerManager>().TowersData.canUpgrade)
         {
             upgradeButton.SetActive(false);
         }

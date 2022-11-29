@@ -15,9 +15,13 @@ public class FactoryUpgradeData : ScriptableObject
     [SerializeField]
     private int _upgradePrice;
 
+    [SerializeField]
+    private FactoryUpgradeData _nextUpgrade;
+
     //References
 
     public float UpgradeCooldown => _upgradeCooldown;
     public int UpgradeMaxResource => _upgradeMaxResource;
     public int UpgradePrice => _upgradePrice;
+    public FactoryUpgradeData NextUpgrade => _nextUpgrade;
 }

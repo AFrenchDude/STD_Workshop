@@ -38,8 +38,8 @@ public class BellShapedCurve : MonoBehaviour
 
         if (transform.localPosition.magnitude <= 0.5f)
         {
-            int Damage = GetComponent<Damager>().getDamage;
-            transform.root.GetComponent<Damageable>().TakeDamage(Damage, out int health);
+            float Damage = GetComponent<Damager>().getDamage;
+            transform.root.GetComponent<Damageable>().TakeDamage(Damage, out float health);
             DamageDone.Invoke();
 
             Destroy(gameObject);

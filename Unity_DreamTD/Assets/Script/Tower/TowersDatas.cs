@@ -32,10 +32,7 @@ public class TowersDatas : ScriptableObject
 
     [Header("Upgrades")]
     [SerializeField]
-    private List<TowerUpgradeData> _upgradeDatas;
-
-    [SerializeField]
-    private int _currentUpgradeIndex = 1;
+    private TowerUpgradeData _currentUpgrade;
 
     [Header("Projectiles")]
     [SerializeField]
@@ -51,8 +48,8 @@ public class TowersDatas : ScriptableObject
     public float ProjectileSpeed => _projectileSpeed;
     public fireType FireType => _fireType;
     
-    public List<TowerUpgradeData> UpgradeDatas => _upgradeDatas;
-    public int CurrentUpgradeIndex => _currentUpgradeIndex;
+    public TowerUpgradeData UpgradeDatas => _currentUpgrade;
+
 
    
 
@@ -62,23 +59,24 @@ public class TowersDatas : ScriptableObject
     
     public void Upgrade()
     {
-        if(_currentUpgradeIndex < _upgradeDatas.Count - 1)
+        if(_currentUpgrade.NextUpgrade != null)
         {
-            _currentUpgradeIndex++;
+            _currentUpgrade = _currentUpgrade.NextUpgrade;
+
             ApplyUpgrade();
+
         }
-        
+
     }
 
     public void ApplyUpgrade()
     {
-        TowerUpgradeData upgrade = _upgradeDatas[_currentUpgradeIndex];
-
-        _damage = upgrade.UpgradeDamage;
-        _fireRate = upgrade.UpgradeFireRate;
-        _range = upgrade.UpgradeRange;
-        _maxProjectilesAmmount = upgrade.UpgradeMaxProjectiles;
+        _damage = _currentUpgrade.UpgradeDamage;
+        _fireRate = _currentUpgrade.UpgradeFireRate;
+        _range = _currentUpgrade.UpgradeRange;
+        _maxProjectilesAmmount = _currentUpgrade.UpgradeMaxProjectiles;
     }
+
 
     public void SetProjAmmount(int index, int ammount)
     {
@@ -105,6 +103,11 @@ public class TowersDatas : ScriptableObject
     public bool hasProjectiles(int index)
     {
         return _projectileTypeList[index].ProjectileAmmount > 0;
+    }
+
+    public bool canUpgrade
+    {
+        get { return _currentUpgrade.NextUpgrade != null; }
     }
 
 
