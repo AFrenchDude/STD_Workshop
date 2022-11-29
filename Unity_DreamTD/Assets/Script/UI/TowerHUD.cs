@@ -8,6 +8,7 @@ public class TowerHUD : MonoBehaviour
 {
     public GameObject tower;
     [SerializeField] private GameObject changeTypeHUD;
+    [SerializeField] private GameObject upgradeButton;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image productionIcon;
     [SerializeField] private Toggle toggle;
@@ -51,6 +52,14 @@ public class TowerHUD : MonoBehaviour
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
         dropdown.value = (int)towerScriptRef._targetPriority;
         towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
+        if (tower.GetComponent<TowerManager>().TowersData.CurrentUpgradeIndex >= tower.GetComponent<TowerManager>().TowersData.UpgradeDatas.Count - 1)
+        {
+            upgradeButton.SetActive(false);
+        }
+        else
+        {
+            upgradeButton.SetActive(true);
+        }
     }
 
     public void OnUnpick()
@@ -74,6 +83,8 @@ public class TowerHUD : MonoBehaviour
     public void Upgrade()
     {
         tower.GetComponent<TowerManager>().TowersData.Upgrade();
+        towerScriptRef.RangeIndicator.UpdateCircle();
+        OnPick(tower);
     }
 
     public void EmptyTower()
