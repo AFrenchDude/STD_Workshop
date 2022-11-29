@@ -4,15 +4,19 @@ using UnityEngine;
 //Made By Melinon Remy
 public class UsineBehaviour : MonoBehaviour, IPickerGhost
 {
-    public ProjectileType type;
-    public int projectiles;
-    public int maxRessource = 20;
-    public bool isProducing = false;
-    public float cooldown = 1;
-    private float lastProduction;
+    [SerializeField]
+    private FactoryDatas _factoryDatas;  
     private int _price = 0;
+
+    private float lastProduction;
     public int Price => _price;
     private Material originalMaterial;
+
+    public FactoryDatas getFactoryData
+    {
+        get { return _factoryDatas; }
+    }
+
 
     public void SetPrice(int price)
     {
@@ -22,14 +26,20 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     //Production
     private void Update()
     {
-        if(type.typeSelected.ToString() != "None" && projectiles < maxRessource && Time.time > lastProduction + cooldown && isProducing)
+        bool conditionType = _factoryDatas.ProjectileType.typeSelected.ToString() != "None";
+        bool conditionSpace = _factoryDatas.Ammount < _factoryDatas.MaxAmmount;
+        bool conditionTime = Time.time > lastProduction + _factoryDatas.ProductionRate;
+
+        if (conditionType && conditionSpace && conditionTime && _factoryDatas.IsProducing)
         {
-            projectiles++;
+            _factoryDatas.AddProjectile(1);
             lastProduction = Time.time;
         }
     }
     public void Enable(bool isEnabled)
     {
+        _factoryDatas = Instantiate(_factoryDatas);
+        _factoryDatas.SetProductionEnable(isEnabled);
         enabled = isEnabled;
     }
 
@@ -59,7 +69,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
 
     public void PlaceGhost()
     {
-        isProducing = true;
+        _factoryDatas.SetProductionEnable(true);
         Enable(true);
         foreach (var collider in _colliders)
         {
