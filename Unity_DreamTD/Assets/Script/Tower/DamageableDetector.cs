@@ -125,7 +125,7 @@ public class DamageableDetector : MonoBehaviour
         bool foundRightType = false;
 
         Damageable currentDamageable = null;
-        int lowestHP = int.MaxValue;
+        float lowestHP = float.MaxValue;
 
         for (int i = 0; i < _damageablesInRange.Count; i++)
         {
@@ -134,7 +134,7 @@ public class DamageableDetector : MonoBehaviour
             if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType)
             {
 
-                int checkedHP = _damageablesInRange[i].CurrentHealth;
+                float checkedHP = _damageablesInRange[i].CurrentHealth;
                 if (checkedHP < lowestHP)
                 {
                     lowestHP = checkedHP;
@@ -145,7 +145,7 @@ public class DamageableDetector : MonoBehaviour
             //Test if it was a right nightmare type
             if (nightmareManager.getNighmareType == projectileNightmareType & foundRightType == false)
             {
-                int checkedHP = _damageablesInRange[i].CurrentHealth;
+                float checkedHP = _damageablesInRange[i].CurrentHealth;
                 lowestHP = checkedHP;
 
                 currentDamageable = _damageablesInRange[i];
@@ -160,7 +160,7 @@ public class DamageableDetector : MonoBehaviour
         bool foundRightType = false;
 
         Damageable currentDamageable = null;
-        int highestMaxHP = int.MinValue;
+        float highestMaxHP = float.MinValue;
 
         for (int i = 0; i < _damageablesInRange.Count; i++)
         {
@@ -169,7 +169,7 @@ public class DamageableDetector : MonoBehaviour
             if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType)
             {
 
-                int checkedHP = _damageablesInRange[i].MaxHP;
+                float checkedHP = _damageablesInRange[i].MaxHP;
                 if (checkedHP > highestMaxHP)
                 {
                     highestMaxHP = checkedHP;
@@ -180,7 +180,7 @@ public class DamageableDetector : MonoBehaviour
             //Test if it was a right nightmare type
             if (nightmareManager.getNighmareType == projectileNightmareType & foundRightType == false)
             {
-                int checkedHP = _damageablesInRange[i].CurrentHealth;
+                float checkedHP = _damageablesInRange[i].CurrentHealth;
                 highestMaxHP = checkedHP;
 
                 currentDamageable = _damageablesInRange[i];

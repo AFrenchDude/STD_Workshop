@@ -110,6 +110,9 @@ GameObject:
   - component: {fileID: 2685485626335918887}
   - component: {fileID: 2685485626335918880}
   - component: {fileID: -5004248204819263635}
+  - component: {fileID: 5974698860043961438}
+  - component: {fileID: 4657986383582066743}
+  - component: {fileID: 360645828426267403}
   m_Layer: 0
   m_Name: Projectile.Traps
   m_TagString: Untagged
@@ -160,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4654868dc126f4e94da56803207d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attack: 1
+  _attack: 10
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
@@ -230,3 +233,42 @@ MonoBehaviour:
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5974698860043961438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78410c19ee0ba24b810fe32c725f49c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pizzaEffectData: {fileID: 11400000, guid: 396ec0afa1de3b64296a82df27b6a354, type: 2}
+--- !u!114 &4657986383582066743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c89e32db80606343b0bd4fe24998427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gumAreaData: {fileID: 11400000, guid: 552b832190ef7164fa9070682f8a8807, type: 2}
+--- !u!114 &360645828426267403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e9c69c49e6bf224097ae114c946a03e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _starEffectData: {fileID: 11400000, guid: ff43083872a83ce44b828110e08d324c, type: 2}

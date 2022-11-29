@@ -23,11 +23,15 @@ public class TowerUpgradeData : ScriptableObject
     [SerializeField]
     private int _upgradePrice;
 
+    [SerializeField]
+    private TowerUpgradeData _nextUpgrade;
+
     //Public references
     public float UpgradeDamage => _upgradeDamage;
     public float UpgradeFireRate => _upgradeFireRate;
     public float UpgradeRange => _upgradeRange;
     public int UpgradeMaxProjectiles => _upgradeMaxProjectiles;
     public int UpgradePrice => _upgradePrice;
+    public TowerUpgradeData NextUpgrade => _nextUpgrade;
 
 }
