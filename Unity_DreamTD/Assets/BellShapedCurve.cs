@@ -45,4 +45,6 @@ public class BellShapedCurve : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    
 }
