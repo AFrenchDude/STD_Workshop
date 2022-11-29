@@ -2,7 +2,6 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 //Made by Melinon Remy
 public class TowerHUD : MonoBehaviour
@@ -51,11 +50,11 @@ public class TowerHUD : MonoBehaviour
 
         if (tower.GetComponent<TowerManager>().TowersData.canUpgrade)
         {
-            upgradeButton.SetActive(false);
+            upgradeButton.SetActive(true);
         }
         else
         {
-            upgradeButton.SetActive(true);
+            upgradeButton.SetActive(false);
         }
     }
 
