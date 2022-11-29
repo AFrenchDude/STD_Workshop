@@ -25,4 +25,5 @@ public abstract class ADamagerEffect : MonoBehaviour
 
 
     public abstract void DamageEffect(Damageable hitDamageable);
+
 }

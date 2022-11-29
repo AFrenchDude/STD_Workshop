@@ -273,10 +273,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec8fac3035a26264eb7ee9207ee7ad07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nightmareType: 3
   _maxHealth: 100000000
   _destroyOnDeath: 1
   _targetAnchor: {fileID: 199522736}
-  _health: 100000000
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -793,10 +793,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec8fac3035a26264eb7ee9207ee7ad07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nightmareType: 3
   _maxHealth: 100000000
   _destroyOnDeath: 1
   _targetAnchor: {fileID: 1876018468}
-  _health: 100000000
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -884,6 +884,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3769519785095626597, guid: c908dbd763d576a46a7e2ae62e35d636,
+        type: 3}
+      propertyPath: canShoot
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3769519785095626617, guid: c908dbd763d576a46a7e2ae62e35d636,
         type: 3}
       propertyPath: m_Name
@@ -897,7 +902,7 @@ PrefabInstance:
     - target: {fileID: 3769519785095626618, guid: c908dbd763d576a46a7e2ae62e35d636,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.56
+      value: 3.67
       objectReference: {fileID: 0}
     - target: {fileID: 3769519785095626618, guid: c908dbd763d576a46a7e2ae62e35d636,
         type: 3}
@@ -907,7 +912,7 @@ PrefabInstance:
     - target: {fileID: 3769519785095626618, guid: c908dbd763d576a46a7e2ae62e35d636,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.32
+      value: 4.53
       objectReference: {fileID: 0}
     - target: {fileID: 3769519785095626618, guid: c908dbd763d576a46a7e2ae62e35d636,
         type: 3}
@@ -1260,10 +1265,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec8fac3035a26264eb7ee9207ee7ad07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nightmareType: 3
   _maxHealth: 100000000
   _destroyOnDeath: 1
   _targetAnchor: {fileID: 910037211}
-  _health: 100000000
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -1726,10 +1731,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec8fac3035a26264eb7ee9207ee7ad07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nightmareType: 3
   _maxHealth: 100000000
   _destroyOnDeath: 1
   _targetAnchor: {fileID: 3194527713679581614}
-  _health: 100000000
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
