@@ -10,9 +10,10 @@ public class StationHUD : MonoBehaviour
     [SerializeField] private GameObject container;
     [SerializeField] private GameObject trainHUD;
     [SerializeField] private GameObject createButton;
+    [SerializeField] private GameObject upgradeButton;
     private int currentTrainCreated;
     private int stationLevel = 1;
-    [SerializeField] private int maxStationLevel;
+    [SerializeField] private int maxStationLevel = 3;
     [SerializeField] private int maxTrainCreatable = 2;
     [SerializeField] private int maxTrainsSpeed = 10;
     [SerializeField] private int trainPrice = 10;
@@ -32,10 +33,10 @@ public class StationHUD : MonoBehaviour
             //Create new train
             var newTrain = Instantiate(train, station.position, Quaternion.identity);
             newTrain.GetComponentInChildren<TrainLevel>().currentLevel = 1;
-            newTrain.GetComponentInChildren<HUDwhenSelect>().hudRef = trainHUD;
             //Set path and speed
             foreach (Transform child in newTrain.transform)
             {
+                child.GetComponent<HUDwhenSelect>().hudRef = trainHUD;
                 child.GetComponent<SplineFollower>().spline = LevelReferences.Instance.RailSpline;
                 child.GetComponent<SplineFollower>().speed = maxTrainsSpeed;
             }
@@ -74,6 +75,14 @@ public class StationHUD : MonoBehaviour
                     }
                 }
             }
+        }
+        if (currentTrainCreated < maxTrainCreatable)
+        {
+            createButton.SetActive(true);
+        }
+        if (stationLevel >= maxStationLevel)
+        {
+            upgradeButton.SetActive(false);
         }
     }
 
