@@ -39,10 +39,14 @@ public class WeaponController : MonoBehaviour
 
         for (int i = 0; i < _canonMuzzle.Count; i++)
         {
-            if (_target[i] != null)
+            if (_target.Count >= 1)
             {
-                Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
-                _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Quaternion.LookRotation(targetDirection), Time.deltaTime * _rotationSpeed);
+
+                if (_target[i] != null)
+                {
+                    Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
+                    _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Quaternion.LookRotation(targetDirection), Time.deltaTime * _rotationSpeed);
+                }
             }
         }
 
@@ -60,15 +64,24 @@ public class WeaponController : MonoBehaviour
     private void Shoot()
     {
         AProjectile spawnedProjectile;
-
-        ProjectileType currentProjectile = _towersData.Projectiles[_muzzleIndx].ProjectileType;
-
-        if (_towersData.hasProjectiles(_muzzleIndx))
+        Debug.Log(_muzzleIndx);
+        
+        if(_towersData.Projectiles.Count > 0)
         {
-            spawnedProjectile = Instantiate(currentProjectile.projectile.GetComponent<AProjectile>());
-            _towersData.ReduceProjAmmount(_muzzleIndx, 1);
+            if (_towersData.hasProjectiles(_muzzleIndx))
+            {
+                ProjectileType currentProjectile = _towersData.Projectiles[_muzzleIndx].ProjectileType;
+                spawnedProjectile = Instantiate(currentProjectile.projectile.GetComponent<AProjectile>());
+                _towersData.ReduceProjAmmount(_muzzleIndx, 1);
 
+            }
+
+            else
+            {
+                spawnedProjectile = Instantiate(_neutralProjectile.projectile.GetComponent<AProjectile>());
+            }
         }
+        
         else
         {
             spawnedProjectile = Instantiate(_neutralProjectile.projectile.GetComponent<AProjectile>());

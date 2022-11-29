@@ -6,7 +6,12 @@ using UnityEngine.UI;
 //Made by Melinon Remy
 public class UsineHUD : MonoBehaviour
 {
-    public UsineBehaviour usineBehaviour;
+    [SerializeField]
+    private FactoryDatas _factoryData;
+
+    private Transform _factoryTransform;
+
+
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image productionIcon;
     [SerializeField] private Toggle toggle;
@@ -20,38 +25,51 @@ public class UsineHUD : MonoBehaviour
     private void Update()
     {
         text.SetText("Production: " + productionValue);
-        if (usineBehaviour != null)
+        if (_factoryData != null)
         {
-            currentResources = usineBehaviour.projectiles;
-            maxResources = usineBehaviour.maxRessource;
+            currentResources = _factoryData.Ammount;
+            maxResources = _factoryData.MaxAmmount;
             slider.value = currentResources / maxResources;
         }
     }
 
     public void OnProductionValueChange(Single newValue)
     {
-        productionValue = newValue * usineBehaviour.maxRessource;
+        productionValue = newValue * _factoryData.MaxAmmount;
     }
 
-    public void OnPick()
+    public void OnPick(UsineBehaviour pickedUsine)
     {
-        productionIcon.sprite = usineBehaviour.type.icon;
-        toggle.isOn = usineBehaviour.isProducing;
+        _factoryData = pickedUsine.getFactoryData;
+        _factoryTransform = pickedUsine.transform;
+        productionIcon.sprite = _factoryData.ProjectileType.icon;
+        toggle.isOn = _factoryData.IsProducing;
+    }
+
+    public void OnUnpick()
+    {
+        _factoryData = null;
     }
 
     public void SetOnOff(bool isOn)
     {
-        usineBehaviour.isProducing = isOn;
+        _factoryData.SetProductionEnable(isOn);
+    }
+
+    public void Upgrade()
+    {
+
     }
 
     public void EmptyUsine()
     {
-        usineBehaviour.projectiles = 0;
+        _factoryData.SetProjectileAmmount(0);
     }
 
     public void DestroyUsine()
     {
-        Destroy(usineBehaviour.transform.gameObject);
+        Base.Instance.AddGold(_factoryData.SellPrice - (_factoryData.SellPrice / 3));
+        Destroy(_factoryTransform.gameObject);
         gameObject.SetActive(false);
     }
 }
