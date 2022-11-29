@@ -899,6 +899,12 @@ Transform:
   m_Father: {fileID: 1704789008}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &820601644 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6149849494789762010, guid: 2085885483a13104c9cd897da10014a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 957839223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +954,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &891987147 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9162835133623812832, guid: ed5cc9a3c748fec4e919b5a98d91cc1e,
+    type: 3}
+  m_PrefabInstance: {fileID: 532474932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &957839223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -976,6 +988,58 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7042425, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27217794, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27217794, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27217794, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 27217794, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 51177456, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 51177456, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 51177456, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 51177456, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 615224901, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: station
+      value: 
+      objectReference: {fileID: 891987147}
+    - target: {fileID: 2021834556, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021834556, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021834556, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021834556, guid: 2085885483a13104c9cd897da10014a0, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -1107,7 +1171,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 957839223}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 820601644}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52d47322efeb4a442b7f4031fb94ff78, type: 3}
@@ -1536,6 +1600,7 @@ MonoBehaviour:
   _spawnerManager: {fileID: 434226327}
   _playerDrag: {fileID: 957839224}
   _railSpline: {fileID: 1892972011}
+  _player: {fileID: 820601644}
 --- !u!1 &1262820475
 GameObject:
   m_ObjectHideFlags: 0
