@@ -1,52 +1,119 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UsineBehaviour : MonoBehaviour
+//Made By Melinon Remy
+public class UsineBehaviour : MonoBehaviour, IPickerGhost
 {
-    public Type type;
-    public List<GameObject> projectiles;
-
+    public ProjectileType type;
+    public int projectiles;
     public int maxRessource = 20;
+    public bool isProducing = false;
+    public float cooldown = 1;
+    private float lastProduction;
+    private int _price = 0;
+    public int Price => _price;
+    private Material originalMaterial;
 
-    private void Start()
+    public void SetPrice(int price)
     {
-        for(var i = 0; i!= maxRessource; i++)
+        _price = price;
+    }
+
+    //Production
+    private void Update()
+    {
+        if(type.typeSelected.ToString() != "None" && projectiles < maxRessource && Time.time > lastProduction + cooldown && isProducing)
         {
-            projectiles.Add(type.projectile);
+            projectiles++;
+            lastProduction = Time.time;
         }
     }
-
-    public void TransferCoroutine(int numberToGive, int maxWagonCapacity, float secondsToWait, Locomotive locomotive)
+    public void Enable(bool isEnabled)
     {
-        StartCoroutine(Transfer(numberToGive, maxWagonCapacity, secondsToWait, locomotive));
+        enabled = isEnabled;
     }
 
-    public IEnumerator Transfer(int numberToGive, int maxWagonCapacity, float secondsToWait, Locomotive locomotive)
+    #region DragNDrop Interface & system
+    [SerializeField] private List<MeshRenderer> _dragNDropMeshes = null; //For testing as the green/red indicator
+    [SerializeField] private List<Collider> _colliders = null; //Enable train and damageable detector colliders after being blaced to prevent weird behaviours
+    [SerializeField] private Material _materialGreen = null; //For testing
+    [SerializeField] private Material _materialRed = null; //For testing
+    [SerializeField] private LayerMask _dragNDroppableLayer;
+    [SerializeField] private float _collisionCheckRadius = 2.0f;
+    public Transform GetTransform()
     {
-        if (numberToGive != maxWagonCapacity || projectiles.Count != 0)
+        return transform;
+    }
+
+    public bool GetIsPlaceable()
+    {
+        if (Base.Instance.Gold >= _price)
         {
-            if(projectiles.Count - 1 >= 0)
+            if (SearchForNearbyBuldings() == false)
             {
-                projectiles.RemoveAt(projectiles.Count - 1);
-                numberToGive++;
-                yield return new WaitForSeconds(secondsToWait);
-                StartCoroutine(Transfer(numberToGive, maxWagonCapacity, secondsToWait, locomotive));
+                return true;
             }
-            else
+        }
+        return false;
+    }
+
+    public void PlaceGhost()
+    {
+        isProducing = true;
+        Enable(true);
+        foreach (var collider in _colliders)
+        {
+            collider.enabled = true;
+        }
+        Base.Instance.RemoveGold(_price);
+    }
+    
+    public void EnableDragNDropVFX(bool enable)
+    {
+        if(enable)
+        {
+            foreach (var meshes in _dragNDropMeshes)
             {
-                locomotive.usineBehaviour = null;
-                locomotive.isTransferring = false;
-                locomotive.splineFollower.speed = locomotive.maxSpeed;
-                locomotive.SetWagonSpeed();
+                originalMaterial = meshes.material;
             }
         }
         else
         {
-            locomotive.usineBehaviour = null;
-            locomotive.isTransferring = false;
-            locomotive.splineFollower.speed = locomotive.maxSpeed;
-            locomotive.SetWagonSpeed();
+            foreach (var meshes in _dragNDropMeshes)
+            {
+                meshes.material = originalMaterial;
+            }
         }
     }
+    
+    public void SetDragNDropVFXColorToGreen(bool setToGreen)
+    {
+        if (setToGreen)
+        {
+            foreach (var meshes in _dragNDropMeshes)
+            {
+                meshes.material = _materialGreen;
+            }
+        }
+        else
+        {
+            foreach (var meshes in _dragNDropMeshes)
+            {
+                meshes.material = _materialRed;
+            }
+        }
+    }
+    private bool SearchForNearbyBuldings()
+    {
+        Collider[] colliderList = Physics.OverlapSphere(transform.position, _collisionCheckRadius, _dragNDroppableLayer);
+        foreach (var testedCollider in colliderList)
+        {
+            if (testedCollider.transform.root != transform)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    #endregion
 }

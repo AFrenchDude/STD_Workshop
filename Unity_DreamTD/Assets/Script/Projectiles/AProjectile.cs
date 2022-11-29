@@ -7,6 +7,12 @@ public abstract class AProjectile : MonoBehaviour
     [SerializeField] private bool _destroyOnAttack = true;
     [SerializeField] private float _movementSpeed = 0.0f;
 
+    private Transform _target;
+
+    public void SetSpeed(float speed)
+    {
+        _movementSpeed = speed;
+    }
 
     protected virtual void OnEnable()
     {
@@ -30,6 +36,12 @@ public abstract class AProjectile : MonoBehaviour
     protected virtual void Update()
     {
         transform.position += transform.forward * _movementSpeed * Time.deltaTime;
+
+        if (_target != null)
+        {
+            Vector3 targetPos = new Vector3(_target.position.x, transform.position.y, _target.position.z);
+            transform.rotation = Quaternion.LookRotation(targetPos - transform.position);
+        }
     }
 
     protected virtual void OnDamageDone()
@@ -38,5 +50,10 @@ public abstract class AProjectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetTarget(Transform target)
+    {
+        _target = target;
     }
 }

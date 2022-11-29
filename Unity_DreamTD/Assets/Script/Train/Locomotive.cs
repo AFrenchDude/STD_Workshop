@@ -1,140 +1,272 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Made By Melinon Remy
 public class Locomotive : MonoBehaviour
 {
     public List<Wagon> wagons;
+    [Tooltip("Time between each transfer")]
+    public float waitTime;
 
+    //Move var
     [HideInInspector] public SplineFollower splineFollower;
     [HideInInspector] public float maxSpeed;
-    public float deceleration;
-    [SerializeField] private float _acceleration = 5.0f;
+    private float timeToRestartRef = 0.0f;
+    private float deceleration;
+    [HideInInspector] public bool isBraking;
+    //Trigger var
     private Transform closeTo;
-    public bool isTransferring;
-
+    [HideInInspector] public List<GameObject> objectCollided;
+    //Transfer var
+    [HideInInspector] public List<Wagon> wagonsToCheck;
+    private int wagonNumber;
+    private bool isTransfering;
+    //Object collided script
     [HideInInspector] public UsineBehaviour usineBehaviour;
-    [HideInInspector] public SentryGetProjectile sentryGetProjectile;
+    [HideInInspector] public TowerGetProjectile sentryGetProjectile;
+
+    //Prices
+    private int _price = 0;
+    public int Price => _price;
 
     private void Start()
     {
+        //Set spline and speed
         splineFollower = GetComponent<SplineFollower>();
         maxSpeed = splineFollower.speed;
-        SetWagonSpeed();
+        foreach (Wagon wagon in wagons)
+        {
+            wagon.GetComponent<SplineFollower>().speed = maxSpeed;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Train")
+        //Collide with train
+        if (other.tag == "Train" && other.GetComponent<MeshRenderer>().enabled == true)
         {
             closeTo = other.transform;
         }
-        for (var i = 0; i != wagons.Count; i++)
+        //Collide with usine
+        if (other.gameObject.GetComponent<UsineBehaviour>() != null)
         {
-            if (other.gameObject.GetComponent<UsineBehaviour>() != null)
-            {
-                usineBehaviour = other.gameObject.GetComponent<UsineBehaviour>();
-                if (usineBehaviour.projectiles.Count > 0)
-                {
-                    if (wagons[i].type.typeSelected == usineBehaviour.type.typeSelected && wagons[i].projectiles.Count != wagons[i].maxResources)
-                    {
-                        isTransferring = true;
-                        wagons[i].AddRessources(usineBehaviour.projectiles.Count, 0.2f);
-                        usineBehaviour.TransferCoroutine(wagons[i].maxResources - wagons[i].projectiles.Count, wagons[i].maxResources, 0.2f, this);
-                    }
-                }
-            }
-            if (other.gameObject.GetComponent<SentryGetProjectile>() != null)
-            {
-                sentryGetProjectile = other.gameObject.GetComponent<SentryGetProjectile>();
-                if (wagons[i].projectiles.Count > 0)
-                {
-                    if (wagons[i].type.typeSelected == sentryGetProjectile.type.typeSelected && sentryGetProjectile.projectiles.Count < sentryGetProjectile.maxRessource)
-                    {
-                        isTransferring = true;
-                        wagons[i].GiveRessources(sentryGetProjectile.maxRessource, 0.2f, this);
-                        sentryGetProjectile.TransferCoroutine(wagons[i].projectiles.Count, 0.2f, this);
-                    }
-                }
-            }
+            objectCollided.Add(other.gameObject);
+            OnTriggerUsine(other.gameObject, true);
+        }
+        //Collide with tower
+        if (other.gameObject.GetComponent<TowerGetProjectile>() != null)
+        {
+            objectCollided.Add(other.gameObject);
+            OnTriggerSentry(other.gameObject, true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!isTransferring)
-        {
-            usineBehaviour = null;
-            splineFollower.speed = maxSpeed;
-            SetWagonSpeed();
-        }
-        if (!isTransferring)
-        {
-            sentryGetProjectile = null;
-            splineFollower.speed = maxSpeed;
-            SetWagonSpeed();
-        }
-        if (other.tag == "Train")
+        //remove train to start moving
+        if (other.transform == closeTo)
         {
             closeTo = null;
-            splineFollower.speed = maxSpeed;
-            if(splineFollower.speed == maxSpeed)
+        }
+    }
+
+    private void OnTriggerUsine(GameObject triggeredUsine, bool firstLoop)
+    {
+        if (triggeredUsine == objectCollided[0])
+        {
+            usineBehaviour = triggeredUsine.GetComponent<UsineBehaviour>();
+            if (usineBehaviour.projectiles > 0 && !isTransfering)
             {
-                SetWagonSpeed();
+                foreach (Wagon wagon in wagons)
+                {
+                    if (wagon.type.typeSelected == usineBehaviour.type.typeSelected && wagon.projectiles < wagon.maxResources && wagon.GetComponent<MeshRenderer>().enabled == true)
+                    {
+                        wagonsToCheck.Add(wagon);
+                    }
+                }
+                if (wagonsToCheck.Count > 0)
+                {
+                    //Stop train
+                    isBraking = true;
+                    CheckTransfertUsine(usineBehaviour, wagonsToCheck[0], firstLoop);
+                }
+                else
+                {
+                    FinishTransfer();
+                }
+            }
+            else if (objectCollided.Count > 0)
+            {
+                FinishTransfer();
+            }
+        }
+    }
+    private void OnTriggerSentry(GameObject triggeredSentry, bool firstLoop)
+    {
+        if (triggeredSentry == objectCollided[0])
+        {
+            sentryGetProjectile = triggeredSentry.GetComponent<TowerGetProjectile>();
+            if (sentryGetProjectile.projectiles < sentryGetProjectile.maxRessource && !isTransfering)
+            {
+                foreach (Wagon wagon in wagons)
+                {
+                    if (wagon.type.typeSelected == sentryGetProjectile.type.typeSelected && wagon.projectiles > 0 && wagon.GetComponent<MeshRenderer>().enabled == true)
+                    {
+                        wagonsToCheck.Add(wagon);
+                    }
+                }
+                if (wagonsToCheck.Count > 0)
+                {
+                    //Stop train
+                    isBraking = true;
+                    CheckTransfertSentry(sentryGetProjectile, firstLoop);
+                }
+                else
+                {
+                    FinishTransfer();
+                }
+            }
+            else if (objectCollided.Count > 0)
+            {
+                FinishTransfer();
+            }
+        }
+    }
+
+    private void StopTrain(int margin)
+    {
+        //Stop train when close enough
+        if (deceleration < margin)
+        {
+            splineFollower.speed = 0;
+            foreach (Wagon wagon in wagons)
+            {
+                wagon.GetComponent<SplineFollower>().speed = 0;
+            }
+            isBraking = false;
+            timeToRestartRef = 0;
+        }
+        else
+        {
+            splineFollower.speed = deceleration;
+            foreach (Wagon wagon in wagons)
+            {
+                wagon.GetComponent<SplineFollower>().speed = deceleration;
             }
         }
     }
 
     private void Update()
     {
-        if (isTransferring && sentryGetProjectile != null)
+        //If a train is close
+        if (closeTo != null)
         {
-            deceleration = (sentryGetProjectile.transform.position - transform.position).magnitude;
-            if (deceleration < 8)
-            {
-                splineFollower.speed = 0;
-                SetWagonSpeed();
-            }
-            else
-            {
-                splineFollower.speed = deceleration;
-                SetWagonSpeed();
-            }
+            StopTrain(6);
         }
-        if(isTransferring && usineBehaviour != null)
+        //Decelaration
+        if (isBraking && objectCollided.Count > 0)
         {
-            deceleration = (usineBehaviour.transform.position - transform.position).magnitude;
-            if (deceleration < 8)
-            {
-                splineFollower.speed = 0;
-                SetWagonSpeed();
-            }
-            else
-            {
-                splineFollower.speed = deceleration;
-                SetWagonSpeed();
-            }
+            deceleration = (objectCollided[0].transform.position - transform.position).magnitude;
+            StopTrain(5);
         }
-        if(closeTo != null)
+        //Start moving
+        else if (!isTransfering)
         {
-            deceleration = (closeTo.transform.position - transform.position).magnitude;
-            if (deceleration < 6)
+            timeToRestartRef += 0.5f * Time.deltaTime;
+            splineFollower.speed = Mathf.Lerp(0, maxSpeed, timeToRestartRef);
+            foreach (Wagon wagon in wagons)
             {
-                splineFollower.speed = 0;
-                SetWagonSpeed();
-            }
-            else
-            {
-                splineFollower.speed = deceleration;
-                SetWagonSpeed();
+                wagon.GetComponent<SplineFollower>().speed = Mathf.Lerp(0, maxSpeed, timeToRestartRef);
             }
         }
     }
 
-    public void SetWagonSpeed()
+    void CheckTransfertUsine(UsineBehaviour usine, Wagon wagon, bool firstLoop)
     {
-        for (var i = 0; i != wagons.Count; i++)
+        isTransfering = true;
+        StartCoroutine(TransferingUsine(wagon, usine, usine.projectiles, waitTime, firstLoop));
+    }
+    void CheckTransfertSentry(TowerGetProjectile sentry, bool firstLoop)
+    {
+        isTransfering = true;
+        StartCoroutine(TransferingSentry(sentry, waitTime, firstLoop));
+    }
+
+    private IEnumerator TransferingUsine(Wagon wagon, UsineBehaviour usine, int numberToGet, float waitFor, bool firstLoop)
+    {
+        if(firstLoop)
         {
-            wagons[i].gameObject.GetComponent<SplineFollower>().speed = splineFollower.speed;
+            yield return new WaitForSeconds(1);
+        }
+        if (numberToGet > 0 && wagon.projectiles < wagon.maxResources && wagon.type.typeSelected == usine.type.typeSelected)
+        {
+            numberToGet--;
+            wagon.projectiles++;
+            usine.projectiles--;
+            yield return new WaitForSeconds(waitFor);
+            StartCoroutine(TransferingUsine(wagon, usine, numberToGet, waitFor, false));
+        }
+        else if(wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles < wagonsToCheck[wagonNumber + 1].maxResources && numberToGet > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == usine.type.typeSelected)
+        {
+            wagonNumber++;
+            StartCoroutine(TransferingUsine(wagonsToCheck[wagonNumber], usine, numberToGet, waitFor, false));
+        }
+        else
+        {
+            FinishTransfer();
+        }
+    }
+    private IEnumerator TransferingSentry(TowerGetProjectile sentry, float waitFor, bool firstLoop)
+    {
+        if (firstLoop)
+        {
+            yield return new WaitForSeconds(1);
+        }
+        if (wagonsToCheck[wagonNumber].projectiles > 0 && wagonsToCheck[wagonNumber].type.typeSelected == sentry.type.typeSelected)
+        {
+            sentry.projectiles++;
+            wagonsToCheck[wagonNumber].projectiles--;
+            yield return new WaitForSeconds(waitFor);
+            StartCoroutine(TransferingSentry(sentry, waitFor, false));
+        }
+        else if (wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == sentry.type.typeSelected)
+        {
+            wagonNumber++;
+            StartCoroutine(TransferingSentry(sentry, waitFor, false));
+        }
+        else
+        {
+            FinishTransfer();
+        }
+    }
+
+    private void FinishTransfer()
+    {
+        wagonsToCheck.Clear();
+        isTransfering = false;
+        objectCollided.RemoveAt(0);
+        //Check if there's other object to transfer with
+        if (objectCollided.Count > 0)
+        {
+            if (objectCollided[0].GetComponent<UsineBehaviour>() != null)
+            {
+                OnTriggerUsine(objectCollided[0], false);
+            }
+            else if (objectCollided[0].GetComponent<TowerGetProjectile>() != null)
+            {
+                OnTriggerSentry(objectCollided[0], false);
+            }
+        }
+        else
+        {
+            objectCollided.Clear();
+            //Start moving
+            splineFollower.speed = maxSpeed;
+            foreach (Wagon wagons in wagons)
+            {
+                wagons.GetComponent<SplineFollower>().speed = maxSpeed;
+            }
         }
     }
 }
