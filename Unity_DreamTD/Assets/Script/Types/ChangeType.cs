@@ -20,6 +20,7 @@ public class ChangeType : MonoBehaviour
         else if(objectToChange.GetComponentInChildren<TowerGetProjectile>() != null)
         {
             objectToChange.GetComponentInChildren<TowerGetProjectile>().type = type;
+            objectToChange.GetComponent<TowerManager>().TowersData.SetProjectileType(0, type);
             objectToChange.GetComponentInChildren<TowerGetProjectile>().projectiles = 0;
             openHUD.GetComponent<TowerHUD>().OnPick(objectToChange);
         }
@@ -28,7 +29,12 @@ public class ChangeType : MonoBehaviour
     //Check if parent HUD is open, else close this one
     private void Update()
     {
-        if(!openHUD.activeSelf)
+        //If from station
+        if (openHUD.GetComponentInParent<StationHUD>() != null)
+        {
+            openHUD = openHUD.GetComponentInParent<StationHUD>().transform.gameObject;
+        }
+        if (!openHUD.activeSelf)
         {
             gameObject.SetActive(false);
         }
