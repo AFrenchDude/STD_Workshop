@@ -8,8 +8,8 @@ using UnityEngine;
 		private WaveEntity _waveEntityPrefab = null;
 
 		[SerializeField]
-		private EntityType _entityType = EntityType.None;
+		private NightmareData _nightmareData = null;
 
 		public WaveEntity WaveEntityPrefab => _waveEntityPrefab;
-		public EntityType EntityType => _entityType;
+		public NightmareData NightmareData => _nightmareData;
 	}
