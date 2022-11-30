@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2685485624643231251}
   - component: {fileID: 2685485624643231260}
   - component: {fileID: 2685485624643231261}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,9 @@ GameObject:
   - component: {fileID: 2685485626335918887}
   - component: {fileID: 2685485626335918880}
   - component: {fileID: -5004248204819263635}
-  m_Layer: 0
+  - component: {fileID: 3572344455183819755}
+  - component: {fileID: 4657986383582066743}
+  m_Layer: 13
   m_Name: Projectile.Traps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,6 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attack: 1
+  _attackType: {fileID: 11400000, guid: 367a0bf78a749da4a971d34b6512c6a9, type: 2}
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
@@ -187,7 +190,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2685485626335918881}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 463e3f750bce3064b9fd74577f51af4c, type: 3}
   m_Name: 
@@ -208,12 +211,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.5
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
+      inSlope: 0.010941013
+      outSlope: 0.010941013
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.43404406
     - serializedVersion: 3
       time: 1
       value: 0
@@ -230,3 +233,31 @@ MonoBehaviour:
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3572344455183819755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27247b8d38ae865498a2cc3f6a0420d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectedProjectileType: 3
+  _upgradeManager: {fileID: 11400000, guid: 0a461dc62b8fcbc45bde1c3077d9dc74, type: 2}
+--- !u!114 &4657986383582066743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c89e32db80606343b0bd4fe24998427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gumAreaData: {fileID: 11400000, guid: 552b832190ef7164fa9070682f8a8807, type: 2}
+  _projectileUpgrade: 1

@@ -11,17 +11,24 @@ public class PathFollower : MonoBehaviour
     [SerializeField] private float _waypointThreshold = 1.0f;
     [SerializeField] private bool _loop = false;
 
+    private float _originalMovementSpeed = 1.0f;
     private List<Vector3> _pathWaypoints;
     private int _waypointIndex = 0;
 
-    public UnityEvent LastWaypointReached;
+    public float Speed => _movementSpeed;
+    public float OGSpeed => _originalMovementSpeed;
 
+    public UnityEvent LastWaypointReached;
+    public void SetOriginalSpeed(float speed)
+    {
+        _originalMovementSpeed = speed;
+    }
     public void SetSpeed(float speed)
     {
         _movementSpeed = speed;
         _rotationSpeed = speed;
     }
-    
+
     public void SetPath(List<Vector3> path)
     {
         _pathWaypoints = path;

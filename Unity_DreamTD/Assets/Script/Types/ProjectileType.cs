@@ -13,7 +13,7 @@ public class ProjectileType : ScriptableObject
     }
     public projectileType typeSelected;
 
-    public GameObject projectile;
+    public UnityEngine.GameObject projectile;
 
     public Sprite icon;
 
@@ -22,7 +22,7 @@ public class ProjectileType : ScriptableObject
         switch (typeSelected)
         {
             case (projectileType.Neutral):
-                return NightmareData.NighmareType.Vegetables;
+                return NightmareData.NighmareType.Neutral;
 
             case (projectileType.Food):
                 return NightmareData.NighmareType.Vegetables;
@@ -32,7 +32,26 @@ public class ProjectileType : ScriptableObject
 
             case (projectileType.Trap):
                 return NightmareData.NighmareType.Insects;
-                
+        }
+
+        return NightmareData.NighmareType.Vegetables;
+    }
+
+    public NightmareData.NighmareType convertProjectileToNightmareResistance()
+    {
+        switch (typeSelected)
+        {
+            case (projectileType.Neutral):
+                return NightmareData.NighmareType.Neutral;
+
+            case (projectileType.Food):
+                return NightmareData.NighmareType.Insects;
+
+            case (projectileType.Energy):
+                return NightmareData.NighmareType.Vegetables;
+
+            case (projectileType.Trap):
+                return NightmareData.NighmareType.Skeleton;
         }
 
         return NightmareData.NighmareType.Vegetables;

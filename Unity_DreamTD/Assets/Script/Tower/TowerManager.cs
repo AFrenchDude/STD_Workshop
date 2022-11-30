@@ -14,7 +14,9 @@ public class TowerManager : MonoBehaviour
     private WeaponController _weaponController;
 
     [SerializeField]
-    private SphereCollider _rangeDetector;
+    private CapsuleCollider _rangeDetector;
+
+    public TowersDatas TowersData => _towersDatas;
 
     private void OnEnable()
     {
