@@ -23,7 +23,7 @@ public class Locomotive : MonoBehaviour
     private int wagonNumber;
     private bool isTransfering;
     //Object collided script
-    [HideInInspector] public UsineBehaviour usineBehaviour;
+    [HideInInspector] public FactoryDatas factoryData;
     [HideInInspector] public TowerGetProjectile sentryGetProjectile;
 
     //Prices
@@ -75,12 +75,12 @@ public class Locomotive : MonoBehaviour
     {
         if (triggeredUsine == objectCollided[0])
         {
-            usineBehaviour = triggeredUsine.GetComponent<UsineBehaviour>();
-            if (usineBehaviour.projectiles > 0 && !isTransfering)
+            factoryData = triggeredUsine.GetComponent<UsineBehaviour>().getFactoryData;
+            if (factoryData.Ammount > 0 && !isTransfering)
             {
                 foreach (Wagon wagon in wagons)
                 {
-                    if (wagon.type.typeSelected == usineBehaviour.type.typeSelected && wagon.projectiles < wagon.maxResources && wagon.GetComponent<MeshRenderer>().enabled == true)
+                    if (wagon.type.typeSelected == factoryData.ProjectileType.typeSelected && wagon.projectiles < wagon.maxResources && wagon.GetComponent<MeshRenderer>().enabled == true)
                     {
                         wagonsToCheck.Add(wagon);
                     }
@@ -89,7 +89,7 @@ public class Locomotive : MonoBehaviour
                 {
                     //Stop train
                     isBraking = true;
-                    CheckTransfertUsine(usineBehaviour, wagonsToCheck[0], firstLoop);
+                    CheckTransfertUsine(triggeredUsine.GetComponent<UsineBehaviour>(), wagonsToCheck[0], firstLoop);
                 }
                 else
                 {
@@ -185,7 +185,7 @@ public class Locomotive : MonoBehaviour
     void CheckTransfertUsine(UsineBehaviour usine, Wagon wagon, bool firstLoop)
     {
         isTransfering = true;
-        StartCoroutine(TransferingUsine(wagon, usine, usine.projectiles, waitTime, firstLoop));
+        StartCoroutine(TransferingUsine(wagon, usine, usine.getFactoryData.Ammount, waitTime, firstLoop));
     }
     void CheckTransfertSentry(TowerGetProjectile sentry, bool firstLoop)
     {
@@ -199,15 +199,15 @@ public class Locomotive : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
         }
-        if (numberToGet > 0 && wagon.projectiles < wagon.maxResources && wagon.type.typeSelected == usine.type.typeSelected)
+        if (numberToGet > 0 && wagon.projectiles < wagon.maxResources && wagon.type.typeSelected == usine.getFactoryData.ProjectileType.typeSelected)
         {
             numberToGet--;
             wagon.projectiles++;
-            usine.projectiles--;
+            usine.getFactoryData.RemoveProjectile(1);
             yield return new WaitForSeconds(waitFor);
             StartCoroutine(TransferingUsine(wagon, usine, numberToGet, waitFor, false));
         }
-        else if(wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles < wagonsToCheck[wagonNumber + 1].maxResources && numberToGet > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == usine.type.typeSelected)
+        else if(wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles < wagonsToCheck[wagonNumber + 1].maxResources && numberToGet > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == usine.getFactoryData.ProjectileType.typeSelected)
         {
             wagonNumber++;
             StartCoroutine(TransferingUsine(wagonsToCheck[wagonNumber], usine, numberToGet, waitFor, false));

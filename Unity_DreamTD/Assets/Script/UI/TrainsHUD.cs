@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TrainsHUD : MonoBehaviour
 {
     public GameObject train;
-    public TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject wagonsHUD;
     [SerializeField] private GameObject changeTypeHUD;
     [SerializeField] private GameObject upgradeButton;
@@ -69,18 +69,27 @@ public class TrainsHUD : MonoBehaviour
     //HUD button effect
     public void Upgrade()
     {
-        trainLevel.currentLevel++;
-        text.SetText("Level " + trainLevel.currentLevel);
-        if (trainLevel.currentLevel >= trainLevel.maxLevel)
+        train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
+        if (!train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<Wagon>().hasTriggered)
         {
-            upgradeButton.SetActive(false);
+            trainLevel.currentLevel++;
+            text.SetText("Level " + trainLevel.currentLevel);
+            if (trainLevel.currentLevel >= trainLevel.maxLevel)
+            {
+                upgradeButton.SetActive(false);
+            }
+            else
+            {
+                upgradeButton.SetActive(true);
+            }
+            train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<MeshRenderer>().enabled = true;
+            train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
+            PickTrain(train);
         }
         else
         {
-            upgradeButton.SetActive(true);
+            train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<Wagon>().hasTriggered = false;
         }
-        train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<MeshRenderer>().enabled = true;
-        PickTrain(train);
     }
 
     public void DestroyTrain()

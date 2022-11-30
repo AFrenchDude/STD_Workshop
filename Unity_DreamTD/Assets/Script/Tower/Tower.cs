@@ -8,7 +8,6 @@ public class Tower : MonoBehaviour, IPickerGhost
     private DamageableDetector _damageableDetector = null;
     private WeaponController _weaponController = null;
     private RangeIndicator _rangeIndicator = null;
-
     private TowersDatas _datas;
     private List<Damageable> allTargetedDamageable = new List<Damageable>();
 
