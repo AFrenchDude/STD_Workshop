@@ -38,8 +38,11 @@ public class DamagerEffect_Star_1 : ADamagerEffect
             {
                 Status_Stun currententityStatusSlow = hitDamageable.gameObject.AddComponent<Status_Stun>();
                 currententityStatusSlow.SetStunDuration(_starEffectData.StunDuration);
+                currententityStatusSlow.SetStunVFX(_starEffectData.StunVFX);
             }
         }
+
+        diceRoll = Random.Range(0f, 1f);
         if (diceRoll <= _starEffectData.BounceChance)
         {
             _bounceDone++;
