@@ -2364,6 +2364,7 @@ GameObject:
   - component: {fileID: 6149849495121591625}
   - component: {fileID: 6577298122030372110}
   - component: {fileID: 7711848617926813068}
+  - component: {fileID: 5992780186286928335}
   m_Layer: 0
   m_Name: Camera.Main
   m_TagString: MainCamera
@@ -2378,7 +2379,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6149849495121591621}
-  m_LocalRotation: {x: -0.18910755, y: -0, z: -0, w: 0.9819564}
+  m_LocalRotation: {x: 0.22975294, y: -0, z: -0, w: 0.973249}
   m_LocalPosition: {x: 0, y: -40, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2536,6 +2537,14 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 7548636534247857535}
+--- !u!81 &5992780186286928335
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6149849495121591621}
+  m_Enabled: 1
 --- !u!1 &8045286869932355033
 GameObject:
   m_ObjectHideFlags: 0
@@ -4135,6 +4144,11 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 608284446}
+    - target: {fileID: 7535405996890738755, guid: 6812e3fe64ff9fd4d8be63e49b7d7ab4,
+        type: 3}
+      propertyPath: upgradeButton
+      value: 
+      objectReference: {fileID: 1316997315}
     - target: {fileID: 7535405996890738759, guid: 6812e3fe64ff9fd4d8be63e49b7d7ab4,
         type: 3}
       propertyPath: m_Name
