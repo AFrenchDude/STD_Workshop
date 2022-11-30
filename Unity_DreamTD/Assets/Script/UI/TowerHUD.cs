@@ -8,6 +8,7 @@ public class TowerHUD : MonoBehaviour
 {
     public GameObject tower;
     [SerializeField] private GameObject changeTypeHUD;
+    [SerializeField] private GameObject upgradeButton;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image productionIcon;
     [SerializeField] private Toggle toggle;
@@ -16,29 +17,24 @@ public class TowerHUD : MonoBehaviour
 
     [HideInInspector] public Tower towerScriptRef;
     private TowerGetProjectile towerGetProjectileScriptRef;
-    [HideInInspector] public float productionValue;
+    [HideInInspector] public int productionValue;
     private float currentResources;
     private float maxResources;
 
     //Set resources text and slider
     private void Update()
     {
-        text.SetText("Production: " + productionValue);
+        currentResources = tower.GetComponent<TowerManager>().TowersData.Projectiles[0].ProjectileAmmount;
+        text.SetText("Production: " + currentResources);
         if (tower != null && towerGetProjectileScriptRef != null)
         {
-            currentResources = towerGetProjectileScriptRef.projectiles;
-            maxResources = towerGetProjectileScriptRef.maxRessource;
-            slider.value = currentResources / maxResources;
+            maxResources = tower.GetComponent<TowerManager>().TowersData.MaxProjectilesAmmount;
+            slider.value = (currentResources / maxResources);
         }
         if (gameObject.activeSelf)
         {
             towerScriptRef.RangeIndicator.EnableRangeIndicator(true);
         }
-    }
-
-    public void OnProductionValueChange(Single newValue)
-    {
-        productionValue = newValue * towerGetProjectileScriptRef.maxRessource;
     }
 
     public void OnPick(GameObject towerClicked)
@@ -51,6 +47,15 @@ public class TowerHUD : MonoBehaviour
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
         dropdown.value = (int)towerScriptRef._targetPriority;
         towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
+
+        if (tower.GetComponent<TowerManager>().TowersData.canUpgrade)
+        {
+            upgradeButton.SetActive(true);
+        }
+        else
+        {
+            upgradeButton.SetActive(false);
+        }
     }
 
     public void OnUnpick()
@@ -74,6 +79,8 @@ public class TowerHUD : MonoBehaviour
     public void Upgrade()
     {
         tower.GetComponent<TowerManager>().TowersData.Upgrade();
+        towerScriptRef.RangeIndicator.UpdateCircle();
+        OnPick(tower);
     }
 
     public void EmptyTower()

@@ -7,6 +7,16 @@ public abstract class AProjectile : MonoBehaviour
     [SerializeField] private bool _destroyOnAttack = true;
     [SerializeField] private float _movementSpeed = 0.0f;
 
+    private TowersDatas.fireType _fireType;
+    public TowersDatas.fireType getFireType
+    {
+        get { return _fireType; }
+    }
+    public void SetFireType(TowersDatas.fireType fireType)
+    {
+        _fireType = fireType;
+    }
+
     private Transform _target;
 
     public void SetSpeed(float speed)
@@ -44,7 +54,7 @@ public abstract class AProjectile : MonoBehaviour
         }
     }
 
-    protected virtual void OnDamageDone()
+    protected virtual void OnDamageDone(Damageable hitDamageable)
     {
         if (_destroyOnAttack)
         {
@@ -55,5 +65,10 @@ public abstract class AProjectile : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _target = target;
+    }
+
+    public void SetDestroyOnAttack(bool destroyOnAttack)
+    {
+        _destroyOnAttack = destroyOnAttack;
     }
 }
