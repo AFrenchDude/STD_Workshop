@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 //Made By Melinon Remy
@@ -16,6 +17,8 @@ public class ProjectileType : ScriptableObject
     public UnityEngine.GameObject projectile;
 
     public Sprite icon;
+
+    public List<AudioClip> shotSound;
 
     public NightmareData.NighmareType convertProjectileToNightmare()
     {
