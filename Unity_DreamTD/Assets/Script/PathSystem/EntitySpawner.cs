@@ -53,6 +53,10 @@ public class EntitySpawner : MonoBehaviour
             if (WaveDatabaseManager.Instance.WaveDatabase.GetWaveElementFromType(nextEntity.EntityType, out WaveEntity outEntity) == true)
             {
                 outEntity = InstantiateEntity(outEntity);
+
+                //Rotate to path direction at spawning
+                outEntity.transform.rotation = Quaternion.LookRotation(_path.getStartDirection);
+
                 outEntity.SetPath(_path.LanesList[_pathLaneIndex]);
                 _pathLaneIndex++;
                 if (_pathLaneIndex >= _path.LanesList.Count)

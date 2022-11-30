@@ -19,7 +19,13 @@ public class DamagerEffect_Star_1 : ADamagerEffect
             _aprojectileRef.SetDestroyOnAttack(false);
         }
     }
+    //private void Update()
+    //{
+    //    if (true)
+    //    {
 
+    //    }
+    //}
     public override void DamageEffect(Damageable hitDamageable)
     {
         
@@ -43,7 +49,7 @@ public class DamagerEffect_Star_1 : ADamagerEffect
                 Damageable nearestDamageable = TryFindNearestDamageable(hitobjects, hitDamageable);
                 if (nearestDamageable != null)
                 {
-                    _aprojectileRef.SetTarget(nearestDamageable.transform);
+                    _aprojectileRef.SetTarget(nearestDamageable.TargetAnchor);
                     _previousDamageable.Add(hitDamageable);
                 }
                 else
