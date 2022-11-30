@@ -5,12 +5,11 @@ public class PlayerDrag : MonoBehaviour
 {
     [SerializeField] private LayerMask _interactibleLayer;
     [SerializeField] private float _snapDetectionRange = 5.0f;
-    [SerializeField] private float _towerToRailDistance = 3.0f;
+    [SerializeField] private float _buildToRailDistance = 3.0f;
 
     private IPickerGhost _ghost = null;
     private bool _isDragging = false;
     private bool _isSnappedToRail = false;
-
 
     private void Update()
     {
@@ -41,7 +40,7 @@ public class PlayerDrag : MonoBehaviour
                         towerSnapDirection = towerSnapDirection * (-1);
                     }
 
-                    Vector3 towerSnapVector = nearestSplinePoint.position + towerSnapDirection * _towerToRailDistance;
+                    Vector3 towerSnapVector = nearestSplinePoint.position + towerSnapDirection * _buildToRailDistance;
 
 
                     SnapDraggedItemToRail(towerSnapVector, nearestSplinePoint);

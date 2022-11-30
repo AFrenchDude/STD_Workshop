@@ -1,6 +1,4 @@
 //From Template
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "DreamTD/Tower Description", fileName = "TowerDescription")]
@@ -26,6 +24,7 @@ public class TowerDescription : ScriptableObject
     public Tower Instantiate()
     {
         Tower spawnedSentry = Instantiate(_prefab);
+        spawnedSentry.transform.GetComponent<HUDwhenSelect>().hudRef = LevelReferences.Instance.Player.GetComponent<Selector>().towerHUD;
         spawnedSentry.SetPrice(_price);
         return spawnedSentry;
     }

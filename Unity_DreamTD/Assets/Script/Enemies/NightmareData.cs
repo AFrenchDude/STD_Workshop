@@ -9,7 +9,8 @@ public class NightmareData : ScriptableObject
     {
         Vegetables,
         Skeleton,
-        Insects
+        Insects,
+        Neutral
     }
 
     public enum NightmareFunction
@@ -44,4 +45,10 @@ public class NightmareData : ScriptableObject
     public int rewardGold => _rewardGold;
     public float maxLife => _maxLife;
     public Color debugColor => _debugColor;
+
+
+    public NighmareType getNightmareType
+    {
+        get { return _nighmareType; }
+    }
 }

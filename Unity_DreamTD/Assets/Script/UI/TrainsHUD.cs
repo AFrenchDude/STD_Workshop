@@ -1,18 +1,21 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
+//Made by Melinon Remy
 public class TrainsHUD : MonoBehaviour
 {
     public GameObject train;
-    public TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject wagonsHUD;
     [SerializeField] private GameObject changeTypeHUD;
     [SerializeField] private GameObject upgradeButton;
     private TrainLevel trainLevel;
 
     //HUD info
-    public void PickTrain()
+    public void PickTrain(GameObject pickedTrain)
     {
+        train = pickedTrain;
         trainLevel = train.transform.GetComponentInChildren<TrainLevel>();
         text.SetText("Level " + trainLevel.currentLevel);
         trainLevel = train.transform.GetComponentInChildren<TrainLevel>();
@@ -38,11 +41,17 @@ public class TrainsHUD : MonoBehaviour
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
     }
 
+    public void Unpick()
+    {
+        train = null;
+    }
+
     //Add new wagon in HUD
     public void SetWagons(int wagonRef)
     {
         changeTypeHUD.GetComponent<ChangeType>().objectToChange = train.GetComponentInChildren<Locomotive>().wagons[wagonRef].gameObject;
         changeTypeHUD.SetActive(true);
+        changeTypeHUD.GetComponent<ChangeType>().noTypeButton.SetActive(false);
         for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
         {
             if (train.GetComponentInChildren<Locomotive>().wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
@@ -54,30 +63,53 @@ public class TrainsHUD : MonoBehaviour
                 wagonsHUD.transform.GetChild(i).gameObject.SetActive(false);
             }
         }
-        PickTrain();
+        PickTrain(train);
     }
 
     //HUD button effect
     public void Upgrade()
     {
-        trainLevel.currentLevel++;
-        text.SetText("Level " + trainLevel.currentLevel);
-        if (trainLevel.currentLevel >= trainLevel.maxLevel)
+        train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
+        if (!train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<Wagon>().hasTriggered)
         {
-            upgradeButton.SetActive(false);
+            trainLevel.currentLevel++;
+            text.SetText("Level " + trainLevel.currentLevel);
+            if (trainLevel.currentLevel >= trainLevel.maxLevel)
+            {
+                upgradeButton.SetActive(false);
+            }
+            else
+            {
+                upgradeButton.SetActive(true);
+            }
+            train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<MeshRenderer>().enabled = true;
+            train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
+            PickTrain(train);
         }
         else
         {
-            upgradeButton.SetActive(true);
+            train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<Wagon>().hasTriggered = false;
         }
-        train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<MeshRenderer>().enabled = true;
-        PickTrain();
     }
 
     public void DestroyTrain()
     {
+        Base.Instance.AddGold(train.GetComponentInChildren<Locomotive>().Price / 2);
         gameObject.SetActive(false);
         changeTypeHUD.SetActive(false);
         Destroy(train);
+    }
+
+    //Set wagons resources text & images
+    private void Update()
+    {
+        for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
+        {
+            if (train.GetComponentInChildren<Locomotive>().wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
+            {
+                wagonsHUD.transform.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().SetText(train.GetComponentInChildren<Locomotive>().wagons[i].projectiles + "");
+                wagonsHUD.transform.GetChild(i).GetChild(1).GetComponent<Image>().sprite = train.GetComponentInChildren<Locomotive>().wagons[i].type.icon;
+            }
+        }
     }
 }
