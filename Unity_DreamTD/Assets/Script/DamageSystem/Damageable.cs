@@ -10,6 +10,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private bool _destroyOnDeath = true;
     [SerializeField] private Transform _targetAnchor = null;
+    [SerializeField] private Transform _headAnchor = null;
     private float _health = 100;
 
     public NightmareData.NighmareType NightmareType => _nightmareType;
@@ -19,6 +20,7 @@ public class Damageable : MonoBehaviour
     public int MaxHP => _maxHealth;
     public float CurrentHealth => _health;
     public Transform TargetAnchor => _targetAnchor;
+    public Transform HeadAnchor => _headAnchor;
 
     public void setMaxHp(float maxHp)
     {
