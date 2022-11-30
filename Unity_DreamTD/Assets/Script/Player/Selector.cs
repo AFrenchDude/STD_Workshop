@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 //Made by Melinon Remy
 public class Selector : MonoBehaviour
 {
-    [SerializeField] private GameObject towerHUD;
+    public GameObject towerHUD;
+    public GameObject usineHUD;
     [SerializeField] LayerMask interactibleLayer;
     private HUDwhenSelect openHUDref;
     private bool isMouseOnUI;
@@ -21,26 +22,19 @@ public class Selector : MonoBehaviour
             {
                 if (openHUDref != null)
                 {
-                    openHUDref.OnClick(false);
+                    openHUDref.OnDeselect();
+                    openHUDref = null;
                 }
                 if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
                 {
                     openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
-                    //give tower hud to tower
-                    if (hit.transform.gameObject.GetComponent<Tower>() != null)
-                    {
-                        openHUDref.hudRef = towerHUD;
-                    }
-                    openHUDref.OnClick(true);
+                    openHUDref.OnSelect();
                 }
             }
             else if (openHUDref != null && !isMouseOnUI)
             {
-                if (openHUDref.hudRef.GetComponent<TowerHUD>() != null)
-                {
-                    openHUDref.hudRef.GetComponent<TowerHUD>().towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
-                }
-                openHUDref.OnClick(false);
+                openHUDref.OnDeselect();
+                openHUDref = null;
             }
         }
     }

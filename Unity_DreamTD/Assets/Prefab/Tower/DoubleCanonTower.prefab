@@ -513,6 +513,7 @@ GameObject:
   - component: {fileID: 7761453877985625022}
   - component: {fileID: 7761453877985625021}
   - component: {fileID: 3357300029516897393}
+  - component: {fileID: 3437310467739775797}
   m_Layer: 0
   m_Name: DoubleCanonTower
   m_TagString: Untagged
@@ -557,7 +558,6 @@ MonoBehaviour:
   _colliders:
   - {fileID: 7761453877599934002}
   - {fileID: 6661273484294505523}
-  - {fileID: 288735858935319516}
   _materialGreen: {fileID: 2100000, guid: e21208de5972b604492d7810b240238c, type: 2}
   _materialRed: {fileID: 2100000, guid: d6f519558150966419f3186d645c4b70, type: 2}
   _dragNDroppableLayer:
@@ -627,6 +627,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towersDatas: {fileID: 11400000, guid: 272081a013a6d704aab6b2408e1cf2bf, type: 2}
   _rangeDetector: {fileID: 7761453877599934002}
+--- !u!114 &3437310467739775797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7761453877985624994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2cf2f95ee3f30b479cdc8402c3bb52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hudRef: {fileID: 0}
 --- !u!1 &7761453878311130851
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,8 +992,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8151689b730a58458bf166c921c686c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: {fileID: 0}
-  projectiles: []
+  type: {fileID: 11400000, guid: b388f19e7a8730f4a8cd927f93160b44, type: 2}
+  projectiles: 0
   maxRessource: 20
 --- !u!1 &8064873225293547143
 GameObject:
