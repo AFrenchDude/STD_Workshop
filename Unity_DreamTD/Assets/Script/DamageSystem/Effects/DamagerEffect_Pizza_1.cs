@@ -1,11 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+//By ALBERT Esteban
 using UnityEngine;
 
 public class DamagerEffect_Pizza_1 : ADamagerEffect
 {
-    public override void DamageEffect()
+    [SerializeField] PizzaEffect_1 _pizzaEffectData;
+    [SerializeField] ProjectileUpgradeData.FoodUpgrades _projectileUpgrade = ProjectileUpgradeData.FoodUpgrades.ExplosivePepperoni;
+
+    public override void DamageEffect(Damageable hitDamageable)
     {
-        //Explode
+        int hitCount = 0;
+        Collider[] hitobjects = Physics.OverlapSphere(transform.position, _pizzaEffectData.ExplosionRadius, _pizzaEffectData.LayerHitbox);
+        foreach (var collider in hitobjects)
+        {
+            Damageable colliderDamageable = collider.GetComponentInParent<Damageable>();
+            if (colliderDamageable != null)
+            {
+                colliderDamageable.TakeDamage(_pizzaEffectData.ExplosionDamage, out float health);
+                hitCount++;
+            }
+        }
+        GameObject vfx = Instantiate(_pizzaEffectData.ExplosionVFX);
+        vfx.transform.position = transform.position;
+        Destroy(vfx, 5.0f);
+    }
+
+    public override ProjectileUpgradeData.FoodUpgrades GetFoodUpgradeValue()
+    {
+        return _projectileUpgrade;
     }
 }
