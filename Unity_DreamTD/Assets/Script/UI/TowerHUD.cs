@@ -1,97 +1,104 @@
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Made by Melinon Remy
 public class TowerHUD : MonoBehaviour
 {
-    public TowerGetProjectile tower;
+    public GameObject tower;
     [SerializeField] private GameObject changeTypeHUD;
+    [SerializeField] private GameObject upgradeButton;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image productionIcon;
     [SerializeField] private Toggle toggle;
     [SerializeField] private Slider slider;
     [SerializeField] private TMP_Dropdown dropdown;
-    [HideInInspector] public float productionValue;
 
+    [HideInInspector] public Tower towerScriptRef;
+    private TowerGetProjectile towerGetProjectileScriptRef;
+    [HideInInspector] public int productionValue;
     private float currentResources;
     private float maxResources;
 
+    //Set resources text and slider
     private void Update()
     {
-        text.SetText("Production: " + productionValue);
-        if (tower != null)
+        currentResources = tower.GetComponent<TowerManager>().TowersData.Projectiles[0].ProjectileAmmount;
+        text.SetText("Production: " + currentResources);
+        if (tower != null && towerGetProjectileScriptRef != null)
         {
-            currentResources = tower.projectiles.Count;
-            maxResources = tower.maxRessource;
-            slider.value = currentResources / maxResources;
-
+            maxResources = tower.GetComponent<TowerManager>().TowersData.MaxProjectilesAmmount;
+            slider.value = (currentResources / maxResources);
+        }
+        if (gameObject.activeSelf)
+        {
+            towerScriptRef.RangeIndicator.EnableRangeIndicator(true);
         }
     }
 
-    // PLEASE REMY PUT THESE TWO TWIN METHOD IN THE CORRECT PLACE WHEN OPENING CLOSING THE UI, HAVING MULTIPLE TOWER CAUSE PROBLEMS
-    private void OnEnable()
+    public void OnPick(GameObject towerClicked)
     {
-            Tower towerRef = tower.transform.parent.GetComponent<Tower>();
-            if (towerRef != null)
-            {
-                towerRef.RangeIndicator.EnableRangeIndicator(true);
-            }
-    }
-    // PLEASE REMY PUT THESE TWO TWIN METHOD IN THE CORRECT PLACE WHEN OPENING CLOSING THE UI, HAVING MULTIPLE TOWER CAUSE PROBLEMS
-    private void OnDisable()
-    {
-        Tower towerRef = tower.transform.parent.GetComponent<Tower>();
-        if (towerRef != null)
-        {
-            towerRef.RangeIndicator.EnableRangeIndicator(false);
-        }
-    }
-    // PLEASE REMY PUT THESE TWO TWIN METHOD IN THE CORRECT PLACE WHEN OPENING CLOSING THE UI, HAVING MULTIPLE TOWER CAUSE PROBLEMS
-
-    public void OnProductionValueChange(Single newValue)
-    {
-        productionValue = newValue * tower.maxRessource;
-    }
-
-    public void OnPick()
-    {
-        productionIcon.sprite = tower.type.icon;
-        toggle.isOn = tower.transform.parent.GetComponent<WeaponController>().canShoot;
+        tower = towerClicked;
+        towerScriptRef = tower.GetComponent<Tower>();
+        towerGetProjectileScriptRef = tower.GetComponentInChildren<TowerGetProjectile>();
+        productionIcon.sprite = towerGetProjectileScriptRef.type.icon;
+        toggle.isOn = tower.GetComponent<WeaponController>().canShoot;
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
-        dropdown.value = (int)tower.transform.parent.GetComponent<Tower>()._targetPriority;
-        //Tower towerRef = tower.transform.parent.GetComponent<Tower>();
-        //if (towerRef != null)
-        //{
-        //    towerRef.RangeIndicator.EnableRangeIndicator(true);
-        //}
+        dropdown.value = (int)towerScriptRef._targetPriority;
+        towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
+
+        if (tower.GetComponent<TowerManager>().TowersData.canUpgrade)
+        {
+            upgradeButton.SetActive(true);
+        }
+        else
+        {
+            upgradeButton.SetActive(false);
+        }
+    }
+
+    public void OnUnpick()
+    {
+        towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
+        towerScriptRef = null;
+        towerGetProjectileScriptRef = null;
+        tower = null;
     }
 
     public void ChangeTowerBehaviour(Int32 newBehaviour)
     {
-        tower.transform.parent.GetComponent<Tower>()._targetPriority = (TargetPriority)newBehaviour;
+        towerScriptRef._targetPriority = (TargetPriority)newBehaviour;
     }
 
     public void SetOnOff(bool isOn)
     {
-        tower.transform.parent.GetComponent<WeaponController>().canShoot = isOn;
+        tower.GetComponent<WeaponController>().canShoot = isOn;
+    }
+
+    public void Upgrade()
+    {
+        tower.GetComponent<TowerManager>().TowersData.Upgrade();
+        towerScriptRef.RangeIndicator.UpdateCircle();
+        OnPick(tower);
     }
 
     public void EmptyTower()
     {
-        tower.projectiles.Clear();
-    }
-
-    public void DestroyTower()
-    {
-        Destroy(tower.transform.parent.gameObject);
-        gameObject.SetActive(false);
+        towerGetProjectileScriptRef.projectiles = 0;
     }
 
     public void ChangeType()
     {
-        changeTypeHUD.GetComponent<ChangeType>().objectToChange = tower.gameObject;
+        changeTypeHUD.GetComponent<ChangeType>().objectToChange = tower;
         changeTypeHUD.SetActive(true);
+        changeTypeHUD.GetComponent<ChangeType>().noTypeButton.SetActive(true);
+    }
+
+    public void DestroyTower()
+    {
+        Base.Instance.AddGold(towerScriptRef.Price - (towerScriptRef.Price / 3));
+        Destroy(tower);
+        gameObject.SetActive(false);
     }
 }
