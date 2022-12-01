@@ -12,6 +12,13 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     public int Price => _price;
     private Material originalMaterial;
 
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public FactoryDatas getFactoryData
     {
         get { return _factoryDatas; }
@@ -41,6 +48,10 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         _factoryDatas = Instantiate(_factoryDatas);
         _factoryDatas.SetProductionEnable(isEnabled);
         enabled = isEnabled;
+        if (isEnabled)
+        {
+            audioSource.Play();
+        }
     }
 
     #region DragNDrop Interface & system

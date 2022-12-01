@@ -94,10 +94,21 @@ public class TrainsHUD : MonoBehaviour
 
     public void DestroyTrain()
     {
-        Base.Instance.AddGold(train.GetComponentInChildren<Locomotive>().Price / 2);
-        gameObject.SetActive(false);
-        changeTypeHUD.SetActive(false);
-        Destroy(train);
+        bool canDestroy = true;
+        foreach (GameObject trainReferencedInStation in LevelReferences.Instance.Station.GetComponent<StationBehaviour>().trains)
+        {
+            if (trainReferencedInStation == train)
+            {
+                canDestroy = false;
+            }
+        }
+        if(canDestroy)
+        {
+            Base.Instance.AddGold(train.GetComponentInChildren<Locomotive>().Price / 2);
+            gameObject.SetActive(false);
+            changeTypeHUD.SetActive(false);
+            Destroy(train);
+        }
     }
 
     //Set wagons resources text & images
