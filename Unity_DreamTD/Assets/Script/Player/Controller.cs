@@ -1,6 +1,7 @@
 //Made by Melinon Remy
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Controller : MonoBehaviour
@@ -25,7 +26,10 @@ public class Controller : MonoBehaviour
     private Vector2 zoomValue;
     private bool isZooming;
     private int zoomStep;
-    
+
+    [SerializeField] private PauseBehaviour pauseBehaviour;
+    [HideInInspector] public bool isInPause = false;
+
 
     private void Awake()
     {
@@ -39,11 +43,11 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
-        if(isRotating)
+        if (isRotating && !isInPause)
         {
             transform.rotation *= Quaternion.Euler(new Vector3(transform.rotation.x, moveValue.y * speedMove, transform.rotation.z));
         }
-        if(isZooming)
+        if (isZooming && !isInPause)
         {
             if (zoomValue.y > 0 && zoomStep < zoomNumber)
             {
@@ -90,12 +94,12 @@ public class Controller : MonoBehaviour
     public void OnScroll(InputAction.CallbackContext obj)
     {
         zoomValue = obj.ReadValue<Vector2>() / 120;
-        if (zoomValue.y > 0 && zoomStep < zoomNumber)
+        if (zoomValue.y > 0 && zoomStep < zoomNumber && !isInPause)
         {
             zoomStep++;
             transposer.m_FollowOffset += new Vector3(0, 0, zoomValue.y * speedZoom);
         }
-        if (zoomValue.y < 0 && zoomStep > 0)
+        if (zoomValue.y < 0 && zoomStep > 0 && !isInPause)
         {
             zoomStep--;
             transposer.m_FollowOffset += new Vector3(0, 0, zoomValue.y * speedZoom);
@@ -104,7 +108,7 @@ public class Controller : MonoBehaviour
 
     public void OnMouseMove(InputAction.CallbackContext obj)
     {
-        if(isPressingRightMouse)
+        if (isPressingRightMouse && !isInPause)
         {
             if (obj.ReadValue<Vector2>().x < 0)
             {
@@ -129,5 +133,9 @@ public class Controller : MonoBehaviour
         {
             isPressingRightMouse = false;
         }
+    }
+    public void Pause(InputAction.CallbackContext obj)
+    {
+        pauseBehaviour.Pause();
     }
 }
