@@ -47,7 +47,6 @@ public class DamageableDetector : MonoBehaviour
 
 
     // Damageable functions
-
     private void Damageable_OnDied(Damageable caller)
     {
         _damageablesInRange.Remove(caller);
