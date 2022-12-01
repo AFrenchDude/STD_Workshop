@@ -1802,7 +1802,7 @@ GameObject:
   - component: {fileID: 198857632533984338}
   - component: {fileID: 1743495332113184821}
   - component: {fileID: 8296934866839386847}
-  - component: {fileID: 1456771081712272418}
+  - component: {fileID: 6054750447476508147}
   m_Layer: 5
   m_Name: Button.CameraSwitch
   m_TagString: Untagged
@@ -1913,9 +1913,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1456771081712272418}
-        m_TargetAssemblyTypeName: ChangeCameraButton, Assembly-CSharp
-        m_MethodName: CameraSwitch
+      - m_Target: {fileID: 6054750447476508147}
+        m_TargetAssemblyTypeName: CameraSwitch, Assembly-CSharp
+        m_MethodName: SwitchCamera
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1925,7 +1925,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1456771081712272418
+--- !u!114 &6054750447476508147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1934,7 +1934,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1147490850446226423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ee6a853169f1044f9fcc045d5be8a8c, type: 3}
+  m_Script: {fileID: 11500000, guid: d4e739bd6efabd648b5bbe247f923b5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraList:
@@ -2062,7 +2062,7 @@ GameObject:
   - component: {fileID: 65957332153635282}
   - component: {fileID: 4458188123564486178}
   - component: {fileID: 4552044184977025975}
-  - component: {fileID: 6301007958209030025}
+  - component: {fileID: 3245545940518465677}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2218,7 +2218,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6301007958209030025}
+      - m_Target: {fileID: 3245545940518465677}
         m_TargetAssemblyTypeName: EasterEggTrigger, Assembly-CSharp
         m_MethodName: SelectInput
         m_Mode: 0
@@ -2286,7 +2286,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6301007958209030025}
+      - m_Target: {fileID: 3245545940518465677}
         m_TargetAssemblyTypeName: EasterEggTrigger, Assembly-CSharp
         m_MethodName: CancelInput
         m_Mode: 0
@@ -2337,7 +2337,7 @@ MonoBehaviour:
   m_DefaultActionMap: ActionMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 6149849495121591627}
---- !u!114 &6301007958209030025
+--- !u!114 &3245545940518465677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2346,11 +2346,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6149849494789762010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0d122a08ab30784386063f6a6d1c6f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 385098dd006b14f4a84006bfc1b3d007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _valuePerStep: 01000000030000000500000007000000080000000a0000000b0000000c0000000e000000
-  _hiddenButton: {fileID: 1147490850446226423}
+  _easterEgg: {fileID: 1147490850446226423}
 --- !u!1 &6149849495121591621
 GameObject:
   m_ObjectHideFlags: 0
@@ -2379,7 +2379,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6149849495121591621}
-  m_LocalRotation: {x: 0.22975294, y: -0, z: -0, w: 0.973249}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -40, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

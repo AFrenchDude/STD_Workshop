@@ -90,7 +90,7 @@ public class DamageableDetector : MonoBehaviour
 
             if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType || projectileNightmareType == NightmareData.NighmareType.Neutral)
             {
-                float checkedDistance = (_damageablesInRange[i].transform.position - transform.position).magnitude;
+                float checkedDistance = (_damageablesInRange[i].transform.position - transform.position).sqrMagnitude;
                 if (gettingNearest)
                 {
                     if (checkedDistance < recordDistance)
