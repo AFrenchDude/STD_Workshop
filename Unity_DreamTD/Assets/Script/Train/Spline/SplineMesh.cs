@@ -11,6 +11,7 @@ public class SplineMesh : MonoBehaviour
     private Mesh mesh;
     private MeshFilter meshFilter;
 
+    
     private void Awake()
     {
         meshFilter = GetComponent<MeshFilter>();
