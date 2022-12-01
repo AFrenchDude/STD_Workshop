@@ -18,6 +18,12 @@ public class Path : MonoBehaviour
     [SerializeField] private Color _lineColor = Color.white;
     private readonly Vector3 _offset = new Vector3(0, 0.5f, 0);
 
+    private Vector3 _startDirection;
+    public Vector3 getStartDirection
+    {
+        get { return _startDirection.normalized; }
+    }
+
     public List<List<Vector3>> LanesList => _laneList;
 
     private void Awake()
@@ -34,6 +40,9 @@ public class Path : MonoBehaviour
             }
             _laneList.Add(PopulateNewLaneList(newLaneOffset));
         }
+
+        //Set start directon of path
+        _startDirection = _waypoints[1].position - _waypoints[0].position;
     }
 
     private List<Vector3> PopulateNewLaneList(float laneOffset)

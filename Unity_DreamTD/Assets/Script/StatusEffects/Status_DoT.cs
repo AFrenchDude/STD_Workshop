@@ -27,6 +27,7 @@ public class Status_DoT : MonoBehaviour
             _damageable.TakeDamage(_tickDamage, out float health);
             GameObject spawnedVFX = Instantiate(_dotVFX);
             spawnedVFX.transform.position = transform.position;
+            spawnedVFX.transform.parent = transform;
             Destroy(spawnedVFX, 5.0f);
             _lastTickTime = Time.time;
         }

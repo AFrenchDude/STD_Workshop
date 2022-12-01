@@ -19,7 +19,13 @@ public class DamagerEffect_Star_1 : ADamagerEffect
             _aprojectileRef.SetDestroyOnAttack(false);
         }
     }
+    //private void Update()
+    //{
+    //    if (true)
+    //    {
 
+    //    }
+    //}
     public override void DamageEffect(Damageable hitDamageable)
     {
         
@@ -32,8 +38,11 @@ public class DamagerEffect_Star_1 : ADamagerEffect
             {
                 Status_Stun currententityStatusSlow = hitDamageable.gameObject.AddComponent<Status_Stun>();
                 currententityStatusSlow.SetStunDuration(_starEffectData.StunDuration);
+                currententityStatusSlow.SetStunVFX(_starEffectData.StunVFX);
             }
         }
+
+        diceRoll = Random.Range(0f, 1f);
         if (diceRoll <= _starEffectData.BounceChance)
         {
             _bounceDone++;
@@ -43,7 +52,7 @@ public class DamagerEffect_Star_1 : ADamagerEffect
                 Damageable nearestDamageable = TryFindNearestDamageable(hitobjects, hitDamageable);
                 if (nearestDamageable != null)
                 {
-                    _aprojectileRef.SetTarget(nearestDamageable.transform);
+                    _aprojectileRef.SetTarget(nearestDamageable.TargetAnchor);
                     _previousDamageable.Add(hitDamageable);
                 }
                 else
