@@ -16,6 +16,7 @@ public class OpenInfo : MonoBehaviour
 
     private void OnMouseOver()
     {
+        animator.SetTrigger("Info");
         info.SetActive(true);
     }
 
