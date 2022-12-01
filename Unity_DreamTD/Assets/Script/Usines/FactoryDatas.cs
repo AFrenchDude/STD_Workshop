@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "DreamTD/Factories/FactoryDatas", fileName = "FactoryDatas")]
@@ -19,7 +20,7 @@ public class FactoryDatas : ScriptableObject
     private float _productionRate;
 
     [SerializeField]
-    private bool _isProduction;
+    private bool _isProduction = false;
 
     [SerializeField]
     private int _sellPrice;
@@ -38,6 +39,10 @@ public class FactoryDatas : ScriptableObject
     public FactoryUpgradeData CurrentUpgrade => _currentUpgrade;
 
 
+    private void Awake()
+    {
+        _ammount = 0;
+    }
     //Functions
 
     public void AddProjectile(int ammount)
