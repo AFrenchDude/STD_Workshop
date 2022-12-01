@@ -5,16 +5,20 @@ using UnityEngine;
 public class WaveEntityDescription
 {
     [SerializeField]
-    private EntityType _entityType = EntityType.None;
+    private NightmareData _nightmareData = null;
 
     [SerializeField]
     private float _extraDurationAfterSpawned = 0;
 
-    public EntityType EntityType
+    [Range(1, 3)]
+    [SerializeField]
+    private int _spawningLane;
+
+    public NightmareData NightmareData
     {
         get
         {
-            return _entityType;
+            return _nightmareData;
         }
     }
 
@@ -23,6 +27,14 @@ public class WaveEntityDescription
         get
         {
             return _extraDurationAfterSpawned;
+        }
+    }
+
+    public int SpawningLane
+    {
+        get
+        {
+            return _spawningLane;
         }
     }
 }
