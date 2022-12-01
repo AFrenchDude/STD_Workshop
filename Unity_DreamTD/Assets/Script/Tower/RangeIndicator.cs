@@ -11,7 +11,7 @@ public class RangeIndicator : MonoBehaviour
     private LineRenderer _line;
     private TowersDatas _towerDatas = null;
 
-    private void Awake()
+    private void Start()
     {
         _line = gameObject.GetComponent<LineRenderer>();
         _line.positionCount = _segments + 1;
