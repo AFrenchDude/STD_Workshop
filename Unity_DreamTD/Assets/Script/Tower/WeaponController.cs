@@ -73,9 +73,12 @@ public class WeaponController : MonoBehaviour
 
     private void Shoot()
     {
-
+        if(audioSource != null)
+        {
         audioSource.clip = _neutralProjectile.shotSound[Random.Range(0, _neutralProjectile.shotSound.Count)];
         audioSource.Play();
+
+        }
         AProjectile spawnedProjectile;
         
         if(_towersData.Projectiles.Count > 0)
