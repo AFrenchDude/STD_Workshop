@@ -11,12 +11,16 @@ public class RangeIndicator : MonoBehaviour
     private LineRenderer _line;
     private TowersDatas _towerDatas = null;
 
-    private void Start()
+    private void Awake()
     {
         _line = gameObject.GetComponent<LineRenderer>();
         _line.positionCount = _segments + 1;
         _line.useWorldSpace = false;
         _towerDatas = GetComponentInParent<TowerManager>().TowersData;
+        
+    }
+    private void Start()
+    {
         UpdateCircle();
     }
 
