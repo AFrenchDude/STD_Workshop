@@ -38,7 +38,7 @@ public class WaveDatabase : ScriptableObject
 
     public bool GetWaveElementFromType(NightmareData nightmareData, out WaveEntity outEntity)
     {
-        WaveEntityData waveEntityData = _waveEntityDatas.Find(entity => entity.NightmareData.nighmareType == nightmareData.nighmareType);
+        WaveEntityData waveEntityData = _waveEntityDatas.Find(entity => entity.NightmareType == nightmareData.nighmareType & entity.NightmareFunction == nightmareData.nightmareFunction);
         if (waveEntityData != null)
         {
             outEntity = waveEntityData.WaveEntityPrefab;           
