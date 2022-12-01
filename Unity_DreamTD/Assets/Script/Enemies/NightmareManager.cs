@@ -20,13 +20,18 @@ public class NightmareManager : MonoBehaviour
         _goldDrop = GetComponent<GoldDrop>();
         _pathFollower = GetComponent<PathFollower>();
         _damageable = GetComponent<Damageable>();
+      
+    }
+
+    public void SetEnemyData(NightmareData nightmareData)
+    {
+        _nightmareData = nightmareData;
 
         //Set up new Scriptable Object
         _nightmareData = Instantiate(_nightmareData);
 
         SetUpEnemy();
     }
-
 
     public void SetUpEnemy()
     {

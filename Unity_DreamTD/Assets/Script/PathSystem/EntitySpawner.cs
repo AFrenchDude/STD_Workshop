@@ -50,20 +50,23 @@ public class EntitySpawner : MonoBehaviour
         {
             var nextEntity = _wave.GetNextWaveElement();
 
-            if (WaveDatabaseManager.Instance.WaveDatabase.GetWaveElementFromType(nextEntity.EntityType, out WaveEntity outEntity) == true)
+            if (WaveDatabaseManager.Instance.WaveDatabase.GetWaveElementFromType(nextEntity.NightmareData, out WaveEntity outEntity) == true)
             {
                 outEntity = InstantiateEntity(outEntity);
-                outEntity.SetPath(_path.LanesList[_pathLaneIndex]);
-                _pathLaneIndex++;
-                if (_pathLaneIndex >= _path.LanesList.Count)
-                {
-                    _pathLaneIndex = 0;
-                }
+                outEntity.GetComponent<NightmareManager>().SetEnemyData(nextEntity.NightmareData);
+
+                //Rotate to path direction at spawning
+                outEntity.transform.rotation = Quaternion.LookRotation(_path.getStartDirection);
+
+                outEntity.SetPath(_path.LanesList[nextEntity.SpawningLane-1]);
+                
+                
+
                 _timer.Set(_wave.DurationBetweenSpawnedEntity + nextEntity.ExtraDurationAfterSpawned).Start();
             }
             else
             {
-                Debug.LogErrorFormat("{0}.UpdateWave() cannot GetWaveElementFromType {1}, no corresponding type found in database.", GetType().Name, nextEntity.EntityType);
+                Debug.LogErrorFormat("{0}.UpdateWave() cannot GetWaveElementFromType {1}, no corresponding type found in database.", GetType().Name, nextEntity.NightmareData.nighmareType);
                 return;
             }
         }

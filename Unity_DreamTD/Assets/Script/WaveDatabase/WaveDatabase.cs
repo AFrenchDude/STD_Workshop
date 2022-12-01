@@ -36,12 +36,12 @@ public class WaveDatabase : ScriptableObject
         get { return _waves; }
     }
 
-    public bool GetWaveElementFromType(EntityType entityType, out WaveEntity outEntity)
+    public bool GetWaveElementFromType(NightmareData nightmareData, out WaveEntity outEntity)
     {
-        WaveEntityData waveEntityData = _waveEntityDatas.Find(entity => entity.EntityType == entityType);
+        WaveEntityData waveEntityData = _waveEntityDatas.Find(entity => entity.NightmareData.nighmareType == nightmareData.nighmareType);
         if (waveEntityData != null)
         {
-            outEntity = waveEntityData.WaveEntityPrefab;
+            outEntity = waveEntityData.WaveEntityPrefab;           
             return true;
         }
         outEntity = null;

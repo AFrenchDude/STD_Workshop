@@ -49,8 +49,7 @@ public abstract class AProjectile : MonoBehaviour
 
         if (_target != null)
         {
-            Vector3 targetPos = new Vector3(_target.position.x, transform.position.y, _target.position.z);
-            transform.rotation = Quaternion.LookRotation(targetPos - transform.position);
+            transform.rotation = Quaternion.LookRotation(_target.position - transform.position); 
         }
     }
 
