@@ -134,7 +134,7 @@ public class WeaponController : MonoBehaviour
 
             // Adapt projectile speed by enemy distance
             float speed = _towersData.ProjectileSpeed * (_target[_muzzleIndx].transform.position - transform.position).sqrMagnitude / (_towersData.Range * _towersData.Range);
-            spawnedProjectile.GetComponent<AProjectile>().SetSpeed(speed);
+            //spawnedProjectile.GetComponent<AProjectile>().SetSpeed(speed);
         }
         else
         {
