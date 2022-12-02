@@ -6,6 +6,7 @@ public class ChangeType : MonoBehaviour
     public GameObject noTypeButton;
     public GameObject objectToChange;
     public GameObject openHUD;
+    public int canonToChange = 0;
 
     //Set new type
     public void ChangingType(ProjectileType type)
@@ -19,8 +20,8 @@ public class ChangeType : MonoBehaviour
         //For tower
         else if(objectToChange.GetComponentInChildren<TowerGetProjectile>() != null)
         {
-            objectToChange.GetComponentInChildren<TowerGetProjectile>().type = type;
-            objectToChange.GetComponent<TowerManager>().TowersData.SetProjectileType(0, type);
+            objectToChange.GetComponentInChildren<TowerGetProjectile>().type[canonToChange] = type;
+            objectToChange.GetComponent<TowerManager>().TowersData.SetProjectileType(canonToChange, type);
             objectToChange.GetComponentInChildren<TowerGetProjectile>().projectiles = 0;
             openHUD.GetComponent<TowerHUD>().OnPick(objectToChange);
         }

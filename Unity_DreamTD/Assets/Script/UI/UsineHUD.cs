@@ -64,10 +64,14 @@ public class UsineHUD : MonoBehaviour
     public void Upgrade()
     {
         _factoryData.Upgrade();
+
+        _factoryTransform.GetComponent<UsineBehaviour>().SetUpgradeMesh(_factoryData.CurrentUpgrade.UpgradePrefab);
+
         if (_factoryData.CurrentUpgrade.NextUpgrade == null)
         {
             upgradeButton.SetActive(false);
         }
+        
     }
 
     public void EmptyUsine()

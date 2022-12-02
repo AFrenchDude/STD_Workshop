@@ -831,7 +831,7 @@ PrefabInstance:
     - target: {fileID: 3654621894069604447, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25.000305
+      value: -25.000244
       objectReference: {fileID: 0}
     - target: {fileID: 4114025014748673426, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
@@ -1275,12 +1275,6 @@ Transform:
   m_Father: {fileID: 1577873908}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1142058234 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1439701703, guid: 2085885483a13104c9cd897da10014a0,
-    type: 3}
-  m_PrefabInstance: {fileID: 957839223}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1204795293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1379,7 +1373,6 @@ MonoBehaviour:
   _railSpline: {fileID: 1892972011}
   _player: {fileID: 820601644}
   _station: {fileID: 532474933}
-  _musicPlayer: {fileID: 1142058234}
 --- !u!1 &1262820475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1828,7 +1821,7 @@ MonoBehaviour:
   - {fileID: 206923920}
   - {fileID: 1744926931}
   - {fileID: 1102908436}
-  _laneNumber: 3
+  _laneNumber: 5
   _laneOffset: 2
   _showGizmos: 1
   _lineColor: {r: 1, g: 0, b: 0, a: 1}
@@ -1889,7 +1882,7 @@ MonoBehaviour:
   - {fileID: 279974673}
   - {fileID: 1732851707}
   - {fileID: 1868611304}
-  _laneNumber: 3
+  _laneNumber: 5
   _laneOffset: 2
   _showGizmos: 1
   _lineColor: {r: 1, g: 0, b: 0, a: 1}
