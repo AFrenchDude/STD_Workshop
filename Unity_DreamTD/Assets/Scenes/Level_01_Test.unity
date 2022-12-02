@@ -8980,7 +8980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &234949426
 Transform:
   m_ObjectHideFlags: 0
@@ -32014,6 +32014,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2047890846, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2047890846, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2047890846, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2047890846, guid: 2085885483a13104c9cd897da10014a0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1456771081712272418, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: _cameraList.Array.size
@@ -32062,7 +32078,7 @@ PrefabInstance:
     - target: {fileID: 6149849494789762011, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20
+      value: 50.9
       objectReference: {fileID: 0}
     - target: {fileID: 6149849494789762011, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
@@ -32106,23 +32122,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6149849495121591624, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149849495121591624, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98635584
+      value: 0.936219
       objectReference: {fileID: 0}
     - target: {fileID: 6149849495121591624, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.16461365
+      value: 0.35141072
       objectReference: {fileID: 0}
     - target: {fileID: 6149849495121591624, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0021166338
+      value: 0.0020090444
       objectReference: {fileID: 0}
     - target: {fileID: 6149849495121591624, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00035324655
+      value: -0.00075409666
       objectReference: {fileID: 0}
     - target: {fileID: 7711848617926813068, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
@@ -38288,6 +38309,7 @@ MonoBehaviour:
   _railSpline: {fileID: 1892972011}
   _player: {fileID: 820601644}
   _station: {fileID: 1035321839}
+  _musicPlayer: {fileID: 0}
 --- !u!1 &1212867987
 GameObject:
   m_ObjectHideFlags: 0
