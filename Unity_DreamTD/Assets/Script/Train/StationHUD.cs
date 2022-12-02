@@ -63,7 +63,7 @@ public class StationHUD : MonoBehaviour
         {
             stationLevel++;
             maxTrainCreatable++;
-            maxTrainsSpeed *= 2;
+            maxTrainsSpeed += 10;
             //Set speed
             foreach (Transform child in container.transform)
             {

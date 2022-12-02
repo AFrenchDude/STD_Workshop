@@ -46,8 +46,15 @@
 
 			var waveDatabase = (serializedObject.targetObject as WaveSet);
 
+<<<<<<< HEAD
 			EditorGUILayout.Space(24);
 			EditorGUILayout.TextArea(string.Format("Duration : {0} seconds", waveDatabase.GetWaveDuration().ToString()));
 		}
 	}
+=======
+        EditorGUILayout.Space(24);
+        //EditorGUILayout.TextArea(string.Format("Duration : {0} seconds", waveDatabase.GetWaveDuration().ToString()));
+    }
+}
+>>>>>>> 9bf052a7dc8f9b44331cd42c98def54c48239595
 #endif //UNITY_EDITOR
