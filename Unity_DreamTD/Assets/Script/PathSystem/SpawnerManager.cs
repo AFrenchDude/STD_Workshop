@@ -144,11 +144,11 @@ public class SpawnerManager : MonoBehaviour
     private IEnumerator WaitForNewWaveSet()
     {
         var waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
-        float waitingDuration = waveDatabase.Waves[_currentWaveSetIndex].WaitingDurationBefore;
+        float waitingDuration = waveDatabase.Waves[_currentWaveSetIndex].WaitingDurationBefore + waveDatabase.DelayBetweenWave;
 
         if (_currentWaveSetIndex - 1 > 0)
         {
-            waitingDuration += waveDatabase.Waves[_currentWaveSetIndex - 1].WaitingDurationAfter;
+            waitingDuration += waveDatabase.Waves[_currentWaveSetIndex - 1].WaitingDurationAfter + waveDatabase.DelayBetweenWave;
         }
 
         Debug.LogFormat("Waiting {0} seconds until next wave.", waitingDuration);
