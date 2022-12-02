@@ -1,4 +1,4 @@
-//From Template
+//From Template & ALEXANDRE Dorian
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,21 +6,6 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif //UNITY_EDITOR
-
-public enum EntityType
-{
-    None,
-    Veggie_Default,
-    Veggie_Flying,
-    Veggie_Sabotage,
-    Ghost_Default,
-    Ghost_Flying,
-    Ghost_Sabotage,
-    Insect_Default,
-    Insect_Flying,
-    Insect_Sabotage
-}
-
 
 [CreateAssetMenu(menuName = "DreamTD/WaveDatabase")]
 public class WaveDatabase : ScriptableObject
@@ -31,14 +16,19 @@ public class WaveDatabase : ScriptableObject
     [SerializeField]
     private List<WaveSet> _waves = null;
 
+    [SerializeField]
+    private float _delayBetweenWave;
+
     public List<WaveSet> Waves
     {
         get { return _waves; }
     }
 
+    public float DelayBetweenWave => _delayBetweenWave;
+
     public bool GetWaveElementFromType(NightmareData nightmareData, out WaveEntity outEntity)
     {
-        WaveEntityData waveEntityData = _waveEntityDatas.Find(entity => entity.NightmareData.nighmareType == nightmareData.nighmareType);
+        WaveEntityData waveEntityData = _waveEntityDatas.Find(entity => entity.NightmareType == nightmareData.nighmareType & entity.NightmareFunction == nightmareData.nightmareFunction);
         if (waveEntityData != null)
         {
             outEntity = waveEntityData.WaveEntityPrefab;           
@@ -48,6 +38,7 @@ public class WaveDatabase : ScriptableObject
         return false;
     }
 }
+
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(WaveDatabase))]
@@ -66,9 +57,11 @@ public class WaveEditor : Editor
     private float GetWaveDuration(List<WaveSet> waves)
     {
         float duration = 0;
+        float delayBtwWave = WaveDatabaseManager.Instance.WaveDatabase.DelayBetweenWave;
         for (int i = 0, length = waves.Count; i < length; i++)
         {
             duration += waves[i].GetWaveDuration();
+            duration += delayBtwWave;
         }
         return duration;
     }
