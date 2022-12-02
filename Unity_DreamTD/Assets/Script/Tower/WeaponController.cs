@@ -1,5 +1,4 @@
 //By ALBERT Esteban & ALEXANDRE Dorian
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,7 +45,6 @@ public class WeaponController : MonoBehaviour
         {
             if (_target.Count >= 1)
             {
-
                 if (_target[i] != null)
                 {
                     Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
@@ -88,15 +86,12 @@ public class WeaponController : MonoBehaviour
                 ProjectileType currentProjectile = _towersData.Projectiles[_muzzleIndx].ProjectileType;
                 spawnedProjectile = Instantiate(currentProjectile.projectile.GetComponent<AProjectile>());
                 _towersData.ReduceProjAmmount(_muzzleIndx, 1);
-
             }
-
             else
             {
                 spawnedProjectile = Instantiate(_neutralProjectile.projectile.GetComponent<AProjectile>());
             }
         }
-        
         else
         {
             spawnedProjectile = Instantiate(_neutralProjectile.projectile.GetComponent<AProjectile>());
