@@ -48,7 +48,7 @@ public class WaveSetEditor : Editor
         var waveDatabase = (serializedObject.targetObject as WaveSet);
 
         EditorGUILayout.Space(24);
-        EditorGUILayout.TextArea(string.Format("Duration : {0} seconds", waveDatabase.GetWaveDuration().ToString()));
+        //EditorGUILayout.TextArea(string.Format("Duration : {0} seconds", waveDatabase.GetWaveDuration().ToString()));
     }
 }
 #endif //UNITY_EDITOR

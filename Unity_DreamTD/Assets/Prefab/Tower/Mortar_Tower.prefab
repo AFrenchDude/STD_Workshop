@@ -232,7 +232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3769519785011522280}
-  - component: {fileID: 8749145102475715387}
+  - component: {fileID: 8095162239555055780}
   m_Layer: 13
   m_Name: DetectionCollision
   m_TagString: Untagged
@@ -255,19 +255,18 @@ Transform:
   m_Father: {fileID: 3769519785095626618}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &8749145102475715387
-CapsuleCollider:
+--- !u!135 &8095162239555055780
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3769519785011522287}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 4
-  m_Height: 25
-  m_Direction: 1
+  serializedVersion: 2
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3769519785095626617
 GameObject:
@@ -283,7 +282,6 @@ GameObject:
   - component: {fileID: 3769519785095626597}
   - component: {fileID: 3769519785095626598}
   - component: {fileID: 9161020986905073695}
-  - component: {fileID: 3235315583447937325}
   m_Layer: 0
   m_Name: Mortar_Tower
   m_TagString: Untagged
@@ -327,7 +325,7 @@ MonoBehaviour:
   _dragNDropMeshes:
   - {fileID: 8018579975213777130}
   _colliders:
-  - {fileID: 8749145102475715387}
+  - {fileID: 0}
   - {fileID: 258859788473825512}
   _materialGreen: {fileID: 2100000, guid: e21208de5972b604492d7810b240238c, type: 2}
   _materialRed: {fileID: 2100000, guid: d6f519558150966419f3186d645c4b70, type: 2}
@@ -395,104 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _towersDatas: {fileID: 11400000, guid: d9ace71a0f106be4c8f3d5db116a387d, type: 2}
-  _rangeDetector: {fileID: 8749145102475715387}
---- !u!82 &3235315583447937325
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3769519785095626617}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -8528189456376423635, guid: 08da6b91d03aa604a889c76a08d7339f,
-    type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.2
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  _rangeDetector: {fileID: 8095162239555055780}
 --- !u!1 &3769519785303812664
 GameObject:
   m_ObjectHideFlags: 0
