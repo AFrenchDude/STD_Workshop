@@ -24,6 +24,7 @@ public class TowerHUD : MonoBehaviour
     private TowerGetProjectile towerGetProjectileScriptRef;
     [HideInInspector] public int productionValue;
     private float currentResources;
+    private float currentResources2;
     private float maxResources;
 
     //Set resources text and slider
@@ -40,6 +41,13 @@ public class TowerHUD : MonoBehaviour
         {
             towerScriptRef.RangeIndicator.EnableRangeIndicator(true);
         }
+        //if DoubleCanon
+        if (tower.GetComponent<TowerManager>().TowersData.FireType == doubleCanonRef.FireType)
+        {
+            currentResources2 = tower.GetComponent<TowerManager>().TowersData.Projectiles[1].ProjectileAmmount;
+            text2.SetText("Bullet: " + currentResources2);
+            slider2.value = (currentResources2 / maxResources);
+        }
     }
 
     public void OnPick(GameObject towerClicked)
@@ -50,6 +58,7 @@ public class TowerHUD : MonoBehaviour
         productionIcon.sprite = towerGetProjectileScriptRef.type[0].icon;
         toggle.isOn = tower.GetComponent<WeaponController>().canShoot;
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
+        //if DoubleCanon
         if (tower.GetComponent<TowerManager>().TowersData.FireType == doubleCanonRef.FireType)
         {
             productionIcon2.sprite = towerGetProjectileScriptRef.type[1].icon;
