@@ -18,24 +18,24 @@ public class OpenInfo : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (info.gameObject.name == "PanelInfoPizza")
+        if (info.gameObject.name == "InfoPizzaTower")
         {
-            animator.SetBool("PizzaFactory", true);
+            animator.SetBool("InfoPizzaTower", true);
         }
-        else if (info.gameObject.name == "PanelInfoEnergy")
+        else if (info.gameObject.name == "InfoEnergyTower")
         {
-            animator.SetBool("EnergyFactory", true);
+            animator.SetBool("InfoEnergyTower", true);
         }
-        else if (info.gameObject.name == "PanelInfoTraps")
+        else if (info.gameObject.name == "InfoTrapsTower")
         {
-            animator.SetBool("TrapsFactory", true);
+            animator.SetBool("InfoTrapsTower", true);
         }
     }
 
     private void OnMouseExit()
     {
-        animator.SetBool("PizzaFactory", false);
-        animator.SetBool("EnergyFactory", false);
-        animator.SetBool("TrapsFactory", false);
+        animator.SetBool("InfoPizzaTower", false);
+        animator.SetBool("InfoEnergyTower", false);
+        animator.SetBool("InfoTrapsTower", false);
     }
 }

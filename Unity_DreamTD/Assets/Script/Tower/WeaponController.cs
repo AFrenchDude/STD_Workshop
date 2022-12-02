@@ -26,7 +26,7 @@ public class WeaponController : MonoBehaviour
     //Allow to spawn One projectile by one for mortar.
     private AProjectile _lastProjectile = null;
 
-    private AudioSource audioSource;
+    [SerializeField] private List<AudioSource> audioSources;
 
     public void setTowerData(TowersDatas towerData)
     {
@@ -57,7 +57,6 @@ public class WeaponController : MonoBehaviour
     private void OnEnable()
     {
         _lastShotTime = -_towersData.FireRate;
-        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -71,11 +70,10 @@ public class WeaponController : MonoBehaviour
 
     private void Shoot()
     {
-        if(audioSource != null)
+        if (audioSources[_muzzleIndx] != null)
         {
-        audioSource.clip = _neutralProjectile.shotSound[Random.Range(0, _neutralProjectile.shotSound.Count)];
-        audioSource.Play();
-
+            audioSources[_muzzleIndx].clip = _neutralProjectile.shotSound[Random.Range(0, _neutralProjectile.shotSound.Count)];
+            audioSources[_muzzleIndx].Play();
         }
         AProjectile spawnedProjectile;
         
