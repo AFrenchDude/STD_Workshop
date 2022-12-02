@@ -35,7 +35,7 @@ public class DamageableDetector : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Remove " + other.gameObject);
+        //Debug.Log("Remove " + other.gameObject);
         Damageable damageable = other.GetComponentInParent<Damageable>();
 
         if (damageable != null && _damageablesInRange.Contains(damageable) == true)
