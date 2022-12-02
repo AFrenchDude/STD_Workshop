@@ -8,11 +8,16 @@ public class TowerHUD : MonoBehaviour
 {
     public GameObject tower;
     [SerializeField] private GameObject changeTypeHUD;
+    [SerializeField] private GameObject ChangeTypeButton2;
+    [SerializeField] private TowersDatas doubleCanonRef;
     [SerializeField] private GameObject upgradeButton;
     [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private Image productionIcon;
-    [SerializeField] private Toggle toggle;
     [SerializeField] private Slider slider;
+    [SerializeField] private TextMeshProUGUI text2;
+    [SerializeField] private Slider slider2;
+    [SerializeField] private Image productionIcon;
+    [SerializeField] private Image productionIcon2;
+    [SerializeField] private Toggle toggle;
     [SerializeField] private TMP_Dropdown dropdown;
 
     [HideInInspector] public Tower towerScriptRef;
@@ -25,7 +30,7 @@ public class TowerHUD : MonoBehaviour
     private void Update()
     {
         currentResources = tower.GetComponent<TowerManager>().TowersData.Projectiles[0].ProjectileAmmount;
-        text.SetText("Production: " + currentResources);
+        text.SetText("Bullet: " + currentResources);
         if (tower != null && towerGetProjectileScriptRef != null)
         {
             maxResources = tower.GetComponent<TowerManager>().TowersData.MaxProjectilesAmmount;
@@ -42,9 +47,22 @@ public class TowerHUD : MonoBehaviour
         tower = towerClicked;
         towerScriptRef = tower.GetComponent<Tower>();
         towerGetProjectileScriptRef = tower.GetComponentInChildren<TowerGetProjectile>();
-        productionIcon.sprite = towerGetProjectileScriptRef.type.icon;
+        productionIcon.sprite = towerGetProjectileScriptRef.type[0].icon;
         toggle.isOn = tower.GetComponent<WeaponController>().canShoot;
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
+        if (tower.GetComponent<TowerManager>().TowersData.FireType == doubleCanonRef.FireType)
+        {
+            productionIcon2.sprite = towerGetProjectileScriptRef.type[1].icon;
+            ChangeTypeButton2.SetActive(true);
+            slider2.gameObject.SetActive(true);
+            text2.gameObject.SetActive(true);
+        }
+        else
+        {
+            ChangeTypeButton2.SetActive(false);
+            slider2.gameObject.SetActive(false);
+            text2.gameObject.SetActive(false);
+        }
         dropdown.value = (int)towerScriptRef._targetPriority;
         towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
 
@@ -91,9 +109,10 @@ public class TowerHUD : MonoBehaviour
         towerGetProjectileScriptRef.projectiles = 0;
     }
 
-    public void ChangeType()
+    public void ChangeType(int intCanonRef)
     {
         changeTypeHUD.GetComponent<ChangeType>().objectToChange = tower;
+        changeTypeHUD.GetComponent<ChangeType>().canonToChange = intCanonRef;
         changeTypeHUD.SetActive(true);
         changeTypeHUD.GetComponent<ChangeType>().noTypeButton.SetActive(true);
     }
