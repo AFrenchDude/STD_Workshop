@@ -111,9 +111,12 @@ public class Locomotive : MonoBehaviour
             {
                 foreach (Wagon wagon in wagons)
                 {
-                    if (wagon.type.typeSelected == sentryGetProjectile.type.typeSelected && wagon.projectiles > 0 && wagon.GetComponent<MeshRenderer>().enabled == true)
+                    if (wagon.projectiles > 0 && wagon.GetComponent<MeshRenderer>().enabled == true)
                     {
-                        wagonsToCheck.Add(wagon);
+                        if(wagon.type.typeSelected == sentryGetProjectile.type[0].typeSelected || wagon.type.typeSelected == sentryGetProjectile.type[1].typeSelected)
+                        {
+                            wagonsToCheck.Add(wagon);
+                        }
                     }
                 }
                 if (wagonsToCheck.Count > 0)
@@ -223,14 +226,14 @@ public class Locomotive : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
         }
-        if (wagonsToCheck[wagonNumber].projectiles > 0 && wagonsToCheck[wagonNumber].type.typeSelected == sentry.type.typeSelected)
+        if (wagonsToCheck[wagonNumber].projectiles > 0 && wagonsToCheck[wagonNumber].type.typeSelected == sentry.type[0].typeSelected || wagonsToCheck[wagonNumber].projectiles > 0 && wagonsToCheck[wagonNumber].type.typeSelected == sentry.type[1].typeSelected)
         {
             sentry.projectiles++;
             wagonsToCheck[wagonNumber].projectiles--;
             yield return new WaitForSeconds(waitFor);
             StartCoroutine(TransferingSentry(sentry, waitFor, false));
         }
-        else if (wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == sentry.type.typeSelected)
+        else if (wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == sentry.type[0].typeSelected || wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == sentry.type[1].typeSelected)
         {
             wagonNumber++;
             StartCoroutine(TransferingSentry(sentry, waitFor, false));

@@ -62,8 +62,6 @@ public class Tower : MonoBehaviour, IPickerGhost
         }
     }
 
-
-
     #region DragNDrop Interface & system
     [SerializeField] private List<MeshRenderer> _dragNDropMeshes = null; //For testing as the green/red indicator
     [SerializeField] private List<Collider> _colliders = null; //Enable train and damageable detector colliders after being blaced to prevent weird behaviours
