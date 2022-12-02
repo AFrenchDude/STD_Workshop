@@ -20,7 +20,7 @@ public class NightmareManager : MonoBehaviour
         _goldDrop = GetComponent<GoldDrop>();
         _pathFollower = GetComponent<PathFollower>();
         _damageable = GetComponent<Damageable>();
-      
+
     }
 
     public void SetEnemyData(NightmareData nightmareData)
@@ -36,7 +36,11 @@ public class NightmareManager : MonoBehaviour
     public void SetUpEnemy()
     {
         //Debug color
-        _meshRenderer.material.color = _nightmareData.debugColor;
+        if (_meshRenderer != null)
+        {
+
+            _meshRenderer.material.color = _nightmareData.debugColor;
+        }
 
         //Hp
         _damageable.setMaxHp(_nightmareData.maxLife);
