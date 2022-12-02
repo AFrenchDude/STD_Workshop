@@ -82,7 +82,6 @@ public class SpawnerManager : MonoBehaviour
 
     public void StartNewWaveSet()
     {
-        LevelReferences.Instance.MusicPlayer.Play();
         _currentWaveSetIndex += 1;
         var waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
 
@@ -121,7 +120,6 @@ public class SpawnerManager : MonoBehaviour
 
     private void Spawner_OnWaveEnded(EntitySpawner entitySpawner, Wave wave)
     {
-        LevelReferences.Instance.MusicPlayer.Stop();
         entitySpawner.WaveEnded.RemoveListener(Spawner_OnWaveEnded);
 
         _currentWaveRunning -= 1;
