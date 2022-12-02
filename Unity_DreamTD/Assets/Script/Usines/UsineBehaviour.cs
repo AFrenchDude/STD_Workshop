@@ -5,12 +5,19 @@ using UnityEngine;
 public class UsineBehaviour : MonoBehaviour, IPickerGhost
 {
     [SerializeField]
-    private FactoryDatas _factoryDatas;  
+    private FactoryDatas _factoryDatas;
     private int _price = 0;
 
     private float lastProduction;
     public int Price => _price;
     private Material originalMaterial;
+
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public FactoryDatas getFactoryData
     {
@@ -41,15 +48,40 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         _factoryDatas = Instantiate(_factoryDatas);
         _factoryDatas.SetProductionEnable(isEnabled);
         enabled = isEnabled;
+        if (isEnabled)
+        {
+            audioSource.Play();
+        }
     }
 
     #region DragNDrop Interface & system
+    [Header("Personnalize")]
+    [SerializeField] private Transform _parentMeshRenderers = null;
     [SerializeField] private List<MeshRenderer> _dragNDropMeshes = null; //For testing as the green/red indicator
     [SerializeField] private List<Collider> _colliders = null; //Enable train and damageable detector colliders after being blaced to prevent weird behaviours
     [SerializeField] private Material _materialGreen = null; //For testing
     [SerializeField] private Material _materialRed = null; //For testing
     [SerializeField] private LayerMask _dragNDroppableLayer;
     [SerializeField] private float _collisionCheckRadius = 2.0f;
+
+    private void Awake()
+    {
+        if (_parentMeshRenderers != null)
+        {
+            if (_parentMeshRenderers.childCount > 0)
+            {
+                _dragNDropMeshes.Clear();
+                for (int i = 0; i < _parentMeshRenderers.childCount; i++)
+                {
+                    Transform mesh = _parentMeshRenderers.GetChild(i);
+                    if (mesh.GetComponent<MeshRenderer>() != null)
+                    {
+                        _dragNDropMeshes.Add(mesh.GetComponent<MeshRenderer>());
+                    }
+                }
+            }
+        }
+    }
     public Transform GetTransform()
     {
         return transform;
@@ -77,15 +109,15 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         }
         Base.Instance.RemoveGold(_price);
     }
-    
+
     public void EnableDragNDropVFX(bool enable)
     {
-        if(enable)
+        if (enable)
         {
             foreach (var meshes in _dragNDropMeshes)
             {
                 originalMaterial = meshes.material;
-            }
+            }         
         }
         else
         {
@@ -93,9 +125,16 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
             {
                 meshes.material = originalMaterial;
             }
+            
+        }
+
+        if (_parentMeshRenderers != null)
+        {
+
+            _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", !enable);
         }
     }
-    
+
     public void SetDragNDropVFXColorToGreen(bool setToGreen)
     {
         if (setToGreen)

@@ -17,6 +17,10 @@ public class RangeIndicator : MonoBehaviour
         _line.positionCount = _segments + 1;
         _line.useWorldSpace = false;
         _towerDatas = GetComponentInParent<TowerManager>().TowersData;
+        
+    }
+    private void Start()
+    {
         UpdateCircle();
     }
 

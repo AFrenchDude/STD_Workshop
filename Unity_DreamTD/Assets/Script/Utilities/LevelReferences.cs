@@ -10,6 +10,7 @@ public class LevelReferences : Singleton<LevelReferences>
     [SerializeField] SplineDone _railSpline = null;
     [SerializeField] GameObject _player = null;
     [SerializeField] GameObject _station = null;
+    [SerializeField] AudioSource _musicPlayer = null;
 
 
     public SpawnerManager SpawnerManager => _spawnerManager;
@@ -17,4 +18,5 @@ public class LevelReferences : Singleton<LevelReferences>
     public SplineDone RailSpline => _railSpline;
     public GameObject Player => _player;
     public GameObject Station => _station;
+    public AudioSource MusicPlayer => _musicPlayer;
 }
