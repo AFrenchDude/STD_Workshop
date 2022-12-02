@@ -31,6 +31,14 @@ public class TowerHUD : MonoBehaviour
     {
         currentResources = tower.GetComponent<TowerManager>().TowersData.Projectiles[0].ProjectileAmmount;
         text.SetText("Bullet: " + currentResources);
+
+        if(tower.GetComponent<TowerManager>().TowersData.Projectiles.Count > 1)
+        {
+            float secondFireProjectiles = tower.GetComponent<TowerManager>().TowersData.Projectiles[1].ProjectileAmmount;
+            text2.SetText("Bullet: " + secondFireProjectiles);
+            slider2.value = secondFireProjectiles / tower.GetComponent<TowerManager>().TowersData.Projectiles[1].MaxProjectilesAmmount;
+        }
+
         if (tower != null && towerGetProjectileScriptRef != null)
         {
             maxResources = tower.GetComponent<TowerManager>().TowersData.MaxProjectilesAmmount;
