@@ -82,7 +82,11 @@ public class SpawnerManager : MonoBehaviour
 
     public void StartNewWaveSet()
     {
-        LevelReferences.Instance.MusicPlayer.Play();
+        if (LevelReferences.Instance.MusicPlayer != null)
+        {
+            LevelReferences.Instance.MusicPlayer.Play();
+
+        }
         _currentWaveSetIndex += 1;
         var waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
 
