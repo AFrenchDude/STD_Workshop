@@ -47,7 +47,6 @@ public class DamageableDetector : MonoBehaviour
 
 
     // Damageable functions
-
     private void Damageable_OnDied(Damageable caller)
     {
         _damageablesInRange.Remove(caller);
@@ -90,7 +89,7 @@ public class DamageableDetector : MonoBehaviour
 
             if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType || projectileNightmareType == NightmareData.NighmareType.Neutral)
             {
-                float checkedDistance = (_damageablesInRange[i].transform.position - transform.position).magnitude;
+                float checkedDistance = (_damageablesInRange[i].transform.position - transform.position).sqrMagnitude;
                 if (gettingNearest)
                 {
                     if (checkedDistance < recordDistance)

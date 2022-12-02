@@ -16,7 +16,7 @@ public class NightmareData : ScriptableObject
     public enum NightmareFunction
     {
         Basic,
-        Booster,
+        Support,
         Fly
     }
 
