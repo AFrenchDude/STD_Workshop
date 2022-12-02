@@ -41,6 +41,9 @@ public class TowersDatas : ScriptableObject
     [SerializeField]
     private int _maxProjectilesAmmount;
 
+    [SerializeField]
+    private int _sellPrice;
+
 
     public float Damage => _damage;
     public float FireRate => _fireRate;
@@ -56,7 +59,9 @@ public class TowersDatas : ScriptableObject
     public List<Projectile> Projectiles => _projectileTypeList;
 
     public int MaxProjectilesAmmount => _maxProjectilesAmmount;
-    
+
+    public int SellPrice => _sellPrice;
+
     public void Upgrade()
     {
         if(_currentUpgrade.NextUpgrade != null)

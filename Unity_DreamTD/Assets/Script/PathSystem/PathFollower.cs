@@ -14,7 +14,6 @@ public class PathFollower : MonoBehaviour
     private float _originalMovementSpeed = 1.0f;
     private List<Vector3> _pathWaypoints;
     private int _waypointIndex = 0;
-    private int _lastWaypointIndexReached = 0;
 
     public float Speed => _movementSpeed;
     public float OGSpeed => _originalMovementSpeed;
@@ -55,11 +54,10 @@ public class PathFollower : MonoBehaviour
 
     private void CheckTargetReached()
     {
-        if (GetGoalDirection().sqrMagnitude <= (_waypointThreshold * _waypointThreshold))
+        if (GetGoalDirection().magnitude <= _waypointThreshold)
         {
             if (_waypointIndex + 1 < _pathWaypoints.Count)
             {
-                _lastWaypointIndexReached = _waypointIndex;
                 _waypointIndex++;
             }
             else
@@ -90,16 +88,5 @@ public class PathFollower : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    public float GetPathProgress()
-    {
-        float generalProgress = _lastWaypointIndexReached / (_pathWaypoints.Count - 1);
-
-        float targetToThisDistance = (_pathWaypoints[_waypointIndex] - transform.position).sqrMagnitude;
-        float lastWaypointToTargetDistance = (_pathWaypoints[_waypointIndex] - _pathWaypoints[_lastWaypointIndexReached]).sqrMagnitude;
-        float currentPathProgress = targetToThisDistance / lastWaypointToTargetDistance;
-
-        return generalProgress * 2.0f + currentPathProgress;
     }
 }

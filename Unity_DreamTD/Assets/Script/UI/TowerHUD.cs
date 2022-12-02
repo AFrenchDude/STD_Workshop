@@ -78,10 +78,7 @@ public class TowerHUD : MonoBehaviour
 
     public void Upgrade()
     {
-        //tower.GetComponent<TowerManager>().TowersData.Upgrade();
-        TowerManager managedTower = tower.GetComponent<TowerManager>();
-        managedTower.TowersData.Upgrade();
-        managedTower.ApplyStats(managedTower.TowersData);
+        tower.GetComponent<TowerManager>().TowersData.Upgrade();
         towerScriptRef.RangeIndicator.UpdateCircle();
         OnPick(tower);
     }

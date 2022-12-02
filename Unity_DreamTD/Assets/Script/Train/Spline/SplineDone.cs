@@ -136,7 +136,7 @@ public class SplineDone : MonoBehaviour
         Point closestPoint = pointList[0];
         foreach (Point point in pointList)
         {
-            if ((callerPosition - point.position).sqrMagnitude < (callerPosition - closestPoint.position).sqrMagnitude)
+            if ((callerPosition - point.position).magnitude < (callerPosition - closestPoint.position).magnitude)
             {
                 Vector3 testPos = pointList[0].position;
                 closestPoint = point;
