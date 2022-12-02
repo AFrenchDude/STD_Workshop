@@ -19,13 +19,6 @@ public class UsineSlotController : MonoBehaviour
             return LevelReferences.Instance.PlayerDrag;
         }
     }
-    public GameObject GetPlayer
-    {
-        get
-        {
-            return LevelReferences.Instance.Player;
-        }
-    }
 
     private void OnEnable()
     {
@@ -46,28 +39,21 @@ public class UsineSlotController : MonoBehaviour
 
     private void UsineSlotController_OnUsineSlotClicked(UsineSlot sender)
     {
-        Cancel();
-        GetPlayer.GetComponentInChildren<TowerSlotController>().Cancel();
-        usineDescription = sender.UsineDescription;
-        ChangeState(State.GhostVisible);
+        if (_state == State.Available)
+        {
+            usineDescription = sender.UsineDescription;
+            ChangeState(State.GhostVisible);
+        }
     }
 
     public void Selecting(InputAction.CallbackContext obj) //left click confirm
     {
-        if (GetPlayer.GetComponentInChildren<Selector>().IsMouseOnUI == false)
+        if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
         {
-            if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
-            {
-                ChangeState(State.Available);
-            }
+            ChangeState(State.Available);
         }
     }
     public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
-    {
-        Cancel();
-    }
-
-    public void Cancel()
     {
         if (_state == State.GhostVisible)
         {

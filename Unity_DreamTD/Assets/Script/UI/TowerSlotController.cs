@@ -19,20 +19,11 @@ public class TowerSlotController : MonoBehaviour
     [System.NonSerialized]
     private TowerDescription _currentTowerDescription = null;
 
-    public State TowerSlotCurrentState => _state;
     public PlayerDrag GetPlayerDrag
     {
         get
         {
             return LevelReferences.Instance.PlayerDrag;
-        }
-    }
-
-    public GameObject GetPlayer
-    {
-        get
-        {
-            return LevelReferences.Instance.Player;
         }
     }
 
@@ -55,28 +46,21 @@ public class TowerSlotController : MonoBehaviour
 
     private void TowerSlotController_OnTowerSlotClicked(TowerSlot sender)
     {
-        Cancel();
-        GetPlayer.GetComponentInChildren<UsineSlotController>().Cancel();
-        _currentTowerDescription = sender.TowerDescription;
-        ChangeState(State.GhostVisible);
+        if (_state == State.Available)
+        {
+            _currentTowerDescription = sender.TowerDescription;
+            ChangeState(State.GhostVisible);
+        }
     }
 
     public void Selecting(InputAction.CallbackContext obj) //left click confirm
     {
-        if (GetPlayer.GetComponentInChildren<Selector>().IsMouseOnUI == false)
+        if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
         {
-            if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
-            {
                 ChangeState(State.Available);
-            }
         }
     }
     public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
-    {
-        Cancel();
-    }
-
-    public void Cancel()
     {
         if (_state == State.GhostVisible)
         {

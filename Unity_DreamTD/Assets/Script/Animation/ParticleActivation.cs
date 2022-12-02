@@ -13,7 +13,6 @@ public class ParticleActivation : MonoBehaviour
         {
             if (_particles[index] != null)
             {
-                Debug.Log("EYO");
                 _particles[index].Clear();
                 _particles[index].Play();
             }

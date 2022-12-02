@@ -82,6 +82,15 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
             }
         }
     }
+
+    public void SetUpgradeMesh(GameObject mesh)
+    {
+        Destroy(_parentMeshRenderers.gameObject);
+        _parentMeshRenderers = Instantiate(mesh, this.transform).transform;
+        _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", true);
+
+    }
+
     public Transform GetTransform()
     {
         return transform;
