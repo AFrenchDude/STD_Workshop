@@ -11,6 +11,8 @@ public class PlayerDrag : MonoBehaviour
     private bool _isDragging = false;
     private bool _isSnappedToRail = false;
 
+    public bool IsDragging => _isDragging;
+
     private void Update()
     {
         if (_isDragging)
@@ -20,7 +22,6 @@ public class PlayerDrag : MonoBehaviour
             BuildingDragNDrop(hasFoundSurface, cursorHit);
         }
     }
-
     private void BuildingDragNDrop(bool hasFoundSurface, RaycastHit cursorHit)
     {
         if (hasFoundSurface)
