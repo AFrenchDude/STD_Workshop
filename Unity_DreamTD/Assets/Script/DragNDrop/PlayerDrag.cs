@@ -11,6 +11,8 @@ public class PlayerDrag : MonoBehaviour
     private bool _isDragging = false;
     private bool _isSnappedToRail = false;
 
+    public bool IsDragging => _isDragging;
+
     private void Update()
     {
         if (_isDragging)
@@ -20,7 +22,6 @@ public class PlayerDrag : MonoBehaviour
             BuildingDragNDrop(hasFoundSurface, cursorHit);
         }
     }
-
     private void BuildingDragNDrop(bool hasFoundSurface, RaycastHit cursorHit)
     {
         if (hasFoundSurface)
@@ -29,7 +30,7 @@ public class PlayerDrag : MonoBehaviour
             {
                 SplineDone splineRefTest = LevelReferences.Instance.RailSpline;
                 SplineDone.Point nearestSplinePoint = splineRefTest.GetClosestPoint(cursorHit.point);
-                if ((nearestSplinePoint.position - cursorHit.point).sqrMagnitude <= _snapDetectionRange * _snapDetectionRange)
+                if ((nearestSplinePoint.position - cursorHit.point).magnitude <= _snapDetectionRange)
                 {
                     Vector3 splinePointForward = LevelReferences.Instance.RailSpline.GetForwardAt(nearestSplinePoint.t);
                     Vector3 towerSnapDirection = Vector3.Cross(Vector3.up, splinePointForward).normalized;

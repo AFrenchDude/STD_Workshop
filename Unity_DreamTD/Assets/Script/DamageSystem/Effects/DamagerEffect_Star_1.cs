@@ -92,7 +92,7 @@ public class DamagerEffect_Star_1 : ADamagerEffect
             Damageable checkedDamageable = collider.GetComponentInParent<Damageable>();
             if (checkedDamageable != null && checkedDamageable != hitDamageable && _previousDamageable.Contains(checkedDamageable) == false)
             {
-                float checkedDistance = (checkedDamageable.transform.position - transform.position).sqrMagnitude;
+                float checkedDistance = (checkedDamageable.transform.position - transform.position).magnitude;
                 if (checkedDistance < recordDistance)
                 {
                     nearestDamageable = checkedDamageable;
