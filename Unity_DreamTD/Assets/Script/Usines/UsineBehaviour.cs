@@ -17,6 +17,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        
     }
 
     public FactoryDatas getFactoryData
@@ -36,8 +37,9 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         bool conditionType = _factoryDatas.ProjectileType.typeSelected.ToString() != "None";
         bool conditionSpace = _factoryDatas.Ammount < _factoryDatas.MaxAmmount;
         bool conditionTime = Time.time > lastProduction + _factoryDatas.ProductionRate;
+        bool conditionWave = LevelReferences.Instance.SpawnerManager.isWaveRunning;
 
-        if (conditionType && conditionSpace && conditionTime && _factoryDatas.IsProducing)
+        if (conditionType && conditionSpace && conditionWave && conditionTime && _factoryDatas.IsProducing)
         {
             _factoryDatas.AddProjectile(1);
             lastProduction = Time.time;
@@ -46,6 +48,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     public void Enable(bool isEnabled)
     {
         _factoryDatas = Instantiate(_factoryDatas);
+        _factoryDatas.ApplyUpgrade();
         _factoryDatas.SetProductionEnable(isEnabled);
         enabled = isEnabled;
         if (isEnabled)
@@ -89,6 +92,11 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         _parentMeshRenderers = Instantiate(mesh, this.transform).transform;
         _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", true);
 
+    }
+
+    public void ActiveAnimation(bool activted)
+    {
+        _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", activted);
     }
 
     public Transform GetTransform()

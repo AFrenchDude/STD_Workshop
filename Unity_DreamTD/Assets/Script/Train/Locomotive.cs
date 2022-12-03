@@ -22,6 +22,15 @@ public class Locomotive : MonoBehaviour
     [HideInInspector] public List<Wagon> wagonsToCheck;
     private int wagonNumber;
     private bool isTransfering;
+
+    [SerializeField]
+    private bool isParked;
+
+    public void SetIsParked(bool enable)
+    {
+        isParked = enable;
+    }
+
     //Object collided script
     [HideInInspector] public FactoryDatas factoryData;
     [HideInInspector] public TowersDatas towerDatas;
@@ -35,6 +44,7 @@ public class Locomotive : MonoBehaviour
         //Set spline and speed
         splineFollower = GetComponent<SplineFollower>();
         maxSpeed = splineFollower.speed;
+        SetIsParked(false);
         foreach (Wagon wagon in wagons)
         {
             wagon.GetComponent<SplineFollower>().speed = maxSpeed;
@@ -62,7 +72,7 @@ public class Locomotive : MonoBehaviour
         //Collide with tower
         if (other.CompareTag("TowerTrain"))
         {
-            Debug.Log(other.gameObject.ToString() + " / " + (other.transform.root.GetComponent<TowerManager>() != null).ToString());
+            Debug.Log(other.transform.root.gameObject.ToString() + " / " + (other.transform.root.GetComponent<TowerManager>() != null).ToString());
 
 
             objectCollided.Add(other.gameObject);
@@ -160,7 +170,7 @@ public class Locomotive : MonoBehaviour
         }
     }
 
-    private void StopTrain(int margin)
+    public void StopTrain(int margin)
     {
         //Stop train when close enough
         if (deceleration < margin)
@@ -185,27 +195,34 @@ public class Locomotive : MonoBehaviour
 
     private void Update()
     {
-        //If a train is close
-        if (closeTo != null)
+        if (!isParked)
         {
-            Debug.Log(closeTo);
-            StopTrain(6);
-        }
-        //Decelaration
-        if (isBraking && objectCollided.Count > 0)
-        {
-            deceleration = (objectCollided[0].transform.position - transform.position).magnitude;
-            StopTrain(5);
-        }
-        //Start moving
-        else if (!isTransfering)
-        {
-            timeToRestartRef += 0.5f * Time.deltaTime;
-            splineFollower.speed = Mathf.Lerp(0, maxSpeed, timeToRestartRef);
-            foreach (Wagon wagon in wagons)
-            {
-                wagon.GetComponent<SplineFollower>().speed = Mathf.Lerp(0, maxSpeed, timeToRestartRef);
+
+            //If a train is close
+            if (closeTo != null)
+            {           
+                StopTrain(6);
             }
+            //Decelaration
+            if (isBraking && objectCollided.Count > 0)
+            {
+                deceleration = (objectCollided[0].transform.position - transform.position).magnitude;
+                StopTrain(5);
+            }
+            //Start moving
+            else if (!isTransfering)
+            {
+                timeToRestartRef += 0.5f * Time.deltaTime;
+                splineFollower.speed = Mathf.Lerp(0, maxSpeed, timeToRestartRef);
+                foreach (Wagon wagon in wagons)
+                {
+                    wagon.GetComponent<SplineFollower>().speed = Mathf.Lerp(0, maxSpeed, timeToRestartRef);
+                }
+            }
+        }
+        else
+        {
+            StopTrain(5);
         }
     }
 
@@ -257,7 +274,7 @@ public class Locomotive : MonoBehaviour
             {
                 passOneCondition = true;
                 projectile[i].ProjectileAmmount++;
-                wagon[i].projectiles--;        
+                wagon[i].projectiles--;
             }
         }
 
@@ -299,6 +316,16 @@ public class Locomotive : MonoBehaviour
             {
                 wagons.GetComponent<SplineFollower>().speed = maxSpeed;
             }
+        }
+    }
+
+    public void StartTrain()
+    {
+        //Start moving
+        splineFollower.speed = maxSpeed;
+        foreach (Wagon wagons in wagons)
+        {
+            wagons.GetComponent<SplineFollower>().speed = maxSpeed;
         }
     }
 }

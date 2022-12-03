@@ -87,7 +87,7 @@ public class WeaponController : MonoBehaviour
             }
             else
             {
-                spawnedProjectile = Instantiate(_neutralProjectile.projectile.GetComponent<AProjectile>());
+                spawnedProjectile = Instantiate(_neutralProjectile.projectile.GetComponent<DefaultProjectile>());
             }
         }
         else
