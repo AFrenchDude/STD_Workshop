@@ -380,6 +380,7 @@ GameObject:
   - component: {fileID: 3769519785095626597}
   - component: {fileID: 3769519785095626598}
   - component: {fileID: 9161020986905073695}
+  - component: {fileID: -3098096580480629587}
   m_Layer: 0
   m_Name: Mortar_Tower
   m_TagString: Untagged
@@ -420,10 +421,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetPriority: 0
-  _dragNDropMeshes:
-  - {fileID: 8018579975213777130}
+  _dragNDropMeshes: []
   _colliders:
-  - {fileID: 0}
+  - {fileID: 8095162239555055780}
   - {fileID: 258859788473825512}
   _materialGreen: {fileID: 2100000, guid: e21208de5972b604492d7810b240238c, type: 2}
   _materialRed: {fileID: 2100000, guid: d6f519558150966419f3186d645c4b70, type: 2}
@@ -494,6 +494,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towersDatas: {fileID: 11400000, guid: d9ace71a0f106be4c8f3d5db116a387d, type: 2}
   _rangeDetector: {fileID: 8095162239555055780}
+--- !u!114 &-3098096580480629587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3769519785095626617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2cf2f95ee3f30b479cdc8402c3bb52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hudRef: {fileID: 0}
 --- !u!1 &3769519785303812664
 GameObject:
   m_ObjectHideFlags: 0

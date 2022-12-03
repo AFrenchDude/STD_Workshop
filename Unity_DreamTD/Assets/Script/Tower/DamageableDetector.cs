@@ -7,7 +7,8 @@ public enum TargetPriority
     Nearest,
     Furthest,
     LowestHP,
-    HighestMaxHP
+    HighestMaxHP,
+    FartestOnPath
 }
 
 public class DamageableDetector : MonoBehaviour
@@ -68,6 +69,9 @@ public class DamageableDetector : MonoBehaviour
             case TargetPriority.HighestMaxHP:
                 return GetHighestMaxHPDamageable(projectileNightmareType);
 
+            case TargetPriority.FartestOnPath:
+                return GetFarthestOnPathDamageable(projectileNightmareType);
+
             default:
                 return GetNearestOrFurthestDamageable(true, projectileNightmareType);
         }
@@ -106,6 +110,42 @@ public class DamageableDetector : MonoBehaviour
                         currentDamageable = _damageablesInRange[i];
                     }
                 }
+
+                //Test if it was a right nightmare type
+                if (nightmareManager.getNighmareType == projectileNightmareType & foundRightType == false)
+                {
+                    recordDistance = checkedDistance;
+                    currentDamageable = _damageablesInRange[i];
+                    foundRightType = true;
+                }
+            }
+
+        }
+        return currentDamageable;
+    }
+
+    private Damageable GetFarthestOnPathDamageable(NightmareData.NighmareType projectileNightmareType)
+    {
+        bool foundRightType = false;
+
+        Damageable currentDamageable = null;
+        float recordDistance = float.MinValue;
+
+        for (int i = 0; i < _damageablesInRange.Count; i++)
+        {
+            NightmareManager nightmareManager = _damageablesInRange[i].GetComponent<NightmareManager>();
+
+            if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType || projectileNightmareType == NightmareData.NighmareType.Neutral)
+            {
+                float checkedDistance = _damageablesInRange[i].GetComponent<PathFollower>().getPathDistance;
+
+
+                if (checkedDistance > recordDistance)
+                {
+                    recordDistance = checkedDistance;
+                    currentDamageable = _damageablesInRange[i];
+                }
+
 
                 //Test if it was a right nightmare type
                 if (nightmareManager.getNighmareType == projectileNightmareType & foundRightType == false)
