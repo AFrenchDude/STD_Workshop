@@ -13,6 +13,9 @@ public class Damageable : MonoBehaviour
     [SerializeField] private Transform _headAnchor = null;
     private float _health = 100;
 
+    [SerializeField]
+    private EnemiesHealthBar _healthBar = null;
+
     public NightmareData.NighmareType NightmareType => _nightmareType;
     public UnityEvent<float> OnDamageTaken;
     public UnityEvent<Damageable> Died;
@@ -36,7 +39,27 @@ public class Damageable : MonoBehaviour
 
         if (_health <= 0)
         {
+            if (_healthBar != null)
+            {
+                Destroy(_healthBar.gameObject);
+
+            }
+
             Death();
+        }
+        else
+        {
+            if (_healthBar == null)
+            {
+                UIManager uiManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
+                _healthBar = uiManager.CreateEnemiesHealthBar(_headAnchor);
+            }
+
+            if (_healthBar != null)
+            {
+                _healthBar.UpdateLife(_health, _maxHealth);
+
+            }
         }
     }
 

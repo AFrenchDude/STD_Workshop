@@ -9,6 +9,7 @@ public class Damager : MonoBehaviour
 {
     [SerializeField] private float _attack = 1;
     [SerializeField] ProjectileType _attackType;
+    [SerializeField] private float _mortarRadius;
 
     public void SetDamage(float damage)
     {
@@ -18,6 +19,12 @@ public class Damager : MonoBehaviour
     {
         get { return _attack; }
     }
+
+    public void SetMortarRadius(float radius)
+    {
+        _mortarRadius = radius;
+    }
+
     public ProjectileType AttackType => _attackType;
     public UnityEvent<Damageable> DamageDone;
     private void OnTriggerEnter(Collider other)
@@ -26,9 +33,24 @@ public class Damager : MonoBehaviour
 
         if (otherDamageable != null)
         {
-            NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
-            otherDamageable.TakeDamage(_attack, out float health);
-            DamageDone.Invoke(otherDamageable);
+            if (GetComponent<AProjectile>().getFireType == TowersDatas.fireType.Mortar)
+            {
+                Collider[] colliderList = Physics.OverlapSphere(transform.position, _mortarRadius, LayerMask.GetMask("Enemies"));
+                
+                foreach(Collider collider in colliderList)
+                {
+                    NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
+                    collider.GetComponent<Damageable>().TakeDamage(_attack, out float health);
+                    DamageDone.Invoke(otherDamageable);
+                }
+            }
+            else
+            {
+                NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
+                otherDamageable.TakeDamage(_attack, out float health);
+                DamageDone.Invoke(otherDamageable);
+
+            }
         }
     }
 
