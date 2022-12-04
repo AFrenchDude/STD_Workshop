@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LevelReferences : Singleton<LevelReferences>
 {
+    [SerializeField] Camera _uiCamera;
     [SerializeField] SpawnerManager _spawnerManager = null;
     [SerializeField] PlayerDrag _playerDrag = null;
     [SerializeField] SplineDone _railSpline = null;
@@ -12,7 +13,7 @@ public class LevelReferences : Singleton<LevelReferences>
     [SerializeField] GameObject _station = null;
     [SerializeField] AudioSource _musicPlayer = null;
 
-
+    public Camera UICamera => _uiCamera;
     public SpawnerManager SpawnerManager => _spawnerManager;
     public PlayerDrag PlayerDrag => _playerDrag;
     public SplineDone RailSpline => _railSpline;
