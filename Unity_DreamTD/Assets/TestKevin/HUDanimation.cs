@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDAnimation : MonoBehaviour
+public class HUDanimation : MonoBehaviour
 {
     [SerializeField]
     private Animator animator_ = null;
@@ -28,11 +28,7 @@ public class HUDAnimation : MonoBehaviour
 
     private void Start()
     {
-        if (currentButton_.Length > 0)
-        {
-
-            SetCurrentButton(currentButton_[0]);
-        }
+        SetCurrentButton(currentButton_[0]);
     }
 
     public void HUDswaper()
@@ -65,24 +61,24 @@ public class HUDAnimation : MonoBehaviour
 
         if (buttonIndex == -1)
         {
-            return;
+            return; 
         }
 
         SetAllButtonsInteractable();
 
         clickedButton.interactable = false;
 
-        currentButton_[buttonIndex].animator.SetBool("Selected 0", true);
+        currentButton_[buttonIndex].animator.SetBool("Selected 0",true);
     }
 
     private void HUDshow()
     {
-        animator_.SetBool("OpenShop", true);
+        animator_.SetBool("animation", true);
     }
 
     private void HUDhide()
     {
-        animator_.SetBool("OpenShop", false);
+        animator_.SetBool("animation", false);
     }
 
     public void ShowTowerShop()
