@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class TowerSlot : MonoBehaviour
 {
     [SerializeField]
@@ -15,7 +16,7 @@ public class TowerSlot : MonoBehaviour
     private Image _icon = null;
 
     [SerializeField]
-    private TextMeshProUGUI _priceTxt= null;
+    private TextMeshProUGUI _priceTxt = null;
 
     public TowerDescription TowerDescription => _towerDescription;
 
@@ -46,6 +47,9 @@ public class TowerSlot : MonoBehaviour
         _button.onClick.RemoveListener(OnButtonClicked);
         _button.onClick.AddListener(OnButtonClicked);
     }
+
+    
+
 
     private void OnDisable()
     {

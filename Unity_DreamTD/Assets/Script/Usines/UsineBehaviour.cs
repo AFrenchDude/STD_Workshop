@@ -67,6 +67,8 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     [SerializeField] private LayerMask _dragNDroppableLayer;
     [SerializeField] private float _collisionCheckRadius = 2.0f;
 
+    private GoldManager _goldManager;
+
     private void Awake()
     {
         if (_parentMeshRenderers != null)
@@ -84,6 +86,8 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
                 }
             }
         }
+
+        _goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
     }
 
     public void SetUpgradeMesh(GameObject mesh)
@@ -106,7 +110,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
 
     public bool GetIsPlaceable()
     {
-        if (Base.Instance.Gold >= _price)
+        if (_goldManager.CanBuy(_price))
         {
             if (SearchForNearbyBuldings() == false)
             {
@@ -124,7 +128,8 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         {
             collider.enabled = true;
         }
-        Base.Instance.RemoveGold(_price);
+        string objectName = _factoryDatas.name + "_Create_Lvl0";
+        _goldManager.Buy(_price, objectName);
     }
 
     public void EnableDragNDropVFX(bool enable)

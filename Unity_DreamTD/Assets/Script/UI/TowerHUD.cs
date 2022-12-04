@@ -33,7 +33,7 @@ public class TowerHUD : MonoBehaviour
         currentResources = tower.GetComponent<TowerManager>().TowersData.Projectiles[0].ProjectileAmmount;
         text.SetText("Bullet: " + currentResources);
 
-        if(tower.GetComponent<TowerManager>().TowersData.Projectiles.Count > 1)
+        if (tower.GetComponent<TowerManager>().TowersData.Projectiles.Count > 1)
         {
             float secondFireProjectiles = tower.GetComponent<TowerManager>().TowersData.Projectiles[1].ProjectileAmmount;
             text2.SetText("Bullet: " + secondFireProjectiles);
@@ -113,12 +113,21 @@ public class TowerHUD : MonoBehaviour
 
     public void Upgrade()
     {
+
         //tower.GetComponent<TowerManager>().TowersData.Upgrade();
         TowerManager managedTower = tower.GetComponent<TowerManager>();
-        managedTower.TowersData.Upgrade();
-        managedTower.ApplyStats(managedTower.TowersData);
-        towerScriptRef.RangeIndicator.UpdateCircle();
-        OnPick(tower);
+        GoldManager goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
+        if (goldManager.getFortune >= managedTower.TowersData.UpgradeDatas.UpgradePrice)
+        {
+            string purchaseName = managedTower.TowersData.name + "_Upgrade_" + managedTower.TowersData.UpgradeDatas.name;
+            goldManager.Buy(managedTower.TowersData.UpgradeDatas.UpgradePrice, purchaseName);
+
+            managedTower.TowersData.Upgrade();
+            managedTower.ApplyStats(managedTower.TowersData);
+            towerScriptRef.RangeIndicator.UpdateCircle();
+            OnPick(tower);
+            
+        }
     }
 
     public void EmptyTower()
