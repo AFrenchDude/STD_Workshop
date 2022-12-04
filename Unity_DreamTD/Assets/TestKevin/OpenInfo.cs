@@ -28,24 +28,24 @@ public class OpenInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void OpenInfoPanel()
     {
-        if (info.gameObject.name == "InfoPizzaTower")
+        if (info.gameObject.name == "InfoPizzaTower" || info.gameObject.name == "InfoPizzaFactory")
         {
-            animator.SetBool("InfoPizzaTower", true);
+            animator.SetBool("InfoPizza", true);
         }
-        else if (info.gameObject.name == "InfoEnergyTower")
+        else if (info.gameObject.name == "InfoEnergyTower" || info.gameObject.name == "InfoEnergyFactory")
         {
-            animator.SetBool("InfoEnergyTower", true);
+            animator.SetBool("InfoEnergy", true);
         }
-        else if (info.gameObject.name == "InfoTrapsTower")
+        else if (info.gameObject.name == "InfoTrapsTower" || info.gameObject.name == "InfoTrapsFactory")
         {
-            animator.SetBool("InfoTrapsTower", true);
+            animator.SetBool("InfoTraps", true);
         }
     }
 
     private void CloseInfoPanel()
     {
-        animator.SetBool("InfoPizzaTower", false);
-        animator.SetBool("InfoEnergyTower", false);
-        animator.SetBool("InfoTrapsTower", false);
+        animator.SetBool("InfoPizza", false);
+        animator.SetBool("InfoEnergy", false);
+        animator.SetBool("InfoTraps", false);
     }
 }

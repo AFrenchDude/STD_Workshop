@@ -37,12 +37,12 @@ public class InfoTowerManager : MonoBehaviour
 
     private void Start()
     {
-        sprite.sprite = towerDescription.Icon;
+        sprite.sprite = info.sprite;
         name.text = info.name;
         type.text = info.type;
         Shoot.text = "Firerate : " + info.TowersDatas.FireRate + "/s";
         capacity.text = "Storage : " + info.TowersDatas.MaxProjectilesAmmount;
         moneySprite.sprite = info.moneySprite;
-        moneyNecessary.text = " " + towerDescription.Price + "G";
+        moneyNecessary.text = " " + towerDescription.Price + " G ";
     }
 }
