@@ -2450,7 +2450,6 @@ GameObject:
   - component: {fileID: 1042329243501578086}
   - component: {fileID: 7687283154541897713}
   - component: {fileID: 7230165467462343732}
-  - component: {fileID: 7480165015001191661}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2548,19 +2547,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7480165015001191661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630167228851224483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24026eaeb7444634881b0e2a58298fbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _goldTxt: {fileID: 15912784}
 --- !u!1 &656431948432846871
 GameObject:
   m_ObjectHideFlags: 0
@@ -4292,13 +4278,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4058830339608802276}
-  m_LocalRotation: {x: 0.22975294, y: -0, z: -0, w: 0.973249}
-  m_LocalPosition: {x: 0, y: 0, z: -80}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4435994466751943651}
-  m_Father: {fileID: 6149849494789762011}
+  m_Father: {fileID: 6149849495121591624}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &8333665752642062234
@@ -5362,8 +5348,9 @@ GameObject:
   - component: {fileID: 65957332153635282}
   - component: {fileID: 4458188123564486178}
   - component: {fileID: 4552044184977025975}
-  - component: {fileID: 3245545940518465677}
+  - component: {fileID: 7385737655880493142}
   - component: {fileID: 3302721918016112499}
+  - component: {fileID: 3245545940518465677}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5384,7 +5371,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6149849495121591624}
-  - {fileID: 7309219407840395395}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5656,7 +5642,7 @@ MonoBehaviour:
   m_DefaultActionMap: ActionMap
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 6149849495121591627}
---- !u!114 &3245545940518465677
+--- !u!114 &7385737655880493142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5665,11 +5651,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6149849494789762010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 385098dd006b14f4a84006bfc1b3d007, type: 3}
+  m_Script: {fileID: 11500000, guid: 66088834170b8f84ca1ee5a81303e1f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _valuePerStep: 01000000030000000500000007000000080000000a0000000b0000000c0000000e000000
-  _easterEgg: {fileID: 1147490850446226423}
+  _startFortune: 0
+  _currentFortune: 0
+  _currentMoneyText: {fileID: 0}
+  _purchaseHistory: []
 --- !u!114 &3302721918016112499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5685,6 +5673,20 @@ MonoBehaviour:
   _enemiesHealthBarContainer: {fileID: 583434324829479749}
   _healthBarPrefab: {fileID: 6949144641198641490, guid: 223ca409835dcb5428af00c04eac6dc9,
     type: 3}
+--- !u!114 &3245545940518465677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6149849494789762010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 385098dd006b14f4a84006bfc1b3d007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _valuePerStep: 01000000030000000500000007000000080000000a0000000b0000000c0000000e000000
+  _easterEgg: {fileID: 1147490850446226423}
 --- !u!1 &6149849495121591621
 GameObject:
   m_ObjectHideFlags: 0
@@ -5719,6 +5721,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7548636534247857535}
+  - {fileID: 7309219407840395395}
   m_Father: {fileID: 6149849494789762011}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
