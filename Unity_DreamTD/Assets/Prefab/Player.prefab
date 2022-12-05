@@ -3159,7 +3159,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1546150315034455638}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HUDAnimation, Assembly-CSharp
         m_MethodName: SetCurrentButton
         m_Mode: 2
@@ -11153,6 +11153,7 @@ GameObject:
   - component: {fileID: 2872457454038115168}
   - component: {fileID: 913424656694502944}
   - component: {fileID: 6058986624164280451}
+  - component: {fileID: 5806587651604399719}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -11231,6 +11232,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5806587651604399719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6623942842855311507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b08688cc38792f41a4ee03062d3e57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator_: {fileID: 0}
+  factoryShopHUD_: {fileID: 0}
+  towerShopHUD_: {fileID: 0}
+  currentButton_: []
 --- !u!1 &6713745336746447385
 GameObject:
   m_ObjectHideFlags: 0
@@ -11624,7 +11641,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1546150315034455638}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HUDAnimation, Assembly-CSharp
         m_MethodName: SetCurrentButton
         m_Mode: 2
