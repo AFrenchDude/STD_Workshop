@@ -24,6 +24,7 @@ public class SplineFollower : MonoBehaviour
     private void Update()
     {
         moveAmount = (moveAmount + (Time.deltaTime * speed)) % maxMoveAmount;
+        
         transform.position = spline.GetPositionAtUnits(moveAmount);
         transform.forward = spline.GetForwardAtUnits(moveAmount);
     }
