@@ -8,13 +8,14 @@ public class FollowOnScreen : MonoBehaviour
     private Transform _target;
 
     private RectTransform _rectTransform;
+
     private Camera _camera;
     private Canvas _canvas;
 
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
-        _canvas = transform.parent.parent.GetComponent<Canvas>();
+        _canvas = transform.parent.GetComponentInChildren<Canvas>();
         _camera = LevelReferences.Instance.UICamera;
     }
 
@@ -32,7 +33,6 @@ public class FollowOnScreen : MonoBehaviour
             float scaleFactor = _canvas.scaleFactor;
 
             _rectTransform.anchoredPosition = new Vector2(myPositionOnScreen.x / scaleFactor, myPositionOnScreen.y / scaleFactor);
-            
         }
     }
 }
