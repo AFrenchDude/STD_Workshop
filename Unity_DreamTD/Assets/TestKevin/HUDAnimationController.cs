@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDAnimation : MonoBehaviour
+public class HUDAnimationController : MonoBehaviour
 {
     [SerializeField]
     private Animator animator_ = null;
