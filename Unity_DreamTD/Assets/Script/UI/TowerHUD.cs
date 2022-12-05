@@ -125,6 +125,10 @@ public class TowerHUD : MonoBehaviour
             managedTower.TowersData.Upgrade();
             managedTower.ApplyStats(managedTower.TowersData);
             towerScriptRef.RangeIndicator.UpdateCircle();
+
+            
+            towerScriptRef.SetUpgradeMesh(managedTower.TowersData.UpgradeDatas.UpgradePrefab);
+
             OnPick(tower);
             
         }
