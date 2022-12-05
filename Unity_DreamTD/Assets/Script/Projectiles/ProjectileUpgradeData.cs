@@ -42,4 +42,21 @@ public class ProjectileUpgradeData : ScriptableObject
     public EnergyUpgrades EnergyUpgradeSelected => _energyUpgradeSelected;
     public FoodUpgrades FoodUpgradeSelected => _foodUpgradeSelected;
     public TrapUpgrades TrapUpgradeSelected => _trapUpgradeSelected;
+
+    public void SetNeutralUpgrade(NeutralUpgrades newNeutralUpgrade)
+    {
+        _neutralUpgradeSelected = newNeutralUpgrade;
+    }
+    public void SetEnergyUpgrade(EnergyUpgrades newEnergyUpgrade)
+    {
+        _energyUpgradeSelected = newEnergyUpgrade;
+    }
+    public void SetFoodUpgrade(FoodUpgrades newFoodUpgrade)
+    {
+        _foodUpgradeSelected = newFoodUpgrade;
+    }
+    public void SetTrapUpgrade(TrapUpgrades newTrapUpgrade)
+    {
+        _trapUpgradeSelected = newTrapUpgrade;
+    }
 }
