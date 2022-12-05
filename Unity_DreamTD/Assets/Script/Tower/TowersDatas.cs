@@ -14,6 +14,16 @@ public class TowersDatas : ScriptableObject
     }
 
     [Header("Stats")]
+
+    [SerializeField]
+    private Sprite _sprite = null;
+
+    [SerializeField]
+    private string _name = null;
+
+    [SerializeField]
+    private string _type = null;
+
     [SerializeField]
     private float _damage;
 
@@ -40,6 +50,9 @@ public class TowersDatas : ScriptableObject
     [SerializeField]
     private int _maxProjectilesAmmount;
 
+    public Sprite Icon => _sprite;
+    public string Name => _name;
+    public string Type => _type;
 
     public float Damage => _damage;
     public float FireRate => _fireRate;

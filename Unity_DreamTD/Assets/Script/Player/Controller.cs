@@ -1,7 +1,6 @@
 //Made by Melinon Remy
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Controller : MonoBehaviour
@@ -136,6 +135,11 @@ public class Controller : MonoBehaviour
     }
     public void Pause(InputAction.CallbackContext obj)
     {
-        pauseBehaviour.Pause();
+        //when button is pressed
+        if (obj.phase == InputActionPhase.Performed)
+        {
+            AudioSource audio = GetComponent<AudioSource>();
+            pauseBehaviour.Pause(audio);
+        }
     }
 }
