@@ -21,6 +21,9 @@ public class Tower : MonoBehaviour, IPickerGhost
         _rangeIndicator = gameObject.GetComponentInChildren<RangeIndicator>();
         _damageableDetector = gameObject.GetComponent<DamageableDetector>();
         _weaponController = gameObject.GetComponent<WeaponController>();
+
+        _goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
+
         _weaponController.enabled = false;
     }
     public void Enable(bool isEnabled)
@@ -69,6 +72,8 @@ public class Tower : MonoBehaviour, IPickerGhost
     [SerializeField] private Material _materialRed = null; //For testing
     [SerializeField] private LayerMask _dragNDroppableLayer;
     [SerializeField] private float _collisionCheckRadius = 2.0f;
+
+    private GoldManager _goldManager;
     public Transform GetTransform()
     {
         return transform;
@@ -76,7 +81,7 @@ public class Tower : MonoBehaviour, IPickerGhost
 
     public bool GetIsPlaceable()
     {
-        if (Base.Instance.Gold >= _price)
+        if (_goldManager.CanBuy(_price))
         {
             if (SearchForNearbyBuldings() == false)
             {
@@ -94,7 +99,8 @@ public class Tower : MonoBehaviour, IPickerGhost
         {
             collider.enabled = true;
         }
-        Base.Instance.RemoveGold(_price);
+        string objectName = _datas.name + "_Create_Lvl0";
+        _goldManager.Buy(_price, objectName);
     }
 
     public void EnableDragNDropVFX(bool enable)

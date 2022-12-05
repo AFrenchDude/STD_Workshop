@@ -21,6 +21,7 @@ public class StationHUD : MonoBehaviour
     private void Start()
     {
         station = LevelReferences.Instance.Station.transform;
+        
     }
 
     //Create train

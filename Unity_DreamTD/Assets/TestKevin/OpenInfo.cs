@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class OpenInfo : MonoBehaviour
+public class OpenInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private GameObject info = null;
@@ -16,26 +17,35 @@ public class OpenInfo : MonoBehaviour
         info.SetActive(true);
     }
 
-    private void OnMouseOver()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        if (info.gameObject.name == "PanelInfoPizza")
+        OpenInfoPanel();
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        CloseInfoPanel();
+    }
+
+    private void OpenInfoPanel()
+    {
+        if (info.gameObject.name == "InfoPizzaTower" || info.gameObject.name == "InfoPizzaFactory")
         {
-            animator.SetBool("PizzaFactory", true);
+            animator.SetBool("InfoPizza", true);
         }
-        else if (info.gameObject.name == "PanelInfoEnergy")
+        else if (info.gameObject.name == "InfoEnergyTower" || info.gameObject.name == "InfoEnergyFactory")
         {
-            animator.SetBool("EnergyFactory", true);
+            animator.SetBool("InfoEnergy", true);
         }
-        else if (info.gameObject.name == "PanelInfoTraps")
+        else if (info.gameObject.name == "InfoTrapsTower" || info.gameObject.name == "InfoTrapsFactory")
         {
-            animator.SetBool("TrapsFactory", true);
+            animator.SetBool("InfoTraps", true);
         }
     }
 
-    private void OnMouseExit()
+    private void CloseInfoPanel()
     {
-        animator.SetBool("PizzaFactory", false);
-        animator.SetBool("EnergyFactory", false);
-        animator.SetBool("TrapsFactory", false);
+        animator.SetBool("InfoPizza", false);
+        animator.SetBool("InfoEnergy", false);
+        animator.SetBool("InfoTraps", false);
     }
 }

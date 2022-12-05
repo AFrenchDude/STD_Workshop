@@ -40,7 +40,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: UsineEnergySlot/PanelInfoEnergy
+    path: UsineEnergySlot/InfoEnergyFactory
   m_FloatCurves:
   - curve:
       serializedVersion: 2
@@ -56,7 +56,7 @@ AnimationClip:
         outWeight: 0.2256238
       - serializedVersion: 3
         time: 0.083333336
-        value: -298
+        value: -245
         inSlope: -0
         outSlope: -0
         tangentMode: 0
@@ -67,7 +67,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: UsineEnergySlot/PanelInfoEnergy
+    path: UsineEnergySlot/InfoEnergyFactory
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -84,7 +84,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.083333336
-        value: 158
+        value: 85
         inSlope: -2664.6177
         outSlope: -2664.6177
         tangentMode: 0
@@ -95,7 +95,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: UsineEnergySlot/PanelInfoEnergy
+    path: UsineEnergySlot/InfoEnergyFactory
     classID: 224
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -107,21 +107,21 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 662167975
+      path: 4197052120
       attribute: 3
       script: {fileID: 0}
       typeID: 4
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 662167975
+      path: 4197052120
       attribute: 1460864421
       script: {fileID: 0}
       typeID: 224
       customType: 28
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 662167975
+      path: 4197052120
       attribute: 538195251
       script: {fileID: 0}
       typeID: 224
@@ -154,6 +154,62 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
+        value: -0.000030518
+        inSlope: -242.81544
+        outSlope: -242.81544
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.2256238
+      - serializedVersion: 3
+        time: 0.083333336
+        value: -245
+        inSlope: -0
+        outSlope: -0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.09051257
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.x
+    path: UsineEnergySlot/InfoEnergyFactory
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.083333336
+        value: 85
+        inSlope: -2664.6177
+        outSlope: -2664.6177
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.085840344
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_AnchoredPosition.y
+    path: UsineEnergySlot/InfoEnergyFactory
+    classID: 224
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
         value: 0
         inSlope: 0
         outSlope: 0
@@ -174,7 +230,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: UsineEnergySlot/PanelInfoEnergy
+    path: UsineEnergySlot/InfoEnergyFactory
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -202,7 +258,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: UsineEnergySlot/PanelInfoEnergy
+    path: UsineEnergySlot/InfoEnergyFactory
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -230,63 +286,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: UsineEnergySlot/PanelInfoEnergy
-    classID: 224
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: -0.000030518
-        inSlope: -242.81544
-        outSlope: -242.81544
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.2256238
-      - serializedVersion: 3
-        time: 0.083333336
-        value: -298
-        inSlope: -0
-        outSlope: -0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.09051257
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_AnchoredPosition.x
-    path: UsineEnergySlot/PanelInfoEnergy
-    classID: 224
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.083333336
-        value: 158
-        inSlope: -2664.6177
-        outSlope: -2664.6177
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.085840344
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_AnchoredPosition.y
-    path: UsineEnergySlot/PanelInfoEnergy
+    path: UsineEnergySlot/InfoEnergyFactory
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves: []

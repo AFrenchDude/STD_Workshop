@@ -57,4 +57,5 @@ public class NightmareManager : MonoBehaviour
     {
         get { return _nightmareData.nighmareType; }
     }
+
 }

@@ -3,6 +3,11 @@ using UnityEngine;
 
 public abstract class AProjectile : MonoBehaviour
 {
+    private enum MortarPhase
+    {
+        up,
+        down
+    }
 
     [SerializeField] private bool _destroyOnAttack = true;
     [SerializeField] private float _movementSpeed = 0.0f;
@@ -12,11 +17,19 @@ public abstract class AProjectile : MonoBehaviour
     {
         get { return _fireType; }
     }
+
+    [Header("Mortar")]
+    [SerializeField]
+    private float _heightSwitch = 100f;
+    private MortarPhase _mortarPhase = MortarPhase.up;
+
+
+
     public void SetFireType(TowersDatas.fireType fireType)
     {
         _fireType = fireType;
     }
-
+    
     private Transform _target;
 
     public void SetSpeed(float speed)
@@ -45,11 +58,36 @@ public abstract class AProjectile : MonoBehaviour
     }
     protected virtual void Update()
     {
-        transform.position += transform.forward * _movementSpeed * Time.deltaTime;
-
-        if (_target != null)
+        if (_fireType == TowersDatas.fireType.Mortar)
         {
-            transform.rotation = Quaternion.LookRotation(_target.position - transform.position); 
+            if(_mortarPhase == MortarPhase.up)
+            {
+                transform.position += transform.forward * _movementSpeed * Time.deltaTime;
+            }
+            else
+            {
+                transform.localPosition += transform.forward * _movementSpeed * Time.deltaTime;
+
+                if (_target != null)
+                {
+                    transform.rotation = Quaternion.LookRotation(_target.position - transform.position);
+                }
+            }
+            
+
+            if(_mortarPhase == MortarPhase.up & transform.position.y > _heightSwitch)
+            {
+                _mortarPhase = MortarPhase.down;               
+            }
+        }
+        else
+        {
+            transform.position += transform.forward * _movementSpeed * Time.deltaTime;
+
+            if (_target != null)
+            {
+                transform.rotation = Quaternion.LookRotation(_target.position - transform.position);
+            }
         }
     }
 
