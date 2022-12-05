@@ -13,7 +13,8 @@ public enum TargetPriority
 
 public class DamageableDetector : MonoBehaviour
 {
-    [System.NonSerialized]
+    //[System.NonSerialized]
+    [SerializeField]
     private List<Damageable> _damageablesInRange = new List<Damageable>();
 
     //private NightmareData.NighmareType _projectileNightmareType;
@@ -41,6 +42,7 @@ public class DamageableDetector : MonoBehaviour
 
         if (damageable != null && _damageablesInRange.Contains(damageable) == true)
         {
+            Debug.Log(other);
             damageable.Died.RemoveListener(Damageable_OnDied);
             _damageablesInRange.Remove(damageable);
         }
