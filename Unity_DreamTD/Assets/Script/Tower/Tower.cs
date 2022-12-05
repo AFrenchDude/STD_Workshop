@@ -22,6 +22,16 @@ public class Tower : MonoBehaviour, IPickerGhost
         _damageableDetector = gameObject.GetComponent<DamageableDetector>();
         _weaponController = gameObject.GetComponent<WeaponController>();
 
+        //Mesh adaptater
+        if (_parentMeshRenderers != null)
+        {
+            if (_parentMeshRenderers.childCount > 0)
+            {
+                _dragNDropMeshes.Clear();
+                GetAllChildWithMeshRenderer(_parentMeshRenderers);
+            }
+        }
+
         _goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
 
         _weaponController.enabled = false;
@@ -66,6 +76,10 @@ public class Tower : MonoBehaviour, IPickerGhost
     }
 
     #region DragNDrop Interface & system
+    [Header("Personnalize")]
+    [SerializeField] private Transform _parentMeshRenderers = null;
+    private Material originalMaterial;
+
     [SerializeField] private List<MeshRenderer> _dragNDropMeshes = null; //For testing as the green/red indicator
     [SerializeField] private List<Collider> _colliders = null; //Enable train and damageable detector colliders after being blaced to prevent weird behaviours
     [SerializeField] private Material _materialGreen = null; //For testing
@@ -74,6 +88,7 @@ public class Tower : MonoBehaviour, IPickerGhost
     [SerializeField] private float _collisionCheckRadius = 2.0f;
 
     private GoldManager _goldManager;
+
     public Transform GetTransform()
     {
         return transform;
@@ -105,11 +120,60 @@ public class Tower : MonoBehaviour, IPickerGhost
 
     public void EnableDragNDropVFX(bool enable)
     {
-        foreach (var meshes in _dragNDropMeshes)
+        if (enable)
         {
-            meshes.enabled = enable;
+            foreach (var meshes in _dragNDropMeshes)
+            {
+                originalMaterial = meshes.material;
+            }
         }
+        else
+        {
+            foreach (var meshes in _dragNDropMeshes)
+            {
+                meshes.material = originalMaterial;
+            }
+
+        }
+
         _rangeIndicator.EnableRangeIndicator(enable);
+    }
+
+    public void GetAllChildWithMeshRenderer(Transform parent)
+    {
+        foreach(Transform child in parent)
+        {
+            if(child.GetComponent<MeshRenderer>() != null)
+            {
+                _dragNDropMeshes.Add(child.GetComponent<MeshRenderer>());
+            }
+
+            if(child.childCount > 0)
+            {
+                GetAllChildWithMeshRenderer(child);
+            }
+        }
+    }
+
+    public void FindPivotAndMuzzle(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.CompareTag("TowerPivot"))
+            {
+                _weaponController.AddPivot(child);
+            }
+
+            if (child.CompareTag("Muzzle"))
+            {
+                _weaponController.AddMuzzle(child);
+            }
+
+            if (child.childCount > 0)
+            {
+                FindPivotAndMuzzle(child);
+            }
+        }
     }
 
     public void SetDragNDropVFXColorToGreen(bool setToGreen)
@@ -149,6 +213,17 @@ public class Tower : MonoBehaviour, IPickerGhost
     {
         Gizmos.color = new Color(0, 0, 1f);
         Gizmos.DrawWireSphere(transform.position, _collisionCheckRadius);
+    }
+
+    public void SetUpgradeMesh(GameObject mesh)
+    {
+        Destroy(_parentMeshRenderers.gameObject);
+        _parentMeshRenderers = Instantiate(mesh, this.transform).transform;
+
+        _weaponController.ResetMuzzleAndPivotList();
+
+        FindPivotAndMuzzle(_parentMeshRenderers);
+
     }
     #endregion
 }
