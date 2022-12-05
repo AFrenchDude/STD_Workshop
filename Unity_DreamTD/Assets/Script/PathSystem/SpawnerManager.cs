@@ -34,15 +34,31 @@ public class SpawnerManager : MonoBehaviour
     [System.NonSerialized]
     private Coroutine _waitForNextWaveCoroutine;
 
+    //[System.NonSerialized]
+    [SerializeField]
+    private SpawnerStatus _spawnerState;
+
+    [SerializeField]
     private int _waveEntityListCount = 0;
+
+    [SerializeField]
     private bool _isWaitingForLastEntityDeath = false;
 
     [SerializeField]
     public UnityEvent<SpawnerManager, SpawnerStatus, int> WaveStatusChanged_UnityEvent = null;
 
     public delegate void SpawnerEvent(SpawnerManager sender, SpawnerStatus status, int runningWaveCount);
-    public event SpawnerEvent WaveStatusChanged = null;
+    public event SpawnerEvent WaveStatusChanged = null; 
 
+    private void Awake()
+    {
+        _spawnerState = SpawnerStatus.Inactive;
+    }
+
+    public bool isWaveRunning
+    {
+        get { return _spawnerState == SpawnerStatus.WaveRunning; }
+    }
     private void Update()
     {
         if (_isWaitingForLastEntityDeath)
@@ -51,6 +67,7 @@ public class SpawnerManager : MonoBehaviour
             {
                 EndGameCondition.Instance.PlayerVictory(); // No enemy left: end game
                 _isWaitingForLastEntityDeath = false;
+                _spawnerState = SpawnerStatus.Inactive;
             }
         }
     }
@@ -76,12 +93,20 @@ public class SpawnerManager : MonoBehaviour
         // Start a new wave set only if there are no currently a wave running
         if (_currentWaveRunning <= 0)
         {
+            _isWaitingForLastEntityDeath = true;
+
             StartNewWaveSet();
+            _spawnerState = SpawnerStatus.WaveRunning;
         }
     }
 
     public void StartNewWaveSet()
     {
+        if (LevelReferences.Instance.MusicPlayer != null)
+        {
+            LevelReferences.Instance.MusicPlayer.Play();
+
+        }
         _currentWaveSetIndex += 1;
         var waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
 
@@ -120,6 +145,7 @@ public class SpawnerManager : MonoBehaviour
 
     private void Spawner_OnWaveEnded(EntitySpawner entitySpawner, Wave wave)
     {
+        LevelReferences.Instance.MusicPlayer.Stop();
         entitySpawner.WaveEnded.RemoveListener(Spawner_OnWaveEnded);
 
         _currentWaveRunning -= 1;
@@ -142,17 +168,21 @@ public class SpawnerManager : MonoBehaviour
     private IEnumerator WaitForNewWaveSet()
     {
         var waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
-        float waitingDuration = waveDatabase.Waves[_currentWaveSetIndex].WaitingDurationBefore;
+        float waitingDuration = waveDatabase.Waves[_currentWaveSetIndex].WaitingDurationBefore + waveDatabase.DelayBetweenWave;
 
         if (_currentWaveSetIndex - 1 > 0)
         {
-            waitingDuration += waveDatabase.Waves[_currentWaveSetIndex - 1].WaitingDurationAfter;
+            waitingDuration += waveDatabase.Waves[_currentWaveSetIndex - 1].WaitingDurationAfter + waveDatabase.DelayBetweenWave;
         }
 
         Debug.LogFormat("Waiting {0} seconds until next wave.", waitingDuration);
         yield return new WaitForSeconds(waitingDuration);
 
         _waitForNextWaveCoroutine = null;
+
+
         StartNewWaveSet();
+
+
     }
 }

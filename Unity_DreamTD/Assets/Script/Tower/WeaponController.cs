@@ -1,5 +1,4 @@
 //By ALBERT Esteban & ALEXANDRE Dorian
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +26,7 @@ public class WeaponController : MonoBehaviour
     //Allow to spawn One projectile by one for mortar.
     private AProjectile _lastProjectile = null;
 
-    private AudioSource audioSource;
+    [SerializeField] private List<AudioSource> audioSources;
 
     public void setTowerData(TowersDatas towerData)
     {
@@ -46,11 +45,20 @@ public class WeaponController : MonoBehaviour
         {
             if (_target.Count >= 1)
             {
-
                 if (_target[i] != null)
                 {
                     Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
-                    _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Quaternion.LookRotation(targetDirection), Time.deltaTime * _rotationSpeed);
+
+                    if (_towersData.FireType == TowersDatas.fireType.Mortar)
+                    {
+                        Quaternion Rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, Quaternion.LookRotation(targetDirection).eulerAngles.y, transform.rotation.eulerAngles.z);
+                        _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Rotation, Time.deltaTime * _rotationSpeed);
+                    }
+                    else
+                    {
+                        _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Quaternion.LookRotation(targetDirection), Time.deltaTime * _rotationSpeed);
+
+                    }
                 }
             }
         }
@@ -59,12 +67,11 @@ public class WeaponController : MonoBehaviour
     private void OnEnable()
     {
         _lastShotTime = -_towersData.FireRate;
-        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        if (Time.time >= _lastShotTime + _towersData.FireRate && canShoot && _lastProjectile == null)
+        if (Time.time >= _lastShotTime + _towersData.FireRate && canShoot)
         {
             Shoot();
             _lastShotTime = Time.time;
@@ -73,27 +80,33 @@ public class WeaponController : MonoBehaviour
 
     private void Shoot()
     {
+        if (audioSources[_muzzleIndx] != null)
+        {
+            audioSources[_muzzleIndx].clip = _neutralProjectile.shotSound[Random.Range(0, _neutralProjectile.shotSound.Count)];
+            audioSources[_muzzleIndx].Play();
+        }
+        AProjectile spawnedProjectile = null;
 
-        audioSource.clip = _neutralProjectile.shotSound[Random.Range(0, _neutralProjectile.shotSound.Count)];
-        audioSource.Play();
-        AProjectile spawnedProjectile;
-        
-        if(_towersData.Projectiles.Count > 0)
+        if (_towersData.Projectiles.Count > 0)
         {
             if (_towersData.hasProjectiles(_muzzleIndx))
             {
                 ProjectileType currentProjectile = _towersData.Projectiles[_muzzleIndx].ProjectileType;
                 spawnedProjectile = Instantiate(currentProjectile.projectile.GetComponent<AProjectile>());
                 _towersData.ReduceProjAmmount(_muzzleIndx, 1);
-
             }
-
             else
             {
-                spawnedProjectile = Instantiate(_neutralProjectile.projectile.GetComponent<AProjectile>());
+                if (_neutralProjectile.projectile.GetComponent<AProjectile>() != null)
+                {
+                    spawnedProjectile = Instantiate(_neutralProjectile.projectile.GetComponent<AProjectile>());
+                }
+                else
+                {
+                    return;
+                }
             }
         }
-        
         else
         {
             spawnedProjectile = Instantiate(_neutralProjectile.projectile.GetComponent<AProjectile>());
@@ -117,25 +130,6 @@ public class WeaponController : MonoBehaviour
         else
         {
             _muzzleIndx++;
-        }
-
-        //Set up mortar curve (For Mortar)
-        BellShapedCurve curve = spawnedProjectile.GetComponent<BellShapedCurve>();
-
-        if (_towersData.FireType == TowersDatas.fireType.Mortar)
-        {
-            curve.enabled = true;
-            curve.SetUpCurve(_target[_muzzleIndx].transform);
-
-            _lastProjectile = spawnedProjectile;
-
-            // Adapt projectile speed by enemy distance
-            float speed = _towersData.ProjectileSpeed * (_target[_muzzleIndx].transform.position - transform.position).magnitude / _towersData.Range;
-            spawnedProjectile.GetComponent<AProjectile>().SetSpeed(speed);
-        }
-        else
-        {
-            curve.enabled = false;
         }
 
 

@@ -21,6 +21,7 @@ public class StationHUD : MonoBehaviour
     private void Start()
     {
         station = LevelReferences.Instance.Station.transform;
+        
     }
 
     //Create train
@@ -63,7 +64,7 @@ public class StationHUD : MonoBehaviour
         {
             stationLevel++;
             maxTrainCreatable++;
-            maxTrainsSpeed *= 2;
+            maxTrainsSpeed += 10;
             //Set speed
             foreach (Transform child in container.transform)
             {

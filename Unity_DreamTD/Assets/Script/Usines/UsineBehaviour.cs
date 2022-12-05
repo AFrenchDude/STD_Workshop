@@ -5,12 +5,20 @@ using UnityEngine;
 public class UsineBehaviour : MonoBehaviour, IPickerGhost
 {
     [SerializeField]
-    private FactoryDatas _factoryDatas;  
+    private FactoryDatas _factoryDatas;
     private int _price = 0;
 
     private float lastProduction;
     public int Price => _price;
     private Material originalMaterial;
+
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        
+    }
 
     public FactoryDatas getFactoryData
     {
@@ -29,8 +37,9 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         bool conditionType = _factoryDatas.ProjectileType.typeSelected.ToString() != "None";
         bool conditionSpace = _factoryDatas.Ammount < _factoryDatas.MaxAmmount;
         bool conditionTime = Time.time > lastProduction + _factoryDatas.ProductionRate;
+        bool conditionWave = LevelReferences.Instance.SpawnerManager.isWaveRunning;
 
-        if (conditionType && conditionSpace && conditionTime && _factoryDatas.IsProducing)
+        if (conditionType && conditionSpace && conditionWave && conditionTime && _factoryDatas.IsProducing)
         {
             _factoryDatas.AddProjectile(1);
             lastProduction = Time.time;
@@ -39,17 +48,61 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     public void Enable(bool isEnabled)
     {
         _factoryDatas = Instantiate(_factoryDatas);
+        _factoryDatas.ApplyUpgrade();
         _factoryDatas.SetProductionEnable(isEnabled);
         enabled = isEnabled;
+        if (isEnabled)
+        {
+            audioSource.Play();
+        }
     }
 
     #region DragNDrop Interface & system
+    [Header("Personnalize")]
+    [SerializeField] private Transform _parentMeshRenderers = null;
     [SerializeField] private List<MeshRenderer> _dragNDropMeshes = null; //For testing as the green/red indicator
     [SerializeField] private List<Collider> _colliders = null; //Enable train and damageable detector colliders after being blaced to prevent weird behaviours
     [SerializeField] private Material _materialGreen = null; //For testing
     [SerializeField] private Material _materialRed = null; //For testing
     [SerializeField] private LayerMask _dragNDroppableLayer;
     [SerializeField] private float _collisionCheckRadius = 2.0f;
+
+    private GoldManager _goldManager;
+
+    private void Awake()
+    {
+        if (_parentMeshRenderers != null)
+        {
+            if (_parentMeshRenderers.childCount > 0)
+            {
+                _dragNDropMeshes.Clear();
+                for (int i = 0; i < _parentMeshRenderers.childCount; i++)
+                {
+                    Transform mesh = _parentMeshRenderers.GetChild(i);
+                    if (mesh.GetComponent<MeshRenderer>() != null)
+                    {
+                        _dragNDropMeshes.Add(mesh.GetComponent<MeshRenderer>());
+                    }
+                }
+            }
+        }
+
+        _goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
+    }
+
+    public void SetUpgradeMesh(GameObject mesh)
+    {
+        Destroy(_parentMeshRenderers.gameObject);
+        _parentMeshRenderers = Instantiate(mesh, this.transform).transform;
+        _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", true);
+
+    }
+
+    public void ActiveAnimation(bool activted)
+    {
+        _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", activted);
+    }
+
     public Transform GetTransform()
     {
         return transform;
@@ -57,7 +110,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
 
     public bool GetIsPlaceable()
     {
-        if (Base.Instance.Gold >= _price)
+        if (_goldManager.CanBuy(_price))
         {
             if (SearchForNearbyBuldings() == false)
             {
@@ -75,17 +128,18 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         {
             collider.enabled = true;
         }
-        Base.Instance.RemoveGold(_price);
+        string objectName = _factoryDatas.name + "_Create_Lvl0";
+        _goldManager.Buy(_price, objectName);
     }
-    
+
     public void EnableDragNDropVFX(bool enable)
     {
-        if(enable)
+        if (enable)
         {
             foreach (var meshes in _dragNDropMeshes)
             {
                 originalMaterial = meshes.material;
-            }
+            }         
         }
         else
         {
@@ -93,9 +147,16 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
             {
                 meshes.material = originalMaterial;
             }
+            
+        }
+
+        if (_parentMeshRenderers != null)
+        {
+
+            _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", !enable);
         }
     }
-    
+
     public void SetDragNDropVFXColorToGreen(bool setToGreen)
     {
         if (setToGreen)

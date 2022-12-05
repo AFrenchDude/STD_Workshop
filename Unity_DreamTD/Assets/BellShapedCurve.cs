@@ -23,6 +23,11 @@ public class BellShapedCurve : MonoBehaviour
     public UnityEvent DamageDone;
 
 
+    public void LaunchProjectile()
+    {
+
+    }
+
     public void SetUpCurve(Transform target)
     {
         _radiusCollider.enabled = false;
@@ -41,11 +46,12 @@ public class BellShapedCurve : MonoBehaviour
 
         float lerpValue = current_pos.magnitude / _startedPosisiton.magnitude;
 
-        transform.localPosition = new Vector3(transform.localPosition.x, _bellCurveShape.Evaluate(lerpValue) * _height, transform.localPosition.z);
+        transform.localPosition = new Vector3(transform.localPosition.x , _bellCurveShape.Evaluate(lerpValue) * _height, transform.localPosition.z);
 
         if (transform.localPosition.magnitude <= 2f)
         {
             _radiusCollider.enabled = true;
+
             /*
             float Damage = GetComponent<Damager>().getDamage;
             transform.root.GetComponent<Damageable>().TakeDamage(Damage, out float health);

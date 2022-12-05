@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 610077206160350476}
   - component: {fileID: 610077206160350467}
   - component: {fileID: 610077206160350466}
+  - component: {fileID: 7662412046612942045}
   m_Layer: 0
   m_Name: Canon
   m_TagString: Untagged
@@ -99,6 +100,103 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!82 &7662412046612942045
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610077206160350464}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -8528189456376423635, guid: 08da6b91d03aa604a889c76a08d7339f,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &610077206432275729
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,11 +283,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b691c41b4d80499498606776c8b47de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetPriority: 0
+  _targetPriority: 2
   _dragNDropMeshes:
   - {fileID: 6008034697900419114}
   _colliders:
-  - {fileID: 610077207126458921}
+  - {fileID: 4942326301799910616}
   - {fileID: 4589392467591401512}
   _materialGreen: {fileID: 2100000, guid: e21208de5972b604492d7810b240238c, type: 2}
   _materialRed: {fileID: 2100000, guid: d6f519558150966419f3186d645c4b70, type: 2}
@@ -209,6 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f036d2bdbe42b14286913d3e550a492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageablesInRange: []
 --- !u!114 &610077207042234277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,6 +327,8 @@ MonoBehaviour:
   _canonPivot:
   - {fileID: 610077206432275730}
   canShoot: 0
+  audioSources:
+  - {fileID: 7662412046612942045}
 --- !u!54 &610077207042234278
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -257,7 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _towersDatas: {fileID: 11400000, guid: b44bdb441a435ba4fa26d91eabb6adc4, type: 2}
-  _rangeDetector: {fileID: 610077207126458921}
+  _rangeDetector: {fileID: 4942326301799910616}
 --- !u!1 &610077207126458927
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +368,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 610077207126458920}
-  - component: {fileID: 610077207126458921}
+  - component: {fileID: 4942326301799910616}
   m_Layer: 13
   m_Name: DetectionCollision
   m_TagString: Untagged
@@ -290,8 +391,8 @@ Transform:
   m_Father: {fileID: 610077207042234298}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &610077207126458921
-SphereCollider:
+--- !u!136 &4942326301799910616
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -300,8 +401,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 4
+  m_Height: 40
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &610077207299334503
 GameObject:
@@ -543,7 +645,7 @@ GameObject:
   - component: {fileID: 2409309621005070302}
   m_Layer: 13
   m_Name: TrainDetector
-  m_TagString: Untagged
+  m_TagString: TowerTrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -588,8 +690,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8151689b730a58458bf166c921c686c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: {fileID: 11400000, guid: a6ed1d2dcab2689418bf34f47b41496f, type: 2}
-  projectiles: []
+  type:
+  - {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
+  projectiles: 0
   maxRessource: 20
 --- !u!1 &5526530166326332707
 GameObject:

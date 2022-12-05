@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class EasterEggTrigger : MonoBehaviour
 {
     [SerializeField] private List<int> _valuePerStep = new List<int>();
-    [SerializeField] private GameObject _hiddenButton = null;
+    [SerializeField] private GameObject _easterEgg = null;
 
     private List<int> _valueHistory = new List<int>();
     private bool _egFlag = false;
@@ -58,6 +58,6 @@ public class EasterEggTrigger : MonoBehaviour
 
     private void EnableEasterEgg()
     {
-        _hiddenButton.SetActive(true);
+        _easterEgg.SetActive(true);
     }
 }
