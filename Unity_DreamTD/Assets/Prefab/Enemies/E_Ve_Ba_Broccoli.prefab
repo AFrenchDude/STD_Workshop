@@ -91,12 +91,25 @@ MonoBehaviour:
   _destroyOnDeath: 1
   _targetAnchor: {fileID: 3194527713029171132}
   _headAnchor: {fileID: 5574553189779065027}
+  _healthBar: {fileID: 0}
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
   Died:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3533058913453316858}
+        m_TargetAssemblyTypeName: GoldDrop, Assembly-CSharp
+        m_MethodName: DropGold
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3194527713467927122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,17 +269,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b908fc9688e43374bba862a33114758b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b908fc9688e43374bba862a33114758b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b908fc9688e43374bba862a33114758b,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b908fc9688e43374bba862a33114758b,
         type: 3}

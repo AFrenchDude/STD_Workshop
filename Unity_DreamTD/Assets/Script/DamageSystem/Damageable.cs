@@ -33,6 +33,7 @@ public class Damageable : MonoBehaviour
 
     public void TakeDamage(float damage, out float health)
     {
+        Debug.Log(damage);
         _health -= damage;
         health = _health;
         OnDamageTaken.Invoke(_health);

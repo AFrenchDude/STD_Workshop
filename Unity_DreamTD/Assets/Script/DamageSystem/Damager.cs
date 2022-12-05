@@ -40,14 +40,14 @@ public class Damager : MonoBehaviour
                 foreach(Collider collider in colliderList)
                 {
                     NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
-                    collider.GetComponent<Damageable>().TakeDamage(_attack, out float health);
+                    collider.GetComponent<Damageable>().TakeDamage(CheckEffectiveness(otherNightmareType), out float health);
                     DamageDone.Invoke(otherDamageable);
                 }
             }
             else
             {
                 NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
-                otherDamageable.TakeDamage(_attack, out float health);
+                otherDamageable.TakeDamage(CheckEffectiveness(otherNightmareType), out float health);             
                 DamageDone.Invoke(otherDamageable);
 
             }
@@ -62,7 +62,7 @@ public class Damager : MonoBehaviour
         NightmareData.NighmareType projectileNightmareResisted = _attackType.convertProjectileToNightmareResistance();
         if (projectileNightmareWeak == otherNightmareType)
         {
-            newdamage = _attack * 1.2f;
+            newdamage = _attack * 1.25f;
         }
         if (projectileNightmareResisted == otherNightmareType)
         {

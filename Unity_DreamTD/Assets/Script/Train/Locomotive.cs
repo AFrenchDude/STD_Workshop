@@ -200,7 +200,7 @@ public class Locomotive : MonoBehaviour
 
             //If a train is close
             if (closeTo != null)
-            {           
+            {
                 StopTrain(6);
             }
             //Decelaration
@@ -292,31 +292,35 @@ public class Locomotive : MonoBehaviour
 
     private void FinishTransfer()
     {
-        wagonsToCheck.Clear();
-        isTransfering = false;
-        objectCollided.RemoveAt(0);
-        //Check if there's other object to transfer with
         if (objectCollided.Count > 0)
         {
-            if (objectCollided[0].GetComponent<UsineBehaviour>() != null)
+            wagonsToCheck.Clear();
+            isTransfering = false;
+            objectCollided.RemoveAt(0);
+            //Check if there's other object to transfer with
+            if (objectCollided.Count > 0)
             {
-                OnTriggerUsine(objectCollided[0], false);
+                if (objectCollided[0].GetComponent<UsineBehaviour>() != null)
+                {
+                    OnTriggerUsine(objectCollided[0], false);
+                }
+                else if (objectCollided[0].GetComponent<TowerGetProjectile>() != null)
+                {
+                    OnTriggerSentry(objectCollided[0], false);
+                }
             }
-            else if (objectCollided[0].GetComponent<TowerGetProjectile>() != null)
+            else
             {
-                OnTriggerSentry(objectCollided[0], false);
+                objectCollided.Clear();
+                //Start moving
+                splineFollower.speed = maxSpeed;
+                foreach (Wagon wagons in wagons)
+                {
+                    wagons.GetComponent<SplineFollower>().speed = maxSpeed;
+                }
             }
         }
-        else
-        {
-            objectCollided.Clear();
-            //Start moving
-            splineFollower.speed = maxSpeed;
-            foreach (Wagon wagons in wagons)
-            {
-                wagons.GetComponent<SplineFollower>().speed = maxSpeed;
-            }
-        }
+
     }
 
     public void StartTrain()
