@@ -1,5 +1,4 @@
 //By ALEXANDRE Dorian
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,9 +49,6 @@ public class TowersDatas : ScriptableObject
     
     public TowerUpgradeData UpgradeDatas => _currentUpgrade;
 
-
-   
-
     public List<Projectile> Projectiles => _projectileTypeList;
 
     public int MaxProjectilesAmmount => _maxProjectilesAmmount;
@@ -75,6 +71,11 @@ public class TowersDatas : ScriptableObject
         _fireRate = _currentUpgrade.UpgradeFireRate;
         _range = _currentUpgrade.UpgradeRange;
         _maxProjectilesAmmount = _currentUpgrade.UpgradeMaxProjectiles;
+
+        foreach(Projectile projectile in _projectileTypeList)
+        {
+            projectile.MaxProjectilesAmmount = _maxProjectilesAmmount;
+        }
     }
 
 

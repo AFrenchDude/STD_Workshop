@@ -23,6 +23,11 @@ public class BellShapedCurve : MonoBehaviour
     public UnityEvent DamageDone;
 
 
+    public void LaunchProjectile()
+    {
+
+    }
+
     public void SetUpCurve(Transform target)
     {
         _radiusCollider.enabled = false;

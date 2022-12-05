@@ -1,6 +1,4 @@
 //By ALEXANDRE Dorian
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerManager : MonoBehaviour
@@ -14,7 +12,7 @@ public class TowerManager : MonoBehaviour
     private WeaponController _weaponController;
 
     [SerializeField]
-    private SphereCollider _rangeDetector;
+    private CapsuleCollider _rangeDetector;
 
     public TowersDatas TowersData => _towersDatas;
 

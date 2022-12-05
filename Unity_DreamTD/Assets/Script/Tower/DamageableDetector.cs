@@ -7,12 +7,14 @@ public enum TargetPriority
     Nearest,
     Furthest,
     LowestHP,
-    HighestMaxHP
+    HighestMaxHP,
+    FartestOnPath
 }
 
 public class DamageableDetector : MonoBehaviour
 {
-    [System.NonSerialized]
+    //[System.NonSerialized]
+    [SerializeField]
     private List<Damageable> _damageablesInRange = new List<Damageable>();
 
     //private NightmareData.NighmareType _projectileNightmareType;
@@ -35,11 +37,12 @@ public class DamageableDetector : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Remove " + other.gameObject);
+        //Debug.Log("Remove " + other.gameObject);
         Damageable damageable = other.GetComponentInParent<Damageable>();
 
         if (damageable != null && _damageablesInRange.Contains(damageable) == true)
         {
+            Debug.Log(other);
             damageable.Died.RemoveListener(Damageable_OnDied);
             _damageablesInRange.Remove(damageable);
         }
@@ -67,6 +70,9 @@ public class DamageableDetector : MonoBehaviour
 
             case TargetPriority.HighestMaxHP:
                 return GetHighestMaxHPDamageable(projectileNightmareType);
+
+            case TargetPriority.FartestOnPath:
+                return GetFarthestOnPathDamageable(projectileNightmareType);
 
             default:
                 return GetNearestOrFurthestDamageable(true, projectileNightmareType);
@@ -106,6 +112,42 @@ public class DamageableDetector : MonoBehaviour
                         currentDamageable = _damageablesInRange[i];
                     }
                 }
+
+                //Test if it was a right nightmare type
+                if (nightmareManager.getNighmareType == projectileNightmareType & foundRightType == false)
+                {
+                    recordDistance = checkedDistance;
+                    currentDamageable = _damageablesInRange[i];
+                    foundRightType = true;
+                }
+            }
+
+        }
+        return currentDamageable;
+    }
+
+    private Damageable GetFarthestOnPathDamageable(NightmareData.NighmareType projectileNightmareType)
+    {
+        bool foundRightType = false;
+
+        Damageable currentDamageable = null;
+        float recordDistance = float.MinValue;
+
+        for (int i = 0; i < _damageablesInRange.Count; i++)
+        {
+            NightmareManager nightmareManager = _damageablesInRange[i].GetComponent<NightmareManager>();
+
+            if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType || projectileNightmareType == NightmareData.NighmareType.Neutral)
+            {
+                float checkedDistance = _damageablesInRange[i].GetComponent<PathFollower>().getPathDistance;
+
+
+                if (checkedDistance > recordDistance)
+                {
+                    recordDistance = checkedDistance;
+                    currentDamageable = _damageablesInRange[i];
+                }
+
 
                 //Test if it was a right nightmare type
                 if (nightmareManager.getNighmareType == projectileNightmareType & foundRightType == false)

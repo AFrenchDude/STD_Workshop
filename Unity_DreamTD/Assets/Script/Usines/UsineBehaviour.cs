@@ -17,6 +17,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        
     }
 
     public FactoryDatas getFactoryData
@@ -36,8 +37,9 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         bool conditionType = _factoryDatas.ProjectileType.typeSelected.ToString() != "None";
         bool conditionSpace = _factoryDatas.Ammount < _factoryDatas.MaxAmmount;
         bool conditionTime = Time.time > lastProduction + _factoryDatas.ProductionRate;
+        bool conditionWave = LevelReferences.Instance.SpawnerManager.isWaveRunning;
 
-        if (conditionType && conditionSpace && conditionTime && _factoryDatas.IsProducing)
+        if (conditionType && conditionSpace && conditionWave && conditionTime && _factoryDatas.IsProducing)
         {
             _factoryDatas.AddProjectile(1);
             lastProduction = Time.time;
@@ -46,6 +48,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     public void Enable(bool isEnabled)
     {
         _factoryDatas = Instantiate(_factoryDatas);
+        _factoryDatas.ApplyUpgrade();
         _factoryDatas.SetProductionEnable(isEnabled);
         enabled = isEnabled;
         if (isEnabled)
@@ -64,6 +67,8 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     [SerializeField] private LayerMask _dragNDroppableLayer;
     [SerializeField] private float _collisionCheckRadius = 2.0f;
 
+    private GoldManager _goldManager;
+
     private void Awake()
     {
         if (_parentMeshRenderers != null)
@@ -81,6 +86,8 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
                 }
             }
         }
+
+        _goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
     }
 
     public void SetUpgradeMesh(GameObject mesh)
@@ -91,6 +98,11 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
 
     }
 
+    public void ActiveAnimation(bool activted)
+    {
+        _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", activted);
+    }
+
     public Transform GetTransform()
     {
         return transform;
@@ -98,7 +110,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
 
     public bool GetIsPlaceable()
     {
-        if (Base.Instance.Gold >= _price)
+        if (_goldManager.CanBuy(_price))
         {
             if (SearchForNearbyBuldings() == false)
             {
@@ -116,7 +128,8 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         {
             collider.enabled = true;
         }
-        Base.Instance.RemoveGold(_price);
+        string objectName = _factoryDatas.name + "_Create_Lvl0";
+        _goldManager.Buy(_price, objectName);
     }
 
     public void EnableDragNDropVFX(bool enable)

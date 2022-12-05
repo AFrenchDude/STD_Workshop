@@ -41,16 +41,19 @@ public class GumArea : MonoBehaviour
     {
         foreach (var entity in _entityInArea)
         {
-            Status_Slow entityStatusSlow = entity.GetComponentInParent<Status_Slow>();
-            if (entityStatusSlow != null)
+            if (entity != null)
             {
-                entityStatusSlow.ResetTimer();
-            }
-            else
-            {
-                Status_Slow currententityStatusSlow = entity.AddComponent<Status_Slow>();
-                currententityStatusSlow.SetSlowDuration(_gumAreaData.SlowDuration);
-                currententityStatusSlow.SetSlowStrength(_gumAreaData.SlowStrength);
+                Status_Slow entityStatusSlow = entity.GetComponentInParent<Status_Slow>();
+                if (entityStatusSlow != null)
+                {
+                    entityStatusSlow.ResetTimer();
+                }
+                else
+                {
+                    Status_Slow currententityStatusSlow = entity.AddComponent<Status_Slow>();
+                    currententityStatusSlow.SetSlowDuration(_gumAreaData.SlowDuration);
+                    currententityStatusSlow.SetSlowStrength(_gumAreaData.SlowStrength);
+                }
             }
         }
     }

@@ -16,6 +16,7 @@ public class PathFollower : MonoBehaviour
     private int _waypointIndex = 0;
     private int _lastWaypointIndexReached = 0;
 
+
     public float Speed => _movementSpeed;
     public float OGSpeed => _originalMovementSpeed;
 
@@ -39,6 +40,11 @@ public class PathFollower : MonoBehaviour
         {
             transform.position = spawnLocation;
         }
+    }
+
+    public float getPathDistance
+    {
+        get{return _waypointIndex * 10000 + (_pathWaypoints[_waypointIndex] - transform.position).magnitude;}
     }
 
     private void Update()

@@ -11,11 +11,12 @@ public class GoldDrop : MonoBehaviour
     {
         _goldDropped = gold;
     }
-    private void OnDestroy()
+    public void DropGold()
     {
-        if (Base.HasInstance)
+        Debug.Log("Add gold");
+        if (LevelReferences.Instance.Player.GetComponent<GoldManager>() != null)
         {
-            Base.Instance.AddGold(_goldDropped);
+            LevelReferences.Instance.Player.GetComponent<GoldManager>().CollectMoney(_goldDropped);
         }
     }
 }

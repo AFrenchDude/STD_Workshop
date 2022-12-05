@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 7798339073653843239}
   m_Layer: 13
   m_Name: TrainDetector
-  m_TagString: Tower
+  m_TagString: TowerTrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,7 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8151689b730a58458bf166c921c686c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
+  type:
+  - {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
   projectiles: 0
   maxRessource: 20
 --- !u!1 &4981473462060767208
@@ -234,6 +235,7 @@ GameObject:
   - component: {fileID: 4981473462865336309}
   - component: {fileID: 4981473462865336314}
   - component: {fileID: 4981473462865336315}
+  - component: {fileID: 6390795224573030833}
   m_Layer: 0
   m_Name: Canon
   m_TagString: Tower
@@ -321,6 +323,103 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!82 &6390795224573030833
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4981473462865336313}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -8528189456376423635, guid: 08da6b91d03aa604a889c76a08d7339f,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4981473463144235027
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +565,6 @@ GameObject:
   - component: {fileID: 4981473463761837407}
   - component: {fileID: 1032386382057798182}
   - component: {fileID: 1976451615447302914}
-  - component: {fileID: 6514000612654427233}
   m_Layer: 0
   m_Name: Tower.Test
   m_TagString: Tower
@@ -506,11 +604,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b691c41b4d80499498606776c8b47de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetPriority: 0
+  _targetPriority: 2
   _dragNDropMeshes:
   - {fileID: 2176929659983028947}
   _colliders:
-  - {fileID: 4981473463912515792}
+  - {fileID: 1535458658681190542}
   - {fileID: 8279338388796742353}
   _materialGreen: {fileID: 2100000, guid: e21208de5972b604492d7810b240238c, type: 2}
   _materialRed: {fileID: 2100000, guid: d6f519558150966419f3186d645c4b70, type: 2}
@@ -549,6 +647,8 @@ MonoBehaviour:
   _canonPivot:
   - {fileID: 4981473462060767211}
   canShoot: 0
+  audioSources:
+  - {fileID: 6390795224573030833}
 --- !u!54 &4981473463761837407
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -578,7 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _towersDatas: {fileID: 11400000, guid: 113c4681e118e7b4e8b34d12b2629242, type: 2}
-  _rangeDetector: {fileID: 4981473463912515792}
+  _rangeDetector: {fileID: 1535458658681190542}
 --- !u!114 &1976451615447302914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,103 +692,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hudRef: {fileID: 0}
---- !u!82 &6514000612654427233
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4981473463761837376}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -8528189456376423635, guid: 08da6b91d03aa604a889c76a08d7339f,
-    type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.2
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &4981473463912515798
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +701,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4981473463912515793}
-  - component: {fileID: 4981473463912515792}
+  - component: {fileID: 1535458658681190542}
   m_Layer: 13
   m_Name: DetectionCollision
   m_TagString: Tower
@@ -721,8 +724,8 @@ Transform:
   m_Father: {fileID: 4981473463761837379}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4981473463912515792
-SphereCollider:
+--- !u!136 &1535458658681190542
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -730,9 +733,10 @@ SphereCollider:
   m_GameObject: {fileID: 4981473463912515798}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
+  m_Enabled: 1
   m_Radius: 4
+  m_Height: 20
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4981473464012254110
 GameObject:
