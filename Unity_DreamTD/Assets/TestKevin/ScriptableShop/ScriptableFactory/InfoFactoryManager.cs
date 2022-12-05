@@ -42,6 +42,6 @@ public class InfoFactoryManager : MonoBehaviour
         production.text = "Production : " + info.FactoryDatas.ProductionRate + "/s";
         capacity.text = "Storage : " + info.FactoryDatas.MaxAmmount;
         moneySprite.sprite = info.moneySprite;
-        moneyNecessary.text = " " + info.FactoryDatas.SellPrice + "G";
+        moneyNecessary.text = " " + info.FactoryDatas.SellPrice + " G ";
     }
 }

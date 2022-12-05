@@ -27,7 +27,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.6843603, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.06666667
         value: {x: 0, y: 180, z: 0.33210754}
         inSlope: {x: 0, y: 21.75404, z: 0}
         outSlope: {x: 0, y: 21.75404, z: 0}
@@ -38,7 +38,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: SwipHUD/Image
+    path: SwapButton/Image
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves:
@@ -50,6 +50,15 @@ AnimationClip:
         value: -0.000076293945
         inSlope: 0
         outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.06666667
+        value: -0.00006866455
+        inSlope: 0.000091552734
+        outSlope: 0.000091552734
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -83,6 +92,15 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.7839001
       - serializedVersion: 3
+        time: 0.06666667
+        value: 1059.5
+        inSlope: 479.9956
+        outSlope: 479.9956
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 0.16666667
         value: 1060.3281
         inSlope: -1424.1987
@@ -107,7 +125,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 3403300369
+      path: 3707207233
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -162,6 +180,15 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
+        time: 0.06666667
+        value: -0.00006866455
+        inSlope: 0.000091552734
+        outSlope: 0.000091552734
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 0.16666667
         value: -0.000061035156
         inSlope: 0
@@ -189,6 +216,15 @@ AnimationClip:
         weightedMode: 3
         inWeight: 0.33333334
         outWeight: 0.7839001
+      - serializedVersion: 3
+        time: 0.06666667
+        value: 1059.5
+        inSlope: 479.9956
+        outSlope: 479.9956
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.16666667
         value: 1060.3281
@@ -218,7 +254,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.06666667
         value: 0
         inSlope: 0
         outSlope: 0
@@ -230,7 +266,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: SwipHUD/Image
+    path: SwapButton/Image
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -246,7 +282,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.6843603
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.06666667
         value: 180
         inSlope: 21.75404
         outSlope: 21.75404
@@ -258,7 +294,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: SwipHUD/Image
+    path: SwapButton/Image
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -274,7 +310,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.06666667
         value: 0.33210754
         inSlope: 0
         outSlope: 0
@@ -286,7 +322,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: SwipHUD/Image
+    path: SwapButton/Image
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -297,7 +333,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: SwipHUD/Image
+    path: SwapButton/Image
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -307,7 +343,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: SwipHUD/Image
+    path: SwapButton/Image
     classID: 224
     script: {fileID: 0}
   - curve:
@@ -317,7 +353,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: SwipHUD/Image
+    path: SwapButton/Image
     classID: 224
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

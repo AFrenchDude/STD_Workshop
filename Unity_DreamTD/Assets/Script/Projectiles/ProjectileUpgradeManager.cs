@@ -10,7 +10,10 @@ public class ProjectileUpgradeManager : MonoBehaviour
 
     private void Awake()
     {
-        EnableUpgrade();
+        if (_upgradeManager != null)
+        {
+            EnableUpgrade();
+        }
     }
 
     private void EnableUpgrade()
