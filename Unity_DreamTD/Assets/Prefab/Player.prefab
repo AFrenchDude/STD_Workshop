@@ -5977,6 +5977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad974824838a5db4287ff65e63d7b593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerHUD: {fileID: 0}
   _towerDescription: {fileID: 11400000, guid: e4442717bc0b1f74ab9c29498e79feb8, type: 2}
   _button: {fileID: 1099437696693803763}
   _icon: {fileID: 7746369087419760322}
@@ -8147,6 +8148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad974824838a5db4287ff65e63d7b593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerHUD: {fileID: 0}
   _towerDescription: {fileID: 11400000, guid: 02c256d4ad6fa094fa55b226997fa9af, type: 2}
   _button: {fileID: 8349301345519350310}
   _icon: {fileID: 5850592832306558957}
@@ -10657,6 +10659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad974824838a5db4287ff65e63d7b593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerHUD: {fileID: 0}
   _towerDescription: {fileID: 11400000, guid: e4442717bc0b1f74ab9c29498e79feb8, type: 2}
   _button: {fileID: 7284706465735606009}
   _icon: {fileID: 6151895840527030893}
@@ -13778,10 +13781,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4435994466751943651}
     m_Modifications:
+    - target: {fileID: 309954992309959090, guid: 76c09ea7a6fdae844b084645e58645be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 309954992412248664, guid: 76c09ea7a6fdae844b084645e58645be,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 309954992454323011, guid: 76c09ea7a6fdae844b084645e58645be,
         type: 3}
