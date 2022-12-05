@@ -77,7 +77,7 @@ public class HUDAnimationController : MonoBehaviour
         {
             button.interactable = true;
 
-            //button.animator.SetBool("Selected 0", false);
+            button.animator.SetBool("Selected 0", false);
         }
     }
 
@@ -94,9 +94,8 @@ public class HUDAnimationController : MonoBehaviour
 
         clickedButton.interactable = false;
 
-        currentButton_[buttonIndex].Select();
         ShopSwap();
-        //currentButton_[buttonIndex].animator.SetBool("Selected 0", true);
+        currentButton_[buttonIndex].animator.SetBool("Selected 0", true);
     }
 
     private void HUDshow()
