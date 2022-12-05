@@ -38,6 +38,22 @@ public class WeaponController : MonoBehaviour
         _target = target;
     }
 
+    public void ResetMuzzleAndPivotList()
+    {
+        _canonMuzzle.Clear();
+        _canonPivot.Clear();
+    }
+
+    public void AddMuzzle(Transform transform)
+    {
+        _canonMuzzle.Add(transform);
+    }
+
+    public void AddPivot(Transform pivot)
+    {
+        _canonPivot.Add(pivot);
+    }
+
     private void FixedUpdate()
     {
 
