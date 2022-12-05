@@ -1,7 +1,6 @@
 //By ALBERT Esteban & ALEXANDRE Dorian
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -60,14 +59,27 @@ public class Damager : MonoBehaviour
 
         NightmareData.NighmareType projectileNightmareWeak = _attackType.convertProjectileToNightmare();
         NightmareData.NighmareType projectileNightmareResisted = _attackType.convertProjectileToNightmareResistance();
+
+        
+
         if (projectileNightmareWeak == otherNightmareType)
         {
+            Debug.Log("Strong");
+            newdamage = _attack * 1.5f;
+        }
+        else if (projectileNightmareResisted != otherNightmareType & projectileNightmareResisted != NightmareData.NighmareType.Neutral)
+        {
+            Debug.Log("Normal");
             newdamage = _attack * 1.25f;
         }
-        if (projectileNightmareResisted == otherNightmareType)
+        else
         {
-            newdamage = _attack * 0.8f;
+            Debug.Log("Weak");
+            newdamage = _attack;
         }
+
+        
+
         return newdamage;
     }
 }
