@@ -9,6 +9,9 @@ public class ProjectileUpgradeSetter : MonoBehaviour
     [SerializeField] private ProjectileUpgradeData.FoodUpgrades _foodUpgradeSelected;
     [SerializeField] private ProjectileUpgradeData.TrapUpgrades _trapUpgradeSelected;
 
+    public ProjectileUpgradeData.TrapUpgrades trapUpgrade => _trapUpgradeSelected;
+    public ProjectileUpgradeData.EnergyUpgrades energyUpgrade => _energyUpgradeSelecte;
+    public ProjectileUpgradeData.FoodUpgrades foodUpgrade => _foodUpgradeSelected;
 
     public void SetNeutralUpgrade()
     {
