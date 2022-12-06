@@ -38,22 +38,6 @@ public class WeaponController : MonoBehaviour
         _target = target;
     }
 
-    public void ResetMuzzleAndPivotList()
-    {
-        _canonMuzzle.Clear();
-        _canonPivot.Clear();
-    }
-
-    public void AddMuzzle(Transform transform)
-    {
-        _canonMuzzle.Add(transform);
-    }
-
-    public void AddPivot(Transform pivot)
-    {
-        _canonPivot.Add(pivot);
-    }
-
     private void FixedUpdate()
     {
 
@@ -65,7 +49,7 @@ public class WeaponController : MonoBehaviour
                 {
                     Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
 
-                    if (_towersData.FireType == TowersDatas.fireType.Mortar || _towersData.FireType == TowersDatas.fireType.DoubleCanon)
+                    if (_towersData.FireType == TowersDatas.fireType.Mortar)
                     {
                         Quaternion Rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, Quaternion.LookRotation(targetDirection).eulerAngles.y, transform.rotation.eulerAngles.z);
                         _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Rotation, Time.deltaTime * _rotationSpeed);
@@ -135,17 +119,7 @@ public class WeaponController : MonoBehaviour
         spawnedProjectile.GetComponent<AProjectile>().SetSpeed(_towersData.ProjectileSpeed);
         spawnedProjectile.GetComponent<AProjectile>().SetFireType(_towersData.FireType);
 
-        Damager projectileDamager = spawnedProjectile.GetComponent<Damager>();
-
-        projectileDamager.SetDamage(_towersData.Damage);
-
-
-        //Test for miraculous bullet
-        if (_towersData.hasProjectiles(_muzzleIndx))
-        {
-            projectileDamager.ActiveMiraculousBullet();
-        }
-        
+        spawnedProjectile.GetComponent<Damager>().SetDamage(_towersData.Damage);
 
         //Set up muzzle index (For Double canon)
 
@@ -156,12 +130,6 @@ public class WeaponController : MonoBehaviour
         else
         {
             _muzzleIndx++;
-        }
-
-        //Set up Mortar AOE
-        if(_towersData.FireType == TowersDatas.fireType.Mortar)
-        {
-            spawnedProjectile.GetComponent<Damager>().SetMortarRadius(_towersData.AOERadius);
         }
 
 

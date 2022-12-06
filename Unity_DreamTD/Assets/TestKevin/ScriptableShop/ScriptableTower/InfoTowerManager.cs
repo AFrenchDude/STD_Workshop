@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InfoTowerManager : MonoBehaviour
 {
     #region Variables
+    [SerializeField]
+    private InfoTower info = null;
+
     [SerializeField]
     private TowerDescription towerDescription = null;
 
@@ -35,12 +37,12 @@ public class InfoTowerManager : MonoBehaviour
 
     private void Start()
     {
-        sprite.sprite = towerDescription.TowersDatas.Icon;
-        name.text = towerDescription.TowersDatas.Name;
-        type.text = towerDescription.TowersDatas.Type;
-        Shoot.text = "Firerate : " + towerDescription.TowersDatas.FireRate + "/s";
-        capacity.text = "Storage : " + towerDescription.TowersDatas.MaxProjectilesAmmount;
-        moneySprite.sprite = towerDescription.IconMoneySell;
+        sprite.sprite = info.sprite;
+        name.text = info.name;
+        type.text = info.type;
+        Shoot.text = "Firerate : " + info.TowersDatas.FireRate + "/s";
+        capacity.text = "Storage : " + info.TowersDatas.MaxProjectilesAmmount;
+        moneySprite.sprite = info.moneySprite;
         moneyNecessary.text = " " + towerDescription.Price + " G ";
     }
 }

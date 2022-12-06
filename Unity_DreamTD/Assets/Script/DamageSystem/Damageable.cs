@@ -72,6 +72,4 @@ public class Damageable : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    
 }

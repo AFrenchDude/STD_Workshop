@@ -63,21 +63,15 @@ public class UsineHUD : MonoBehaviour
 
     public void Upgrade()
     {
-        GoldManager goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
-        if (goldManager.getFortune >= _factoryData.CurrentUpgrade.UpgradePrice)
+        _factoryData.Upgrade();
+
+        _factoryTransform.GetComponent<UsineBehaviour>().SetUpgradeMesh(_factoryData.CurrentUpgrade.UpgradePrefab);
+
+        if (_factoryData.CurrentUpgrade.NextUpgrade == null)
         {
-            string purchaseName = _factoryData.name + "_Upgrade_" + _factoryData.CurrentUpgrade.name;
-            goldManager.Buy(_factoryData.CurrentUpgrade.UpgradePrice, purchaseName);
-            _factoryData.Upgrade();
-
-            _factoryTransform.GetComponent<UsineBehaviour>().SetUpgradeMesh(_factoryData.CurrentUpgrade.UpgradePrefab);
-
-            if (_factoryData.CurrentUpgrade.NextUpgrade == null)
-            {
-                upgradeButton.SetActive(false);
-            }
+            upgradeButton.SetActive(false);
         }
-
+        
     }
 
     public void EmptyUsine()

@@ -14,16 +14,6 @@ public class TowersDatas : ScriptableObject
     }
 
     [Header("Stats")]
-
-    [SerializeField]
-    private Sprite _sprite = null;
-
-    [SerializeField]
-    private string _name = null;
-
-    [SerializeField]
-    private string _type = null;
-
     [SerializeField]
     private float _damage;
 
@@ -50,13 +40,6 @@ public class TowersDatas : ScriptableObject
     [SerializeField]
     private int _maxProjectilesAmmount;
 
-    [Header("Mortar")]
-    [SerializeField]
-    private float _aoeRadius;
-
-    public Sprite Icon => _sprite;
-    public string Name => _name;
-    public string Type => _type;
 
     public float Damage => _damage;
     public float FireRate => _fireRate;
@@ -69,8 +52,6 @@ public class TowersDatas : ScriptableObject
     public List<Projectile> Projectiles => _projectileTypeList;
 
     public int MaxProjectilesAmmount => _maxProjectilesAmmount;
-
-    public float AOERadius => _aoeRadius;
     
     public void Upgrade()
     {
@@ -90,7 +71,6 @@ public class TowersDatas : ScriptableObject
         _fireRate = _currentUpgrade.UpgradeFireRate;
         _range = _currentUpgrade.UpgradeRange;
         _maxProjectilesAmmount = _currentUpgrade.UpgradeMaxProjectiles;
-        _aoeRadius = _currentUpgrade.UpgradeAOERadius;
 
         foreach(Projectile projectile in _projectileTypeList)
         {
