@@ -27,6 +27,7 @@ public class Selector : MonoBehaviour
                 }
                 if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
                 {
+                    //towerHUD.GetComponentInParent<FollowOnScreen>().SetTarget(hit.transform);
                     openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
                     openHUDref.OnSelect();
                 }

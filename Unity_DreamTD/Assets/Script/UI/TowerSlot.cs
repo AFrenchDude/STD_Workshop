@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class TowerSlot : MonoBehaviour
 {
     [SerializeField]
+    private TowerHUD towerHUD = null;
+
+    [SerializeField]
     private TowerDescription _towerDescription = null;
 
     [SerializeField]
@@ -25,6 +28,8 @@ public class TowerSlot : MonoBehaviour
 
     private void Awake()
     {
+        _towerDescription = Instantiate(_towerDescription);
+        _towerDescription.SetSlotRef(this);
         UpdateSlot();
     }
 
