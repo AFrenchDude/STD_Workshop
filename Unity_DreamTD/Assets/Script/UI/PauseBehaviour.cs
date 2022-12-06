@@ -6,11 +6,10 @@ public class PauseBehaviour : MonoBehaviour
     [SerializeField] private GameObject HUD;
     private bool isInPause = false;
     [SerializeField] private Controller controller;
-    public void Pause(AudioSource audioSource)
+    public void Pause()
     {
-        audioSource.Play();
         //Unpause
-        if (isInPause)
+        if(isInPause)
         {
             gameObject.SetActive(false);
             HUD.SetActive(true);
