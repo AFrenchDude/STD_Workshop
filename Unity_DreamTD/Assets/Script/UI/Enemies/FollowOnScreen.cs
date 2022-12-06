@@ -15,7 +15,7 @@ public class FollowOnScreen : MonoBehaviour
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
-        _canvas = transform.parent.GetComponentInChildren<Canvas>();
+        _canvas = transform.root.GetComponentInChildren<Canvas>();
         _camera = LevelReferences.Instance.UICamera;
     }
 
