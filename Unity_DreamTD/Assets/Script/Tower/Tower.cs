@@ -12,6 +12,8 @@ public class Tower : MonoBehaviour, IPickerGhost
     private List<Damageable> allTargetedDamageable = new List<Damageable>();
 
     private int _price = 0;
+
+    //References
     public int Price => _price;
     public RangeIndicator RangeIndicator => _rangeIndicator;
 
@@ -80,6 +82,13 @@ public class Tower : MonoBehaviour, IPickerGhost
     [SerializeField] private Transform _parentMeshRenderers = null;
     private Material originalMaterial;
 
+    //References
+    private TowerDescription _towerDescription;
+    public void SetTowerDescription(TowerDescription towerDescription)
+    {
+        _towerDescription = towerDescription;
+    }
+
     [SerializeField] private List<MeshRenderer> _dragNDropMeshes = null; //For testing as the green/red indicator
     [SerializeField] private List<Collider> _colliders = null; //Enable train and damageable detector colliders after being blaced to prevent weird behaviours
     [SerializeField] private Material _materialGreen = null; //For testing
@@ -116,6 +125,7 @@ public class Tower : MonoBehaviour, IPickerGhost
         }
         string objectName = _datas.name + "_Create_Lvl0";
         _goldManager.Buy(_price, objectName);
+        _towerDescription.IncreasePrice();
     }
 
     public void EnableDragNDropVFX(bool enable)

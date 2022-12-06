@@ -25,6 +25,8 @@ public class TowerSlot : MonoBehaviour
 
     private void Awake()
     {
+        _towerDescription = Instantiate(_towerDescription);
+        _towerDescription.SetSlotRef(this);
         UpdateSlot();
     }
 

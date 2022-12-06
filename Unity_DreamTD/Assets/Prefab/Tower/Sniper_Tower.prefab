@@ -244,6 +244,7 @@ GameObject:
   - component: {fileID: 610077207042234277}
   - component: {fileID: 610077207042234278}
   - component: {fileID: 4829292245731438815}
+  - component: {fileID: 107789827441221074}
   m_Layer: 0
   m_Name: Sniper_Tower
   m_TagString: Untagged
@@ -284,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetPriority: 2
+  _parentMeshRenderers: {fileID: 0}
   _dragNDropMeshes:
   - {fileID: 6008034697900419114}
   _colliders:
@@ -359,6 +361,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towersDatas: {fileID: 11400000, guid: b44bdb441a435ba4fa26d91eabb6adc4, type: 2}
   _rangeDetector: {fileID: 4942326301799910616}
+--- !u!114 &107789827441221074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610077207042234297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2cf2f95ee3f30b479cdc8402c3bb52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hudRef: {fileID: 0}
 --- !u!1 &610077207126458927
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,8 +691,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 1, z: 8}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: 0, y: 0, z: 2}
 --- !u!114 &2409309621005070302
 MonoBehaviour:
   m_ObjectHideFlags: 0

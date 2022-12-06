@@ -10,6 +10,17 @@ public class Damager : MonoBehaviour
     [SerializeField] ProjectileType _attackType;
     [SerializeField] private float _mortarRadius;
 
+    //Equilibrium
+    private bool _miraculousBullet = false;
+    public void ActiveMiraculousBullet()
+    {
+        if(_attackType.typeSelected != ProjectileType.projectileType.Neutral)
+        {
+            _miraculousBullet = true;
+        }
+        
+    }
+
     public void SetDamage(float damage)
     {
         _attack = ((int)damage);
@@ -35,8 +46,8 @@ public class Damager : MonoBehaviour
             if (GetComponent<AProjectile>().getFireType == TowersDatas.fireType.Mortar)
             {
                 Collider[] colliderList = Physics.OverlapSphere(transform.position, _mortarRadius, LayerMask.GetMask("Enemies"));
-                
-                foreach(Collider collider in colliderList)
+
+                foreach (Collider collider in colliderList)
                 {
                     NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
                     collider.GetComponent<Damageable>().TakeDamage(CheckEffectiveness(otherNightmareType), out float health);
@@ -46,7 +57,7 @@ public class Damager : MonoBehaviour
             else
             {
                 NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
-                otherDamageable.TakeDamage(CheckEffectiveness(otherNightmareType), out float health);             
+                otherDamageable.TakeDamage(CheckEffectiveness(otherNightmareType), out float health);
                 DamageDone.Invoke(otherDamageable);
 
             }
@@ -60,12 +71,12 @@ public class Damager : MonoBehaviour
         NightmareData.NighmareType projectileNightmareWeak = _attackType.convertProjectileToNightmare();
         NightmareData.NighmareType projectileNightmareResisted = _attackType.convertProjectileToNightmareResistance();
 
-        
+
 
         if (projectileNightmareWeak == otherNightmareType)
         {
             Debug.Log("Strong");
-            newdamage = _attack * 1.5f;
+            newdamage = _attack * 2f;
         }
         else if (projectileNightmareResisted != otherNightmareType & projectileNightmareResisted != NightmareData.NighmareType.Neutral)
         {
@@ -75,11 +86,24 @@ public class Damager : MonoBehaviour
         else
         {
             Debug.Log("Weak");
-            newdamage = _attack;
+            newdamage = _attack * 0.75f;
         }
 
-        
+        //Test if it's last projectile
+        if (_miraculousBullet)
+        {
+            newdamage = newdamage + 1f;
+        }
 
-        return newdamage;
+
+            return newdamage;
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+
+        Gizmos.DrawWireSphere(transform.position, _mortarRadius);
     }
 }
