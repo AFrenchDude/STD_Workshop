@@ -23,6 +23,7 @@ public class HUDwhenSelect : MonoBehaviour
         //If click on tower
         else if(hudRef.GetComponent<TowerHUD>() != null && gameObject.GetComponent<Tower>().enabled == true)
         {
+            Debug.Log("oui");
             hudRef.GetComponent<TowerHUD>().OnPick(transform.gameObject);
             hudRef.SetActive(true);
         }
