@@ -33,7 +33,6 @@ public class ProjectileUpgradeData : ScriptableObject
     }
     #endregion
 
-
     public int skillPoint = 0;
     [SerializeField] private NeutralUpgrades _neutralUpgradeSelected;
     [SerializeField] private EnergyUpgrades _energyUpgradeSelected;
@@ -64,7 +63,6 @@ public class ProjectileUpgradeData : ScriptableObject
     {
         _trapUpgradeSelected = newTrapUpgrade;
     }
-
 
     public void TrapDropdownValueChanged(TMP_Dropdown change)
     {
