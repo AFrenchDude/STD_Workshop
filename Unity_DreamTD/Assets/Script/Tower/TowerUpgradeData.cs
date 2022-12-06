@@ -20,8 +20,18 @@ public class TowerUpgradeData : ScriptableObject
     [SerializeField]
     private int _upgradeMaxProjectiles;
 
+    [Header("Mortar")]
+    [SerializeField]
+    private float _upgradeAOERadius;
+
+    [Space(20)]
+    [Header("Economy")]
+
     [SerializeField]
     private int _upgradePrice;
+
+    [SerializeField]
+    private GameObject _upgradePrefab;
 
     [SerializeField]
     private TowerUpgradeData _nextUpgrade;
@@ -31,7 +41,9 @@ public class TowerUpgradeData : ScriptableObject
     public float UpgradeFireRate => _upgradeFireRate;
     public float UpgradeRange => _upgradeRange;
     public int UpgradeMaxProjectiles => _upgradeMaxProjectiles;
+    public float UpgradeAOERadius => _upgradeAOERadius;
     public int UpgradePrice => _upgradePrice;
+    public GameObject UpgradePrefab => _upgradePrefab;
     public TowerUpgradeData NextUpgrade => _nextUpgrade;
 
 }

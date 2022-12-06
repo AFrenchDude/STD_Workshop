@@ -51,6 +51,7 @@ public class StationHUD : MonoBehaviour
             newTrainInList.GetComponent<RectTransform>().localScale = Vector3.one;
             newTrainInList.GetComponent<RectTransform>().localPosition = Vector3.zero;
             newTrainInList.GetComponent<RectTransform>().localRotation = Quaternion.identity;
+
             if (currentTrainCreated >= maxTrainCreatable)
             {
                 createButton.SetActive(false);
