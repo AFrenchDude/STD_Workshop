@@ -7,6 +7,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "DreamTD/TowerUpgrade", fileName = "TowerUpgrade")]
 public class TowerUpgradeData : ScriptableObject
 {
+    [Header("Personnalize")]
+    [SerializeField]
+    private string _upgradeName;
+
     [Header("Stats")]
     [SerializeField]
     private float _upgradeDamage;
@@ -37,6 +41,9 @@ public class TowerUpgradeData : ScriptableObject
     private TowerUpgradeData _nextUpgrade;
 
     //Public references
+
+    public string UpgradeName => _upgradeName;
+
     public float UpgradeDamage => _upgradeDamage;
     public float UpgradeFireRate => _upgradeFireRate;
     public float UpgradeRange => _upgradeRange;
