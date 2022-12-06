@@ -3650,7 +3650,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &7687283154541897713
 MonoBehaviour:
@@ -9710,9 +9710,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66088834170b8f84ca1ee5a81303e1f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startFortune: 0
+  _startFortune: 200
   _currentFortune: 0
-  _currentMoneyText: {fileID: 0}
+  _currentMoneyText: {fileID: 15912784}
   _purchaseHistory: []
 --- !u!114 &3302721918016112499
 MonoBehaviour:
@@ -9757,6 +9757,7 @@ GameObject:
   - component: {fileID: 6577298122030372110}
   - component: {fileID: 7711848617926813068}
   - component: {fileID: 5992780186286928335}
+  - component: {fileID: 383450864}
   m_Layer: 0
   m_Name: Camera.Main
   m_TagString: MainCamera
@@ -9771,7 +9772,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6149849495121591621}
-  m_LocalRotation: {x: 0.22975294, y: -0, z: -0, w: 0.973249}
+  m_LocalRotation: {x: 0.10024024, y: 0.0012658534, z: -0.0001275319, w: 0.99496245}
   m_LocalPosition: {x: 0, y: 0, z: -80}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9791,7 +9792,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.1098087, g: 0.09211463, b: 0.16981131, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -9865,7 +9866,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6149849495121591621}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
@@ -9899,7 +9900,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6149849495121591621}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
   m_Name: 
@@ -9938,6 +9939,27 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6149849495121591621}
   m_Enabled: 1
+--- !u!114 &383450864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6149849495121591621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b02dac7f58fcd47a536ce472a0e233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  _length: 60
+  _height: 20
+  _minMaxLengthByScroll: {x: 30, y: 70}
+  _minMaxHeightByDrag: {x: 5, y: 50}
+  _cameraAngle: 0
+  _mouseSensibility: 5
+  _scrollSensibility: 20
+  _offset: {x: 0, y: 0, z: 0}
 --- !u!1 &6233672118341261832
 GameObject:
   m_ObjectHideFlags: 0
@@ -10833,8 +10855,8 @@ RectTransform:
   m_Father: {fileID: 4924649487747182912}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 1059.5, y: -0.00006866455}
   m_SizeDelta: {x: 200, y: 650}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10937,7 +10959,7 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &6932518760138589310
 GameObject:
   m_ObjectHideFlags: 0
@@ -13559,6 +13581,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 309954992705739487, guid: 76c09ea7a6fdae844b084645e58645be,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 37.79001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76c09ea7a6fdae844b084645e58645be, type: 3}
