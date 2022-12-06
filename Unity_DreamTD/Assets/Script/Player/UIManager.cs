@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private UI_TowerPanelManager _towerUpgradePanel;
 
+    //References
+    private UI_TowerPanelManager upgradePanel = null;
 
     public EnemiesHealthBar CreateEnemiesHealthBar(Transform target)
     {
@@ -33,10 +35,19 @@ public class UIManager : MonoBehaviour
 
     public UI_TowerPanelManager CreateTowerUpgradePanel(TowersDatas towerToUp)
     {
-        UI_TowerPanelManager upgradePanel = Instantiate(_towerUpgradePanel, _mouseFollowerContainer);
+        if (upgradePanel == null)
+        {
+            upgradePanel = Instantiate(_towerUpgradePanel, _mouseFollowerContainer);
 
-        upgradePanel.SetTowerData(towerToUp);
+            upgradePanel.SetTowerData(towerToUp);
+            
+        }
 
-        return(upgradePanel);
+        return (upgradePanel);
+    }
+
+    public void RemoveTowerUpgradePanel()
+    {
+        upgradePanel.FadeOut();
     }
 }

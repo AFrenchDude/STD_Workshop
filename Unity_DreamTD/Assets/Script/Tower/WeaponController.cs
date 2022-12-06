@@ -65,7 +65,7 @@ public class WeaponController : MonoBehaviour
                 {
                     Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
 
-                    if (_towersData.FireType == TowersDatas.fireType.Mortar || _towersData.FireType == TowersDatas.fireType.DoubleCanon)
+                    if (_towersData.FireType == TowersDatas.fireType.Mortar)
                     {
                         Quaternion Rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, Quaternion.LookRotation(targetDirection).eulerAngles.y, transform.rotation.eulerAngles.z);
                         _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Rotation, Time.deltaTime * _rotationSpeed);
