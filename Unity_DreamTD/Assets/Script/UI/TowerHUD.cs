@@ -153,4 +153,11 @@ public class TowerHUD : MonoBehaviour
         Destroy(tower);
         gameObject.SetActive(false);
     }
+
+    public void CreateInfoPanel()
+    {
+        UIManager uiManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
+
+        uiManager.CreateTowerUpgradePanel(tower.GetComponent<TowerManager>().TowersData);
+    }
 }
