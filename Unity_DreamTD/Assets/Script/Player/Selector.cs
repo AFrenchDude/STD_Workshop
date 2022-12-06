@@ -23,6 +23,7 @@ public class Selector : MonoBehaviour
             {
                 if (openHUDref != null)
                 {
+                    upgradeType.GetComponent<UpgradeType>().ResetUpgrade();
                     openHUDref.OnDeselect();
                     openHUDref = null;
                 }
