@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -28,13 +29,22 @@ public class Selector : MonoBehaviour
                 }
                 if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
                 {
+                    //unplug before plug
+                    HUDUpgrade.GetComponent<UpgradeType>().ResetUpgrade();
+                    HUDUpgrade.GetComponent<UpgradeType>().SetType(hit.transform.gameObject);
+
                     HUDUpgrade.GetComponent<FollowOnScreen>().SetTarget(hit.transform);
+                    HUDUpgrade.SetActive(true);
+
                     openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
                     openHUDref.OnSelect();
                 }
             }
             else if (openHUDref != null && !isMouseOnUI)
             {
+                HUDUpgrade.GetComponent<UpgradeType>().ResetUpgrade();
+                HUDUpgrade.SetActive(false);
+
                 openHUDref.OnDeselect();
                 openHUDref = null;
             }
