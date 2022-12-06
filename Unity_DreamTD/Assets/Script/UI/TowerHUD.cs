@@ -20,6 +20,8 @@ public class TowerHUD : MonoBehaviour
     [SerializeField] private Toggle toggle;
     [SerializeField] private TMP_Dropdown dropdown;
 
+    [SerializeField] private GameObject HUDUpgradeRef;
+
     [HideInInspector] public Tower towerScriptRef;
     private TowerGetProjectile towerGetProjectileScriptRef;
     [HideInInspector] public int productionValue;
@@ -145,6 +147,7 @@ public class TowerHUD : MonoBehaviour
         changeTypeHUD.GetComponent<ChangeType>().canonToChange = intCanonRef;
         changeTypeHUD.SetActive(true);
         changeTypeHUD.GetComponent<ChangeType>().noTypeButton.SetActive(true);
+        HUDUpgradeRef.SetActive(false);
     }
 
     public void DestroyTower()

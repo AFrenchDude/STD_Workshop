@@ -13,6 +13,8 @@ public class UpgradeType : MonoBehaviour
     {
         type_ = type.GetComponent<HUDwhenSelect>().hudRef;
 
+        Debug.Log(type_.gameObject.name);
+
         //If click on train
         if (type_.GetComponent<TrainsHUD>() != null)
         {
