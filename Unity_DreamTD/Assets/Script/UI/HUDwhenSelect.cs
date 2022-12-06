@@ -5,7 +5,6 @@ public class HUDwhenSelect : MonoBehaviour
 {
     public GameObject hudRef;
     
-
     //Display HUD
     public void OnSelect()
     {

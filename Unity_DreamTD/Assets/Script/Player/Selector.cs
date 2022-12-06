@@ -7,7 +7,6 @@ public class Selector : MonoBehaviour
 {
     public GameObject towerHUD;
     public GameObject usineHUD;
-    public GameObject HUDUpgrade;
     [SerializeField] LayerMask interactibleLayer;
     private HUDwhenSelect openHUDref;
     private bool isMouseOnUI;
@@ -28,7 +27,6 @@ public class Selector : MonoBehaviour
                 }
                 if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
                 {
-                    HUDUpgrade.GetComponent<FollowOnScreen>().SetTarget(hit.transform);
                     openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
                     openHUDref.OnSelect();
                 }

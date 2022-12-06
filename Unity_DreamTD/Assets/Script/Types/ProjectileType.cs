@@ -37,7 +37,7 @@ public class ProjectileType : ScriptableObject
                 return NightmareData.NighmareType.Insects;
         }
 
-        return NightmareData.NighmareType.Neutral;
+        return NightmareData.NighmareType.Vegetables;
     }
 
     public NightmareData.NighmareType convertProjectileToNightmareResistance()
@@ -57,6 +57,6 @@ public class ProjectileType : ScriptableObject
                 return NightmareData.NighmareType.Skeleton;
         }
 
-        return NightmareData.NighmareType.Neutral;
+        return NightmareData.NighmareType.Vegetables;
     }
 }
