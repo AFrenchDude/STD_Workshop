@@ -48,6 +48,19 @@ public class TowerDescription : ScriptableObject
         Tower spawnedSentry = Instantiate(_prefab);
         spawnedSentry.transform.GetComponent<HUDwhenSelect>().hudRef = LevelReferences.Instance.Player.GetComponent<Selector>().towerHUD;
         spawnedSentry.SetPrice(_price);
+        spawnedSentry.SetTowerDescription(this);
         return spawnedSentry;
+    }
+
+    private TowerSlot _slotReference;
+    public void SetSlotRef(TowerSlot slot)
+    {
+        _slotReference = slot;
+    }
+
+    public void IncreasePrice()
+    {
+        _price = Mathf.RoundToInt(_price + 20);
+        _slotReference.UpdateSlot();
     }
 }
