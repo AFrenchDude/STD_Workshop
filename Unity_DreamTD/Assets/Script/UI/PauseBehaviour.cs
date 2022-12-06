@@ -5,26 +5,32 @@ public class PauseBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject HUD;
     private bool isInPause = false;
+    //Get controller to disable movement in pause
     [SerializeField] private Controller controller;
+
     public void Pause(AudioSource audioSource)
     {
+        //Click sound
         audioSource.Play();
-        //Unpause
+        //Pause
         if (isInPause)
         {
             gameObject.SetActive(false);
             HUD.SetActive(true);
             Time.timeScale = 1f;
-            controller.isInPause = false;
+            //Disable movement
+            controller.isInPause = true;
         }
-        //Pause
+        //Unpause
         else
         {
             gameObject.SetActive(true);
             HUD.SetActive(false);
             Time.timeScale = 0f;
-            controller.isInPause = true;
+            //Enable movement
+            controller.isInPause = false;
         }
+        //Set new pause state
         isInPause = !isInPause;
     }
 }
