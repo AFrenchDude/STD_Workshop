@@ -46,6 +46,15 @@ public class CameraScript : MonoBehaviour
             {
                 _height -= Input.GetAxis("Mouse Y") * _mouseSensibility;
             }
+
+            if(_height >= _minMaxHeightByDrag.y)
+            {
+                _height = _minMaxHeightByDrag.y;
+            }
+            else if(_height <= _minMaxHeightByDrag.x)
+            {
+                _height = _minMaxHeightByDrag.x;
+            }
         }
 
         if(_cameraAngle >= 360)
