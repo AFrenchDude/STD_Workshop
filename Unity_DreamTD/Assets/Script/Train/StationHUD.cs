@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Made by Melinon Remy
+//Made by Melinon Remy, modified by ALBERT Esteban to update stats via S.O
 public class StationHUD : MonoBehaviour
 {
     private Transform station;
