@@ -28,7 +28,7 @@ public class UpgradeType : MonoBehaviour
         //If click on tower
         else if (type_.GetComponent<TowerHUD>() != null)
         {
-            upgradeTypeHUD[2].SetActive(true);
+            //upgradeTypeHUD[2].SetActive(true);
         }
         //If click on station
         else if (type_.GetComponent<StationHUD>() == null)

@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Transform _mouseFollowerContainer;
 
+    [SerializeField]
+    private Transform _upgradePanelsContainer;
+
     [Header("Prefab")]
     [SerializeField]
     private GameObject _healthBarPrefab;
@@ -19,8 +22,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private UI_TowerPanelManager _towerUpgradePanel;
 
+    [SerializeField]
+    private TowerManagerPanel _towerManagerPanel;
+    
+
     //References
     private UI_TowerPanelManager upgradePanel = null;
+    private TowerManagerPanel towerManagerPanel;
 
     public EnemiesHealthBar CreateEnemiesHealthBar(Transform target)
     {
@@ -33,7 +41,23 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public UI_TowerPanelManager CreateTowerUpgradePanel(TowersDatas towerToUp)
+    public TowerManagerPanel CreateTowerPanel(TowerManager towerManager)
+    {
+        if(towerManagerPanel == null)
+        {
+            towerManagerPanel = Instantiate(_towerManagerPanel, _upgradePanelsContainer);
+
+            towerManagerPanel.CreatePanel(towerManager);
+
+            return (towerManagerPanel);
+        }
+        return null;
+        
+    }
+
+
+    //Information
+    public UI_TowerPanelManager CreateTowerUpgradeInformation(TowersDatas towerToUp)
     {
         if (upgradePanel == null)
         {
@@ -46,7 +70,7 @@ public class UIManager : MonoBehaviour
         return (upgradePanel);
     }
 
-    public void RemoveTowerUpgradePanel()
+    public void RemoveTowerUpgradeInformation()
     {
         upgradePanel.FadeOut();
     }

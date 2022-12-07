@@ -113,7 +113,11 @@ public class UI_TowerPanelManager : MonoBehaviour
     public void FadeOut()
     {
         _isFadeOut = true;
-        GetComponent<Animator>().SetBool("Close", _isFadeOut);
+        if (GetComponent<Animator>() != null)
+        {
+
+            GetComponent<Animator>().SetBool("Close", _isFadeOut);
+        }
     }
 
     public void DestroySelf()
