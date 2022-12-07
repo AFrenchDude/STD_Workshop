@@ -39,15 +39,17 @@ public class SceneLoader : MonoBehaviour
     // Loads a scene asynchronously and display loading screen
     private IEnumerator LoadSceneCoroutine(string scene)
     {
-        // Start loading the scene in the background
-        var loading = SceneManager.LoadSceneAsync(scene);
-        // Disable auto-load 
-        loading.allowSceneActivation = false;
-
         // Making the loading screen appear
         var loadingScreenInstance = Instantiate(loadingScreen);
         // Making the loading screen persistent after we unloaded the scene
         DontDestroyOnLoad(loadingScreenInstance);
+        //wait for animation
+        yield return new WaitForSecondsRealtime(0.15f);
+
+        // Start loading the scene in the background
+        var loading = SceneManager.LoadSceneAsync(scene);
+        // Disable auto-load 
+        loading.allowSceneActivation = false;
 
         // Getting the loading screen animator
         var loadingAnimator = loadingScreenInstance.GetComponent<Animator>();
@@ -62,10 +64,19 @@ public class SceneLoader : MonoBehaviour
             {
                 // Make the new scene visible
                 loading.allowSceneActivation = true;
-                // Wait for the end of the appearing animation before switching scenes
-                yield return new WaitForSecondsRealtime(currentAnimTime);
-                // Launch the disappear animation
-                loadingAnimator.SetTrigger("Disapear");
+                if (currentAnimTime > 2)
+                {
+                    // Wait for the end of the appearing animation before switching scenes
+                    yield return new WaitForSecondsRealtime(currentAnimTime);
+                    // Launch the disappear animation
+                    loadingAnimator.SetTrigger("Disapear");
+                }
+                else
+                {
+                    yield return new WaitForSecondsRealtime(2);
+                    // Launch the disappear animation
+                    loadingAnimator.SetTrigger("Disapear");
+                }
             }
         }
     }

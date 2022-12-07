@@ -37,20 +37,13 @@ public class ScoreText : MonoBehaviour
             //If on win screen
             if(stars.Count > 0)
             {
-                //Check for first star
-                if (score >= LevelReferences.Instance.ScoreManager.oneStarScore)
+                for(int i = 0; i != LevelReferences.Instance.ScoreManager.starScore.Count; i++)
                 {
-                    stars[0].gameObject.SetActive(true);
-                }
-                //Check for second star
-                if (score >= LevelReferences.Instance.ScoreManager.twoStarScore)
-                {
-                    stars[1].gameObject.SetActive(true);
-                }
-                //Check for third star
-                if (score >= LevelReferences.Instance.ScoreManager.threeStarScore)
-                {
-                    stars[2].gameObject.SetActive(true);
+                    //Check for star
+                    if (score >= LevelReferences.Instance.ScoreManager.starScore[i] && stars[i].gameObject != null)
+                    {
+                        stars[i].gameObject.SetActive(true);
+                    }
                 }
             }
             //Increase score

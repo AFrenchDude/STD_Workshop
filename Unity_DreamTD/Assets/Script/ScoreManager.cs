@@ -1,13 +1,12 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 //Made by Melinon Remy
 public class ScoreManager : MonoBehaviour
 {
     public int score = 0;
-
-    public int oneStarScore;
-    public int twoStarScore;
-    public int threeStarScore;
+    //Score to reach to get stars
+    public List<int> starScore;
 
     private void Start()
     {
