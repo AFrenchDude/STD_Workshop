@@ -6,6 +6,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "DreamTD/Factories/FactoryDatas", fileName = "FactoryDatas")]
 public class FactoryDatas : ScriptableObject
 {
+    [SerializeField]
+    private Sprite _sprite = null;
+
+    [SerializeField]
+    private string _name = null;
+
+    [SerializeField]
+    private string _type = null;
 
     [SerializeField]
     private ProjectileType _projectileType;
@@ -28,6 +36,8 @@ public class FactoryDatas : ScriptableObject
     [SerializeField]
     private FactoryUpgradeData _currentUpgrade;
 
+    [SerializeField] private int scoreToGiveOnUpgrade;
+
 
     //References
     public ProjectileType ProjectileType => _projectileType;
@@ -38,6 +48,9 @@ public class FactoryDatas : ScriptableObject
     public int SellPrice => _sellPrice;
     public FactoryUpgradeData CurrentUpgrade => _currentUpgrade;
 
+    public Sprite Icon => _sprite;
+    public string Name => _name;
+    public string Type => _type;
 
     private void Awake()
     {
@@ -77,6 +90,7 @@ public class FactoryDatas : ScriptableObject
 
     public void ApplyUpgrade()
     {
+        LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnUpgrade);
         _productionRate = _currentUpgrade.UpgradeCooldown;
         _maxAmmount = _currentUpgrade.UpgradeMaxResource;
         _sellPrice += _currentUpgrade.UpgradePrice;

@@ -27,9 +27,9 @@ public class StationHUD : MonoBehaviour
     //Create train
     public void NewTrain()
     {
-        if (currentTrainCreated < maxTrainCreatable && Base.Instance.Gold >= trainPrice && station.GetComponent<StationBehaviour>().trainInStation < 1)
+        if (currentTrainCreated < maxTrainCreatable && LevelReferences.Instance.Player.GetComponent<GoldManager>()._currentFortune >= trainPrice && station.GetComponent<StationBehaviour>().trainInStation < 1)
         {
-            Base.Instance.RemoveGold(trainPrice);
+            LevelReferences.Instance.Player.GetComponent<GoldManager>().Buy(trainPrice, "train");
             currentTrainCreated++;
             //Create new train
             var newTrain = Instantiate(train, station.position, Quaternion.identity);

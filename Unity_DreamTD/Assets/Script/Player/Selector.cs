@@ -9,11 +9,11 @@ public class Selector : MonoBehaviour
     public GameObject usineHUD;
     [SerializeField] LayerMask interactibleLayer;
     private HUDwhenSelect openHUDref;
-    public GameObject upgradeType;
     private bool isMouseOnUI;
 
     public void Select(InputAction.CallbackContext obj)
     {
+
         //when button is pressed
         if (obj.phase == InputActionPhase.Canceled)
         {
@@ -23,26 +23,17 @@ public class Selector : MonoBehaviour
             {
                 if (openHUDref != null)
                 {
-                    upgradeType.GetComponent<UpgradeType>().ResetUpgrade();
                     openHUDref.OnDeselect();
                     openHUDref = null;
                 }
                 if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
                 {
-                    // unplug and plug
-                    upgradeType.GetComponent<UpgradeType>().ResetUpgrade();
-                    upgradeType.GetComponent<UpgradeType>().SetType(hit.transform.gameObject);
-
-                    upgradeType.GetComponent<FollowOnScreen>().SetTarget(hit.transform);
-
                     openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
                     openHUDref.OnSelect();
                 }
             }
             else if (openHUDref != null && !isMouseOnUI)
             {
-                upgradeType.GetComponent<UpgradeType>().ResetUpgrade();
-
                 openHUDref.OnDeselect();
                 openHUDref = null;
             }

@@ -1,6 +1,4 @@
-//By ALBERT Esteban & ALEXANDRE Dorian
-using System.Collections;
-using System.Collections.Generic;
+//By ALBERT Esteban & ALEXANDRE Dorian & MELINON Remy
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -50,21 +48,21 @@ public class Damager : MonoBehaviour
                 foreach (Collider collider in colliderList)
                 {
                     NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
-                    collider.GetComponent<Damageable>().TakeDamage(CheckEffectiveness(otherNightmareType), out float health);
+                    collider.GetComponent<Damageable>().TakeDamage(CheckEffectiveness(otherNightmareType, otherDamageable), out float health);
                     DamageDone.Invoke(otherDamageable);
                 }
             }
             else
             {
                 NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
-                otherDamageable.TakeDamage(CheckEffectiveness(otherNightmareType), out float health);
+                otherDamageable.TakeDamage(CheckEffectiveness(otherNightmareType, otherDamageable), out float health);
                 DamageDone.Invoke(otherDamageable);
 
             }
         }
     }
 
-    private float CheckEffectiveness(NightmareData.NighmareType otherNightmareType)
+    private float CheckEffectiveness(NightmareData.NighmareType otherNightmareType, Damageable enemyDamageable)
     {
         float newdamage = _attack;
 

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,8 +50,6 @@ public class TowerManagerPanel : MonoBehaviour
 
     public void Upgrade()
     {
-
-
         Tower towerScriptRef = _towerManager.transform.GetComponent<Tower>();
         if (goldManager.getFortune >= _towerManager.TowersData.UpgradeDatas.UpgradePrice & _towerManager.TowersData.UpgradeDatas.NextUpgrade != null)
         {

@@ -85,6 +85,7 @@ public class TrainsHUD : MonoBehaviour
             train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<MeshRenderer>().enabled = true;
             train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
             PickTrain(train);
+            LevelReferences.Instance.ScoreManager.AddScore(trainLevel.scoreToGiveOnUpgrade);
         }
         else
         {
@@ -104,7 +105,7 @@ public class TrainsHUD : MonoBehaviour
         }
         if(canDestroy)
         {
-            Base.Instance.AddGold(train.GetComponentInChildren<Locomotive>().Price / 2);
+            GetComponentInParent<GoldManager>().CollectMoney(train.GetComponentInChildren<Locomotive>().Price / 2);
             gameObject.SetActive(false);
             changeTypeHUD.SetActive(false);
             Destroy(train);
