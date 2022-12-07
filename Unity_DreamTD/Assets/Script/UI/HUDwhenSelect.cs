@@ -6,6 +6,7 @@ public class HUDwhenSelect : MonoBehaviour
     public GameObject hudRef;
 
     private UIManager _uIManager;
+
     private void Awake()
     {
         _uIManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
