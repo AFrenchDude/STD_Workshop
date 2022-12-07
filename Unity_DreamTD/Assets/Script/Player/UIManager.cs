@@ -23,12 +23,21 @@ public class UIManager : MonoBehaviour
     private UI_TowerPanelManager _towerUpgradePanel;
 
     [SerializeField]
+    private UI_FactoryPanelManager _factoryUpgradePanel;
+
+    [SerializeField]
     private TowerManagerPanel _towerManagerPanel;
+
+    [SerializeField]
+    private FactoryManagerPanel _factoryManagerPanel;
     
 
     //References
-    private UI_TowerPanelManager upgradePanel = null;
+    private UI_TowerPanelManager upgradeTowerPanel = null;
+    private UI_FactoryPanelManager upgradeFactoryPanel = null;
+
     private TowerManagerPanel towerManagerPanel;
+    private FactoryManagerPanel factoryManagerPanel;
 
     public EnemiesHealthBar CreateEnemiesHealthBar(Transform target)
     {
@@ -55,23 +64,51 @@ public class UIManager : MonoBehaviour
         
     }
 
+    public FactoryManagerPanel CreateFactoryPanel(FactoryManager factoryManager)
+    {
+        if (factoryManagerPanel == null)
+        {
+            factoryManagerPanel = Instantiate(_factoryManagerPanel, _upgradePanelsContainer);
+
+            factoryManagerPanel.CreatePanel(factoryManager);
+
+            return (factoryManagerPanel);
+        }
+        return null;
+
+    }
+
 
     //Information
     public UI_TowerPanelManager CreateTowerUpgradeInformation(TowersDatas towerToUp)
     {
-        if (upgradePanel == null)
+        if (upgradeTowerPanel == null)
         {
-            upgradePanel = Instantiate(_towerUpgradePanel, _mouseFollowerContainer);
+            upgradeTowerPanel = Instantiate(_towerUpgradePanel, _mouseFollowerContainer);
 
-            upgradePanel.SetTowerData(towerToUp);
+            upgradeTowerPanel.SetTowerData(towerToUp);
             
         }
 
-        return (upgradePanel);
+        return (upgradeTowerPanel);
     }
+
+    public UI_FactoryPanelManager CreateFactoryUpgradeInformation(FactoryDatas FactoryToUp)
+    {
+        if (upgradeFactoryPanel == null)
+        {
+            upgradeFactoryPanel = Instantiate(_factoryUpgradePanel, _mouseFollowerContainer);
+
+            upgradeFactoryPanel.SetFactoryData(FactoryToUp);
+
+        }
+
+        return (upgradeFactoryPanel);
+    }
+
 
     public void RemoveTowerUpgradeInformation()
     {
-        upgradePanel.FadeOut();
+        upgradeTowerPanel.FadeOut();
     }
 }

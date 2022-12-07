@@ -13,7 +13,9 @@ public class HUDwhenSelect : MonoBehaviour
     }
 
     //References
+    FactoryManagerPanel _currentFactoryManagerPanel = null;
     TowerManagerPanel _currentTowerManagerPanel = null;
+    //FactoryManager
 
     //Display HUD
     public void OnSelect()
@@ -25,10 +27,12 @@ public class HUDwhenSelect : MonoBehaviour
             hudRef.GetComponent<TrainsHUD>().PickTrain(transform.parent.gameObject);
         }
         //If click on usine
-        else if(hudRef.GetComponent<UsineHUD>() != null)
+        else if(gameObject.GetComponent<Factory>() != null)
         {
-            hudRef.SetActive(true);
-            hudRef.GetComponent<UsineHUD>().OnPick(GetComponent<UsineBehaviour>());
+            //hudRef.SetActive(true);
+            //hudRef.GetComponent<UsineHUD>().OnPick(GetComponent<UsineBehaviour>());
+
+            _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
         }
         //If click on tower
         else if(gameObject.GetComponent<Tower>()!= null)
@@ -51,10 +55,15 @@ public class HUDwhenSelect : MonoBehaviour
             hudRef.SetActive(false);
         }
         //If usine
-        else if (hudRef.GetComponent<UsineHUD>() != null)
+        else if (gameObject.GetComponent<Factory>() != null)
         {
-            hudRef.GetComponent<UsineHUD>().OnUnpick();
-            hudRef.SetActive(false);
+            //hudRef.GetComponent<UsineHUD>().OnUnpick();
+            //hudRef.SetActive(false);
+
+            if (_currentFactoryManagerPanel != null)
+            {
+                _currentFactoryManagerPanel.DestroyPanel();
+            }
         }
         //If tower
         else if (gameObject.GetComponent<Tower>() != null)
