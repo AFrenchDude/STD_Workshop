@@ -87,7 +87,7 @@ public class OptionsBehaviour : MonoBehaviour
     //Sound
     public void Mute(bool isMuted)
     {
-        if(isMuted)
+        if (isMuted)
         {
             audioMixer.SetFloat("Master", -80);
             StartCoroutine(MuteCoroutine());

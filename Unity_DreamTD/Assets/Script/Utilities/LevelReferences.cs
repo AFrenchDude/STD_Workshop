@@ -1,6 +1,4 @@
 //By ALBERT Esteban
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelReferences : Singleton<LevelReferences>
@@ -12,6 +10,7 @@ public class LevelReferences : Singleton<LevelReferences>
     [SerializeField] GameObject _player = null;
     [SerializeField] GameObject _station = null;
     [SerializeField] AudioSource _musicPlayer = null;
+
 
     public Camera UICamera => _uiCamera;
     public SpawnerManager SpawnerManager => _spawnerManager;
