@@ -62,6 +62,8 @@ public class UI_TowerPanelManager : MonoBehaviour
         _towerIcon.sprite = _towerDatas.Icon;
         _name.text = _towerDatas.UpgradeDatas.UpgradeName;
 
+        Debug.Log(this.gameObject.name);
+
         SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeDamage, false);
         SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeFireRate, true);
         SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeRange, false);
