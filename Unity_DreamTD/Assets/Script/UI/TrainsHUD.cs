@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-//Made by Melinon Remy
+//Made by Melinon Remy, modified by ALBERT Esteban to update stats via S.O
 public class TrainsHUD : MonoBehaviour
 {
     public GameObject train;
@@ -11,17 +11,19 @@ public class TrainsHUD : MonoBehaviour
     [SerializeField] private GameObject changeTypeHUD;
     [SerializeField] private GameObject upgradeButton;
     private TrainLevel trainLevel;
+    private Locomotive _pickedLocomotive = null;
 
     //HUD info
     public void PickTrain(GameObject pickedTrain)
     {
         train = pickedTrain;
+        _pickedLocomotive = train.GetComponentInChildren<Locomotive>();
         trainLevel = train.transform.GetComponentInChildren<TrainLevel>();
-        text.SetText("Level " + trainLevel.currentLevel);
-        trainLevel = train.transform.GetComponentInChildren<TrainLevel>();
-        for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
+        //text.SetText("Level " + trainLevel.currentLevel);
+        text.SetText("Level " + _pickedLocomotive.CurrentSpeedLevel);
+        for (var i = 0; i != _pickedLocomotive.wagons.Count; i++)
         {
-            if (train.GetComponentInChildren<Locomotive>().wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
+            if (_pickedLocomotive.wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
             {
                 wagonsHUD.transform.GetChild(i).gameObject.SetActive(true);
             }
@@ -30,7 +32,11 @@ public class TrainsHUD : MonoBehaviour
                 wagonsHUD.transform.GetChild(i).gameObject.SetActive(false);
             }
         }
-        if (trainLevel.currentLevel >= trainLevel.maxLevel)
+        //if (trainLevel.currentLevel >= trainLevel.maxLevel)
+        //{
+        //    upgradeButton.SetActive(false);
+        //}
+        if (_pickedLocomotive.CurrentWagonCountLevel >= _pickedLocomotive.TrainStats.MaxWagonCount)
         {
             upgradeButton.SetActive(false);
         }
@@ -52,9 +58,9 @@ public class TrainsHUD : MonoBehaviour
         changeTypeHUD.GetComponent<ChangeType>().objectToChange = train.GetComponentInChildren<Locomotive>().wagons[wagonRef].gameObject;
         changeTypeHUD.SetActive(true);
         changeTypeHUD.GetComponent<ChangeType>().noTypeButton.SetActive(false);
-        for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
+        for (var i = 0; i != _pickedLocomotive.wagons.Count; i++)
         {
-            if (train.GetComponentInChildren<Locomotive>().wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
+            if (_pickedLocomotive.wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
             {
                 wagonsHUD.transform.GetChild(i).gameObject.SetActive(true);
             }
@@ -69,12 +75,16 @@ public class TrainsHUD : MonoBehaviour
     //HUD button effect
     public void Upgrade()
     {
-        train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
-        if (!train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<Wagon>().hasTriggered)
+        //train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
+        train.transform.GetChild(_pickedLocomotive.CurrentSpeedLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
+        //if (!train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<Wagon>().hasTriggered)
+        if (_pickedLocomotive.CurrentWagonCountLevel < _pickedLocomotive.TrainStats.MaxWagonCount)
         {
-            trainLevel.currentLevel++;
-            text.SetText("Level " + trainLevel.currentLevel);
-            if (trainLevel.currentLevel >= trainLevel.maxLevel)
+            //trainLevel.currentLevel++;
+            _pickedLocomotive.UpgradeWagonCountLevel();
+            text.SetText("Level " + _pickedLocomotive.CurrentWagonCountLevel);
+            //if (trainLevel.currentLevel >= trainLevel.maxLevel)
+            if (_pickedLocomotive.CurrentWagonCountLevel < _pickedLocomotive.TrainStats.MaxWagonCount)
             {
                 upgradeButton.SetActive(false);
             }
@@ -82,14 +92,14 @@ public class TrainsHUD : MonoBehaviour
             {
                 upgradeButton.SetActive(true);
             }
-            train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<MeshRenderer>().enabled = true;
-            train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
+            //train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<MeshRenderer>().enabled = true;
+            //train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
             PickTrain(train);
-            LevelReferences.Instance.ScoreManager.AddScore(trainLevel.scoreToGiveOnUpgrade);
+            //LevelReferences.Instance.ScoreManager.AddScore(trainLevel.scoreToGiveOnUpgrade);
         }
         else
         {
-            train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<Wagon>().hasTriggered = false;
+            //train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<Wagon>().hasTriggered = false;
         }
     }
 
@@ -115,9 +125,9 @@ public class TrainsHUD : MonoBehaviour
     //Set wagons resources text & images
     private void Update()
     {
-        for (var i = 0; i != train.GetComponentInChildren<Locomotive>().wagons.Count; i++)
+        for (var i = 0; i != _pickedLocomotive.wagons.Count; i++)
         {
-            if (train.GetComponentInChildren<Locomotive>().wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
+            if (_pickedLocomotive.wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
             {
                 wagonsHUD.transform.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().SetText(train.GetComponentInChildren<Locomotive>().wagons[i].projectiles + "");
                 wagonsHUD.transform.GetChild(i).GetChild(1).GetComponent<Image>().sprite = train.GetComponentInChildren<Locomotive>().wagons[i].type.icon;

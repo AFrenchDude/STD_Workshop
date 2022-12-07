@@ -33,13 +33,15 @@ public class StationHUD : MonoBehaviour
             currentTrainCreated++;
             //Create new train
             var newTrain = Instantiate(train, station.position, Quaternion.identity);
-            newTrain.GetComponentInChildren<TrainLevel>().currentLevel = 1;
+            Locomotive newLocomotive = newTrain.GetComponentInChildren<Locomotive>();
+            newLocomotive.SetSpeedLevel(stationLevel);
+            newLocomotive.SetStorageLevel(stationLevel);
             //Set path and speed
             foreach (Transform child in newTrain.transform)
             {
                 child.GetComponent<HUDwhenSelect>().hudRef = trainHUD;
                 child.GetComponent<SplineFollower>().spline = LevelReferences.Instance.RailSpline;
-                child.GetComponent<SplineFollower>().speed = maxTrainsSpeed;
+                child.GetComponent<SplineFollower>().SetSpeed(maxTrainsSpeed);
             }
             var locomotiveOfTrain = newTrain.GetComponentInChildren<Locomotive>();
             locomotive.Add(locomotiveOfTrain);
@@ -65,7 +67,6 @@ public class StationHUD : MonoBehaviour
         {
             stationLevel++;
             maxTrainCreatable++;
-            maxTrainsSpeed += 10;
             //Set speed
             foreach (Transform child in container.transform)
             {
@@ -73,7 +74,8 @@ public class StationHUD : MonoBehaviour
                 {
                     if(child2.GetComponentInChildren<Locomotive>() != null)
                     {
-                        child2.GetComponentInChildren<Locomotive>().maxSpeed = maxTrainsSpeed;
+                        child2.GetComponentInChildren<Locomotive>().UpgradeSpeedLevel();
+                        child2.GetComponentInChildren<Locomotive>().UpgradeStorageLevel();
                     }
                 }
             }

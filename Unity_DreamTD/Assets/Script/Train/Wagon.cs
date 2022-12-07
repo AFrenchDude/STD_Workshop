@@ -1,13 +1,15 @@
 using UnityEngine;
 
-//Made By Melinon Remy
+//Made By Melinon Remy, modified by ALBERT Esteban to update stats via S.O
 public class Wagon : MonoBehaviour
 {
     public ProjectileType type;
     public int projectiles;
-    public int maxResources = 20;
+    private int _maxStorage = 20;
 
     public bool hasTriggered;
+
+    public int MaxWagonStorage => _maxStorage;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,5 +17,10 @@ public class Wagon : MonoBehaviour
         {
             hasTriggered = true;
         }
+    }
+
+    public void SetMaxStorage(int newMaxStorage)
+    {
+        _maxStorage = newMaxStorage;
     }
 }
