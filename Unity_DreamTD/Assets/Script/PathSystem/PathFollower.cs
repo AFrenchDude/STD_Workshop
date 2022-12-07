@@ -20,7 +20,7 @@ public class PathFollower : MonoBehaviour
     public float Speed => _movementSpeed;
     public float OGSpeed => _originalMovementSpeed;
 
-    public UnityEvent LastWaypointReached;
+    public UnityEvent<PathFollower> LastWaypointReached;
     public void SetOriginalSpeed(float speed)
     {
         _originalMovementSpeed = speed;
@@ -87,7 +87,7 @@ public class PathFollower : MonoBehaviour
     }
     private void LastWayPointReached()
     {
-        LastWaypointReached.Invoke();
+        LastWaypointReached.Invoke(this);
         if (_loop)
         {
             _waypointIndex = 0;

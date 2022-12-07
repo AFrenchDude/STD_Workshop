@@ -4,7 +4,16 @@ using UnityEngine;
 public class HUDwhenSelect : MonoBehaviour
 {
     public GameObject hudRef;
-    
+
+    private UIManager _uIManager;
+    private void Awake()
+    {
+        _uIManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
+    }
+
+    //References
+    TowerManagerPanel _currentTowerManagerPanel = null;
+
     //Display HUD
     public void OnSelect()
     {
@@ -21,11 +30,9 @@ public class HUDwhenSelect : MonoBehaviour
             hudRef.GetComponent<UsineHUD>().OnPick(GetComponent<UsineBehaviour>());
         }
         //If click on tower
-        else if(hudRef.GetComponent<TowerHUD>() != null && gameObject.GetComponent<Tower>().enabled == true)
+        else if(gameObject.GetComponent<Tower>()!= null)
         {
-            Debug.Log("oui");
-            hudRef.GetComponent<TowerHUD>().OnPick(transform.gameObject);
-            hudRef.SetActive(true);
+            _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
         }
         //If click on station
         else if (hudRef.GetComponent<TowerHUD>() == null)
@@ -49,10 +56,12 @@ public class HUDwhenSelect : MonoBehaviour
             hudRef.SetActive(false);
         }
         //If tower
-        else if (hudRef.GetComponent<TowerHUD>() != null && gameObject.GetComponent<Tower>().enabled == true)
+        else if (gameObject.GetComponent<Tower>() != null)
         {
-            hudRef.GetComponent<TowerHUD>().OnUnpick();
-            hudRef.SetActive(false);
+            if(_currentTowerManagerPanel != null)
+            {
+                _currentTowerManagerPanel.DestroyPanel();
+            }
         }
         //If station
         else if (hudRef.GetComponent<TowerHUD>() == null)
