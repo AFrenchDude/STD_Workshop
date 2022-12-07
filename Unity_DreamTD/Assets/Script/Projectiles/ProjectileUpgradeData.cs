@@ -1,8 +1,7 @@
-//By ALBERT Esteban
+//By ALBERT Esteban, modified by MELINON Remy
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "DreamTD/ProjectileUpgradeData", fileName = "ProjectileUpgradeData")]
 public class ProjectileUpgradeData : ScriptableObject
@@ -33,20 +32,24 @@ public class ProjectileUpgradeData : ScriptableObject
     }
     #endregion
 
+    //current number of skill points
     public int skillPoint = 0;
-    [SerializeField] private NeutralUpgrades _neutralUpgradeSelected;
-    [SerializeField] private EnergyUpgrades _energyUpgradeSelected;
-    [SerializeField] private FoodUpgrades _foodUpgradeSelected;
-    [SerializeField] private TrapUpgrades _trapUpgradeSelected;
+    //Already unlocked upgrades
     public List<string> unlockedFood;
     public List<string> unlockedEnergy;
     public List<string> unlockedTraps;
 
+    //Currently used upgrades
+    [SerializeField] private NeutralUpgrades _neutralUpgradeSelected;
+    [SerializeField] private EnergyUpgrades _energyUpgradeSelected;
+    [SerializeField] private FoodUpgrades _foodUpgradeSelected;
+    [SerializeField] private TrapUpgrades _trapUpgradeSelected;
     public NeutralUpgrades NeutralUpgradeSelected => _neutralUpgradeSelected;
     public EnergyUpgrades EnergyUpgradeSelected => _energyUpgradeSelected;
     public FoodUpgrades FoodUpgradeSelected => _foodUpgradeSelected;
     public TrapUpgrades TrapUpgradeSelected => _trapUpgradeSelected;
 
+    //Set current upgrades by buying it
     public void SetNeutralUpgrade(NeutralUpgrades newNeutralUpgrade)
     {
         _neutralUpgradeSelected = newNeutralUpgrade;
@@ -64,6 +67,7 @@ public class ProjectileUpgradeData : ScriptableObject
         _trapUpgradeSelected = newTrapUpgrade;
     }
 
+    //Set current upgrades by dropdowns
     public void TrapDropdownValueChanged(TMP_Dropdown change)
     {
         _trapUpgradeSelected = (TrapUpgrades)change.value;

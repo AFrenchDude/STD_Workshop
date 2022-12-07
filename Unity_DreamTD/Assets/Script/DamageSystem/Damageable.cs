@@ -1,6 +1,7 @@
 //By ALBERT Esteban
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +12,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] private bool _destroyOnDeath = true;
     [SerializeField] private Transform _targetAnchor = null;
     [SerializeField] private Transform _headAnchor = null;
+    public int scoreToGiveOnDeath;
     private float _health = 100;
 
     [SerializeField]
@@ -33,17 +35,17 @@ public class Damageable : MonoBehaviour
 
     public void TakeDamage(float damage, out float health)
     {
-        Debug.Log(damage);
+        LevelReferences.Instance.ScoreManager.AddScore((int)damage*10);
         _health -= damage;
         health = _health;
         OnDamageTaken.Invoke(_health);
 
         if (_health <= 0)
         {
+            LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnDeath);
             if (_healthBar != null)
             {
                 Destroy(_healthBar.gameObject);
-
             }
 
             Death();

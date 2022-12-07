@@ -22,6 +22,7 @@ public class Locomotive : MonoBehaviour
     [HideInInspector] public List<Wagon> wagonsToCheck;
     private int wagonNumber;
     private bool isTransfering;
+    [SerializeField] private int scoreToGiveOnTransfer;
 
     [SerializeField]
     private bool isParked;
@@ -248,6 +249,7 @@ public class Locomotive : MonoBehaviour
             numberToGet--;
             wagon.projectiles++;
             usine.getFactoryData.RemoveProjectile(1);
+            LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnTransfer);
             yield return new WaitForSeconds(waitFor);
             StartCoroutine(TransferingUsine(wagon, usine, numberToGet, waitFor, false));
         }
@@ -275,6 +277,7 @@ public class Locomotive : MonoBehaviour
                 passOneCondition = true;
                 projectile[i].ProjectileAmmount++;
                 wagon[i].projectiles--;
+                LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnTransfer);
             }
         }
 
