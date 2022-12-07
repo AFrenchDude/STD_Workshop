@@ -14,6 +14,10 @@ public class TowerManager : MonoBehaviour
     [SerializeField]
     private CapsuleCollider _rangeDetector;
 
+    [SerializeField]
+    private Transform _centerOfMass;
+    public Transform CenterOfMass => _centerOfMass;
+
     public TowersDatas TowersData => _towersDatas;
 
     private void OnEnable()

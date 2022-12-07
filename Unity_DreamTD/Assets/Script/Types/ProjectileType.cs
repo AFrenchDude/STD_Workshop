@@ -20,6 +20,16 @@ public class ProjectileType : ScriptableObject
 
     public List<AudioClip> shotSound;
 
+    [Header("UI")]
+    [SerializeField]
+    private Color _projectileColor;
+
+    [SerializeField]
+    private Sprite _icon;
+
+    public Color ProjectileColor => _projectileColor;
+    public Sprite Icon => _icon;
+
     public NightmareData.NighmareType convertProjectileToNightmare()
     {
         switch (typeSelected)

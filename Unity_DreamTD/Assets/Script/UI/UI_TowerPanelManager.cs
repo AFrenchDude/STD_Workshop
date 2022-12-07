@@ -60,29 +60,47 @@ public class UI_TowerPanelManager : MonoBehaviour
     private void SetUpStat()
     {
         _towerIcon.sprite = _towerDatas.Icon;
-        _name.text = _towerDatas.UpgradeDatas.name;
+        _name.text = _towerDatas.UpgradeDatas.UpgradeName;
 
-        SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.UpgradeDamage);
-        SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.UpgradeFireRate);
-        SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.UpgradeRange);
+        SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeDamage, false);
+        SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeFireRate, true);
+        SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeRange, false);
 
         _price.text = _towerDatas.UpgradeDatas.UpgradePrice.ToString();
     }
 
-    private void SetUpUpgrade(TextMeshProUGUI previous, TextMeshProUGUI next, float previousValue, float nextValue)
+    private void SetUpUpgrade(TextMeshProUGUI previous, TextMeshProUGUI next, float previousValue, float nextValue, bool invert)
     {
         previous.text = previousValue.ToString();
         next.text = nextValue.ToString();
 
-        if(previousValue < nextValue)
+        if (previousValue < nextValue)
         {
-            previous.color = _lowColor;
-            next.color = _upColor;
+            if (invert)
+            {
+                next.color = _lowColor;
+                previous.color = _upColor;
+            }
+            else
+            {
+
+                previous.color = _lowColor;
+                next.color = _upColor;
+            }
         }
-        else if(previousValue > nextValue)
+        else if (previousValue > nextValue)
         {
-            next.color = _lowColor;
-            previous.color = _upColor;
+            if (invert)
+            {
+                previous.color = _lowColor;
+                next.color = _upColor;
+            }
+            else
+            {
+                next.color = _lowColor;
+                previous.color = _upColor;
+
+            }
         }
         else
         {
@@ -90,4 +108,25 @@ public class UI_TowerPanelManager : MonoBehaviour
             next.color = _equalColor;
         }
     }
+
+    private bool _isFadeOut = false;
+    public void FadeOut()
+    {
+        _isFadeOut = true;
+        if (GetComponent<Animator>() != null)
+        {
+
+            GetComponent<Animator>().SetBool("Close", _isFadeOut);
+        }
+    }
+
+    public void DestroySelf()
+    {
+        if (_isFadeOut)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+
 }
