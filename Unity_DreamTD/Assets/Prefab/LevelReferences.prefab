@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7386371954016690708}
   - component: {fileID: 7386371954016690731}
   - component: {fileID: 7386371954016690730}
+  - component: {fileID: 1957821334920275710}
   m_Layer: 0
   m_Name: LevelReferences
   m_TagString: Untagged
@@ -47,9 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0cabd5d96ffe2418c8e5f1b287591c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _uiCamera: {fileID: 0}
   _spawnerManager: {fileID: 0}
   _playerDrag: {fileID: 0}
   _railSpline: {fileID: 0}
+  _player: {fileID: 0}
+  _station: {fileID: 0}
+  _musicPlayer: {fileID: 0}
 --- !u!114 &7386371954016690708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,3 +101,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waveDatabase: {fileID: 11400000, guid: 9c8792915e7d9744189c1899954e7e46, type: 2}
+--- !u!114 &1957821334920275710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7386371954016690710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595f332bb734d564ca4418775a77a36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

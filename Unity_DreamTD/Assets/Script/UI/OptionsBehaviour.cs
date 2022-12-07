@@ -23,8 +23,10 @@ public class OptionsBehaviour : MonoBehaviour
     [SerializeField] private TMP_Dropdown qualityDropdown;
     [SerializeField] private Toggle fullscreenToggle;
     private Resolution[] resolution;
+    private int screenWidth = 1920;
+    private int screenHeight = 1080;
 
-    //Set vars
+    //Set vars to HUD
     public void OnOptionMenuOpen()
     {
         //Sound
@@ -85,7 +87,7 @@ public class OptionsBehaviour : MonoBehaviour
     //Sound
     public void Mute(bool isMuted)
     {
-        if(isMuted)
+        if (isMuted)
         {
             audioMixer.SetFloat("Master", -80);
             StartCoroutine(MuteCoroutine());
@@ -96,7 +98,7 @@ public class OptionsBehaviour : MonoBehaviour
             StartCoroutine(UnmuteCoroutine());
         }
     }
-
+    //Wait to avoid earing half of the click sound
     IEnumerator MuteCoroutine()
     {
         yield return new WaitForSeconds(0.1f);
@@ -142,12 +144,14 @@ public class OptionsBehaviour : MonoBehaviour
     //Video
     public void Fullscreen(bool isFullscreen)
     {
-        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, isFullscreen);
+        Screen.SetResolution(screenWidth, screenHeight, isFullscreen);
     }
     public void SetResolution(int choice)
     {
         Resolution resolutionPick = resolution[choice];
         Screen.SetResolution(resolutionPick.width, resolutionPick.height, Screen.fullScreen);
+        screenWidth = resolutionPick.width;
+        screenHeight = resolutionPick.height;
     }
     public void SetQuality(int choice)
     {

@@ -1,5 +1,6 @@
 //By ALEXANDRE Dorian
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 
@@ -54,6 +55,8 @@ public class TowersDatas : ScriptableObject
     [SerializeField]
     private float _aoeRadius;
 
+    [SerializeField] private int scoreToGiveOnUpgrade;
+
     public Sprite Icon => _sprite;
     public string Name => _name;
     public string Type => _type;
@@ -86,6 +89,7 @@ public class TowersDatas : ScriptableObject
 
     public void ApplyUpgrade()
     {
+        LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnUpgrade);
         _damage = _currentUpgrade.UpgradeDamage;
         _fireRate = _currentUpgrade.UpgradeFireRate;
         _range = _currentUpgrade.UpgradeRange;
@@ -97,7 +101,6 @@ public class TowersDatas : ScriptableObject
             projectile.MaxProjectilesAmmount = _maxProjectilesAmmount;
         }
     }
-
 
     public void SetProjAmmount(int index, int ammount)
     {

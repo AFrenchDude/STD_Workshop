@@ -1,8 +1,8 @@
-//Made by Melinon Remy
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Made by Melinon Remy
 public class Controller : MonoBehaviour
 {
     [Header("Camera")]
@@ -26,12 +26,14 @@ public class Controller : MonoBehaviour
     private bool isZooming;
     private int zoomStep;
 
+    [Header("Pause")]
     [SerializeField] private PauseBehaviour pauseBehaviour;
     [HideInInspector] public bool isInPause = false;
 
 
     private void Awake()
     {
+        //Set camera position
         transposer = virtualCamera.AddCinemachineComponent<CinemachineTransposer>();
         transposer.m_FollowOffset = new Vector3(0, 0, defaultOffset);
         if (zoomNumber < 0)
@@ -42,10 +44,12 @@ public class Controller : MonoBehaviour
 
     private void Update()
     {
+        //Rotation
         if (isRotating && !isInPause)
         {
             transform.rotation *= Quaternion.Euler(new Vector3(transform.rotation.x, moveValue.y * speedMove, transform.rotation.z));
         }
+        //Move forward/backward
         if (isZooming && !isInPause)
         {
             if (zoomValue.y > 0 && zoomStep < zoomNumber)
@@ -61,6 +65,7 @@ public class Controller : MonoBehaviour
         }
     }
 
+    //Rotation inputs
     public void Move(InputAction.CallbackContext obj)
     {
         //when button is pressed
@@ -75,36 +80,17 @@ public class Controller : MonoBehaviour
             isRotating = false;
         }
     }
-    public void Zoom(InputAction.CallbackContext obj)
+    public void RightClickPressed(InputAction.CallbackContext obj)
     {
-        //when button is pressed
-        if (obj.phase == InputActionPhase.Performed)
+        if (obj.ReadValue<float>() == 1)
         {
-            zoomValue = obj.ReadValue<Vector2>();
-            isZooming = true;
+            isPressingRightMouse = true;
         }
-        //when button is released
-        else if (obj.phase == InputActionPhase.Canceled)
+        else if (obj.ReadValue<float>() == 0)
         {
-            isZooming = false;
+            isPressingRightMouse = false;
         }
     }
-
-    public void OnScroll(InputAction.CallbackContext obj)
-    {
-        zoomValue = obj.ReadValue<Vector2>() / 120;
-        if (zoomValue.y > 0 && zoomStep < zoomNumber && !isInPause)
-        {
-            zoomStep++;
-            transposer.m_FollowOffset += new Vector3(0, 0, zoomValue.y * speedZoom);
-        }
-        if (zoomValue.y < 0 && zoomStep > 0 && !isInPause)
-        {
-            zoomStep--;
-            transposer.m_FollowOffset += new Vector3(0, 0, zoomValue.y * speedZoom);
-        }
-    }
-
     public void OnMouseMove(InputAction.CallbackContext obj)
     {
         if (isPressingRightMouse && !isInPause)
@@ -122,17 +108,37 @@ public class Controller : MonoBehaviour
         }
     }
 
-    public void RightClickPressed(InputAction.CallbackContext obj)
+    //Move forward/backward inputs
+    public void Zoom(InputAction.CallbackContext obj)
     {
-        if (obj.ReadValue<float>() == 1)
+        //when button is pressed
+        if (obj.phase == InputActionPhase.Performed)
         {
-            isPressingRightMouse = true;
+            zoomValue = obj.ReadValue<Vector2>();
+            isZooming = true;
         }
-        else if (obj.ReadValue<float>() == 0)
+        //when button is released
+        else if (obj.phase == InputActionPhase.Canceled)
         {
-            isPressingRightMouse = false;
+            isZooming = false;
         }
     }
+    public void OnScroll(InputAction.CallbackContext obj)
+    {
+        zoomValue = obj.ReadValue<Vector2>() / 120;
+        if (zoomValue.y > 0 && zoomStep < zoomNumber && !isInPause)
+        {
+            zoomStep++;
+            transposer.m_FollowOffset += new Vector3(0, 0, zoomValue.y * speedZoom);
+        }
+        if (zoomValue.y < 0 && zoomStep > 0 && !isInPause)
+        {
+            zoomStep--;
+            transposer.m_FollowOffset += new Vector3(0, 0, zoomValue.y * speedZoom);
+        }
+    }
+
+    //Pause input
     public void Pause(InputAction.CallbackContext obj)
     {
         //when button is pressed

@@ -85,6 +85,7 @@ public class TrainsHUD : MonoBehaviour
             train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<MeshRenderer>().enabled = true;
             train.transform.GetChild(trainLevel.currentLevel).gameObject.GetComponent<BoxCollider>().enabled = true;
             PickTrain(train);
+            LevelReferences.Instance.ScoreManager.AddScore(trainLevel.scoreToGiveOnUpgrade);
         }
         else
         {

@@ -28,6 +28,8 @@ public class FactoryDatas : ScriptableObject
     [SerializeField]
     private FactoryUpgradeData _currentUpgrade;
 
+    [SerializeField] private int scoreToGiveOnUpgrade;
+
 
     //References
     public ProjectileType ProjectileType => _projectileType;
@@ -77,6 +79,7 @@ public class FactoryDatas : ScriptableObject
 
     public void ApplyUpgrade()
     {
+        LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnUpgrade);
         _productionRate = _currentUpgrade.UpgradeCooldown;
         _maxAmmount = _currentUpgrade.UpgradeMaxResource;
         _sellPrice += _currentUpgrade.UpgradePrice;
