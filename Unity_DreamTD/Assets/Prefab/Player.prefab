@@ -11185,7 +11185,9 @@ MonoBehaviour:
   _healthBarPrefab: {fileID: 6949144641198641490, guid: 223ca409835dcb5428af00c04eac6dc9,
     type: 3}
   _towerUpgradePanel: {fileID: 0}
+  _factoryUpgradePanel: {fileID: 0}
   _towerManagerPanel: {fileID: 0}
+  _factoryManagerPanel: {fileID: 0}
 --- !u!114 &3245545940518465677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16411,6 +16413,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 263118300}
+    - target: {fileID: 6793476033369362874, guid: 0a3d05da448f95442b961e75f12606f2,
+        type: 3}
+      propertyPath: m_Name
+      value: HUDUsineUpdate
+      objectReference: {fileID: 0}
     - target: {fileID: 8660393087488476252, guid: 0a3d05da448f95442b961e75f12606f2,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -16441,12 +16448,6 @@ MonoBehaviour:
   _infoParent: {fileID: 0}
   _projectilePrefab: {fileID: 0}
   _projectileContainers: []
---- !u!1 &1596060054275583117 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3991092648363429799, guid: 0a3d05da448f95442b961e75f12606f2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2397443011742622506}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1786091879112480040 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4146712095978485250, guid: 0a3d05da448f95442b961e75f12606f2,
@@ -17797,7 +17798,7 @@ PrefabInstance:
         type: 3}
       propertyPath: upgradeButton
       value: 
-      objectReference: {fileID: 1596060054275583117}
+      objectReference: {fileID: 1316997315}
     - target: {fileID: 7535405996890738759, guid: 6812e3fe64ff9fd4d8be63e49b7d7ab4,
         type: 3}
       propertyPath: m_Name
