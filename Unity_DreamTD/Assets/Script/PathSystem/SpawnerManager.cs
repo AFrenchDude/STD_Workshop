@@ -93,7 +93,7 @@ public class SpawnerManager : MonoBehaviour
         // Start a new wave set only if there are no currently a wave running
         if (_currentWaveRunning <= 0)
         {
-            _isWaitingForLastEntityDeath = true;
+            //_isWaitingForLastEntityDeath = true;
 
             StartNewWaveSet();
             _spawnerState = SpawnerStatus.WaveRunning;

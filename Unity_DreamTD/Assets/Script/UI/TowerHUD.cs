@@ -115,7 +115,6 @@ public class TowerHUD : MonoBehaviour
 
     public void Upgrade()
     {
-
         //tower.GetComponent<TowerManager>().TowersData.Upgrade();
         TowerManager managedTower = tower.GetComponent<TowerManager>();
         GoldManager goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
@@ -153,7 +152,7 @@ public class TowerHUD : MonoBehaviour
     public void DestroyTower()
     {
         hudUpgradeRef.GetComponent<UpgradeType>().ResetUpgrade();
-        Base.Instance.AddGold(towerScriptRef.Price - (towerScriptRef.Price / 3));
+        LevelReferences.Instance.Player.GetComponent<GoldManager>().CollectMoney(towerScriptRef.Price - (towerScriptRef.Price / 3));
         Destroy(tower);
         gameObject.SetActive(false);
     }

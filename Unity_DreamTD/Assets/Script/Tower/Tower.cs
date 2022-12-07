@@ -117,6 +117,7 @@ public class Tower : MonoBehaviour, IPickerGhost
 
     public void PlaceGhost()
     {
+        transform.GetComponent<TowerManager>().Enable();
         _weaponController.canShoot = true;
         Enable(true);
         foreach (var collider in _colliders)

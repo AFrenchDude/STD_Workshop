@@ -1,6 +1,5 @@
 //By ALEXANDRE Dorian
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 
@@ -80,11 +79,8 @@ public class TowersDatas : ScriptableObject
         if(_currentUpgrade.NextUpgrade != null)
         {
             _currentUpgrade = _currentUpgrade.NextUpgrade;
-
             ApplyUpgrade();
-
         }
-
     }
 
     public void ApplyUpgrade()

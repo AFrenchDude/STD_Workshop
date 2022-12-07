@@ -1,10 +1,11 @@
 //By ALBERT Esteban
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EndGameCondition : Singleton<EndGameCondition>
 {
+    [SerializeField] GameObject gameOverScreen;
+    [SerializeField] GameObject victoryScreen;
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -19,10 +20,12 @@ public class EndGameCondition : Singleton<EndGameCondition>
     }
     public void PlayerVictory()
     {
-        Debug.Log("Player won");
+        victoryScreen.SetActive(true);
+        victoryScreen.GetComponent<ScoreText>().Activate();
     }
     public void PlayerDefeat()
     {
-        Debug.Log("Player lost");
+        gameOverScreen.SetActive(true);
+        gameOverScreen.GetComponent<ScoreText>().Activate();
     }
 }

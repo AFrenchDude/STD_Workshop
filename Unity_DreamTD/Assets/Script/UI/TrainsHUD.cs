@@ -105,7 +105,7 @@ public class TrainsHUD : MonoBehaviour
         }
         if(canDestroy)
         {
-            Base.Instance.AddGold(train.GetComponentInChildren<Locomotive>().Price / 2);
+            GetComponentInParent<GoldManager>().CollectMoney(train.GetComponentInChildren<Locomotive>().Price / 2);
             gameObject.SetActive(false);
             changeTypeHUD.SetActive(false);
             Destroy(train);

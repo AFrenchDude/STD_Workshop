@@ -1,8 +1,13 @@
 using UnityEngine;
 
+//Made by Melinon Remy
 public class ScoreManager : MonoBehaviour
 {
     public int score = 0;
+
+    public int oneStarScore;
+    public int twoStarScore;
+    public int threeStarScore;
 
     private void Start()
     {
