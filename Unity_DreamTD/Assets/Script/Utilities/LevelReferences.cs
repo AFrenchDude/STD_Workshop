@@ -10,6 +10,7 @@ public class LevelReferences : Singleton<LevelReferences>
     [SerializeField] GameObject _player = null;
     [SerializeField] GameObject _station = null;
     [SerializeField] AudioSource _musicPlayer = null;
+    [SerializeField] ScoreManager _scoreManager = null;
 
 
     public Camera UICamera => _uiCamera;
@@ -19,4 +20,5 @@ public class LevelReferences : Singleton<LevelReferences>
     public GameObject Player => _player;
     public GameObject Station => _station;
     public AudioSource MusicPlayer => _musicPlayer;
+    public ScoreManager ScoreManager => _scoreManager;
 }

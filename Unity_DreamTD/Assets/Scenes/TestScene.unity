@@ -2793,6 +2793,11 @@ PrefabInstance:
       objectReference: {fileID: 227331292}
     - target: {fileID: 7386371954016690729, guid: 1747c0be6da6b854290939e9989ca2a9,
         type: 3}
+      propertyPath: _scoreManager
+      value: 
+      objectReference: {fileID: 1307853932}
+    - target: {fileID: 7386371954016690729, guid: 1747c0be6da6b854290939e9989ca2a9,
+        type: 3}
       propertyPath: _spawnerManager
       value: 
       objectReference: {fileID: 227331294}
@@ -2809,7 +2814,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh30666
+  m_Name: pb_Mesh32288
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2967,6 +2972,18 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1307853932 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1957821334920275710, guid: 1747c0be6da6b854290939e9989ca2a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1289317230}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595f332bb734d564ca4418775a77a36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1355108900
 Mesh:
   m_ObjectHideFlags: 0
