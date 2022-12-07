@@ -6,6 +6,8 @@ using UnityEngine.UI;
 //Made by Melinon Remy
 public class UsineHUD : MonoBehaviour
 {
+    public GameObject factory;
+
     [SerializeField] private FactoryDatas _factoryData;
     [SerializeField] private GameObject upgradeButton;
     [SerializeField] private TextMeshProUGUI text;
@@ -90,5 +92,12 @@ public class UsineHUD : MonoBehaviour
         Base.Instance.AddGold(_factoryData.SellPrice - (_factoryData.SellPrice / 3));
         Destroy(_factoryTransform.gameObject);
         gameObject.SetActive(false);
+    }
+
+    public void CreateInfoPanel()
+    {
+        UIManager uiManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
+
+        uiManager.CreateFactoryUpgradeInformation(factory.GetComponent<FactoryManager>().FactoryData);
     }
 }
