@@ -32,13 +32,13 @@ public class ProjectileUpgradeSetter : MonoBehaviour
         _projectileUpgradeData.SetTrapUpgrade(_trapUpgradeSelected);
     }
 
+    //Check if upgrades ha been bought before to avoid buying twice
     private void Start()
     {
         CheckIfUnlocked(_projectileUpgradeData.unlockedTraps, _trapUpgradeSelected + "");
         CheckIfUnlocked(_projectileUpgradeData.unlockedFood, _foodUpgradeSelected + "");
         CheckIfUnlocked(_projectileUpgradeData.unlockedEnergy, _energyUpgradeSelected + "");
     }
-
     public void CheckIfUnlocked(List<string> unlockedList, string compareTo)
     {
         if(GetComponent<Button>() != null)
