@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7373081909636827703
+--- !u!114 &-2466262595437611789
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Ghost_TD_01
-  m_Shader: {fileID: -6465566751694194690, guid: 6ede13deeef89e1409ddf6773814492b,
+  m_Name: M_GumTrailsTD_01
+  m_Shader: {fileID: -6465566751694194690, guid: 6aa45913d3c3fad4eaa2e596675dc038,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -34,6 +34,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: c2fdf20356fb3cd4aafead9311e7bd45, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -48,16 +52,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelPower: 1.13
-    - _InteriorSpread: 0.93
+    - _DissolveScale: 35
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _WobbleAmount: 0.5
-    - _WobbleDistance: 0.28
-    - _WobbleFrenquency: 5.41
-    - _WobbleSpeed: 2.73
     m_Colors:
-    - _FresnelColor: {r: 0.14482968, g: 3.4115448, b: 0.20519955, a: 1}
-    - _InteriorColor: {r: 2.2354016, g: 15.813397, b: 3.5600843, a: 0.99215686}
-    - _InteriorPosition: {r: 0, g: 0, b: 0, a: 0}
+    - _Color01: {r: 1.5921569, g: 0.24313726, b: 1.0901961, a: 1}
+    - _Color02: {r: 0.8356744, g: 2.0509262, b: 2.0842702, a: 1}
+    - _DissolveSpeed: {r: -0.5, g: 0, b: 0, a: 0}
+    - _MainTextureSpeed: {r: -0.1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
