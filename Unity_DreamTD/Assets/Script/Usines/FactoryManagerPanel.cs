@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FactoryManagerPanel : MonoBehaviour
 {
@@ -9,17 +9,37 @@ public class FactoryManagerPanel : MonoBehaviour
 
     [Header("Information")]
     [SerializeField]
-    private UI_FactoryPanelManager _towerInfoPrefab;
+    private UI_FactoryPanelManager _factoryInfoPrefab;
 
     [SerializeField]
     private Transform _infoParent;
 
 
     private GoldManager goldManager;
+    private Animator _animator;
+
+    [Header("UI Economy")]
+    [SerializeField]
+    private Image _upgradeImage;
+
+    [Space(10)]
+
+    [SerializeField]
+    private Sprite _upgradeSprite;
+    [SerializeField]
+    private Sprite _lockedSprite;
+
+    [Space(10)]
+
+    [SerializeField]
+    private Color _canBuyColor;
+    [SerializeField]
+    private Color _cantBuyColor;
 
     private void Awake()
     {
         goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
+        _animator = GetComponent<Animator>();
     }
 
     public void CreatePanel(FactoryManager towerManager)
@@ -30,13 +50,22 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void DestroyPanel()
     {
-        if (factoryInformation != null)
+        if (_animator.GetBool("Close"))
         {
-            factoryInformation.transform.parent = transform.parent;
-            factoryInformation.FadeOut();
-        }
 
-        Destroy(gameObject);
+            if (factoryInformation != null)
+            {
+                factoryInformation.transform.parent = transform.parent;
+                factoryInformation.FadeOut();
+            }
+
+            Destroy(gameObject);
+        }
+    }
+
+    public void ClosePanel()
+    {
+        _animator.SetBool("Close", true);
     }
 
     public void SellTower()
@@ -44,7 +73,7 @@ public class FactoryManagerPanel : MonoBehaviour
 
         goldManager.CollectMoney(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrice / 3);
         Destroy(_factoryManager.gameObject);
-        DestroyPanel();
+        ClosePanel();
     }
 
     public void Upgrade()
@@ -79,7 +108,7 @@ public class FactoryManagerPanel : MonoBehaviour
     {
         if (factoryInformation == null)
         {
-            factoryInformation = Instantiate(_towerInfoPrefab, _infoParent);
+            factoryInformation = Instantiate(_factoryInfoPrefab, _infoParent);
 
             factoryInformation.SetFactoryData(_factoryManager.FactoryData);
 
