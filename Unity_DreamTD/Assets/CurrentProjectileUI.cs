@@ -18,11 +18,19 @@ public class CurrentProjectileUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _ammountText;
 
+    private List<CurrentProjectileUI> _otherProjectilesSelector = new List<CurrentProjectileUI>();
 
     private Projectile _projectile;
 
     private TowersDatas _towerDatas;
     private int _projectileIndex;
+
+    private Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
 
     public void KeepReferences(TowersDatas towerData, int projectileIndex)
@@ -35,6 +43,11 @@ public class CurrentProjectileUI : MonoBehaviour
     {
         _projectile = projectile;
         ApplyProjectileType();
+    }
+
+    public void SetOtherProjectilesPreview(List<CurrentProjectileUI> listOtherProjectiles)
+    {
+        _otherProjectilesSelector = listOtherProjectiles;
     }
 
     public void ApplyProjectileType()
@@ -55,30 +68,66 @@ public class CurrentProjectileUI : MonoBehaviour
     [SerializeField]
     private SelectorTypeOfProjectile _projectileSelectorPrefab;
 
+    private List<SelectorTypeOfProjectile> _projTypeList = new List<SelectorTypeOfProjectile>();
+
     public void OpenProjectileTypeSelector()
     {
-        int i = 0;
-        foreach (ProjectileType projectile in _allProjectiles)
+        if (_projTypeList.Count == 0)
         {
-            if (projectile.typeSelected != _projectile.ProjectileType.typeSelected)
+
+            foreach(CurrentProjectileUI currentProjectileUI in _otherProjectilesSelector)
             {
-
-                SelectorTypeOfProjectile newProjType = Instantiate(_projectileSelectorPrefab, _changingProjectileParent[i]);
-                newProjType.SetProjectileType(projectile, this);
-
-                i++;
+                if(currentProjectileUI != this)
+                {
+                    currentProjectileUI.CloseSelector();
+                }
             }
 
-            
+            int i = 0;
+            foreach (ProjectileType projectile in _allProjectiles)
+            {
+                if (projectile.typeSelected != _projectile.ProjectileType.typeSelected)
+                {
+
+                    SelectorTypeOfProjectile newProjType = Instantiate(_projectileSelectorPrefab, _changingProjectileParent[i]);
+                    newProjType.SetProjectileType(projectile, this);
+                    _projTypeList.Add(newProjType);
+
+                    i++;
+                }
+
+
+            }
+
+            _animator.SetBool("Open", true);
         }
+        else
+        {
+            _animator.SetBool("Open", false);
+        }
+    }
+
+    public void CloseSelector()
+    {
+        _animator.SetBool("Open", false);
     }
 
     public void ChangeProjectile(ProjectileType projectileType)
     {
+
         _towerDatas.SetProjectileType(_projectileIndex, projectileType);
         SetUpProjectile(_towerDatas.Projectiles[_projectileIndex]);
 
+        _animator.SetBool("Open", false);
+    }
 
+    public void DestroyAllSelectorType()
+    {
+        foreach(SelectorTypeOfProjectile selector in _projTypeList)
+        {
+            Destroy(selector.gameObject);
+        }
+        _projTypeList.Clear();
     }
 
     private void Update()
