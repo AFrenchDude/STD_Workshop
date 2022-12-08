@@ -1,5 +1,4 @@
 // by ALEXANDRE Dorian
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -9,8 +8,7 @@ public class GoldManager : MonoBehaviour
     [SerializeField]
     private int _startFortune;
 
-    [SerializeField]
-    private int _currentFortune;
+    public int _currentFortune;
 
     [SerializeField]
     private TextMeshProUGUI _currentMoneyText;

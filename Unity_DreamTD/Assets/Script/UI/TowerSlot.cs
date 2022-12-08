@@ -53,9 +53,6 @@ public class TowerSlot : MonoBehaviour
         _button.onClick.AddListener(OnButtonClicked);
     }
 
-    
-
-
     private void OnDisable()
     {
         _button.onClick.RemoveListener(OnButtonClicked);

@@ -89,7 +89,7 @@ public class UsineHUD : MonoBehaviour
 
     public void DestroyUsine()
     {
-        Base.Instance.AddGold(_factoryData.SellPrice - (_factoryData.SellPrice / 3));
+        LevelReferences.Instance.Player.GetComponent<GoldManager>().CollectMoney(_factoryData.SellPrice - (_factoryData.SellPrice / 3));
         Destroy(_factoryTransform.gameObject);
         gameObject.SetActive(false);
     }

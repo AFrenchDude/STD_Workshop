@@ -51,7 +51,6 @@ GameObject:
   - component: {fileID: 360566266880217048}
   - component: {fileID: 2090363320259335031}
   - component: {fileID: 5174922249286827886}
-  - component: {fileID: 97903896639061896}
   - component: {fileID: 7894288249657780703}
   - component: {fileID: 348188444921706224}
   m_Layer: 14
@@ -168,7 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 0}
-  speed: 10
   margin: 0
   moveAmount: 0
   maxMoveAmount: 0
@@ -188,7 +186,7 @@ MonoBehaviour:
   - {fileID: 649750814472976903}
   - {fileID: 1407836867980545536}
   - {fileID: 852421124891561629}
-  waitTime: 0.2
+  _trainStats: {fileID: 11400000, guid: 88a126bff0271154e975ac3cfc829b72, type: 2}
   splineFollower: {fileID: 0}
   maxSpeed: 0
   isBraking: 0
@@ -211,20 +209,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hudRef: {fileID: 0}
---- !u!114 &97903896639061896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7007592861480449659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e82f608792264842985198fea6679b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentLevel: 1
-  maxLevel: 3
 --- !u!82 &7894288249657780703
 AudioSource:
   m_ObjectHideFlags: 0

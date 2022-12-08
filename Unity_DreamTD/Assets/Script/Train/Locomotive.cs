@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
-//Made By Melinon Remy
+//Made By Melinon Remy, modified by ALBERT Esteban to update stats via S.O
 public class Locomotive : MonoBehaviour
 {
+    [SerializeField] private TrainStats _trainStats = null;
+    private int _currentWagonCountLevel = 1;
+    private int _currentSpeedLevel = 1;
+    private int _currentStorageLevel = 1;
+
     public List<Wagon> wagons;
-    [Tooltip("Time between each transfer")]
-    public float waitTime;
 
     //Move var
     [HideInInspector] public SplineFollower splineFollower;
@@ -22,10 +26,14 @@ public class Locomotive : MonoBehaviour
     [HideInInspector] public List<Wagon> wagonsToCheck;
     private int wagonNumber;
     private bool isTransfering;
-    [SerializeField] private int scoreToGiveOnTransfer;
 
     [SerializeField]
     private bool isParked;
+
+    public TrainStats TrainStats => _trainStats;
+    public int CurrentWagonCountLevel => _currentWagonCountLevel;
+    public int CurrentSpeedLevel => _currentSpeedLevel;
+    public int CurrentStorageLevel => _currentStorageLevel;
 
     public void SetIsParked(bool enable)
     {
@@ -40,16 +48,15 @@ public class Locomotive : MonoBehaviour
     private int _price = 0;
     public int Price => _price;
 
-    private void Start()
+    private void Awake()
     {
         //Set spline and speed
         splineFollower = GetComponent<SplineFollower>();
-        maxSpeed = splineFollower.speed;
         SetIsParked(false);
-        foreach (Wagon wagon in wagons)
-        {
-            wagon.GetComponent<SplineFollower>().speed = maxSpeed;
-        }
+    }
+    private void Start()
+    {
+        UpdateEveryTrainStats();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -73,7 +80,7 @@ public class Locomotive : MonoBehaviour
         //Collide with tower
         if (other.CompareTag("TowerTrain"))
         {
-            Debug.Log(other.transform.root.gameObject.ToString() + " / " + (other.transform.root.GetComponent<TowerManager>() != null).ToString());
+            UnityEngine.Debug.Log(other.transform.root.gameObject.ToString() + " / " + (other.transform.root.GetComponent<TowerManager>() != null).ToString());
 
 
             objectCollided.Add(other.gameObject);
@@ -101,7 +108,7 @@ public class Locomotive : MonoBehaviour
             {
                 foreach (Wagon wagon in wagons)
                 {
-                    if (wagon.type.typeSelected == factoryData.ProjectileType.typeSelected && wagon.projectiles < wagon.maxResources && wagon.GetComponent<MeshRenderer>().enabled == true)
+                    if (wagon.type.typeSelected == factoryData.ProjectileType.typeSelected && wagon.projectiles < wagon.MaxWagonStorage && wagon.GetComponent<MeshRenderer>().enabled == true)
                     {
                         wagonsToCheck.Add(wagon);
                     }
@@ -176,20 +183,20 @@ public class Locomotive : MonoBehaviour
         //Stop train when close enough
         if (deceleration < margin)
         {
-            splineFollower.speed = 0;
+            splineFollower.SetSpeed(0);
             foreach (Wagon wagon in wagons)
             {
-                wagon.GetComponent<SplineFollower>().speed = 0;
+                wagon.GetComponent<SplineFollower>().SetSpeed(0);
             }
             isBraking = false;
             timeToRestartRef = 0;
         }
         else
         {
-            splineFollower.speed = deceleration;
+            splineFollower.SetSpeed(deceleration);
             foreach (Wagon wagon in wagons)
             {
-                wagon.GetComponent<SplineFollower>().speed = deceleration;
+                wagon.GetComponent<SplineFollower>().SetSpeed(deceleration);
             }
         }
     }
@@ -214,10 +221,10 @@ public class Locomotive : MonoBehaviour
             else if (!isTransfering)
             {
                 timeToRestartRef += 0.5f * Time.deltaTime;
-                splineFollower.speed = Mathf.Lerp(0, maxSpeed, timeToRestartRef);
+                splineFollower.SetSpeed(Mathf.Lerp(0, _trainStats.SpeedLevels[_currentSpeedLevel - 1], timeToRestartRef));
                 foreach (Wagon wagon in wagons)
                 {
-                    wagon.GetComponent<SplineFollower>().speed = Mathf.Lerp(0, maxSpeed, timeToRestartRef);
+                    wagon.GetComponent<SplineFollower>().SetSpeed(Mathf.Lerp(0, _trainStats.SpeedLevels[_currentSpeedLevel - 1], timeToRestartRef));
                 }
             }
         }
@@ -230,12 +237,12 @@ public class Locomotive : MonoBehaviour
     void CheckTransfertUsine(UsineBehaviour usine, Wagon wagon, bool firstLoop)
     {
         isTransfering = true;
-        StartCoroutine(TransferingUsine(wagon, usine, usine.getFactoryData.Ammount, waitTime, firstLoop));
+        StartCoroutine(TransferingUsine(wagon, usine, usine.getFactoryData.Ammount, _trainStats.WaitTime, firstLoop));
     }
     void CheckTransfertSentry(List<Projectile> projectile, List<Wagon> wagon, bool firstLoop)
     {
         isTransfering = true;
-        StartCoroutine(TransferingSentry(projectile, wagon, waitTime, firstLoop));
+        StartCoroutine(TransferingSentry(projectile, wagon, _trainStats.WaitTime, firstLoop));
     }
 
     private IEnumerator TransferingUsine(Wagon wagon, UsineBehaviour usine, int numberToGet, float waitFor, bool firstLoop)
@@ -244,16 +251,16 @@ public class Locomotive : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
         }
-        if (numberToGet > 0 && wagon.projectiles < wagon.maxResources && wagon.type.typeSelected == usine.getFactoryData.ProjectileType.typeSelected)
+        if (numberToGet > 0 && wagon.projectiles < wagon.MaxWagonStorage && wagon.type.typeSelected == usine.getFactoryData.ProjectileType.typeSelected)
         {
             numberToGet--;
             wagon.projectiles++;
             usine.getFactoryData.RemoveProjectile(1);
-            LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnTransfer);
+            LevelReferences.Instance.ScoreManager.AddScore(_trainStats.ScoreOnTransfer);
             yield return new WaitForSeconds(waitFor);
             StartCoroutine(TransferingUsine(wagon, usine, numberToGet, waitFor, false));
         }
-        else if (wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles < wagonsToCheck[wagonNumber + 1].maxResources && numberToGet > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == usine.getFactoryData.ProjectileType.typeSelected)
+        else if (wagonNumber + 1 < wagonsToCheck.Count && wagonsToCheck[wagonNumber + 1].projectiles < wagonsToCheck[wagonNumber + 1].MaxWagonStorage && numberToGet > 0 && wagonsToCheck[wagonNumber + 1].type.typeSelected == usine.getFactoryData.ProjectileType.typeSelected)
         {
             wagonNumber++;
             StartCoroutine(TransferingUsine(wagonsToCheck[wagonNumber], usine, numberToGet, waitFor, false));
@@ -277,7 +284,7 @@ public class Locomotive : MonoBehaviour
                 passOneCondition = true;
                 projectile[i].ProjectileAmmount++;
                 wagon[i].projectiles--;
-                LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnTransfer);
+                LevelReferences.Instance.ScoreManager.AddScore(_trainStats.ScoreOnTransfer);
             }
         }
 
@@ -316,10 +323,10 @@ public class Locomotive : MonoBehaviour
             {
                 objectCollided.Clear();
                 //Start moving
-                splineFollower.speed = maxSpeed;
+                splineFollower.SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
                 foreach (Wagon wagons in wagons)
                 {
-                    wagons.GetComponent<SplineFollower>().speed = maxSpeed;
+                    wagons.GetComponent<SplineFollower>().SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
                 }
             }
         }
@@ -329,10 +336,96 @@ public class Locomotive : MonoBehaviour
     public void StartTrain()
     {
         //Start moving
-        splineFollower.speed = maxSpeed;
-        foreach (Wagon wagons in wagons)
+        UpdateSpeed();
+    }
+
+    public void UpdateEveryTrainStats()
+    {
+        UpdateSpeed();
+        UpdateWagonCount();
+        UpdateWagonMaxStorage();
+    }
+
+    #region WagonCountUpgrades
+    public void SetWagonCountLevel(int newWagonCountLevel)
+    {
+        _currentWagonCountLevel = newWagonCountLevel;
+    }
+    public void UpgradeWagonCountLevel()
+    {
+        if (_currentWagonCountLevel < _trainStats.MaxWagonCount)
         {
-            wagons.GetComponent<SplineFollower>().speed = maxSpeed;
+            _currentWagonCountLevel++;
+        }
+        UpdateWagonCount();
+        LevelReferences.Instance.ScoreManager.AddScore(_trainStats.ScoreOnUpgrade);
+    }
+    public void UpdateWagonCount()
+    {
+        for (int i = 0; i < _currentWagonCountLevel; i++)
+        {
+            if (!wagons[i].hasTriggered)
+            {
+                wagons[i].GetComponent<MeshRenderer>().enabled = true;
+                wagons[i].GetComponent<BoxCollider>().enabled = true;
+            }
+        }
+        for (int i = _currentWagonCountLevel; i < wagons.Count - 1; i++)
+        {
+            if (wagons[i].hasTriggered)
+            {
+                wagons[i].GetComponent<MeshRenderer>().enabled = false;
+                wagons[i].GetComponent<BoxCollider>().enabled = false;
+            }
         }
     }
+    #endregion
+
+    #region SpeedUpgrades
+    public void SetSpeedLevel(int newSpeedLevel)
+    {
+        _currentSpeedLevel = newSpeedLevel;
+        UpdateSpeed();
+    }
+    public void UpgradeSpeedLevel()
+    {
+        if (_currentSpeedLevel < _trainStats.SpeedLevels.Count)
+        {
+            _currentSpeedLevel++;
+        }
+        UpdateSpeed();
+    }
+    public void UpdateSpeed()
+    {
+        foreach (Wagon wagons in wagons)
+        {
+            splineFollower.SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
+            wagons.GetComponent<SplineFollower>().SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
+        }
+    }
+    #endregion
+
+    #region StorageUpgrades
+    public void SetStorageLevel(int newStorageLevel)
+    {
+        _currentStorageLevel = newStorageLevel;
+        UpdateWagonMaxStorage();
+    }
+    public void UpgradeStorageLevel()
+    {
+        if (_currentStorageLevel < _trainStats.WagonMaxStorageLevels.Count)
+        {
+            _currentStorageLevel++;
+        }
+        UpdateWagonMaxStorage();
+    }
+    public void UpdateWagonMaxStorage()
+    {
+        foreach (Wagon wagons in wagons)
+        {
+            wagons.SetMaxStorage(_trainStats.WagonMaxStorageLevels[_currentStorageLevel - 1]);
+        }
+    }
+    #endregion
+
 }
