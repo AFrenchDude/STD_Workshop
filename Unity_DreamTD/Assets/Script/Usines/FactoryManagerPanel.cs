@@ -50,22 +50,13 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void DestroyPanel()
     {
-        if (_animator.GetBool("Close"))
+        if (factoryInformation != null)
         {
-
-            if (factoryInformation != null)
-            {
-                factoryInformation.transform.parent = transform.parent;
-                factoryInformation.FadeOut();
-            }
-
-            Destroy(gameObject);
+            factoryInformation.transform.parent = transform.parent;
+            factoryInformation.FadeOut();
         }
-    }
 
-    public void ClosePanel()
-    {
-        _animator.SetBool("Close", true);
+        Destroy(gameObject);
     }
 
     public void SellTower()
@@ -73,7 +64,7 @@ public class FactoryManagerPanel : MonoBehaviour
 
         goldManager.CollectMoney(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrice / 3);
         Destroy(_factoryManager.gameObject);
-        ClosePanel();
+        DestroyPanel();
     }
 
     public void Upgrade()
