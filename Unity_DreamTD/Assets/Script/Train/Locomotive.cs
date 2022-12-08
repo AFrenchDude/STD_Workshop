@@ -57,7 +57,6 @@ public class Locomotive : MonoBehaviour
     private void Start()
     {
         UpdateEveryTrainStats();
-        SetupWagonPosition(_trainStats.WagonMargin);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -173,9 +172,6 @@ public class Locomotive : MonoBehaviour
             {
                 FinishTransfer();
             }
-
-
-
         }
     }
 
@@ -185,20 +181,12 @@ public class Locomotive : MonoBehaviour
         if (deceleration < margin)
         {
             splineFollower.SetSpeed(0);
-            foreach (Wagon wagon in wagons)
-            {
-                //wagon.GetComponent<SplineFollower>().SetSpeed(0);
-            }
             isBraking = false;
             timeToRestartRef = 0;
         }
         else
         {
             splineFollower.SetSpeed(deceleration);
-            foreach (Wagon wagon in wagons)
-            {
-                //wagon.GetComponent<SplineFollower>().SetSpeed(deceleration);
-            }
         }
     }
 
@@ -224,10 +212,6 @@ public class Locomotive : MonoBehaviour
             {
                 timeToRestartRef += 0.5f * Time.deltaTime;
                 splineFollower.SetSpeed(Mathf.Lerp(0, _trainStats.SpeedLevels[_currentSpeedLevel - 1], timeToRestartRef));
-                foreach (Wagon wagon in wagons)
-                {
-                    //wagon.GetComponent<SplineFollower>().SetSpeed(Mathf.Lerp(0, _trainStats.SpeedLevels[_currentSpeedLevel - 1], timeToRestartRef));
-                }
             }
         }
         else
@@ -235,21 +219,12 @@ public class Locomotive : MonoBehaviour
             StopTrain(5);
         }
 
-        if (splineFollower.SplineSpeed > 0) //Let the SetupWagonPosition run on Start
+        if (splineFollower.SplineSpeed > -10) //Let the SetupWagonPosition run on Start
         {
             UpdateWagonLocationOnSpline(_trainStats.WagonMargin);
         }
     }
 
-    private void SetupWagonPosition(float margin) //Used so wagons correctly place themselves at spawn
-    {
-        for (int i = 0; i < wagons.Count; i++)
-        {
-            float wagonMoveAmount = splineFollower.maxMoveAmount - (i + 1) * margin;
-            wagons[i].transform.position = splineFollower.spline.GetPositionAtUnits(wagonMoveAmount);
-            wagons[i].transform.forward = splineFollower.spline.GetForwardAtUnits(wagonMoveAmount);
-        }
-    }
     private void UpdateWagonLocationOnSpline(float margin) //Used so every wagons depends on the same splinefollower, preventing inacurracies in distances between wagons/locomotive
     {
         for (int i = 0; i < wagons.Count; i++)
@@ -350,10 +325,6 @@ public class Locomotive : MonoBehaviour
                 objectCollided.Clear();
                 //Start moving
                 splineFollower.SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
-                foreach (Wagon wagons in wagons)
-                {
-                    //wagons.GetComponent<SplineFollower>().SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
-                }
             }
         }
 
@@ -423,11 +394,7 @@ public class Locomotive : MonoBehaviour
     }
     public void UpdateSpeed()
     {
-        foreach (Wagon wagons in wagons)
-        {
             splineFollower.SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
-            //wagons.GetComponent<SplineFollower>().SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
-        }
     }
     #endregion
 
