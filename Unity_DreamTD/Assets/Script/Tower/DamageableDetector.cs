@@ -32,6 +32,8 @@ public class DamageableDetector : MonoBehaviour
         {
             damageable.Died.RemoveListener(Damageable_OnDied);
             damageable.Died.AddListener(Damageable_OnDied);
+            damageable.GetComponent<PathFollower>().LastWaypointReached.RemoveListener(PathFollower_OnLastWaypoint);
+            damageable.GetComponent<PathFollower>().LastWaypointReached.AddListener(PathFollower_OnLastWaypoint);
             _damageablesInRange.Add(damageable);
         }
     }
@@ -44,10 +46,15 @@ public class DamageableDetector : MonoBehaviour
         {
             Debug.Log(other);
             damageable.Died.RemoveListener(Damageable_OnDied);
+            damageable.GetComponent<PathFollower>().LastWaypointReached.RemoveListener(PathFollower_OnLastWaypoint);
             _damageablesInRange.Remove(damageable);
         }
     }
 
+    public void PathFollower_OnLastWaypoint(PathFollower pathFollower)
+    {
+        _damageablesInRange.Remove(pathFollower.GetComponent<Damageable>());
+    }
 
     // Damageable functions
     private void Damageable_OnDied(Damageable caller)

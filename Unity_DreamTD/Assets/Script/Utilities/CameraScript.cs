@@ -14,7 +14,7 @@ public class CameraScript : MonoBehaviour
     private float _height;
 
     [SerializeField]
-    private Vector2 _minMaxLengthByScroll;
+    private Vector2 _minMaxFOVByScroll;
 
     [SerializeField]
     private Vector2 _minMaxHeightByDrag;
@@ -62,13 +62,13 @@ public class CameraScript : MonoBehaviour
             _cameraAngle = 0;
         }
 
-        if(Input.mouseScrollDelta.y < 0 & _length < _minMaxLengthByScroll.y)
+        if(Input.mouseScrollDelta.y < 0 & Camera.main.fieldOfView < _minMaxFOVByScroll.y)
         {
-            _length -= Input.mouseScrollDelta.y * 0.1f * _scrollSensibility;
+            Camera.main.fieldOfView -= Input.mouseScrollDelta.y * 0.1f * _scrollSensibility;
         }
-        else if(Input.mouseScrollDelta.y > 0 & _length > _minMaxLengthByScroll.x)
+        else if(Input.mouseScrollDelta.y > 0 & Camera.main.fieldOfView > _minMaxFOVByScroll.x)
         {
-            _length -= Input.mouseScrollDelta.y * 0.1f * _scrollSensibility;
+            Camera.main.fieldOfView -= Input.mouseScrollDelta.y * 0.1f * _scrollSensibility;
         }
 
     }

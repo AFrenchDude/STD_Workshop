@@ -5,12 +5,39 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField]
     private Transform _enemiesHealthBarContainer;
 
     [SerializeField]
+    private Transform _mouseFollowerContainer;
+
+    [SerializeField]
+    private Transform _upgradePanelsContainer;
+
+    [Header("Prefab")]
+    [SerializeField]
     private GameObject _healthBarPrefab;
 
+    [SerializeField]
+    private UI_TowerPanelManager _towerUpgradePanel;
+
+    [SerializeField]
+    private UI_FactoryPanelManager _factoryUpgradePanel;
+
+    [SerializeField]
+    private TowerManagerPanel _towerManagerPanel;
+
+    [SerializeField]
+    private FactoryManagerPanel _factoryManagerPanel;
+    
+
+    //References
+    private UI_TowerPanelManager upgradeTowerPanel = null;
+    private UI_FactoryPanelManager upgradeFactoryPanel = null;
+
+    private TowerManagerPanel towerManagerPanel;
+    private FactoryManagerPanel factoryManagerPanel;
 
     public EnemiesHealthBar CreateEnemiesHealthBar(Transform target)
     {
@@ -21,5 +48,67 @@ public class UIManager : MonoBehaviour
         EnemiesHealthBar enemiesHealthBar = healthBar.GetComponent<EnemiesHealthBar>();
         return enemiesHealthBar;
 
+    }
+
+    public TowerManagerPanel CreateTowerPanel(TowerManager towerManager)
+    {
+        if(towerManagerPanel == null)
+        {
+            towerManagerPanel = Instantiate(_towerManagerPanel, _upgradePanelsContainer);
+
+            towerManagerPanel.CreatePanel(towerManager);
+
+            return (towerManagerPanel);
+        }
+        return null;
+        
+    }
+
+    public FactoryManagerPanel CreateFactoryPanel(FactoryManager factoryManager)
+    {
+        if (factoryManagerPanel == null)
+        {
+            factoryManagerPanel = Instantiate(_factoryManagerPanel, _upgradePanelsContainer);
+
+            factoryManagerPanel.CreatePanel(factoryManager);
+
+            return (factoryManagerPanel);
+        }
+        return null;
+
+    }
+
+
+    //Information
+    public UI_TowerPanelManager CreateTowerUpgradeInformation(TowersDatas towerToUp)
+    {
+        if (upgradeTowerPanel == null)
+        {
+            upgradeTowerPanel = Instantiate(_towerUpgradePanel, _mouseFollowerContainer);
+
+            upgradeTowerPanel.SetTowerData(towerToUp);
+            
+        }
+
+        return (upgradeTowerPanel);
+    }
+
+    public UI_FactoryPanelManager CreateFactoryUpgradeInformation(FactoryDatas FactoryToUp)
+    {
+        if (upgradeFactoryPanel == null)
+        {
+            upgradeFactoryPanel = Instantiate(_factoryUpgradePanel, _mouseFollowerContainer);
+
+            upgradeFactoryPanel.SetFactoryData(FactoryToUp);
+
+        }
+
+        return (upgradeFactoryPanel);
+    }
+
+
+    public void RemoveTowerUpgradeInformation()
+    {
+        upgradeTowerPanel.FadeOut();
     }
 }

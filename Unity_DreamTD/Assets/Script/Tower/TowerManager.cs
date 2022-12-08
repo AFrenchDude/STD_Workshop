@@ -14,13 +14,16 @@ public class TowerManager : MonoBehaviour
     [SerializeField]
     private CapsuleCollider _rangeDetector;
 
+    [SerializeField]
+    private Transform _centerOfMass;
+    public Transform CenterOfMass => _centerOfMass;
+
     public TowersDatas TowersData => _towersDatas;
 
-    private void OnEnable()
+    public void Enable()
     {
         _tower = GetComponent<Tower>();
         _weaponController = GetComponent<WeaponController>();
-
         //Apply statistics to every scripts
         ApplyStats(_towersDatas);
     }
@@ -28,7 +31,6 @@ public class TowerManager : MonoBehaviour
     public void ApplyStats(TowersDatas towerData)
     {
         _towersDatas = Instantiate(towerData); // Create a new instance for scriptable object
-
         _towersDatas.ApplyUpgrade();
 
         _weaponController.setTowerData(_towersDatas);

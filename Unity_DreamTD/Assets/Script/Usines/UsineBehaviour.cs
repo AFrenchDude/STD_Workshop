@@ -13,6 +13,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     private Material originalMaterial;
 
     private AudioSource audioSource;
+    [SerializeField] private int scoreToGiveOnProducing;
 
     private void Start()
     {
@@ -41,6 +42,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
 
         if (conditionType && conditionSpace && conditionWave && conditionTime && _factoryDatas.IsProducing)
         {
+            LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnProducing);
             _factoryDatas.AddProjectile(1);
             lastProduction = Time.time;
         }

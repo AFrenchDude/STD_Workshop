@@ -6,6 +6,8 @@ using UnityEngine.UI;
 //Made by Melinon Remy
 public class UsineHUD : MonoBehaviour
 {
+    public GameObject factory;
+
     [SerializeField] private FactoryDatas _factoryData;
     [SerializeField] private GameObject upgradeButton;
     [SerializeField] private TextMeshProUGUI text;
@@ -63,12 +65,16 @@ public class UsineHUD : MonoBehaviour
 
     public void Upgrade()
     {
+        FactoryManager managedFactory = factory.GetComponent<FactoryManager>();
         GoldManager goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
         if (goldManager.getFortune >= _factoryData.CurrentUpgrade.UpgradePrice)
         {
             string purchaseName = _factoryData.name + "_Upgrade_" + _factoryData.CurrentUpgrade.name;
             goldManager.Buy(_factoryData.CurrentUpgrade.UpgradePrice, purchaseName);
             _factoryData.Upgrade();
+
+            managedFactory.FactoryData.Upgrade();
+            managedFactory.ApplyStats(managedFactory.FactoryData);
 
             _factoryTransform.GetComponent<UsineBehaviour>().SetUpgradeMesh(_factoryData.CurrentUpgrade.UpgradePrefab);
 
@@ -87,8 +93,15 @@ public class UsineHUD : MonoBehaviour
 
     public void DestroyUsine()
     {
-        Base.Instance.AddGold(_factoryData.SellPrice - (_factoryData.SellPrice / 3));
+        LevelReferences.Instance.Player.GetComponent<GoldManager>().CollectMoney(_factoryData.SellPrice - (_factoryData.SellPrice / 3));
         Destroy(_factoryTransform.gameObject);
         gameObject.SetActive(false);
+    }
+
+    public void CreateInfoPanel()
+    {
+        UIManager uiManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
+
+        uiManager.CreateFactoryUpgradeInformation(factory.GetComponent<FactoryManager>().FactoryData);
     }
 }

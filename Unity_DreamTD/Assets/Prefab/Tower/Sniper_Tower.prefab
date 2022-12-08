@@ -269,6 +269,7 @@ Transform:
   - {fileID: 1762901608898167731}
   - {fileID: 462027948775694969}
   - {fileID: 4531559875341219251}
+  - {fileID: 6479613841586793268}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -285,6 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetPriority: 2
+  scoreToGiveOnCreate: 10
   _parentMeshRenderers: {fileID: 0}
   _dragNDropMeshes:
   - {fileID: 6008034697900419114}
@@ -361,6 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towersDatas: {fileID: 11400000, guid: b44bdb441a435ba4fa26d91eabb6adc4, type: 2}
   _rangeDetector: {fileID: 4942326301799910616}
+  _centerOfMass: {fileID: 6479613841586793268}
 --- !u!114 &107789827441221074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,6 +712,37 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
   projectiles: 0
   maxRessource: 20
+--- !u!1 &1887788439595607892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6479613841586793268}
+  m_Layer: 0
+  m_Name: CenterOfMass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6479613841586793268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887788439595607892}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.455, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 610077207042234298}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5526530166326332707
 GameObject:
   m_ObjectHideFlags: 0

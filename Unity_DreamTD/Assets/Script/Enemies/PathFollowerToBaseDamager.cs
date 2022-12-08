@@ -32,7 +32,7 @@ public class PathFollowerToBaseDamager : MonoBehaviour
         }
     }
 
-    private void TryCallBaseDamager()
+    private void TryCallBaseDamager(PathFollower pathFollower)
     {
         BaseDamager baseDamager = GetComponent<BaseDamager>();
         if (baseDamager != null)

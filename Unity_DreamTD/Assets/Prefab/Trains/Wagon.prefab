@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3657557653143711619}
   - component: {fileID: 1795319813208194763}
   - component: {fileID: 6363651344020621239}
-  - component: {fileID: 2173839976101783781}
   - component: {fileID: 759330988894339831}
   m_Layer: 15
   m_Name: Wagon
@@ -99,23 +98,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2173839976101783781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6701039501246153264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83f04a035dc6a2446ab3808051addd8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spline: {fileID: 0}
-  speed: 10
-  margin: 9
-  moveAmount: 0
-  maxMoveAmount: 0
 --- !u!114 &759330988894339831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,5 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: {fileID: 11400000, guid: a6ed1d2dcab2689418bf34f47b41496f, type: 2}
-  projectiles: []
-  maxResources: 20
+  projectiles: 0
+  hasTriggered: 0

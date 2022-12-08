@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Made by Melinon Remy
+//Made by Melinon Remy, modified by ALBERT Esteban to update stats via S.O
 public class StationHUD : MonoBehaviour
 {
     private Transform station;
@@ -27,20 +27,23 @@ public class StationHUD : MonoBehaviour
     //Create train
     public void NewTrain()
     {
-        if (currentTrainCreated < maxTrainCreatable && Base.Instance.Gold >= trainPrice && station.GetComponent<StationBehaviour>().trainInStation < 1)
+        if (currentTrainCreated < maxTrainCreatable && LevelReferences.Instance.Player.GetComponent<GoldManager>()._currentFortune >= trainPrice && station.GetComponent<StationBehaviour>().trainInStation < 1)
         {
-            Base.Instance.RemoveGold(trainPrice);
+            LevelReferences.Instance.Player.GetComponent<GoldManager>().Buy(trainPrice, "train");
             currentTrainCreated++;
             //Create new train
             var newTrain = Instantiate(train, station.position, Quaternion.identity);
-            newTrain.GetComponentInChildren<TrainLevel>().currentLevel = 1;
+            Locomotive newLocomotive = newTrain.GetComponentInChildren<Locomotive>();
+            newLocomotive.SetSpeedLevel(stationLevel);
+            newLocomotive.SetStorageLevel(stationLevel);
+
             //Set path and speed
+            newTrain.transform.GetComponentInChildren<SplineFollower>().spline = LevelReferences.Instance.RailSpline;
             foreach (Transform child in newTrain.transform)
             {
                 child.GetComponent<HUDwhenSelect>().hudRef = trainHUD;
-                child.GetComponent<SplineFollower>().spline = LevelReferences.Instance.RailSpline;
-                child.GetComponent<SplineFollower>().speed = maxTrainsSpeed;
             }
+
             var locomotiveOfTrain = newTrain.GetComponentInChildren<Locomotive>();
             locomotive.Add(locomotiveOfTrain);
             //Add new train to list
@@ -65,7 +68,6 @@ public class StationHUD : MonoBehaviour
         {
             stationLevel++;
             maxTrainCreatable++;
-            maxTrainsSpeed += 10;
             //Set speed
             foreach (Transform child in container.transform)
             {
@@ -73,7 +75,8 @@ public class StationHUD : MonoBehaviour
                 {
                     if(child2.GetComponentInChildren<Locomotive>() != null)
                     {
-                        child2.GetComponentInChildren<Locomotive>().maxSpeed = maxTrainsSpeed;
+                        child2.GetComponentInChildren<Locomotive>().UpgradeSpeedLevel();
+                        child2.GetComponentInChildren<Locomotive>().UpgradeStorageLevel();
                     }
                 }
             }

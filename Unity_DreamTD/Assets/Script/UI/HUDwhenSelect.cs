@@ -4,7 +4,19 @@ using UnityEngine;
 public class HUDwhenSelect : MonoBehaviour
 {
     public GameObject hudRef;
-    
+
+    private UIManager _uIManager;
+
+    private void Awake()
+    {
+        _uIManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
+    }
+
+    //References
+    FactoryManagerPanel _currentFactoryManagerPanel = null;
+    TowerManagerPanel _currentTowerManagerPanel = null;
+    //FactoryManager
+
     //Display HUD
     public void OnSelect()
     {
@@ -15,16 +27,17 @@ public class HUDwhenSelect : MonoBehaviour
             hudRef.GetComponent<TrainsHUD>().PickTrain(transform.parent.gameObject);
         }
         //If click on usine
-        else if(hudRef.GetComponent<UsineHUD>() != null)
+        else if(gameObject.GetComponent<Factory>() != null)
         {
-            hudRef.SetActive(true);
-            hudRef.GetComponent<UsineHUD>().OnPick(GetComponent<UsineBehaviour>());
+            //hudRef.SetActive(true);
+            //hudRef.GetComponent<UsineHUD>().OnPick(GetComponent<UsineBehaviour>());
+
+            _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
         }
         //If click on tower
-        else if(hudRef.GetComponent<TowerHUD>() != null && gameObject.GetComponent<Tower>().enabled == true)
+        else if(gameObject.GetComponent<Tower>()!= null)
         {
-            hudRef.GetComponent<TowerHUD>().OnPick(transform.gameObject);
-            hudRef.SetActive(true);
+            _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
         }
         //If click on station
         else if (hudRef.GetComponent<TowerHUD>() == null)
@@ -42,16 +55,23 @@ public class HUDwhenSelect : MonoBehaviour
             hudRef.SetActive(false);
         }
         //If usine
-        else if (hudRef.GetComponent<UsineHUD>() != null)
+        else if (gameObject.GetComponent<Factory>() != null)
         {
-            hudRef.GetComponent<UsineHUD>().OnUnpick();
-            hudRef.SetActive(false);
+            //hudRef.GetComponent<UsineHUD>().OnUnpick();
+            //hudRef.SetActive(false);
+
+            if (_currentFactoryManagerPanel != null)
+            {
+                _currentFactoryManagerPanel.DestroyPanel();
+            }
         }
         //If tower
-        else if (hudRef.GetComponent<TowerHUD>() != null && gameObject.GetComponent<Tower>().enabled == true)
+        else if (gameObject.GetComponent<Tower>() != null)
         {
-            hudRef.GetComponent<TowerHUD>().OnUnpick();
-            hudRef.SetActive(false);
+            if(_currentTowerManagerPanel != null)
+            {
+                _currentTowerManagerPanel.ClosePanel();
+            }
         }
         //If station
         else if (hudRef.GetComponent<TowerHUD>() == null)

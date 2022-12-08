@@ -1,5 +1,4 @@
 // by ALEXANDRE Dorian
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -9,8 +8,7 @@ public class GoldManager : MonoBehaviour
     [SerializeField]
     private int _startFortune;
 
-    [SerializeField]
-    private int _currentFortune;
+    public int _currentFortune;
 
     [SerializeField]
     private TextMeshProUGUI _currentMoneyText;
@@ -50,7 +48,7 @@ public class GoldManager : MonoBehaviour
 
     public void SetGoldDisplayValue() //Set current fortune on player's display
     {
-        _currentMoneyText.text = "Money : " + _currentFortune.ToString();
+        _currentMoneyText.text = _currentFortune.ToString();
     }
 
     public PurchaseHistory CreatePurchase(int price, string name) //Create a Purchase History to conserv every game data

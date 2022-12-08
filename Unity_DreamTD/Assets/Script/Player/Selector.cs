@@ -11,8 +11,10 @@ public class Selector : MonoBehaviour
     private HUDwhenSelect openHUDref;
     private bool isMouseOnUI;
 
+    public bool IsMouseOnUI => isMouseOnUI;
     public void Select(InputAction.CallbackContext obj)
     {
+
         //when button is pressed
         if (obj.phase == InputActionPhase.Canceled)
         {
@@ -27,7 +29,6 @@ public class Selector : MonoBehaviour
                 }
                 if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
                 {
-                    //towerHUD.GetComponentInParent<FollowOnScreen>().SetTarget(hit.transform);
                     openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
                     openHUDref.OnSelect();
                 }

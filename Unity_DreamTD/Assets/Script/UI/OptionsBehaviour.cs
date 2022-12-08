@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -22,8 +23,10 @@ public class OptionsBehaviour : MonoBehaviour
     [SerializeField] private TMP_Dropdown qualityDropdown;
     [SerializeField] private Toggle fullscreenToggle;
     private Resolution[] resolution;
+    private int screenWidth = 1920;
+    private int screenHeight = 1080;
 
-    //Set vars
+    //Set vars to HUD
     public void OnOptionMenuOpen()
     {
         //Sound
@@ -54,13 +57,27 @@ public class OptionsBehaviour : MonoBehaviour
         int currentResolutionIdex = 0;
         for (var i = 0; i < resolution.Length; i++)
         {
-                string option = resolution[i].width + "x" + resolution[i].height;
-                options.Add(option);
-
-                if (resolution[i].width == Screen.currentResolution.width && resolution[i].height == Screen.currentResolution.height)
+            //bool isAlreadyInOption = false;
+            string option = resolution[i].width + "x" + resolution[i].height;
+            /*
+            foreach (string alreadyInOption in options)
+            {
+                if (option == alreadyInOption)
                 {
-                    currentResolutionIdex = i;
+                    isAlreadyInOption = true;
                 }
+            }
+            if(!isAlreadyInOption)
+            {
+                options.Add(option);
+            }
+            */
+            options.Add(option);
+
+            if (resolution[i].width == Screen.currentResolution.width && resolution[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIdex = i;
+            }
         }
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIdex;
@@ -70,18 +87,29 @@ public class OptionsBehaviour : MonoBehaviour
     //Sound
     public void Mute(bool isMuted)
     {
-        if(isMuted)
+        if (isMuted)
         {
             audioMixer.SetFloat("Master", -80);
-            sfxSlider.value = -40;
-            musicSlider.value = -40;
+            StartCoroutine(MuteCoroutine());
         }
-        else
+        else if(gameObject.activeSelf == true)
         {
             audioMixer.SetFloat("Master", 0);
-            sfxSlider.value = lastSFXvalue;
-            musicSlider.value = lastMusicValue;
+            StartCoroutine(UnmuteCoroutine());
         }
+    }
+    //Wait to avoid earing half of the click sound
+    IEnumerator MuteCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        sfxSlider.value = -40;
+        musicSlider.value = -40;
+    }
+    IEnumerator UnmuteCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        sfxSlider.value = lastSFXvalue;
+        musicSlider.value = lastMusicValue;
     }
 
     public void SetMusicVolume(Single musicVolume)
@@ -116,12 +144,14 @@ public class OptionsBehaviour : MonoBehaviour
     //Video
     public void Fullscreen(bool isFullscreen)
     {
-        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, isFullscreen);
+        Screen.SetResolution(screenWidth, screenHeight, isFullscreen);
     }
     public void SetResolution(int choice)
     {
         Resolution resolutionPick = resolution[choice];
         Screen.SetResolution(resolutionPick.width, resolutionPick.height, Screen.fullScreen);
+        screenWidth = resolutionPick.width;
+        screenHeight = resolutionPick.height;
     }
     public void SetQuality(int choice)
     {

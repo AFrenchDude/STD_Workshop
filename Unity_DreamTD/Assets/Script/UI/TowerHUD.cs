@@ -9,7 +9,6 @@ public class TowerHUD : MonoBehaviour
     public GameObject tower;
     [SerializeField] private GameObject changeTypeHUD;
     [SerializeField] private GameObject ChangeTypeButton2;
-    [SerializeField] private TowersDatas doubleCanonRef;
     [SerializeField] private GameObject upgradeButton;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Slider slider;
@@ -19,6 +18,8 @@ public class TowerHUD : MonoBehaviour
     [SerializeField] private Image productionIcon2;
     [SerializeField] private Toggle toggle;
     [SerializeField] private TMP_Dropdown dropdown;
+
+    [SerializeField] private GameObject hudUpgradeRef;
 
     [HideInInspector] public Tower towerScriptRef;
     private TowerGetProjectile towerGetProjectileScriptRef;
@@ -50,7 +51,7 @@ public class TowerHUD : MonoBehaviour
             towerScriptRef.RangeIndicator.EnableRangeIndicator(true);
         }
         //if DoubleCanon
-        if (tower.GetComponent<TowerManager>().TowersData.FireType == doubleCanonRef.FireType)
+        if (tower.GetComponent<TowerManager>().TowersData.FireType == TowersDatas.fireType.DoubleCanon)
         {
             currentResources2 = tower.GetComponent<TowerManager>().TowersData.Projectiles[1].ProjectileAmmount;
             text2.SetText("Bullet: " + currentResources2);
@@ -66,8 +67,9 @@ public class TowerHUD : MonoBehaviour
         productionIcon.sprite = towerGetProjectileScriptRef.type[0].icon;
         toggle.isOn = tower.GetComponent<WeaponController>().canShoot;
         changeTypeHUD.GetComponent<ChangeType>().openHUD = gameObject;
+
         //if DoubleCanon
-        if (tower.GetComponent<TowerManager>().TowersData.FireType == doubleCanonRef.FireType)
+        if (tower.GetComponent<TowerManager>().TowersData.FireType == TowersDatas.fireType.DoubleCanon)
         {
             productionIcon2.sprite = towerGetProjectileScriptRef.type[1].icon;
             ChangeTypeButton2.SetActive(true);
@@ -95,10 +97,10 @@ public class TowerHUD : MonoBehaviour
 
     public void OnUnpick()
     {
-        towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
-        towerScriptRef = null;
-        towerGetProjectileScriptRef = null;
-        tower = null;
+        //towerScriptRef.RangeIndicator.EnableRangeIndicator(false);
+        //towerScriptRef = null;
+        //towerGetProjectileScriptRef = null;
+        //tower = null;
     }
 
     public void ChangeTowerBehaviour(Int32 newBehaviour)
@@ -113,7 +115,6 @@ public class TowerHUD : MonoBehaviour
 
     public void Upgrade()
     {
-
         //tower.GetComponent<TowerManager>().TowersData.Upgrade();
         TowerManager managedTower = tower.GetComponent<TowerManager>();
         GoldManager goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
@@ -145,12 +146,21 @@ public class TowerHUD : MonoBehaviour
         changeTypeHUD.GetComponent<ChangeType>().canonToChange = intCanonRef;
         changeTypeHUD.SetActive(true);
         changeTypeHUD.GetComponent<ChangeType>().noTypeButton.SetActive(true);
+        hudUpgradeRef.SetActive(false);
     }
 
     public void DestroyTower()
     {
-        Base.Instance.AddGold(towerScriptRef.Price - (towerScriptRef.Price / 3));
+        hudUpgradeRef.GetComponent<UpgradeType>().ResetUpgrade();
+        LevelReferences.Instance.Player.GetComponent<GoldManager>().CollectMoney(towerScriptRef.Price - (towerScriptRef.Price / 3));
         Destroy(tower);
         gameObject.SetActive(false);
+    }
+
+    public void CreateInfoPanel()
+    {
+        UIManager uiManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
+
+        uiManager.CreateTowerUpgradeInformation(tower.GetComponent<TowerManager>().TowersData);
     }
 }
