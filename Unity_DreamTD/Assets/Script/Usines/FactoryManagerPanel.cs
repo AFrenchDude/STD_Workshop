@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FactoryManagerPanel : MonoBehaviour
 {
@@ -9,17 +9,37 @@ public class FactoryManagerPanel : MonoBehaviour
 
     [Header("Information")]
     [SerializeField]
-    private UI_FactoryPanelManager _towerInfoPrefab;
+    private UI_FactoryPanelManager _factoryInfoPrefab;
 
     [SerializeField]
     private Transform _infoParent;
 
 
     private GoldManager goldManager;
+    private Animator _animator;
+
+    [Header("UI Economy")]
+    [SerializeField]
+    private Image _upgradeImage;
+
+    [Space(10)]
+
+    [SerializeField]
+    private Sprite _upgradeSprite;
+    [SerializeField]
+    private Sprite _lockedSprite;
+
+    [Space(10)]
+
+    [SerializeField]
+    private Color _canBuyColor;
+    [SerializeField]
+    private Color _cantBuyColor;
 
     private void Awake()
     {
         goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
+        _animator = GetComponent<Animator>();
     }
 
     public void CreatePanel(FactoryManager towerManager)
@@ -79,7 +99,7 @@ public class FactoryManagerPanel : MonoBehaviour
     {
         if (factoryInformation == null)
         {
-            factoryInformation = Instantiate(_towerInfoPrefab, _infoParent);
+            factoryInformation = Instantiate(_factoryInfoPrefab, _infoParent);
 
             factoryInformation.SetFactoryData(_factoryManager.FactoryData);
 
