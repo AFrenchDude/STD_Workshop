@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 693614919186679304}
   - component: {fileID: 5874553084479860446}
   - component: {fileID: 4305278748431570432}
+  - component: {fileID: 5852109487345912587}
   m_Layer: 5
   m_Name: ProjectileTypeUI
   m_TagString: Untagged
@@ -488,6 +489,26 @@ MonoBehaviour:
   - {fileID: 8982896001242740200}
   _projectileSelectorPrefab: {fileID: 4159106985947189591, guid: 1fdaadeb058b42b4293c87d61ccfd2de,
     type: 3}
+--- !u!95 &5852109487345912587
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3691764723253268073}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 93139e30a434048459c6909f75c2227f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5715783266080439423
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,6 +593,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4194074361690486505}
+  - component: {fileID: 7467407033081472500}
   m_Layer: 5
   m_Name: Type_1
   m_TagString: Untagged
@@ -599,3 +621,11 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: 50}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7467407033081472500
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010905830614275328}
+  m_CullTransparentMesh: 1
