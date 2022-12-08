@@ -54,21 +54,23 @@ public class UI_TowerPanelManager : MonoBehaviour
     {
         _towerDatas = towerData;
 
+
         SetUpStat();
     }
 
     private void SetUpStat()
     {
-        _towerIcon.sprite = _towerDatas.Icon;
-        _name.text = _towerDatas.UpgradeDatas.UpgradeName;
+        if (_towerDatas.canUpgrade)
+        {
+            _towerIcon.sprite = _towerDatas.Icon;
+            _name.text = _towerDatas.UpgradeDatas.UpgradeName; 
 
-        Debug.Log(this.gameObject.name);
+            SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeDamage, false);
+            SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeFireRate, true);
+            SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeRange, false);
 
-        SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeDamage, false);
-        SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeFireRate, true);
-        SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeRange, false);
-
-        _price.text = _towerDatas.UpgradeDatas.UpgradePrice.ToString();
+            _price.text = _towerDatas.UpgradeDatas.UpgradePrice.ToString();
+        }
     }
 
     private void SetUpUpgrade(TextMeshProUGUI previous, TextMeshProUGUI next, float previousValue, float nextValue, bool invert)
@@ -117,7 +119,6 @@ public class UI_TowerPanelManager : MonoBehaviour
         _isFadeOut = true;
         if (GetComponent<Animator>() != null)
         {
-
             GetComponent<Animator>().SetBool("Close", _isFadeOut);
         }
     }

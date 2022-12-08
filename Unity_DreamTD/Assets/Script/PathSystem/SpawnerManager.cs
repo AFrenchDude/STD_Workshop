@@ -70,6 +70,10 @@ public class SpawnerManager : MonoBehaviour
                 _spawnerState = SpawnerStatus.Inactive;
             }
         }
+        else if(_waveEntityListCount <= 0)
+        {
+            _spawnerState = SpawnerStatus.Inactive;
+        }
     }
 
     public void AddWaveEntityToList(WaveEntity waveEntity)
@@ -93,7 +97,7 @@ public class SpawnerManager : MonoBehaviour
         // Start a new wave set only if there are no currently a wave running
         if (_currentWaveRunning <= 0)
         {
-            _isWaitingForLastEntityDeath = true;
+            //_isWaitingForLastEntityDeath = true;
 
             StartNewWaveSet();
             _spawnerState = SpawnerStatus.WaveRunning;
@@ -133,8 +137,8 @@ public class SpawnerManager : MonoBehaviour
                 spawner.WaveEnded.RemoveListener(Spawner_OnWaveEnded);
                 spawner.WaveEnded.AddListener(Spawner_OnWaveEnded);
 
-                WaveStatusChanged?.Invoke(this, SpawnerStatus.WaveRunning, _currentWaveRunning);
-                WaveStatusChanged_UnityEvent?.Invoke(this, SpawnerStatus.WaveRunning, _currentWaveRunning);
+                //WaveStatusChanged?.Invoke(this, SpawnerStatus.WaveRunning, _currentWaveRunning);
+                //WaveStatusChanged_UnityEvent?.Invoke(this, SpawnerStatus.WaveRunning, _currentWaveRunning);
             }
         }
         else
@@ -145,7 +149,7 @@ public class SpawnerManager : MonoBehaviour
 
     private void Spawner_OnWaveEnded(EntitySpawner entitySpawner, Wave wave)
     {
-        LevelReferences.Instance.MusicPlayer.Stop();
+        //LevelReferences.Instance.MusicPlayer.Stop();
         entitySpawner.WaveEnded.RemoveListener(Spawner_OnWaveEnded);
 
         _currentWaveRunning -= 1;

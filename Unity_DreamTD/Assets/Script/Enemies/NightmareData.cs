@@ -38,6 +38,11 @@ public class NightmareData : ScriptableObject
     [SerializeField]
     private Color _debugColor;
 
+    [Header("UI")]
+    [SerializeField]
+    private Sprite _icon;
+
+
 
     public NighmareType nighmareType => _nighmareType;
     public NightmareFunction nightmareFunction => _nightmareFunction;
@@ -46,6 +51,7 @@ public class NightmareData : ScriptableObject
     public float maxLife => _maxLife;
     public Color debugColor => _debugColor;
 
+    public Sprite icon => _icon;
 
     public NighmareType getNightmareType
     {

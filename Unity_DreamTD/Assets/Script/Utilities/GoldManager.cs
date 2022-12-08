@@ -50,7 +50,7 @@ public class GoldManager : MonoBehaviour
 
     public void SetGoldDisplayValue() //Set current fortune on player's display
     {
-        _currentMoneyText.text = "Money : " + _currentFortune.ToString();
+        _currentMoneyText.text = _currentFortune.ToString();
     }
 
     public PurchaseHistory CreatePurchase(int price, string name) //Create a Purchase History to conserv every game data
