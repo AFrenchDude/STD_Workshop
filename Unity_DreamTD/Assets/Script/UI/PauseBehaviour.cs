@@ -5,6 +5,7 @@ public class PauseBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject HUD;
     private bool isInPause = false;
+    private float lastTimeScale;
     //Get controller to disable movement in pause
     [SerializeField] private Controller controller;
 
@@ -17,7 +18,7 @@ public class PauseBehaviour : MonoBehaviour
         {
             gameObject.SetActive(false);
             HUD.SetActive(true);
-            Time.timeScale = 1f;
+            Time.timeScale = lastTimeScale;
             //Disable movement
             controller.isInPause = true;
         }
@@ -26,6 +27,7 @@ public class PauseBehaviour : MonoBehaviour
         {
             gameObject.SetActive(true);
             HUD.SetActive(false);
+            lastTimeScale = Time.timeScale;
             Time.timeScale = 0f;
             //Enable movement
             controller.isInPause = false;
