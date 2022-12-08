@@ -14,7 +14,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] private Transform _targetAnchor = null;
     [SerializeField] private Transform _headAnchor = null;
     public int scoreToGiveOnDeath;
-    private float _health = 100;
+    [SerializeField] private float _health = 100;
 
     [SerializeField]
     private EnemiesHealthBar _healthBar = null;
@@ -28,10 +28,18 @@ public class Damageable : MonoBehaviour
     public Transform TargetAnchor => _targetAnchor;
     public Transform HeadAnchor => _headAnchor;
 
-    public void setMaxHp(float maxHp)
+    public void setMaxHp(float maxHp, bool shouldRestoreLife, bool shouldKeepPercent)
     {
+        float healthPercentage = _health / _maxHealth;
         _maxHealth = (int)maxHp;
-        _health = _maxHealth;
+        if(shouldRestoreLife)
+        {
+            _health = _maxHealth;
+        }
+        else if (shouldKeepPercent)
+        {
+            _health = _maxHealth * healthPercentage;
+        }
     }
 
     public void TakeDamage(float damage, out float health)

@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using static NightmareData;
 
@@ -12,6 +15,8 @@ public class NightmareManager : MonoBehaviour
 
     [SerializeField]
     private MeshRenderer _meshRenderer;
+
+    private List<GameObject> boostedEnemies;
 
     private enum SupportEffect
     {
@@ -58,7 +63,7 @@ public class NightmareManager : MonoBehaviour
         }
 
         //Hp
-        _damageable.setMaxHp(_nightmareData.maxLife);
+        _damageable.setMaxHp(_nightmareData.maxLife, true, true);
 
         //Speed
         _pathFollower.SetSpeed(_nightmareData.speed);
@@ -80,7 +85,7 @@ public class NightmareManager : MonoBehaviour
             Collider[] colliderList = Physics.OverlapSphere(transform.position, 8);
             foreach (var testedCollider in colliderList)
             {
-                if(testedCollider.transform.gameObject.layer == gameObject.layer && testedCollider.transform.gameObject != transform.gameObject)
+                if (testedCollider.transform.gameObject.layer == gameObject.layer && testedCollider.transform.gameObject != transform.gameObject)
                 {
                     if (testedCollider.transform.GetComponent<NightmareManager>() != null && testedCollider.transform.GetComponent<NightmareManager>().getNighmareType == _nightmareData.getNightmareType)
                     {
@@ -90,11 +95,27 @@ public class NightmareManager : MonoBehaviour
                                 break;
 
                             case SupportEffect.Heal:
-                                testedCollider.transform.GetComponent<Damageable>().setMaxHp(health);
+                                if(testedCollider.GetComponent<Status_Boosted_Heal>() == null)
+                                {
+                                    testedCollider.AddComponent<Status_Boosted_Heal>();
+                                    testedCollider.GetComponent<Status_Boosted_Heal>().AddHeal(_nightmareData.Boost);
+                                }
+                                else
+                                {
+                                    testedCollider.GetComponent<Status_Boosted_Heal>().ResetTimer();
+                                }
                                 break;
 
                             case SupportEffect.Speed:
-                                testedCollider.transform.GetComponent<PathFollower>().SetNewSpeed(speed);
+                                if (testedCollider.GetComponent<Status_Boosted_Speed>() == null)
+                                {
+                                    testedCollider.AddComponent<Status_Boosted_Speed>();
+                                    testedCollider.GetComponent<Status_Boosted_Speed>().AddSpeed(_nightmareData.Boost);
+                                }
+                                else
+                                {
+                                    testedCollider.GetComponent<Status_Boosted_Speed>().ResetTimer();
+                                }
                                 break;
 
                             case SupportEffect.Resist:
