@@ -149,6 +149,7 @@ public class UI_TowerPanelManager : MonoBehaviour
     private bool _isFadeOut = false;
     public void FadeOut()
     {
+        
         _isFadeOut = true;
         if (GetComponent<Animator>() != null)
         {

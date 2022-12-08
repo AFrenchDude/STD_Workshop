@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FactoryManagerPanel : MonoBehaviour
 {
@@ -15,10 +16,30 @@ public class FactoryManagerPanel : MonoBehaviour
 
 
     private GoldManager goldManager;
+    private Animator _animator;
+
+    [Header("UI Economy")]
+    [SerializeField]
+    private Image _upgradeImage;
+
+    [Space(10)]
+
+    [SerializeField]
+    private Sprite _upgradeSprite;
+    [SerializeField]
+    private Sprite _lockedSprite;
+
+    [Space(10)]
+
+    [SerializeField]
+    private Color _canBuyColor;
+    [SerializeField]
+    private Color _cantBuyColor;
 
     private void Awake()
     {
         goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
+        _animator = GetComponent<Animator>();
     }
 
     public void CreatePanel(FactoryManager towerManager)
