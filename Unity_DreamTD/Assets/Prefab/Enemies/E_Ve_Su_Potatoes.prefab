@@ -91,6 +91,7 @@ MonoBehaviour:
   _destroyOnDeath: 1
   _targetAnchor: {fileID: 3194527713029171132}
   _headAnchor: {fileID: 5574553189779065027}
+  scoreToGiveOnHit: 10
   scoreToGiveOnDeath: 100
   _healthBar: {fileID: 0}
   OnDamageTaken:
@@ -144,9 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nightmareData: {fileID: 11400000, guid: 2287f838552e07b4d9b16e89cc0fc6fb, type: 2}
   _meshRenderer: {fileID: 0}
-  supportType: 1
-  health: 5
-  speed: 0
 --- !u!54 &3194527713467927117
 Rigidbody:
   m_ObjectHideFlags: 0

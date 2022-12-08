@@ -1,5 +1,4 @@
 //By ALEXANDRE Dorian
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FactoryManager : MonoBehaviour
@@ -10,7 +9,6 @@ public class FactoryManager : MonoBehaviour
     [Header("References")]
 
     private Factory _factory;
-    private WeaponController _weaponController;
 
     [SerializeField]
     private CapsuleCollider _rangeDetector;
@@ -21,11 +19,9 @@ public class FactoryManager : MonoBehaviour
 
     public FactoryDatas FactoryData => _factoryDatas;
 
-    private void OnEnable()
+    public void OnEnable()
     {
         _factory = GetComponent<Factory>();
-        _weaponController = GetComponent<WeaponController>();
-
         //Apply statistics to every scripts
         ApplyStats(_factoryDatas);
     }

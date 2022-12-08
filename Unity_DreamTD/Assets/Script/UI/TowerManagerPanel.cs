@@ -159,11 +159,7 @@ public class TowerManagerPanel : MonoBehaviour
 
     public void RemoveTowerUpgradeInformation()
     {
-        if (towerInformation != null)
-        {
-
-            towerInformation.FadeOut();
-        }
+        towerInformation.FadeOut();
     }
 
 
@@ -178,8 +174,6 @@ public class TowerManagerPanel : MonoBehaviour
 
     public void CreateProjectiles()
     {
-        List<CurrentProjectileUI> allcurrentProjectile = new List<CurrentProjectileUI>();
-
         int i = 0;
         foreach (Projectile projectile in _towerManager.TowersData.Projectiles)
         {
@@ -188,13 +182,8 @@ public class TowerManagerPanel : MonoBehaviour
             newProjectile.SetUpProjectile(projectile);
             newProjectile.KeepReferences(_towerManager.TowersData, i);
 
-            allcurrentProjectile.Add(newProjectile);
-            i++;
-        }
 
-        foreach (CurrentProjectileUI currentprojectile in allcurrentProjectile)
-        {
-            currentprojectile.SetOtherProjectilesPreview(allcurrentProjectile);
+            i++;
         }
     }
 
