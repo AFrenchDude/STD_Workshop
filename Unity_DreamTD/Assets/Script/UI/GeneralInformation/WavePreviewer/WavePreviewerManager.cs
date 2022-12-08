@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WavePreviewerManager : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class WavePreviewerManager : MonoBehaviour
     [SerializeField]
     private float _speed = 1f;
 
+    //Ui text
+    [SerializeField]
+    private TextMeshProUGUI _waveIndexIndicator;
+
     private void Awake()
     {
         _waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
@@ -30,11 +35,23 @@ public class WavePreviewerManager : MonoBehaviour
 
             wavePreviewElement.SetWave(waveSet);
         }
+
+        SetUpCurrentWave();
     }
 
     public void StartNextWave()
     {
+
+        SetUpCurrentWave();
         StartCoroutine(MovementCoroutine(_rectTransform.anchoredPosition.x , 0));
+        
+    }
+
+    public void SetUpCurrentWave()
+    {
+        string currentWave = (1 + LevelReferences.Instance.SpawnerManager.getCurrentWave).ToString();
+        string maxWave = _waveDatabase.Waves.Count.ToString();
+        _waveIndexIndicator.text = currentWave + " / " + maxWave;
     }
 
     public IEnumerator MovementCoroutine(float startPosisiton,  float lerp)

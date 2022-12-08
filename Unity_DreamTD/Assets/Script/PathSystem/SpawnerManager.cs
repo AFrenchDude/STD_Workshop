@@ -29,7 +29,13 @@ public class SpawnerManager : MonoBehaviour
     private int _currentWaveSetIndex = -1;
 
     [System.NonSerialized]
+    [SerializeField]
     private int _currentWaveRunning = 0;
+
+    public int getCurrentWave
+    {
+        get { return _currentWaveSetIndex; }
+    }
 
     [System.NonSerialized]
     private Coroutine _waitForNextWaveCoroutine;
