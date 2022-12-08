@@ -19,6 +19,7 @@ public class TowerSlotController : MonoBehaviour
     [System.NonSerialized]
     private TowerDescription _currentTowerDescription = null;
 
+    public State currentTowerState => _state;
     public PlayerDrag GetPlayerDrag
     {
         get
@@ -46,6 +47,8 @@ public class TowerSlotController : MonoBehaviour
 
     private void TowerSlotController_OnTowerSlotClicked(TowerSlot sender)
     {
+        CancelTowerDrag();
+        LevelReferences.Instance.Player.GetComponentInChildren<UsineSlotController>().CancelUsineDrag();
         if (_state == State.Available)
         {
             _currentTowerDescription = sender.TowerDescription;
@@ -55,12 +58,19 @@ public class TowerSlotController : MonoBehaviour
 
     public void Selecting(InputAction.CallbackContext obj) //left click confirm
     {
-        if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
+        if (LevelReferences.Instance.Player.GetComponentInChildren<Selector>().IsMouseOnUI == false)
         {
+            if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
+            {
                 ChangeState(State.Available);
+            }
         }
     }
-    public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
+    public void Cancelling(InputAction.CallbackContext obj) //right click cancel
+    {
+        CancelTowerDrag();
+    }
+    public void CancelTowerDrag()
     {
         if (_state == State.GhostVisible)
         {
