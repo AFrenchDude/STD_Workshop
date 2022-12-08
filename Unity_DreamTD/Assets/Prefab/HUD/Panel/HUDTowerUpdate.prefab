@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 1952202477131521099}
   - component: {fileID: 2373364698407763333}
   - component: {fileID: 735197574854277655}
+  - component: {fileID: 5601820780317762654}
   m_Layer: 5
   m_Name: HUDTowerUpdate
   m_TagString: Untagged
@@ -110,11 +111,36 @@ MonoBehaviour:
   _towerInfoPrefab: {fileID: 4812689203363880996, guid: 3e335ce574eb64f46b3ff1f71774cb97,
     type: 3}
   _infoParent: {fileID: 4593426991642599070}
+  _upgradeImage: {fileID: 783502427638636654}
+  _upgradeSprite: {fileID: 21300000, guid: 0f7c46414ae3f9146b5ee0d661375d65, type: 3}
+  _lockedSprite: {fileID: 21300000, guid: ee02f69814809454fb3aab0e97539243, type: 3}
+  _canBuyColor: {r: 0.5294118, g: 0.7647059, b: 0.5137255, a: 1}
+  _cantBuyColor: {r: 0.7647059, g: 0.5137255, b: 0.56081665, a: 1}
   _projectilePrefab: {fileID: 4305278748431570432, guid: 894014bed824cb148bc68f63f35b39c7,
     type: 3}
   _projectileContainers:
   - {fileID: 222374478791061052}
   - {fileID: 8892234015669241502}
+--- !u!95 &5601820780317762654
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3201447267913188690}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bc44586767181514c9c3775655779aec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3948802670013839940
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,10 +396,10 @@ RectTransform:
   m_Father: {fileID: 1952202477131521099}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 224, y: 224}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4260416522301656354
 CanvasRenderer:
@@ -451,7 +477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.00005340576, y: -0.000022888184}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9216799111475541607
@@ -675,6 +701,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8892234015669241502}
+  - component: {fileID: 5390762827157970142}
   m_Layer: 5
   m_Name: ProjectileContainer_02
   m_TagString: Untagged
@@ -702,6 +729,14 @@ RectTransform:
   m_AnchoredPosition: {x: -112.5, y: -85}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5390762827157970142
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8508468569375877568}
+  m_CullTransparentMesh: 1
 --- !u!1 &8777770511059267707
 GameObject:
   m_ObjectHideFlags: 0

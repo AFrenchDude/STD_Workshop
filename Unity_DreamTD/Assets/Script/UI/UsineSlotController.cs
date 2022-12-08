@@ -12,6 +12,7 @@ public class UsineSlotController : MonoBehaviour
     [System.NonSerialized]
     private UsineDescription usineDescription = null;
 
+    public State currentUsineState => _state;
     public PlayerDrag GetPlayerDrag
     {
         get
@@ -39,6 +40,8 @@ public class UsineSlotController : MonoBehaviour
 
     private void UsineSlotController_OnUsineSlotClicked(UsineSlot sender)
     {
+        CancelUsineDrag();
+        LevelReferences.Instance.Player.GetComponentInChildren<TowerSlotController>().CancelTowerDrag();
         if (_state == State.Available)
         {
             usineDescription = sender.UsineDescription;
@@ -48,19 +51,25 @@ public class UsineSlotController : MonoBehaviour
 
     public void Selecting(InputAction.CallbackContext obj) //left click confirm
     {
-        if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
+        if (LevelReferences.Instance.Player.GetComponentInChildren<Selector>().IsMouseOnUI == false)
         {
-            ChangeState(State.Available);
+            if (_state == State.GhostVisible && GetPlayerDrag.TrySetBuildingInAction())
+            {
+                ChangeState(State.Available);
+            }
         }
     }
-    public void Cancelling(InputAction.CallbackContext obj) //right click cancel, not set up yet
+    public void Cancelling(InputAction.CallbackContext obj) //right click cancel
+    {
+        CancelUsineDrag();
+    }
+    public void CancelUsineDrag()
     {
         if (_state == State.GhostVisible)
         {
             ChangeState(State.Available);
         }
     }
-
     public void ChangeState(State newState)
     {
         switch (newState)

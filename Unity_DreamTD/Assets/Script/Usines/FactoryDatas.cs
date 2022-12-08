@@ -18,6 +18,10 @@ public class FactoryDatas : ScriptableObject
     [SerializeField]
     private ProjectileType _projectileType;
 
+    [Header("Upgrades")]
+    [SerializeField]
+    private FactoryUpgradeData _currentUpgrade;
+
     [SerializeField]
     private int _ammount;
 
@@ -33,13 +37,14 @@ public class FactoryDatas : ScriptableObject
     [SerializeField]
     private int _sellPrice;
 
-    [SerializeField]
-    private FactoryUpgradeData _currentUpgrade;
-
     [SerializeField] private int scoreToGiveOnUpgrade;
 
 
     //References
+    public Sprite Icon => _sprite;
+    public string Name => _name;
+    public string Type => _type;
+    
     public ProjectileType ProjectileType => _projectileType;
     public int Ammount => _ammount;
     public int MaxAmmount => _maxAmmount;
@@ -47,10 +52,6 @@ public class FactoryDatas : ScriptableObject
     public bool IsProducing => _isProduction;
     public int SellPrice => _sellPrice;
     public FactoryUpgradeData CurrentUpgrade => _currentUpgrade;
-
-    public Sprite Icon => _sprite;
-    public string Name => _name;
-    public string Type => _type;
 
     private void Awake()
     {
