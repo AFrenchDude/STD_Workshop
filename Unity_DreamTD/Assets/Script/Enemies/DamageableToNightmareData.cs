@@ -18,6 +18,6 @@ public class DamageableToNightmareData : MonoBehaviour
 
     private void AddKillCountToNightmareData(Damageable damageable)
     {
-        GetComponent<NightmareManager>().NightmareData.AddKillCount();
+        GetComponent<NightmareManager>().OriginalNightmareData.AddKillCount();
     }
 }

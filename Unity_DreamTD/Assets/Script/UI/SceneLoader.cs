@@ -24,6 +24,7 @@ public class SceneLoader : MonoBehaviour
     //Reload current scene
     public void ReloadScene()
     {
+        Time.timeScale = 1.0f;
         //Get current scene
         string thisScene = SceneManager.GetActiveScene().name;
         if (loadingScreen != null)
@@ -39,6 +40,7 @@ public class SceneLoader : MonoBehaviour
     // Loads a scene asynchronously and display loading screen
     private IEnumerator LoadSceneCoroutine(string scene)
     {
+        Time.timeScale = 1.0f;
         // Making the loading screen appear
         var loadingScreenInstance = Instantiate(loadingScreen);
         // Making the loading screen persistent after we unloaded the scene

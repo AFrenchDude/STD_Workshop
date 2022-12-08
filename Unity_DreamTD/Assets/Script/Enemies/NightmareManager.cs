@@ -8,6 +8,8 @@ public class NightmareManager : MonoBehaviour
     [SerializeField]
     private NightmareData _nightmareData;
 
+    private NightmareData _nightmareDataOriginal;
+
     private GoldDrop _goldDrop;
     private PathFollower _pathFollower;
     private Damageable _damageable;
@@ -15,6 +17,7 @@ public class NightmareManager : MonoBehaviour
     [SerializeField]
     private MeshRenderer _meshRenderer;
     public NightmareData NightmareData => _nightmareData;
+    public NightmareData OriginalNightmareData => _nightmareDataOriginal;
 
     private List<GameObject> boostedEnemies;
 
@@ -48,6 +51,7 @@ public class NightmareManager : MonoBehaviour
         _nightmareData = nightmareData;
 
         //Set up new Scriptable Object
+        _nightmareDataOriginal = _nightmareData;
         _nightmareData = Instantiate(_nightmareData);
 
         SetUpEnemy();
