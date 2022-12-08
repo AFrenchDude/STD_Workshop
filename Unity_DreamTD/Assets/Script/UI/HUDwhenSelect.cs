@@ -70,7 +70,7 @@ public class HUDwhenSelect : MonoBehaviour
         {
             if(_currentTowerManagerPanel != null)
             {
-                _currentTowerManagerPanel.DestroyPanel();
+                _currentTowerManagerPanel.ClosePanel();
             }
         }
         //If station
