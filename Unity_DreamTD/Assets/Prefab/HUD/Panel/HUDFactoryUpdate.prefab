@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _factoryManager: {fileID: 0}
-  _towerInfoPrefab: {fileID: 8340113132700032609, guid: c4e285a894e821944ace019431cb1f81,
+  _factoryInfoPrefab: {fileID: 8340113132700032609, guid: c4e285a894e821944ace019431cb1f81,
     type: 3}
   _infoParent: {fileID: 4593426991642599070}
 --- !u!1 &3948802670013839940
@@ -558,9 +558,9 @@ MonoBehaviour:
   OnHover:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TowerManagerPanel, Assembly-CSharp
-        m_MethodName: CreateTowerUpgradeInformation
+      - m_Target: {fileID: 8635251997898248500}
+        m_TargetAssemblyTypeName: FactoryManagerPanel, Assembly-CSharp
+        m_MethodName: CreateFactoryUpgradeInformation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -573,9 +573,9 @@ MonoBehaviour:
   OnUnhover:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TowerManagerPanel, Assembly-CSharp
-        m_MethodName: RemoveTowerUpgradeInformation
+      - m_Target: {fileID: 8635251997898248500}
+        m_TargetAssemblyTypeName: FactoryManagerPanel, Assembly-CSharp
+        m_MethodName: RemoveFactoryUpgradeInformation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

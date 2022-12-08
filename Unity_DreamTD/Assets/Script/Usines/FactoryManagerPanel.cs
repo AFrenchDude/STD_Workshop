@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class FactoryManagerPanel : MonoBehaviour
 
     [Header("Information")]
     [SerializeField]
-    private UI_FactoryPanelManager _towerInfoPrefab;
+    private UI_FactoryPanelManager _factoryInfoPrefab;
 
     [SerializeField]
     private Transform _infoParent;
@@ -79,7 +78,7 @@ public class FactoryManagerPanel : MonoBehaviour
     {
         if (factoryInformation == null)
         {
-            factoryInformation = Instantiate(_towerInfoPrefab, _infoParent);
+            factoryInformation = Instantiate(_factoryInfoPrefab, _infoParent);
 
             factoryInformation.SetFactoryData(_factoryManager.FactoryData);
 

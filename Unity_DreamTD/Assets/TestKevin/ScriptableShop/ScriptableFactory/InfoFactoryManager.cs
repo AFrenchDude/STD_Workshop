@@ -7,10 +7,7 @@ public class InfoFactoryManager : MonoBehaviour
 {
     #region Variables
     [SerializeField]
-    private InfoFactory info = null;
-
-    [SerializeField]
-    private UsineDescription factoryDescription = null;
+    private InfoFactory factoryDescription = null;
 
     [SerializeField]
     private Image sprite = null;
@@ -36,12 +33,12 @@ public class InfoFactoryManager : MonoBehaviour
 
     private void Start()
     {
-        sprite.sprite = factoryDescription.Icon;
-        name.text = info.name;
-        type.text = info.type;
-        production.text = "Production : " + info.FactoryDatas.ProductionRate + "/s";
-        capacity.text = "Storage : " + info.FactoryDatas.MaxAmmount;
-        moneySprite.sprite = info.moneySprite;
-        moneyNecessary.text = " " + info.FactoryDatas.SellPrice + " G ";
+        sprite.sprite = factoryDescription.FactoryDatas.Icon;
+        name.text = factoryDescription.FactoryDatas.Name;
+        type.text = factoryDescription.FactoryDatas.Type;
+        production.text = "Production : " + factoryDescription.FactoryDatas.ProductionRate + "/s";
+        capacity.text = "Storage : " + factoryDescription.FactoryDatas.MaxAmmount;
+        moneySprite.sprite = factoryDescription.moneySprite;
+        moneyNecessary.text = " " + factoryDescription.FactoryDatas.SellPrice + " G ";
     }
 }
