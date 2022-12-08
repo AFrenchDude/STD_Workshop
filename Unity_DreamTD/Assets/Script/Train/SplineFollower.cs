@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-//Original code by CodeMonkey: https://unitycodemonkey.com/video.php?v=7j_BNf9s0jM, Modified by Melinon Remy then by ALBERT Esteban to update stats via S.O
+//Original code by CodeMonkey: https://unitycodemonkey.com/video.php?v=7j_BNf9s0jM, Modified by Melinon Remy then by ALBERT Esteban to update stats via S.O and debug wagons/loco distance
 public class SplineFollower : MonoBehaviour
 {
     [Header("Settings")]
     public SplineDone spline;
-    private float _speed = 1f;
+    private float _speed = 0f;
     [Header("Space betweew each wagon")]
     [Tooltip("5 between each, dont set locomotives")]
     public float margin;
@@ -25,10 +25,10 @@ public class SplineFollower : MonoBehaviour
 
     private void Update()
     {
-        moveAmount = (moveAmount + (Time.deltaTime * _speed)) % maxMoveAmount;
-        
-        transform.position = spline.GetPositionAtUnits(moveAmount);
-        transform.forward = spline.GetForwardAtUnits(moveAmount);
+        moveAmount = (moveAmount + (Time.deltaTime * _speed));
+        float newMoveAmount = moveAmount % maxMoveAmount; //Separated so wagons don't bug out
+        transform.position = spline.GetPositionAtUnits(newMoveAmount);
+        transform.forward = spline.GetForwardAtUnits(newMoveAmount);
     }
 
     public void SetSpeed(float newSpeed)

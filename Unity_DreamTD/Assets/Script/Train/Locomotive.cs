@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-//Made By Melinon Remy, modified by ALBERT Esteban to update stats via S.O
+//Made By Melinon Remy, modified by ALBERT Esteban to update stats via S.O and for UpdateWagonLocationOnSpline
 public class Locomotive : MonoBehaviour
 {
     [SerializeField] private TrainStats _trainStats = null;
@@ -57,6 +57,7 @@ public class Locomotive : MonoBehaviour
     private void Start()
     {
         UpdateEveryTrainStats();
+        SetupWagonPosition(_trainStats.WagonMargin);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -186,7 +187,7 @@ public class Locomotive : MonoBehaviour
             splineFollower.SetSpeed(0);
             foreach (Wagon wagon in wagons)
             {
-                wagon.GetComponent<SplineFollower>().SetSpeed(0);
+                //wagon.GetComponent<SplineFollower>().SetSpeed(0);
             }
             isBraking = false;
             timeToRestartRef = 0;
@@ -196,7 +197,7 @@ public class Locomotive : MonoBehaviour
             splineFollower.SetSpeed(deceleration);
             foreach (Wagon wagon in wagons)
             {
-                wagon.GetComponent<SplineFollower>().SetSpeed(deceleration);
+                //wagon.GetComponent<SplineFollower>().SetSpeed(deceleration);
             }
         }
     }
@@ -205,6 +206,7 @@ public class Locomotive : MonoBehaviour
     {
         if (!isParked)
         {
+
 
             //If a train is close
             if (closeTo != null)
@@ -224,13 +226,37 @@ public class Locomotive : MonoBehaviour
                 splineFollower.SetSpeed(Mathf.Lerp(0, _trainStats.SpeedLevels[_currentSpeedLevel - 1], timeToRestartRef));
                 foreach (Wagon wagon in wagons)
                 {
-                    wagon.GetComponent<SplineFollower>().SetSpeed(Mathf.Lerp(0, _trainStats.SpeedLevels[_currentSpeedLevel - 1], timeToRestartRef));
+                    //wagon.GetComponent<SplineFollower>().SetSpeed(Mathf.Lerp(0, _trainStats.SpeedLevels[_currentSpeedLevel - 1], timeToRestartRef));
                 }
             }
         }
         else
         {
             StopTrain(5);
+        }
+
+        if (splineFollower.SplineSpeed > 0) //Let the SetupWagonPosition run on Start
+        {
+            UpdateWagonLocationOnSpline(_trainStats.WagonMargin);
+        }
+    }
+
+    private void SetupWagonPosition(float margin) //Used so wagons correctly place themselves at spawn
+    {
+        for (int i = 0; i < wagons.Count; i++)
+        {
+            float wagonMoveAmount = splineFollower.maxMoveAmount - (i + 1) * margin;
+            wagons[i].transform.position = splineFollower.spline.GetPositionAtUnits(wagonMoveAmount);
+            wagons[i].transform.forward = splineFollower.spline.GetForwardAtUnits(wagonMoveAmount);
+        }
+    }
+    private void UpdateWagonLocationOnSpline(float margin) //Used so every wagons depends on the same splinefollower, preventing inacurracies in distances between wagons/locomotive
+    {
+        for (int i = 0; i < wagons.Count; i++)
+        {
+            float wagonMoveAmount = (splineFollower.moveAmount - (i + 1) * margin) % splineFollower.maxMoveAmount;
+            wagons[i].transform.position = splineFollower.spline.GetPositionAtUnits(wagonMoveAmount);
+            wagons[i].transform.forward = splineFollower.spline.GetForwardAtUnits(wagonMoveAmount);
         }
     }
 
@@ -326,7 +352,7 @@ public class Locomotive : MonoBehaviour
                 splineFollower.SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
                 foreach (Wagon wagons in wagons)
                 {
-                    wagons.GetComponent<SplineFollower>().SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
+                    //wagons.GetComponent<SplineFollower>().SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
                 }
             }
         }
@@ -400,7 +426,7 @@ public class Locomotive : MonoBehaviour
         foreach (Wagon wagons in wagons)
         {
             splineFollower.SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
-            wagons.GetComponent<SplineFollower>().SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
+            //wagons.GetComponent<SplineFollower>().SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
         }
     }
     #endregion

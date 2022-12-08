@@ -7,6 +7,7 @@ using UnityEngine;
 public class TrainStats : ScriptableObject
 {
     [SerializeField] private int _maxWagonCount = 3;
+    [SerializeField] private float _wagonDistanceMargin = 5;
     [SerializeField] private List<float> _speed = new List<float>();
     [SerializeField] private float _waitTimeBetweenTransfers = 0.2f;
     [SerializeField] private List<int> _wagonMaxStorage = new List<int>();
@@ -14,6 +15,7 @@ public class TrainStats : ScriptableObject
     [SerializeField] private int _scoreOnUpgrade = 1000;
 
     public int MaxWagonCount => _maxWagonCount;
+    public float WagonMargin => _wagonDistanceMargin;
     public List<float> SpeedLevels => _speed;
     public List<int> WagonMaxStorageLevels => _wagonMaxStorage;
     public float WaitTime => _waitTimeBetweenTransfers;

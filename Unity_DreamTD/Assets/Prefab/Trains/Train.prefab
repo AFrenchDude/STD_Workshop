@@ -182,17 +182,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fed4b5cabda2bf468e02b5cbb358d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _trainStats: {fileID: 11400000, guid: 88a126bff0271154e975ac3cfc829b72, type: 2}
   wagons:
   - {fileID: 649750814472976903}
   - {fileID: 1407836867980545536}
   - {fileID: 852421124891561629}
-  _trainStats: {fileID: 11400000, guid: 88a126bff0271154e975ac3cfc829b72, type: 2}
   splineFollower: {fileID: 0}
   maxSpeed: 0
   isBraking: 0
   objectCollided: []
   wagonsToCheck: []
-  scoreToGiveOnTransfer: 2
   isParked: 0
   factoryData: {fileID: 0}
   towerDatas: {fileID: 0}
@@ -426,6 +425,11 @@ PrefabInstance:
       propertyPath: margin
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 2173839976101783781, guid: 30d658b8d5ec0f44ab18f57f05c42a43,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5670854837134135181, guid: 30d658b8d5ec0f44ab18f57f05c42a43,
         type: 3}
       propertyPath: m_RootOrder
@@ -558,6 +562,11 @@ PrefabInstance:
       propertyPath: margin
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2173839976101783781, guid: 30d658b8d5ec0f44ab18f57f05c42a43,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5670854837134135181, guid: 30d658b8d5ec0f44ab18f57f05c42a43,
         type: 3}
       propertyPath: m_RootOrder
@@ -676,6 +685,16 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 877bcdfaa9dc7f945bce6b30dcbe218a,
         type: 2}
     - target: {fileID: 1795319813208194763, guid: 30d658b8d5ec0f44ab18f57f05c42a43,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173839976101783781, guid: 30d658b8d5ec0f44ab18f57f05c42a43,
+        type: 3}
+      propertyPath: margin
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173839976101783781, guid: 30d658b8d5ec0f44ab18f57f05c42a43,
         type: 3}
       propertyPath: m_Enabled
       value: 0

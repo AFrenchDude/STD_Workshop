@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1161f01cb8c33654dbed6596e32a196e, type: 3}
   m_Name: Train_Stats
   m_EditorClassIdentifier: 
-  _trainMaxLevel: 3
   _maxWagonCount: 3
+  _wagonDistanceMargin: 5
   _speed:
   - 20
+  - 30
   - 50
-  - 200
   _waitTimeBetweenTransfers: 0.1
-  _wagonMaxStorage: 14000000280000003c000000
-  _scoreOnTransfer: 1
-  _scoreOnUpgrade: 1000
+  _wagonMaxStorage: 140000002800000050000000
+  _scoreOnTransfer: 2
+  _scoreOnUpgrade: 2000
