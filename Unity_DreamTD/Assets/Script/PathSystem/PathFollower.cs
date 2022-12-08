@@ -1,5 +1,4 @@
 //By ALBERT Esteban
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -107,5 +106,10 @@ public class PathFollower : MonoBehaviour
         float currentPathProgress = targetToThisDistance / lastWaypointToTargetDistance;
 
         return generalProgress * 2.0f + currentPathProgress;
+    }
+
+    public void SetNewSpeed(float newSpeed)
+    {
+        _movementSpeed = newSpeed;
     }
 }

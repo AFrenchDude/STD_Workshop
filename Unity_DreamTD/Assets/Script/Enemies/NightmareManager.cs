@@ -1,6 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using static NightmareData;
 
 public class NightmareManager : MonoBehaviour
 {
@@ -14,6 +16,20 @@ public class NightmareManager : MonoBehaviour
     [SerializeField]
     private MeshRenderer _meshRenderer;
 
+    private List<GameObject> boostedEnemies;
+
+    private enum SupportEffect
+    {
+        None,
+        Heal,
+        Speed,
+        Resist
+    }
+
+    [SerializeField] private SupportEffect supportType;
+    [SerializeField] private float health;
+    [SerializeField] private float speed;
+
     private void Awake()
     {
         //Get all references
@@ -21,6 +37,10 @@ public class NightmareManager : MonoBehaviour
         _pathFollower = GetComponent<PathFollower>();
         _damageable = GetComponent<Damageable>();
 
+        if (_nightmareData.nightmareFunction == NightmareData.NightmareFunction.Support)
+        {
+
+        }
     }
 
     public void SetEnemyData(NightmareData nightmareData)
@@ -43,7 +63,7 @@ public class NightmareManager : MonoBehaviour
         }
 
         //Hp
-        _damageable.setMaxHp(_nightmareData.maxLife);
+        _damageable.setMaxHp(_nightmareData.maxLife, true, true);
 
         //Speed
         _pathFollower.SetSpeed(_nightmareData.speed);
@@ -58,4 +78,65 @@ public class NightmareManager : MonoBehaviour
         get { return _nightmareData.nighmareType; }
     }
 
+    void Update()
+    {
+        if (_nightmareData.nightmareFunction == NightmareFunction.Support)
+        {
+            Collider[] colliderList = Physics.OverlapSphere(transform.position, 8);
+            foreach (var testedCollider in colliderList)
+            {
+                if (testedCollider.transform.gameObject.layer == gameObject.layer && testedCollider.transform.gameObject != transform.gameObject)
+                {
+                    if (testedCollider.transform.GetComponent<NightmareManager>() != null && testedCollider.transform.GetComponent<NightmareManager>().getNighmareType == _nightmareData.getNightmareType)
+                    {
+                        switch (supportType)
+                        {
+                            case SupportEffect.None:
+                                break;
+
+                            case SupportEffect.Heal:
+                                if(testedCollider.GetComponent<Status_Boosted_Heal>() == null)
+                                {
+                                    testedCollider.AddComponent<Status_Boosted_Heal>();
+                                    testedCollider.GetComponent<Status_Boosted_Heal>().AddHeal(_nightmareData.Boost);
+                                }
+                                else
+                                {
+                                    testedCollider.GetComponent<Status_Boosted_Heal>().ResetTimer();
+                                }
+                                break;
+
+                            case SupportEffect.Speed:
+                                if (testedCollider.GetComponent<Status_Boosted_Speed>() == null)
+                                {
+                                    testedCollider.AddComponent<Status_Boosted_Speed>();
+                                    testedCollider.GetComponent<Status_Boosted_Speed>().AddSpeed(_nightmareData.Boost);
+                                }
+                                else
+                                {
+                                    testedCollider.GetComponent<Status_Boosted_Speed>().ResetTimer();
+                                }
+                                break;
+
+                            case SupportEffect.Resist:
+                                //Increase resistance
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_nightmareData.nightmareFunction == NightmareFunction.Support)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, 8);
+        }
+    }
 }

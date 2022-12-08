@@ -1044,7 +1044,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 361276919}
-  - component: {fileID: 361276920}
   - component: {fileID: 39199645}
   - component: {fileID: 5937423096848869057}
   - component: {fileID: 2358206368173886765}
@@ -1079,22 +1078,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &361276920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361276918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96462def5e9a32a4195139c8d21453dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _towerSlots:
-  - {fileID: 5490608041647889230}
-  - {fileID: 504261851464669163}
-  - {fileID: 2688126666261855917}
 --- !u!114 &39199645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3401,7 +3384,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1430257855}
-  - component: {fileID: 1430257856}
   - component: {fileID: 1430257857}
   - component: {fileID: 2271625756525008462}
   - component: {fileID: 6670912026076645005}
@@ -3436,22 +3418,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1430257856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430257854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32d3acc1202115d4b9792b51f17dc1ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  usineSlot:
-  - {fileID: 2021834562}
-  - {fileID: 27217795}
-  - {fileID: 51177457}
 --- !u!114 &1430257857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8937,8 +8903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58388f1190833be46bcf7e575b3972cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 11400000, guid: a601ba43f4ed25d4da4aca24d04a9755, type: 2}
-  factoryDescription: {fileID: 11400000, guid: 52bd75b751ca1f746bd1b50be0d4bbc0, type: 2}
+  factoryDescription: {fileID: 0}
   sprite: {fileID: 8531929852930040274}
   name: {fileID: 1181585649327004963}
   type: {fileID: 668188767437073312}
@@ -11880,8 +11845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58388f1190833be46bcf7e575b3972cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 11400000, guid: e98ab1d1f0e0f6641934a8719839580a, type: 2}
-  factoryDescription: {fileID: 11400000, guid: 2d0e08d4f6aa12e4a906f3f63fc29cb5, type: 2}
+  factoryDescription: {fileID: 0}
   sprite: {fileID: 446290752970409820}
   name: {fileID: 792753945794692899}
   type: {fileID: 8727846980830572996}
@@ -12239,7 +12203,7 @@ MonoBehaviour:
     m_ActionName: ActionMap/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 361276920}
+      - m_Target: {fileID: 4552934529070530869}
         m_TargetAssemblyTypeName: TowerSlotController, Assembly-CSharp
         m_MethodName: Selecting
         m_Mode: 0
@@ -12251,7 +12215,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1430257856}
+      - m_Target: {fileID: 1745275327021163990}
         m_TargetAssemblyTypeName: UsineSlotController, Assembly-CSharp
         m_MethodName: Selecting
         m_Mode: 0
@@ -12307,7 +12271,7 @@ MonoBehaviour:
     m_ActionName: ActionMap/Zoom[/Mouse/scroll/up,/Mouse/scroll/down]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 361276920}
+      - m_Target: {fileID: 4552934529070530869}
         m_TargetAssemblyTypeName: TowerSlotController, Assembly-CSharp
         m_MethodName: Cancelling
         m_Mode: 0
@@ -12319,7 +12283,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1430257856}
+      - m_Target: {fileID: 1745275327021163990}
         m_TargetAssemblyTypeName: UsineSlotController, Assembly-CSharp
         m_MethodName: Cancelling
         m_Mode: 0
@@ -13451,8 +13415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58388f1190833be46bcf7e575b3972cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 11400000, guid: 02d19387a0b5e0d4bbcf78ec44c37682, type: 2}
-  factoryDescription: {fileID: 11400000, guid: 4213792d37e06304eb6631f239588d44, type: 2}
+  factoryDescription: {fileID: 0}
   sprite: {fileID: 8279294227390726946}
   name: {fileID: 295790229377576273}
   type: {fileID: 7258912605753531962}
@@ -13811,6 +13774,8 @@ GameObject:
   - component: {fileID: 913424656694502944}
   - component: {fileID: 6058986624164280451}
   - component: {fileID: 1546150315034455638}
+  - component: {fileID: 4552934529070530869}
+  - component: {fileID: 1745275327021163990}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -13907,6 +13872,38 @@ MonoBehaviour:
   currentButton_:
   - {fileID: 6679675131170846895}
   - {fileID: 5736376011172888113}
+--- !u!114 &4552934529070530869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6623942842855311507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96462def5e9a32a4195139c8d21453dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _towerSlots:
+  - {fileID: 5490608041647889230}
+  - {fileID: 504261851464669163}
+  - {fileID: 2688126666261855917}
+--- !u!114 &1745275327021163990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6623942842855311507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32d3acc1202115d4b9792b51f17dc1ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usineSlot:
+  - {fileID: 2021834562}
+  - {fileID: 27217795}
+  - {fileID: 51177457}
 --- !u!1 &6713745336746447385
 GameObject:
   m_ObjectHideFlags: 0

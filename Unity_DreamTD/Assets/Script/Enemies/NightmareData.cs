@@ -36,6 +36,9 @@ public class NightmareData : ScriptableObject
     private float _maxLife;
 
     [SerializeField]
+    private float _addedBoost;
+
+    [SerializeField]
     private Color _debugColor;
 
     [Header("UI")]
@@ -49,6 +52,7 @@ public class NightmareData : ScriptableObject
     public float speed => _speed;
     public int rewardGold => _rewardGold;
     public float maxLife => _maxLife;
+    public float Boost => _addedBoost;
     public Color debugColor => _debugColor;
 
     public Sprite icon => _icon;

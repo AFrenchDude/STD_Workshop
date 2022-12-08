@@ -11,6 +11,7 @@ public class Selector : MonoBehaviour
     private HUDwhenSelect openHUDref;
     private bool isMouseOnUI;
 
+    public bool IsMouseOnUI => isMouseOnUI;
     public void Select(InputAction.CallbackContext obj)
     {
 
