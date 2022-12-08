@@ -36,13 +36,14 @@ public class StationHUD : MonoBehaviour
             Locomotive newLocomotive = newTrain.GetComponentInChildren<Locomotive>();
             newLocomotive.SetSpeedLevel(stationLevel);
             newLocomotive.SetStorageLevel(stationLevel);
+
             //Set path and speed
+            newTrain.transform.GetComponentInChildren<SplineFollower>().spline = LevelReferences.Instance.RailSpline;
             foreach (Transform child in newTrain.transform)
             {
                 child.GetComponent<HUDwhenSelect>().hudRef = trainHUD;
-                child.GetComponent<SplineFollower>().spline = LevelReferences.Instance.RailSpline;
-                child.GetComponent<SplineFollower>().SetSpeed(maxTrainsSpeed);
             }
+
             var locomotiveOfTrain = newTrain.GetComponentInChildren<Locomotive>();
             locomotive.Add(locomotiveOfTrain);
             //Add new train to list

@@ -6,6 +6,7 @@ using TMPro;
 
 public class UI_TowerPanelManager : MonoBehaviour
 {
+    private bool _canUpgrade;
 
     [SerializeField]
     private TowersDatas _towerDatas;
@@ -48,6 +49,21 @@ public class UI_TowerPanelManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _price;
 
+
+    [Space(10)]
+
+    [Header("Personaization")]
+
+    [SerializeField]
+    private Color _canBuyBackColor;
+    [SerializeField]
+    private Color _cantBuyBackColor;
+
+    [SerializeField]
+    private Image _backgroundImage;
+
+
+
     //Functions
 
     public void SetTowerData(TowersDatas towerData)
@@ -56,6 +72,11 @@ public class UI_TowerPanelManager : MonoBehaviour
 
 
         SetUpStat();
+    }
+
+    public void CanUpgrade(bool canUpgrade)
+    {
+        _canUpgrade = canUpgrade;
     }
 
     private void SetUpStat()
@@ -70,6 +91,18 @@ public class UI_TowerPanelManager : MonoBehaviour
             SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeRange, false);
 
             _price.text = _towerDatas.UpgradeDatas.UpgradePrice.ToString();
+
+            if (_canUpgrade)
+            {
+                _backgroundImage.color = _canBuyBackColor;
+                _price.color = _upColor;
+            }
+            else
+            {
+                _backgroundImage.color = _cantBuyBackColor;
+                _price.color = _lowColor;
+            }
+
         }
     }
 
