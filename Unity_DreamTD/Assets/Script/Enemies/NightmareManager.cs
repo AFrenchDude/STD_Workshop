@@ -1,3 +1,4 @@
+//By ALEXANDRE Dorian
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class NightmareManager : MonoBehaviour
     [SerializeField]
     private MeshRenderer _meshRenderer;
 
+    public NightmareData NightmareData => _nightmareData;
     private void Awake()
     {
         //Get all references

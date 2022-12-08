@@ -1,3 +1,4 @@
+//By ALEXANDRE Dorian
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,8 @@ public class NightmareData : ScriptableObject
     [SerializeField]
     private Sprite _icon;
 
+    private int _killCount = 0;
+
 
 
     public NighmareType nighmareType => _nighmareType;
@@ -50,11 +53,22 @@ public class NightmareData : ScriptableObject
     public int rewardGold => _rewardGold;
     public float maxLife => _maxLife;
     public Color debugColor => _debugColor;
+    public int KillCount => _killCount;
 
     public Sprite icon => _icon;
 
     public NighmareType getNightmareType
     {
         get { return _nighmareType; }
+    }
+
+    public void ResetKillCount()
+    {
+        _killCount = 0;
+    }
+
+    public void AddKillCount()
+    {
+        _killCount++;
     }
 }
