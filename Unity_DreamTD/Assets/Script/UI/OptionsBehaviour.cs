@@ -92,7 +92,7 @@ public class OptionsBehaviour : MonoBehaviour
             audioMixer.SetFloat("Master", -80);
             StartCoroutine(MuteCoroutine());
         }
-        else
+        else if(gameObject.activeSelf == true)
         {
             audioMixer.SetFloat("Master", 0);
             StartCoroutine(UnmuteCoroutine());
