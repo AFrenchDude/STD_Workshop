@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-using static NightmareData;
 
 public class NightmareManager : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class NightmareManager : MonoBehaviour
 
     [SerializeField]
     private MeshRenderer _meshRenderer;
+    public NightmareData NightmareData => _nightmareData;
 
     private List<GameObject> boostedEnemies;
 
@@ -80,7 +80,7 @@ public class NightmareManager : MonoBehaviour
 
     void Update()
     {
-        if (_nightmareData.nightmareFunction == NightmareFunction.Support)
+        if (_nightmareData.nightmareFunction == NightmareData.NightmareFunction.Support)
         {
             Collider[] colliderList = Physics.OverlapSphere(transform.position, 8);
             foreach (var testedCollider in colliderList)
@@ -133,7 +133,7 @@ public class NightmareManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (_nightmareData.nightmareFunction == NightmareFunction.Support)
+        if (_nightmareData.nightmareFunction == NightmareData.NightmareFunction.Support)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, 8);
