@@ -12,11 +12,11 @@ public class Damager : MonoBehaviour
     private bool _miraculousBullet = false;
     public void ActiveMiraculousBullet()
     {
-        if(_attackType.typeSelected != ProjectileType.projectileType.Neutral)
+        if (_attackType.typeSelected != ProjectileType.projectileType.Neutral)
         {
             _miraculousBullet = true;
         }
-        
+
     }
 
     public void SetDamage(float damage)
@@ -45,17 +45,32 @@ public class Damager : MonoBehaviour
             {
                 Collider[] colliderList = Physics.OverlapSphere(transform.position, _mortarRadius, LayerMask.GetMask("Enemies"));
 
+                //Particles instantiate
+                GameObject particles = Instantiate(_attackType.HitAOE);
+                Vector3 height = new Vector3(0, 0.2f, 0);
+
+                particles.transform.position = otherDamageable.transform.position + height;
+
+
                 foreach (Collider collider in colliderList)
                 {
                     NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
                     collider.GetComponent<Damageable>().TakeDamage(CheckEffectiveness(otherNightmareType, otherDamageable), out float health);
                     DamageDone.Invoke(otherDamageable);
                 }
+
             }
             else
             {
                 NightmareData.NighmareType otherNightmareType = otherDamageable.NightmareType;
                 otherDamageable.TakeDamage(CheckEffectiveness(otherNightmareType, otherDamageable), out float health);
+
+                //Particles instantiate
+                GameObject particles = Instantiate(_attackType.HitFX);
+
+                particles.transform.position = transform.position;
+                particles.transform.rotation = transform.rotation;
+
                 DamageDone.Invoke(otherDamageable);
 
             }
@@ -94,7 +109,7 @@ public class Damager : MonoBehaviour
         }
 
 
-            return newdamage;
+        return newdamage;
     }
 
 
