@@ -123,7 +123,7 @@ public class TowerManagerPanel : MonoBehaviour
 
             _towerManager.TowersData.Upgrade();
             _towerManager.ApplyStats(_towerManager.TowersData);
-            towerScriptRef.RangeIndicator.UpdateCircle();
+            
 
 
             towerScriptRef.SetUpgradeMesh(_towerManager.TowersData.UpgradeDatas.UpgradePrefab);
@@ -134,6 +134,8 @@ public class TowerManagerPanel : MonoBehaviour
                 towerInformation.CanUpgrade(canBuyTower);
 
             }
+   
+            towerScriptRef.RangeIndicator.UpdateCircle();
         }
     }
 
