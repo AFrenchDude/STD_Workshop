@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //Made by Melinon Remy, modified by ALBERT Esteban to remove double var calls
 public class PauseBehaviour : MonoBehaviour
@@ -28,6 +29,7 @@ public class PauseBehaviour : MonoBehaviour
             hud.SetActive(_isInPause);
         }
         LevelReferences.Instance.Player.GetComponentInChildren<CameraScript>().enabled = _isInPause;
+        LevelReferences.Instance.Player.GetComponentInChildren<PlayerInput>().enabled = _isInPause;
         //Set new pause state
         _isInPause = !_isInPause;
     }

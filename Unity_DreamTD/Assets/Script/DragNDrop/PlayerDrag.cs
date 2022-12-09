@@ -1,4 +1,4 @@
-    //By ALBERT Esteban
+//By ALBERT Esteban
 using UnityEngine;
 
 public class PlayerDrag : MonoBehaviour
@@ -17,7 +17,10 @@ public class PlayerDrag : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             bool hasFoundSurface = Physics.Raycast(ray, out RaycastHit cursorHit, float.MaxValue, _interactibleLayer);
-            BuildingDragNDrop(hasFoundSurface, cursorHit);
+            if (Time.timeScale > 0)
+            {
+                BuildingDragNDrop(hasFoundSurface, cursorHit);
+            }
         }
     }
 
