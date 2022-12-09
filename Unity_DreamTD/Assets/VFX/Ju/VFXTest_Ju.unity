@@ -10120,7 +10120,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -27067,7 +27067,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -31791,7 +31791,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2004801891}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &1601443295
 ParticleSystemRenderer:
@@ -31881,14 +31881,14 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -37239,7 +37239,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -42096,7 +42096,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2004801891}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!73398921 &1775060428
 VFXRenderer:
@@ -47392,7 +47392,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 6438cd896db7eac489e2c116117691dd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6438cd896db7eac489e2c116117691dd,
         type: 3}
@@ -47453,7 +47453,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 98d2924257548ea4893fdc1bbf90c069, type: 2}
+      objectReference: {fileID: 2100000, guid: 55a6e435c49bae44fae129403f2a5a5e, type: 2}
     - target: {fileID: -7511558181221131132, guid: 6438cd896db7eac489e2c116117691dd,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -47503,8 +47503,8 @@ Transform:
   - {fileID: 1599250388}
   - {fileID: 1747209026}
   - {fileID: 110583518}
-  - {fileID: 1775060427}
   - {fileID: 1601443294}
+  - {fileID: 1775060427}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
