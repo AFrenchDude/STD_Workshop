@@ -7967,6 +7967,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78da23631a50a64c9a99c7c1c0d24b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _backgroundImage: {fileID: 0}
+  _iconImage: {fileID: 0}
+  _currentAmmount: {fileID: 0}
+  _maxAmmount: {fileID: 0}
+  _sliderAmmount: {fileID: 0}
+  _minimalAmmountColor: {r: 0, g: 0, b: 0, a: 0}
+  _maxAmmountColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1663636850936198611
 GameObject:
   m_ObjectHideFlags: 0
@@ -12758,7 +12765,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6149849494789762011}
-  - component: {fileID: 8890139381512864415}
   - component: {fileID: 65957332153635282}
   - component: {fileID: 4458188123564486178}
   - component: {fileID: 4552044184977025975}
@@ -12782,7 +12788,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6149849494789762010}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.08367781, z: 0, w: 0.99649286}
   m_LocalPosition: {x: 0, y: 40, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12791,25 +12797,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8890139381512864415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6149849494789762010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdcf9cf79c610cd44a234a788fa88728, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 7711848617926813068}
-  defaultOffset: -80
-  speedMove: 0.6
-  speedZoom: 1
-  zoomNumber: 50
-  pauseBehaviour: {fileID: 5216776703748571796}
-  isInPause: 0
 --- !u!114 &65957332153635282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12872,7 +12859,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8890139381512864415}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Controller, Assembly-CSharp
         m_MethodName: Move
         m_Mode: 0
@@ -12940,7 +12927,7 @@ MonoBehaviour:
     m_ActionName: ActionMap/Select[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8890139381512864415}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Controller, Assembly-CSharp
         m_MethodName: Zoom
         m_Mode: 0
@@ -12980,7 +12967,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8890139381512864415}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Controller, Assembly-CSharp
         m_MethodName: RightClickPressed
         m_Mode: 0
@@ -13008,7 +12995,7 @@ MonoBehaviour:
     m_ActionName: ActionMap/Cancel[/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8890139381512864415}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Controller, Assembly-CSharp
         m_MethodName: OnMouseMove
         m_Mode: 0
@@ -13024,7 +13011,7 @@ MonoBehaviour:
     m_ActionName: ActionMap/MouseMove[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8890139381512864415}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Controller, Assembly-CSharp
         m_MethodName: OnScroll
         m_Mode: 0
@@ -13040,7 +13027,7 @@ MonoBehaviour:
     m_ActionName: ActionMap/Scroll[/Mouse/scroll]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8890139381512864415}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Controller, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 0
@@ -13548,8 +13535,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c8f0c2bb1fc60469098091a3cfd62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HUD: {fileID: 347122198169816097}
-  controller: {fileID: 8890139381512864415}
+  _hudList:
+  - {fileID: 347122198169816097}
+  - {fileID: 7546437428990975116}
+  - {fileID: 6322056625952020296}
 --- !u!1 &6268184275137023868
 GameObject:
   m_ObjectHideFlags: 0
@@ -17441,6 +17430,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78da23631a50a64c9a99c7c1c0d24b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _backgroundImage: {fileID: 0}
+  _iconImage: {fileID: 0}
+  _currentAmmount: {fileID: 0}
+  _maxAmmount: {fileID: 0}
+  _sliderAmmount: {fileID: 0}
+  _minimalAmmountColor: {r: 0, g: 0, b: 0, a: 0}
+  _maxAmmountColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &9134076228876222074
 GameObject:
   m_ObjectHideFlags: 0
@@ -18648,6 +18644,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6322056625952020296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6760809138431505748, guid: 02231479938345b4a958d78f76dba39b,
+    type: 3}
+  m_PrefabInstance: {fileID: 751904420713390620}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7430615981706784912 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7886248026368627340, guid: 02231479938345b4a958d78f76dba39b,
