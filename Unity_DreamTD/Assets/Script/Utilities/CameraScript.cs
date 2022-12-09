@@ -29,48 +29,49 @@ public class CameraScript : MonoBehaviour
     [SerializeField]
     private Vector3 _offset;
 
+    private bool _isPaused = false;
+
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = _target.transform.position + Quaternion.Euler(0, _cameraAngle,0) * (new Vector3 (0, _height, -_length));
-        this.transform.rotation = Quaternion.LookRotation((_target.transform.position - this.transform.position).normalized) * Quaternion.Euler(_offset);
+            this.transform.position = _target.transform.position + Quaternion.Euler(0, _cameraAngle, 0) * (new Vector3(0, _height, -_length));
+            this.transform.rotation = Quaternion.LookRotation((_target.transform.position - this.transform.position).normalized) * Quaternion.Euler(_offset);
 
-        if (Input.GetMouseButton(1)){
-            _cameraAngle += Input.GetAxis("Mouse X") * _mouseSensibility;
-
-            if (Input.GetAxis("Mouse Y") > 0 & _height >= _minMaxHeightByDrag.x)
+            if (Input.GetMouseButton(1))
             {
-                _height -= Input.GetAxis("Mouse Y") * _mouseSensibility;
+                _cameraAngle += Input.GetAxis("Mouse X") * _mouseSensibility;
+
+                if (Input.GetAxis("Mouse Y") > 0 & _height >= _minMaxHeightByDrag.x)
+                {
+                    _height -= Input.GetAxis("Mouse Y") * _mouseSensibility;
+                }
+                else if (Input.GetAxis("Mouse Y") < 0 & _height <= _minMaxHeightByDrag.y)
+                {
+                    _height -= Input.GetAxis("Mouse Y") * _mouseSensibility;
+                }
+
+                if (_height >= _minMaxHeightByDrag.y)
+                {
+                    _height = _minMaxHeightByDrag.y;
+                }
+                else if (_height <= _minMaxHeightByDrag.x)
+                {
+                    _height = _minMaxHeightByDrag.x;
+                }
             }
-            else if(Input.GetAxis("Mouse Y") < 0 & _height <= _minMaxHeightByDrag.y)
+
+            if (_cameraAngle >= 360)
             {
-                _height -= Input.GetAxis("Mouse Y") * _mouseSensibility;
+                _cameraAngle = 0;
             }
 
-            if(_height >= _minMaxHeightByDrag.y)
+            if (Input.mouseScrollDelta.y < 0 & Camera.main.fieldOfView < _minMaxFOVByScroll.y)
             {
-                _height = _minMaxHeightByDrag.y;
+                Camera.main.fieldOfView -= Input.mouseScrollDelta.y * 0.1f * _scrollSensibility;
             }
-            else if(_height <= _minMaxHeightByDrag.x)
+            else if (Input.mouseScrollDelta.y > 0 & Camera.main.fieldOfView > _minMaxFOVByScroll.x)
             {
-                _height = _minMaxHeightByDrag.x;
+                Camera.main.fieldOfView -= Input.mouseScrollDelta.y * 0.1f * _scrollSensibility;
             }
-        }
-
-        if(_cameraAngle >= 360)
-        {
-            _cameraAngle = 0;
-        }
-
-        if(Input.mouseScrollDelta.y < 0 & Camera.main.fieldOfView < _minMaxFOVByScroll.y)
-        {
-            Camera.main.fieldOfView -= Input.mouseScrollDelta.y * 0.1f * _scrollSensibility;
-        }
-        else if(Input.mouseScrollDelta.y > 0 & Camera.main.fieldOfView > _minMaxFOVByScroll.x)
-        {
-            Camera.main.fieldOfView -= Input.mouseScrollDelta.y * 0.1f * _scrollSensibility;
-        }
-
     }
-
 }

@@ -1,38 +1,34 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-//Made by Melinon Remy
+//Made by Melinon Remy, modified by ALBERT Esteban to remove double var calls
 public class PauseBehaviour : MonoBehaviour
 {
-    [SerializeField] private GameObject HUD;
-    private bool isInPause = false;
-    private float lastTimeScale;
-    //Get controller to disable movement in pause
-    [SerializeField] private Controller controller;
+    [SerializeField] private List<GameObject> _hudList;
+    private bool _isInPause = false;
+    private float _lastTimeScale;
 
     public void Pause(AudioSource audioSource)
     {
         //Click sound
         audioSource.Play();
-        //Pause
-        if (isInPause)
+        if (_isInPause)
         {
-            gameObject.SetActive(false);
-            HUD.SetActive(true);
-            Time.timeScale = lastTimeScale;
-            //Disable movement
-            controller.isInPause = true;
+            Time.timeScale = _lastTimeScale;
         }
         //Unpause
         else
         {
-            gameObject.SetActive(true);
-            HUD.SetActive(false);
-            lastTimeScale = Time.timeScale;
+            _lastTimeScale = Time.timeScale;
             Time.timeScale = 0f;
-            //Enable movement
-            controller.isInPause = false;
         }
+        gameObject.SetActive(!_isInPause);
+        foreach (var hud in _hudList)
+        {
+            hud.SetActive(_isInPause);
+        }
+        LevelReferences.Instance.Player.GetComponentInChildren<CameraScript>().enabled = _isInPause;
         //Set new pause state
-        isInPause = !isInPause;
+        _isInPause = !_isInPause;
     }
 }
