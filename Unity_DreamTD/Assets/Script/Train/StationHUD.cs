@@ -34,6 +34,7 @@ public class StationHUD : MonoBehaviour
             //Create new train
             var newTrain = Instantiate(train, station.position, Quaternion.identity);
             Locomotive newLocomotive = newTrain.GetComponentInChildren<Locomotive>();
+            LevelReferences.Instance.LocomotiveManager.AddLocomotiveToList(newLocomotive);
             newLocomotive.SetSpeedLevel(stationLevel);
             newLocomotive.SetStorageLevel(stationLevel);
 
