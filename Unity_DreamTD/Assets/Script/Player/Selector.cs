@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-//Made by Melinon Remy, modified by ALBERT Esteban
+//Made by Melinon Remy
 public class Selector : MonoBehaviour
 {
     public GameObject towerHUD;
@@ -24,10 +24,6 @@ public class Selector : MonoBehaviour
             {
                 if (openHUDref != null)
                 {
-                    if (openHUDref == hit.transform.gameObject.GetComponent<HUDwhenSelect>()) //Prevent closing hud if trying to open the same as before
-                    {
-                        return;
-                    }
                     openHUDref.OnDeselect();
                     openHUDref = null;
                 }

@@ -32,7 +32,7 @@ public class HUDwhenSelect : MonoBehaviour
             _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
         }
         //If click on tower
-        else if (gameObject.GetComponent<Tower>() != null && gameObject.GetComponent<Tower>().enabled) //Second part prevents opening a TowerPanel for a Tower in DragNDrop
+        else if (gameObject.GetComponent<Tower>() != null && gameObject.GetComponent<Tower>().enabled) //enabled == false => isDragging => prevent CreatePanel
         {
             _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
             gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
@@ -70,7 +70,10 @@ public class HUDwhenSelect : MonoBehaviour
             {
                 _currentTowerManagerPanel.ClosePanel();
             }
-            gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(false);
+            if (gameObject.GetComponent<Tower>().enabled) //enabled == false => isDragging => prevent disabling RangeIndicator
+            {
+                gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(false);
+            }
         }
         //If station
         else if (hudRef.GetComponent<TowerHUD>() == null)
