@@ -1,6 +1,6 @@
 using UnityEngine;
 
-//Made by Melinon Remy
+//Made by Melinon Remy, modified by ALBERT Esteban
 public class HUDwhenSelect : MonoBehaviour
 {
     public GameObject hudRef;
@@ -27,15 +27,15 @@ public class HUDwhenSelect : MonoBehaviour
             hudRef.GetComponent<TrainsHUD>().PickTrain(transform.parent.gameObject);
         }
         //If click on usine
-        else if(gameObject.GetComponent<FactoryManager>() != null)
-        {         
+        else if (gameObject.GetComponent<FactoryManager>() != null)
+        {
             _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
         }
         //If click on tower
-        else if(gameObject.GetComponent<Tower>()!= null)
+        else if (gameObject.GetComponent<Tower>() != null && gameObject.GetComponent<Tower>().enabled) //Second part prevents opening a TowerPanel for a Tower in DragNDrop
         {
             _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
-            GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
+            gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
         }
         //If click on station
         else if (hudRef.GetComponent<TowerHUD>() == null)
@@ -66,11 +66,11 @@ public class HUDwhenSelect : MonoBehaviour
         //If tower
         else if (gameObject.GetComponent<Tower>() != null)
         {
-            if(_currentTowerManagerPanel != null)
+            if (_currentTowerManagerPanel != null)
             {
                 _currentTowerManagerPanel.ClosePanel();
             }
-            GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(false);
+            gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(false);
         }
         //If station
         else if (hudRef.GetComponent<TowerHUD>() == null)
