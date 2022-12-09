@@ -9,14 +9,14 @@ public class RangeIndicator : MonoBehaviour
     [Range(0, 50)][SerializeField] private int _segments = 50;
     private float _radius = 0;
     private LineRenderer _line;
-    private TowersDatas _towerDatas = null;
+    private TowerManager _towerManager = null;
 
     private void Awake()
     {
         _line = gameObject.GetComponent<LineRenderer>();
         _line.positionCount = _segments + 1;
         _line.useWorldSpace = false;
-        _towerDatas = GetComponentInParent<TowerManager>().TowersData;
+        _towerManager = GetComponentInParent<TowerManager>();
         
     }
     private void Start()
@@ -26,7 +26,7 @@ public class RangeIndicator : MonoBehaviour
 
     public void UpdateCircle()
     {
-        _radius = _towerDatas.Range;
+        _radius = _towerManager.TowersData.Range;
         float x;
         float z;
 
