@@ -1,8 +1,6 @@
 //By ALBERT Esteban
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.Events;
 

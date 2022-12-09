@@ -23,6 +23,7 @@ public class UsineDescription : ScriptableObject
 
     public UsineBehaviour Instantiate()
     {
+        _prefab.getFactoryData.UnlockFactoryrData();
         UsineBehaviour spawnedUsine = Instantiate(_prefab);
         spawnedUsine.transform.GetComponent<HUDwhenSelect>().hudRef = LevelReferences.Instance.Player.GetComponent<Selector>().usineHUD;
         spawnedUsine.SetPrice(_price);
