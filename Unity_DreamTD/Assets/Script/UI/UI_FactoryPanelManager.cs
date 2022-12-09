@@ -49,7 +49,11 @@ public class UI_FactoryPanelManager : MonoBehaviour
     {
         _factoryDatas = factoryData;
 
-        SetUpStat();
+        if (_factoryDatas.CurrentUpgrade.NextUpgrade != null)
+        {
+
+            SetUpStat();
+        }
     }
 
     private void SetUpStat()

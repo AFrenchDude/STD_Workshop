@@ -35,6 +35,7 @@ public class HUDwhenSelect : MonoBehaviour
         else if(gameObject.GetComponent<Tower>()!= null)
         {
             _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
+            GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
         }
         //If click on station
         else if (hudRef.GetComponent<TowerHUD>() == null)
@@ -69,6 +70,7 @@ public class HUDwhenSelect : MonoBehaviour
             {
                 _currentTowerManagerPanel.ClosePanel();
             }
+            GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(false);
         }
         //If station
         else if (hudRef.GetComponent<TowerHUD>() == null)
