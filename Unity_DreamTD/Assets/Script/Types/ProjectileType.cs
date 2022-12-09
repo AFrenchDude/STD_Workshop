@@ -36,6 +36,8 @@ public class ProjectileType : ScriptableObject
 
     public Color ProjectileColor => _projectileColor;
     public Sprite Icon => _icon;
+    public GameObject HitFX => _hitFX;
+    public GameObject HitAOE => _hitAOE;
 
     public NightmareData.NighmareType convertProjectileToNightmare()
     {

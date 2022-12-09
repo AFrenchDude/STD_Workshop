@@ -97,7 +97,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         Destroy(_parentMeshRenderers.gameObject);
         _parentMeshRenderers = Instantiate(mesh, this.transform).transform;
         _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", true);
-        
+
 
     }
 
@@ -150,8 +150,11 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
 
         if (_parentMeshRenderers != null)
         {
+            if (gameObject.GetComponent<Animator>() != null)
+            {
+                _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", !enable);
 
-            _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", !enable);
+            }
         }
     }
 
