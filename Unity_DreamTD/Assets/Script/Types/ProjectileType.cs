@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VFX;
 
 //Made By Melinon Remy
 [CreateAssetMenu(menuName = "Type/Projectile")]
@@ -27,12 +26,6 @@ public class ProjectileType : ScriptableObject
 
     [SerializeField]
     private Sprite _icon;
-
-    [Header("FX")]
-    [SerializeField]
-    private GameObject _hitFX;
-    [SerializeField]
-    private GameObject _hitAOE;
 
     public Color ProjectileColor => _projectileColor;
     public Sprite Icon => _icon;
