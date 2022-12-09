@@ -1,6 +1,7 @@
 //By ALBERT Esteban & ALEXANDRE Dorian
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class WeaponController : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     private List<Transform> _canonMuzzle = new List<Transform>();
     private int _muzzleIndx = 0;
+
+    [SerializeField]
+    private List<VisualEffect> _fireBoom = new List<VisualEffect>();
 
     [SerializeField]
     private List<Transform> _canonPivot = new List<Transform>();
@@ -42,6 +46,7 @@ public class WeaponController : MonoBehaviour
     {
         _canonMuzzle.Clear();
         _canonPivot.Clear();
+        _fireBoom.Clear();
     }
 
     public void AddMuzzle(Transform transform)
@@ -52,6 +57,11 @@ public class WeaponController : MonoBehaviour
     public void AddPivot(Transform pivot)
     {
         _canonPivot.Add(pivot);
+    }
+
+    public void AddFireEffect(VisualEffect vfx)
+    {
+        _fireBoom.Add(vfx);
     }
 
     private void FixedUpdate()
@@ -109,6 +119,9 @@ public class WeaponController : MonoBehaviour
             {
                 ProjectileType currentProjectile = _towersData.Projectiles[_muzzleIndx].ProjectileType;
                 spawnedProjectile = Instantiate(currentProjectile.projectile.GetComponent<AProjectile>());
+
+                
+
                 _towersData.ReduceProjAmmount(_muzzleIndx, 1);
             }
             else
@@ -122,6 +135,8 @@ public class WeaponController : MonoBehaviour
                     return;
                 }
             }
+
+
         }
         else
         {
@@ -145,7 +160,14 @@ public class WeaponController : MonoBehaviour
         {
             projectileDamager.ActiveMiraculousBullet();
         }
-        
+
+        //Fire boom effect
+
+        if (_fireBoom[_muzzleIndx].gameObject.active == false)
+        {
+            _fireBoom[_muzzleIndx].gameObject.SetActive(true);
+        }
+        _fireBoom[_muzzleIndx].Play();
 
         //Set up muzzle index (For Double canon)
 
@@ -163,6 +185,9 @@ public class WeaponController : MonoBehaviour
         {
             spawnedProjectile.GetComponent<Damager>().SetMortarRadius(_towersData.AOERadius);
         }
+
+
+        
 
 
     }
