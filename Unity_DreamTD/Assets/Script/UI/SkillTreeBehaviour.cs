@@ -9,8 +9,9 @@ public class SkillTreeBehaviour : MonoBehaviour
 {
     //Number of skill points
     [SerializeField] private TextMeshProUGUI text;
-    //Ref to upgrader
+    //Ref to upgrader and player points
     [SerializeField] private ProjectileUpgradeData projectileUpgrade;
+    [SerializeField] private PlayerScoreSave playerScore;
     //Dropdowns of selected upgrades
     [SerializeField] private TMP_Dropdown trapsDropdown;
     [SerializeField] private TMP_Dropdown energyDropdown;
@@ -18,7 +19,7 @@ public class SkillTreeBehaviour : MonoBehaviour
 
     public void OnOpenSkillShop()
     {
-        text.SetText("Skill points : " + projectileUpgrade.skillPoint);
+        text.SetText("Skill points : " + playerScore.StarNumber);
         //Trap
         SetOptions(trapsDropdown, projectileUpgrade.unlockedTraps, projectileUpgrade.TrapUpgradeSelected + "");
         //Food
@@ -44,9 +45,10 @@ public class SkillTreeBehaviour : MonoBehaviour
     //Unlocks
     public void UnlockTrapSkill(GameObject buttonObject)
     {
-        if(projectileUpgrade.skillPoint >= 1)
+        if(playerScore.StarNumber >= buttonObject.GetComponent<ProjectileUpgradeSetter>().Price)
         {
             buttonObject.GetComponent<ProjectileUpgradeSetter>().SetTrapUpgrade();
+            buttonObject.transform.GetChild(0).gameObject.SetActive(false);
 
             //SetTraps
             AddOption(projectileUpgrade.unlockedTraps, buttonObject.GetComponent<ProjectileUpgradeSetter>().trapUpgrade + "", trapsDropdown, buttonObject);
@@ -54,9 +56,10 @@ public class SkillTreeBehaviour : MonoBehaviour
     }
     public void UnlockFoodSkill(GameObject buttonObject)
     {
-        if (projectileUpgrade.skillPoint >= 1)
+        if (playerScore.StarNumber >= buttonObject.GetComponent<ProjectileUpgradeSetter>().Price)
         {
             buttonObject.GetComponent<ProjectileUpgradeSetter>().SetFoodUpgrade();
+            buttonObject.transform.GetChild(0).gameObject.SetActive(false);
 
             //SetFood
             AddOption(projectileUpgrade.unlockedFood, buttonObject.GetComponent<ProjectileUpgradeSetter>().foodUpgrade + "", pizzaDropdown, buttonObject);
@@ -64,9 +67,11 @@ public class SkillTreeBehaviour : MonoBehaviour
     }
     public void UnlockEnergySkill(GameObject buttonObject)
     {
-        if (projectileUpgrade.skillPoint >= 1)
+        if (playerScore.StarNumber >= buttonObject.GetComponent<ProjectileUpgradeSetter>().Price)
         {
             buttonObject.GetComponent<ProjectileUpgradeSetter>().SetEnergyUpgrade();
+            buttonObject.transform.GetChild(0).gameObject.SetActive(false);
+
             //SetEnergy
             AddOption(projectileUpgrade.unlockedEnergy, buttonObject.GetComponent<ProjectileUpgradeSetter>().energyUpgrade + "", energyDropdown, buttonObject);
         }
@@ -75,7 +80,7 @@ public class SkillTreeBehaviour : MonoBehaviour
     //Unlock new upgrade and update HUD
     void AddOption(List<string> unlockedList, string compareTo, TMP_Dropdown dropdown, GameObject button)
     {
-        projectileUpgrade.skillPoint--;
+        playerScore.RemoveStars(1);
         unlockedList.Add(compareTo);
         button.GetComponent<Button>().enabled = false;
         dropdown.ClearOptions();
@@ -92,7 +97,7 @@ public class SkillTreeBehaviour : MonoBehaviour
                 dropdown.value = i;
             }
         }
-        text.SetText("Skill points : " + projectileUpgrade.skillPoint);
+        text.SetText("Skill points : " + playerScore.StarNumber);
     }
 
     //Set currently selected skill
@@ -137,6 +142,10 @@ public class SkillTreeBehaviour : MonoBehaviour
                 {
                     foreach (Transform child2 in child)
                     {
+                        if (child2.childCount > 0)
+                        {
+                            child2.GetChild(0).gameObject.SetActive(true);
+                        }
                         if (child2.GetComponent<Button>() != null)
                         {
                             child2.GetComponent<Button>().enabled = true;
@@ -145,7 +154,7 @@ public class SkillTreeBehaviour : MonoBehaviour
                 }
             }
             //Give back all skill points used
-            projectileUpgrade.skillPoint += totalSkillPoints;
+            playerScore.AddNewStars(totalSkillPoints);
             //Refresh HUD
             OnOpenSkillShop();
         }

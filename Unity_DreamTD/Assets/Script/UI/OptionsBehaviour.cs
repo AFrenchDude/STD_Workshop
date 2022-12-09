@@ -57,23 +57,9 @@ public class OptionsBehaviour : MonoBehaviour
         int currentResolutionIdex = 0;
         for (var i = 0; i < resolution.Length; i++)
         {
-            //bool isAlreadyInOption = false;
             string option = resolution[i].width + "x" + resolution[i].height;
-            /*
-            foreach (string alreadyInOption in options)
-            {
-                if (option == alreadyInOption)
-                {
-                    isAlreadyInOption = true;
-                }
-            }
-            if(!isAlreadyInOption)
-            {
-                options.Add(option);
-            }
-            */
             options.Add(option);
-
+            Debug.Log(resolution[i]);
             if (resolution[i].width == Screen.currentResolution.width && resolution[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIdex = i;

@@ -9,9 +9,13 @@ public class MuseumBehaviour : MonoBehaviour
     [SerializeField] TextMeshProUGUI descriptionText;
     //List of all buttons
     [SerializeField] Transform buttons;
-    //3D model
-    [SerializeField] Transform model;
+    [SerializeField] GameObject levelButtons;
+    //3D model position ref
+    [SerializeField] Transform modelPositionRef;
     private GameObject lastInstantiate = null;
+    private GameObject lastButton;
+    private TowerUpgradeData currentTowerUpgrade;
+    private FactoryUpgradeData currentFactoryUpgrade;
     [SerializeField] RectTransform moverRef;
     private Vector2 lastmove = new Vector2(0, 0);
 
@@ -21,13 +25,26 @@ public class MuseumBehaviour : MonoBehaviour
         //Set unlocked enemies buttons
         foreach(Transform button in buttons)
         {
-            if (button.GetComponent<MuseumButton>().NightmareBestiary.IsUnlocked)
+            if (button.GetComponent<MuseumButton>().NightmareBestiary != null)
             {
-                button.gameObject.SetActive(true);
+                if (!button.GetComponent<MuseumButton>().NightmareBestiary.IsUnlocked)
+                {
+                    button.gameObject.SetActive(false);
+                }
             }
-            else
+            else if (button.GetComponent<MuseumButton>().FactoryData != null)
             {
-                button.gameObject.SetActive(false);
+                if (!button.GetComponent<MuseumButton>().FactoryData.IsUnlocked)
+                {
+                    button.gameObject.SetActive(false);
+                }
+            }
+            else if (button.GetComponent<MuseumButton>().TowersDatas != null)
+            {
+                if (!button.GetComponent<MuseumButton>().TowersDatas.IsUnlocked)
+                {
+                    button.gameObject.SetActive(false);
+                }
             }
         }
         //Set picked enemie in HUD as the first unlocked available
@@ -35,33 +52,131 @@ public class MuseumBehaviour : MonoBehaviour
         {
             if (button.gameObject.activeSelf)
             {
-                ChangeEnemyDescription(button.GetComponent<MuseumButton>().NightmareBestiary);
-                break;
+                if (button.GetComponent<MuseumButton>().NightmareBestiary != null)
+                {
+                    ChangeEnemyDescription(button.GetComponent<MuseumButton>().NightmareBestiary);
+                    break;
+                }
+                else if (button.GetComponent<MuseumButton>().FactoryData != null)
+                {
+                    ChangeUsineDescription(button.GetComponent<MuseumButton>().FactoryData);
+                    levelButtons.SetActive(true);
+                    break;
+                }
+                else if (button.GetComponent<MuseumButton>().TowersDatas != null)
+                {
+                    ChangeTowerDescription(button.GetComponent<MuseumButton>().TowersDatas);
+                    levelButtons.SetActive(true);
+                    break;
+                }
             }
+        }
+    }
+
+    //Change level of tower or usine
+    public void ChangeLevel(int upgradeRef)
+    {
+        if (lastButton.GetComponent<MuseumButton>().TowersDatas != null)
+        {
+            currentTowerUpgrade = lastButton.GetComponent<MuseumButton>().TowersUpgradeDatas[upgradeRef];
+            ChangeTowerDescription(lastButton.GetComponent<MuseumButton>().TowersDatas);
+            currentFactoryUpgrade = null;
+        }
+        else if (lastButton.GetComponent<MuseumButton>().FactoryData != null)
+        {
+            currentFactoryUpgrade = lastButton.GetComponent<MuseumButton>().FactoryUpgradeData[upgradeRef];
+            ChangeUsineDescription(lastButton.GetComponent<MuseumButton>().FactoryData);
+            currentTowerUpgrade = null;
+        }
+    }
+
+    //Save object picked
+    public void SetButton(GameObject button)
+    {
+        lastButton = button;
+        if (button.GetComponent<MuseumButton>().TowersDatas != null)
+        {
+            currentTowerUpgrade = button.GetComponent<MuseumButton>().TowersUpgradeDatas[0];
+            ChangeTowerDescription(button.GetComponent<MuseumButton>().TowersDatas);
+            currentFactoryUpgrade = null;
+        }
+        else if (button.GetComponent<MuseumButton>().FactoryData != null)
+        {
+            currentFactoryUpgrade = button.GetComponent<MuseumButton>().FactoryUpgradeData[0];
+            ChangeUsineDescription(button.GetComponent<MuseumButton>().FactoryData);
+            currentTowerUpgrade = null;
         }
     }
 
     //Pick new enemies
     public void ChangeEnemyDescription(NightmareBestiaryData nightmare)
     {
-        //Destroy last enemy model if not null
-        DestroyModel();
-        //Create new enemy model
-        var instantiatedNightmare = Instantiate(nightmare.EnemyModel, model.position, Quaternion.identity);
-        //Set model settings
-        instantiatedNightmare.transform.localScale *= 6;
-        instantiatedNightmare.transform.eulerAngles = new Vector3(0, 180, 0);
-        //Set actual enemy as the last saved
-        lastInstantiate = instantiatedNightmare;
-
         //Set text of enemy name and description
         nameText.SetText("Name: " + nightmare.Name);
-        descriptionText.SetText("Description: " + nightmare.Description + "<br>" + "Type: " + nightmare.NightmareData.nighmareType + "<br>" + "Role: " + nightmare.NightmareData.nightmareFunction +
-            "<br><br>" + "Speed: " + nightmare.NightmareData.speed + "<br>" + "Gold reward: " + nightmare.NightmareData.rewardGold + "<br>" + 
-            "MaxLife: " + nightmare.NightmareData.maxLife + "<br>" + "Killcount: " + nightmare.NightmareData.KillCount);
+        descriptionText.SetText("Description: " + nightmare.Description + "<br>" +
+            "Type: " + nightmare.NightmareData.nighmareType + "<br>" +
+            "Role: " + nightmare.NightmareData.nightmareFunction + "<br><br>" +
+            "Speed: " + nightmare.NightmareData.speed + "<br>" + 
+            "Gold reward: " + nightmare.NightmareData.rewardGold + "<br>" + 
+            "Max life: " + nightmare.NightmareData.maxLife + "<br><br>" + 
+            "Killcount: " + nightmare.NightmareData.KillCount);
+        Set3Dmodel(nightmare.EnemyModel, new Vector3(0, -180, 0));
     }
 
-    //Destroy current enemy 3D model
+    //Pick new tower
+    public void ChangeTowerDescription(TowersDatas towersDatas)
+    {
+        if (currentTowerUpgrade == null)
+        {
+            currentTowerUpgrade = towersDatas.UpgradeDatas;
+        }
+        //Set text of enemy name and description
+        nameText.SetText("Name: " + towersDatas.Name +" (" + currentTowerUpgrade.UpgradeName + ")");
+        descriptionText.SetText("Description: " + towersDatas.Description + "<br>" +
+            "Type: " + towersDatas.Type + "<br>" +
+            "Damage: " + currentTowerUpgrade.UpgradeDamage+ "<br>" +
+            "Fire rate: " + currentTowerUpgrade.UpgradeFireRate + "<br>" +
+            "Max projectiles: " + currentTowerUpgrade.UpgradeMaxProjectiles + "<br>" +
+            "Range: " + currentTowerUpgrade.UpgradeRange);
+        Set3Dmodel(currentTowerUpgrade.UpgradePrefab, new Vector3(15, 220, 20));
+    }
+
+    //Pick new usine
+    public void ChangeUsineDescription(FactoryDatas factoryUpgradeData)
+    {
+        if (currentFactoryUpgrade == null)
+        {
+            currentFactoryUpgrade = factoryUpgradeData.CurrentUpgrade;
+        }
+        //Set text of enemy name and description
+        nameText.SetText("Name: " + factoryUpgradeData.Name + " (" + currentFactoryUpgrade.UpgradeName + ")");
+        descriptionText.SetText("Description: " + factoryUpgradeData.UpgradeDescription + "<br>" +
+            "Type: " + factoryUpgradeData.Type + "<br><br>" +
+            "Production rate: " + currentFactoryUpgrade.UpgradeCooldown + "<br>" +
+            "Price: " + currentFactoryUpgrade.UpgradePrice + "<br>" +
+            "Max resources: " + currentFactoryUpgrade.UpgradeMaxResource);
+        Set3Dmodel(currentFactoryUpgrade.UpgradePrefab, new Vector3(-15, -70, 15));
+    }
+
+    //Model 3D
+    void Set3Dmodel(GameObject model, Vector3 rotation)
+    {
+        //Destroy last enemy modelPositionRef if not null
+        DestroyModel();
+        //Create new enemy modelPositionRef
+        var instantiatedNightmare = Instantiate(model, modelPositionRef.position, Quaternion.identity);
+        //Set modelPositionRef settings
+        instantiatedNightmare.transform.localScale *= 6;
+        instantiatedNightmare.transform.eulerAngles = rotation;
+        //Play animation
+        if (instantiatedNightmare.GetComponent<Animator>() != null)
+        {
+            instantiatedNightmare.GetComponent<Animator>().SetBool("Activated", true);
+        }
+        //Set actual enemy as the last saved
+        lastInstantiate = instantiatedNightmare;
+    }
+    //Destroy current enemy 3D modelPositionRef
     public void DestroyModel()
     {
         if (lastInstantiate != null)

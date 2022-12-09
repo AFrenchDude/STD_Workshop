@@ -22,6 +22,9 @@ public class TowersDatas : ScriptableObject
     private string _name = null;
 
     [SerializeField]
+    private string _description = null;
+
+    [SerializeField]
     private string _type = null;
 
     [SerializeField]
@@ -56,8 +59,11 @@ public class TowersDatas : ScriptableObject
 
     [SerializeField] private int scoreToGiveOnUpgrade;
 
+    [SerializeField] private bool _towerDataUnlocked = false;
+
     public Sprite Icon => _sprite;
     public string Name => _name;
+    public string Description => _description;
     public string Type => _type;
 
     public float Damage => _damage;
@@ -65,7 +71,7 @@ public class TowersDatas : ScriptableObject
     public float Range => _range;
     public float ProjectileSpeed => _projectileSpeed;
     public fireType FireType => _fireType;
-    
+
     public TowerUpgradeData UpgradeDatas => _currentUpgrade;
 
     public List<Projectile> Projectiles => _projectileTypeList;
@@ -73,12 +79,27 @@ public class TowersDatas : ScriptableObject
     public int MaxProjectilesAmmount => _maxProjectilesAmmount;
 
     public float AOERadius => _aoeRadius;
-    
+    public bool IsUnlocked => _towerDataUnlocked;
+
+    public void UnlockTowerData()
+    {
+        _towerDataUnlocked = true;
+    }
+
     public void Upgrade()
     {
         if(_currentUpgrade.NextUpgrade != null)
         {
             _currentUpgrade = _currentUpgrade.NextUpgrade;
+            ApplyUpgrade();
+        }
+    }
+    public void ManualUpgrade(TowerUpgradeData upgradeToApply)
+    {
+        if (upgradeToApply != null)
+        {
+            _currentUpgrade = upgradeToApply;
+
             ApplyUpgrade();
         }
     }
