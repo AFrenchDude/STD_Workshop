@@ -7109,6 +7109,9 @@ GameObject:
   - component: {fileID: 7548636534247857535}
   - component: {fileID: 7830965228228544694}
   - component: {fileID: 1412597473}
+  - component: {fileID: -2995203964821727890}
+  - component: {fileID: -8772823216092054512}
+  - component: {fileID: -1509470405686479032}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -7155,6 +7158,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2995203964821727890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933183163803929171}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 0, z: -80}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
+--- !u!114 &-8772823216092054512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933183163803929171}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 0, z: -80}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
+--- !u!114 &-1509470405686479032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933183163803929171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 0, z: -80}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
 --- !u!1 &968414425961723472
 GameObject:
   m_ObjectHideFlags: 0
@@ -7967,6 +8036,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78da23631a50a64c9a99c7c1c0d24b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _backgroundImage: {fileID: 0}
+  _iconImage: {fileID: 0}
+  _currentAmmount: {fileID: 0}
+  _maxAmmount: {fileID: 0}
+  _sliderAmmount: {fileID: 0}
+  _minimalAmmountColor: {r: 0, g: 0, b: 0, a: 0}
+  _maxAmmountColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1663636850936198611
 GameObject:
   m_ObjectHideFlags: 0
@@ -17441,6 +17517,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78da23631a50a64c9a99c7c1c0d24b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _backgroundImage: {fileID: 0}
+  _iconImage: {fileID: 0}
+  _currentAmmount: {fileID: 0}
+  _maxAmmount: {fileID: 0}
+  _sliderAmmount: {fileID: 0}
+  _minimalAmmountColor: {r: 0, g: 0, b: 0, a: 0}
+  _maxAmmountColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &9134076228876222074
 GameObject:
   m_ObjectHideFlags: 0

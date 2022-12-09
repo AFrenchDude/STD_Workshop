@@ -138,18 +138,13 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     {
         if (enable)
         {
-            foreach (var meshes in _dragNDropMeshes)
-            {
-                originalMaterial = meshes.material;
-            }         
+            
         }
         else
         {
-            foreach (var meshes in _dragNDropMeshes)
-            {
-                meshes.material = originalMaterial;
-            }
-            
+            Destroy(_parentMeshRenderers.gameObject);
+            _parentMeshRenderers = Instantiate(_factoryDatas.CurrentUpgrade.UpgradePrefab, transform).transform;
+
         }
 
         if (_parentMeshRenderers != null)
