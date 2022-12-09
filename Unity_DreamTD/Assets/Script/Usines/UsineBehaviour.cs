@@ -18,7 +18,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        
+
     }
 
     public FactoryDatas getFactoryData
@@ -97,6 +97,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         Destroy(_parentMeshRenderers.gameObject);
         _parentMeshRenderers = Instantiate(mesh, this.transform).transform;
         _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", true);
+        
 
     }
 
@@ -138,7 +139,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     {
         if (enable)
         {
-            
+
         }
         else
         {
