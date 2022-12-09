@@ -61,8 +61,8 @@ public class UI_FactoryPanelManager : MonoBehaviour
         _towerIcon.sprite = _factoryDatas.Icon;
         _name.text = _factoryDatas.CurrentUpgrade.UpgradeName;
 
-        SetUpUpgrade(_currentMaxAmmount, _upgradeMaxAmmount, _factoryDatas.MaxAmmount, _factoryDatas.CurrentUpgrade.NextUpgrade.UpgradeMaxResource, true);
-        SetUpUpgrade(_currentProductionRate, _upgradeProductionRate, _factoryDatas.ProductionRate, _factoryDatas.CurrentUpgrade.NextUpgrade.UpgradeCooldown, false);
+        SetUpUpgrade(_currentMaxAmmount, _upgradeMaxAmmount, _factoryDatas.MaxAmmount, _factoryDatas.CurrentUpgrade.NextUpgrade.UpgradeMaxResource, false);
+        SetUpUpgrade(_currentProductionRate, _upgradeProductionRate, _factoryDatas.ProductionRate, _factoryDatas.CurrentUpgrade.NextUpgrade.UpgradeCooldown, true);
 
         _price.text = _factoryDatas.CurrentUpgrade.UpgradePrice.ToString();
     }

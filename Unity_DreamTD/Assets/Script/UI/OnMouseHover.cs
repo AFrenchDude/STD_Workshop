@@ -75,7 +75,6 @@ public class OnMouseHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public IEnumerator ScaleAnim(float StartScale, float ObjectiveScale, float lerp = 0)
     {
-        Debug.Log("Anim");
         yield return new WaitForFixedUpdate();
         lerp += Time.deltaTime * _animSpeed;
 
