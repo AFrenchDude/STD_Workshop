@@ -27,6 +27,11 @@ public class ProjectileType : ScriptableObject
     [SerializeField]
     private Sprite _icon;
 
+    [SerializeField]
+    private GameObject _hitFX;
+    [SerializeField]
+    private GameObject _hitAOE;
+
     public Color ProjectileColor => _projectileColor;
     public Sprite Icon => _icon;
     public GameObject HitFX => _hitFX;
