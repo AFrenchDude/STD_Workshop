@@ -74,25 +74,31 @@ public class TrainUpgradePanel : MonoBehaviour
         maxSlidervalue = maxValue;
     }
 
+    [ContextMenu("UpgradeWagonCount")]
+    public void UpgradeWagonCount()
+    {
+        Locomotives[_indexLocomotiveDisplayed].UpgradeWagonCountLevel();
+    }
+
     [ContextMenu("UpgradeMaxStorage")]
-    private void UpgradeMaxStorage()
+    public void UpgradeMaxStorage()
     {
         Locomotives[_indexLocomotiveDisplayed].UpgradeStorageLevel();
     }
 
     [ContextMenu("UpgradeEverySpeed")]
-    private void UpgradeEverySpeed()
+    public void UpgradeEverySpeed()
     {
         UpgradeSpeed(true);
     }
 
     [ContextMenu("UpgradeCurrentLocomotiveSpeed")]
-    private void UpgradeCurrentLocomotiveSpeed()
+    public void UpgradeCurrentLocomotiveSpeed()
     {
         UpgradeSpeed(false);
     }
 
-    private void UpgradeSpeed(bool upgradeAllLocomotives)
+    public void UpgradeSpeed(bool upgradeAllLocomotives)
     {
         if (upgradeAllLocomotives)
         {
@@ -111,4 +117,6 @@ public class TrainUpgradePanel : MonoBehaviour
     {
         Locomotives[_indexLocomotiveDisplayed].wagons[wagonIndex].type = newType;
     }
+
+
 }
