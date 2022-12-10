@@ -66,7 +66,7 @@ Transform:
   m_GameObject: {fileID: 3194527713467927116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.4799995, y: 0, z: 7.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3194527713029171132}
@@ -147,6 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nightmareData: {fileID: 11400000, guid: 1386e8122549d9448a8f394cb0fa3ecb, type: 2}
   _meshRenderer: {fileID: 0}
+  _boostParticle: {fileID: 0}
   supportType: 2
   health: 0
   speed: 4
@@ -428,17 +429,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4360ff6a8d9ddaa40baeb71fd38e8447,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4360ff6a8d9ddaa40baeb71fd38e8447,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4360ff6a8d9ddaa40baeb71fd38e8447,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4360ff6a8d9ddaa40baeb71fd38e8447,
         type: 3}

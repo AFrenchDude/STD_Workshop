@@ -6,6 +6,6 @@ public class ParentTest : MonoBehaviour
 {
     public virtual void OnTriggerEnter(Collider other)
     {
-        Debug.Log("test parent");
+        Debug.Log("starCompar parent");
     }
 }

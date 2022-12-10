@@ -9,9 +9,13 @@ public class ScoreText : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private List<Image> stars;
+    [SerializeField] private GameObject newRecordImage;
     private int score = 0;
     private int scoreReached;
     private bool isDisplaying = false;
+
+    private int starCompar = 0;
+    private bool isCheckingForBestScore = true;
 
     //On activation
     public void Activate()
@@ -43,11 +47,30 @@ public class ScoreText : MonoBehaviour
                     if (score >= LevelReferences.Instance.ScoreManager.starScore[i] && stars[i].gameObject != null)
                     {
                         stars[i].gameObject.SetActive(true);
+                        GiveStar(i + 1);
                     }
                 }
             }
             //Increase score
             score += 2;
+        }
+        if (score >= scoreReached && isCheckingForBestScore)
+        {
+            isCheckingForBestScore = false;
+            LevelReferences.Instance.ScoreManager.levelSave.CheckForNewRecord(scoreReached, out bool gotBool);
+            if (gotBool)
+            {
+                newRecordImage.SetActive(true);
+            }
+        }
+    }
+
+    void GiveStar(int starToGive)
+    {
+        if (starToGive > starCompar)
+        {
+            starCompar++;
+            LevelReferences.Instance.ScoreManager.levelSave.CheckToAddStar(starToGive);
         }
     }
 }

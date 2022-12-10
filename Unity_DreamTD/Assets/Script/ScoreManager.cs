@@ -4,6 +4,7 @@ using System.Collections.Generic;
 //Made by Melinon Remy
 public class ScoreManager : MonoBehaviour
 {
+    public LevelSave levelSave;
     public int score = 0;
     //Score to reach to get stars
     public List<int> starScore;

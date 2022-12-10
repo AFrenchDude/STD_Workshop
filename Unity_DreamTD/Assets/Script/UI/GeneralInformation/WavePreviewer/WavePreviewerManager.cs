@@ -20,6 +20,12 @@ public class WavePreviewerManager : MonoBehaviour
     [SerializeField]
     private float _speed = 1f;
 
+    private StartButtonScript _startButtonScript;
+    public void SetStartButton(StartButtonScript startButton)
+    {
+        _startButtonScript = startButton;
+    }
+
     //Ui text
     [SerializeField]
     private TextMeshProUGUI _waveIndexIndicator;
@@ -43,6 +49,9 @@ public class WavePreviewerManager : MonoBehaviour
     {
 
         SetUpCurrentWave();
+
+        _startButtonScript.EndWave();
+
         StartCoroutine(MovementCoroutine(_rectTransform.anchoredPosition.x , 0));
         
     }

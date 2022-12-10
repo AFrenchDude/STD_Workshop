@@ -32,8 +32,6 @@ public class ProjectileUpgradeData : ScriptableObject
     }
     #endregion
 
-    //current number of skill points
-    public int skillPoint = 0;
     //Already unlocked upgrades
     public List<string> unlockedFood;
     public List<string> unlockedEnergy;

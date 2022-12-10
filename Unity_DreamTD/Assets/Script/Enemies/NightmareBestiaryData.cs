@@ -8,7 +8,7 @@ public class NightmareBestiaryData : ScriptableObject
     [SerializeField] NightmareData _nightmareData = null;
     [SerializeField] string _description = "Unknown";
     [SerializeField] GameObject _enemyPrefab = null;
-    private bool _bestiaryDataUnlocked = false;
+    [SerializeField] private bool _bestiaryDataUnlocked = false;
 
 
     public string Name => _name;
