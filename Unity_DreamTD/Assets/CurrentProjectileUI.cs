@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class CurrentProjectileUI : MonoBehaviour
 {
@@ -23,9 +24,14 @@ public class CurrentProjectileUI : MonoBehaviour
     private Projectile _projectile;
 
     private TowersDatas _towerDatas;
+    private TrainUpgradePanel _trainUpgradePanel = null;
     private int _projectileIndex;
 
     private Animator _animator;
+
+    public Projectile Projectile => _projectile;
+
+    public UnityEvent ProjectileCreated;
 
     private void Awake()
     {
@@ -42,7 +48,15 @@ public class CurrentProjectileUI : MonoBehaviour
     public void SetUpProjectile(Projectile projectile)
     {
         _projectile = projectile;
+        ProjectileCreated.Invoke();
         ApplyProjectileType();
+    }
+
+    public void SetUpProjectile(ProjectileType type, int number, int maxAmmount)
+    {
+        Projectile createdProjectile = new Projectile();
+        createdProjectile.SetupProjectile(type, number, maxAmmount);
+        SetUpProjectile(createdProjectile);
     }
 
     public void SetOtherProjectilesPreview(List<CurrentProjectileUI> listOtherProjectiles)

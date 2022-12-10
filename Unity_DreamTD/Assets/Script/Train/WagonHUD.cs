@@ -10,11 +10,12 @@ public class WagonHUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _currentStorageText;
     [SerializeField] private TextMeshProUGUI _maxStoragevalueText;
     [SerializeField] private Slider _currentStorageValueSlider;
+    [SerializeField] private CurrentProjectileUI _currentProjectileUI;
 
     public Image Icon => _icon;
     public TextMeshProUGUI CurrentStorageText => _currentStorageText;
     public TextMeshProUGUI MaxStorageText => _maxStoragevalueText;
     public Slider CurrentStorageValueSlider => _currentStorageValueSlider;
-
+    public CurrentProjectileUI CurrentProjectileUI => _currentProjectileUI;
 
 }
