@@ -23,7 +23,7 @@ public class TrainsHUD : MonoBehaviour
         text.SetText("Level " + _pickedLocomotive.CurrentSpeedLevel);
         for (var i = 0; i != _pickedLocomotive.wagons.Count; i++)
         {
-            if (_pickedLocomotive.wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
+            if (_pickedLocomotive.wagons[i].gameObject.active == true)
             {
                 wagonsHUD.transform.GetChild(i).gameObject.SetActive(true);
             }
@@ -127,7 +127,7 @@ public class TrainsHUD : MonoBehaviour
     {
         for (var i = 0; i != _pickedLocomotive.wagons.Count; i++)
         {
-            if (_pickedLocomotive.wagons[i].gameObject.GetComponent<MeshRenderer>().enabled == true)
+            if (_pickedLocomotive.wagons[i].gameObject.active == true)
             {
                 wagonsHUD.transform.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().SetText(train.GetComponentInChildren<Locomotive>().wagons[i].projectiles + "");
                 wagonsHUD.transform.GetChild(i).GetChild(1).GetComponent<Image>().sprite = train.GetComponentInChildren<Locomotive>().wagons[i].type.icon;

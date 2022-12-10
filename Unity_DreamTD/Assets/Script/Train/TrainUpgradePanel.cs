@@ -40,7 +40,7 @@ public class TrainUpgradePanel : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Locomotives: " + Locomotives.Count);
+        //Debug.Log("Locomotives: " + Locomotives.Count);
         if (Locomotives.Count > 0)
         {
             UpdateHUDValues();

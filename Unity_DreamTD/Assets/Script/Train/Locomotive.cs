@@ -63,7 +63,7 @@ public class Locomotive : MonoBehaviour
     {
 
         //Collide with train
-        if (other.tag == "Train" && other.GetComponent<MeshRenderer>().enabled == true)
+        if (other.tag == "Train" && other.gameObject.active == true)
         {
             if (other.transform.root.gameObject != transform.root.gameObject)
             {
@@ -108,7 +108,7 @@ public class Locomotive : MonoBehaviour
             {
                 foreach (Wagon wagon in wagons)
                 {
-                    if (wagon.type.typeSelected == factoryData.ProjectileType.typeSelected && wagon.projectiles < wagon.MaxWagonStorage && wagon.GetComponent<MeshRenderer>().enabled == true)
+                    if (wagon.type.typeSelected == factoryData.ProjectileType.typeSelected && wagon.projectiles < wagon.MaxWagonStorage && wagon.gameObject.active == true)
                     {
                         wagonsToCheck.Add(wagon);
                     }
@@ -363,7 +363,7 @@ public class Locomotive : MonoBehaviour
         {
             if (!wagons[i].hasTriggered)
             {
-                wagons[i].GetComponent<MeshRenderer>().enabled = true;
+                wagons[i].gameObject.SetActive(true);
                 wagons[i].GetComponent<BoxCollider>().enabled = true;
             }
         }
@@ -371,8 +371,7 @@ public class Locomotive : MonoBehaviour
         {
             if (wagons[i].hasTriggered)
             {
-                wagons[i].GetComponent<MeshRenderer>().enabled = false;
-                wagons[i].GetComponent<BoxCollider>().enabled = false;
+                wagons[i].gameObject.SetActive(false);
             }
         }
     }
