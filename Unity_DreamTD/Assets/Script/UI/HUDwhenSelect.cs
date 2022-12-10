@@ -22,12 +22,12 @@ public class HUDwhenSelect : MonoBehaviour
     {
 
         //If click on usine
-        if (gameObject.GetComponent<FactoryManager>() != null)
+        if (gameObject.transform.root.GetComponent<FactoryManager>() != null)
         {
             _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
         }
         //If click on tower
-        else if (gameObject.GetComponent<Tower>() != null && gameObject.GetComponent<Tower>().enabled) //enabled == false => isDragging => prevent CreatePanel
+        else if (gameObject.transform.root.GetComponent<Tower>() != null && gameObject.GetComponent<Tower>().enabled) //enabled == false => isDragging => prevent CreatePanel
         {
             _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
             gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
