@@ -75,8 +75,6 @@ public class StartButtonScript : MonoBehaviour
         {
             _lerpValue = (Time.time - _startTime) / _delayValue;
 
-            Debug.Log(_lerpValue);
-
             if (Time.time >= _startTime + _delayValue)
             {
                 StartWave();

@@ -25,6 +25,9 @@ public class CurrentProjectileUI : MonoBehaviour
 
     private TowersDatas _towerDatas;
     private TrainUpgradePanel _trainUpgradePanel = null;
+    private int _wagonLinkedIndex;
+
+
     private int _projectileIndex;
 
     private Animator _animator;
@@ -57,6 +60,12 @@ public class CurrentProjectileUI : MonoBehaviour
         Projectile createdProjectile = new Projectile();
         createdProjectile.SetupProjectile(type, number, maxAmmount);
         SetUpProjectile(createdProjectile);
+    }
+
+    public void SetRefToTrainPanel(TrainUpgradePanel trainUpgradePanel, int wagonIndex)
+    {
+        _trainUpgradePanel = trainUpgradePanel;
+        _wagonLinkedIndex = wagonIndex;
     }
 
     public void SetOtherProjectilesPreview(List<CurrentProjectileUI> listOtherProjectiles)
@@ -128,9 +137,17 @@ public class CurrentProjectileUI : MonoBehaviour
 
     public void ChangeProjectile(ProjectileType projectileType)
     {
+        if(_towerDatas != null)
+        {
+            _towerDatas.SetProjectileType(_projectileIndex, projectileType);
+            SetUpProjectile(_towerDatas.Projectiles[_projectileIndex]);
+        }
+        else if(_trainUpgradePanel != null)
+        {
+            _trainUpgradePanel.SetNewProjectileType(_wagonLinkedIndex, projectileType); 
+        }
 
-        _towerDatas.SetProjectileType(_projectileIndex, projectileType);
-        SetUpProjectile(_towerDatas.Projectiles[_projectileIndex]);
+
 
         _animator.SetBool("Open", false);
     }

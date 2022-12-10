@@ -53,6 +53,8 @@ public class Locomotive : MonoBehaviour
         //Set spline and speed
         splineFollower = GetComponent<SplineFollower>();
         SetIsParked(false);
+
+        LevelReferences.Instance.LocomotiveManager.AddLocomotiveToList(this);
     }
     private void Start()
     {

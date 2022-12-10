@@ -63,6 +63,8 @@ public class TrainUpgradePanel : MonoBehaviour
                 Locomotives[_indexLocomotiveDisplayed].wagons[i].type,
                 Locomotives[_indexLocomotiveDisplayed].wagons[i].projectiles,
                 Locomotives[_indexLocomotiveDisplayed].wagons[i].MaxWagonStorage);
+
+            _wagonHUDList[i].CurrentProjectileUI.SetRefToTrainPanel(this, i);
         }
     }
 
