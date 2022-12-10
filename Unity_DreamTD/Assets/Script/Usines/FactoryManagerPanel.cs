@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class FactoryManagerPanel : MonoBehaviour
 {
@@ -45,6 +46,10 @@ public class FactoryManagerPanel : MonoBehaviour
     public void CreatePanel(FactoryManager towerManager)
     {
         _factoryManager = towerManager;
+        _factoryManager.GetComponent<UsineBehaviour>().SetFactoryManagerPanel(this);
+
+        SetProjectileContained(towerManager.FactoryData);
+
         transform.GetComponent<FollowOnScreen>().SetTarget(towerManager.CenterOfMass);
     }
 
@@ -76,6 +81,28 @@ public class FactoryManagerPanel : MonoBehaviour
         ClosePanel();
     }
 
+    public void UpdateTowerUpgrdePossibility()
+    {
+        if (_factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
+        {
+            _upgradeImage.sprite = _upgradeSprite;
+
+            if (goldManager.getFortune >= _factoryManager.FactoryData.CurrentUpgrade.UpgradePrice)
+            {
+                _upgradeImage.color = _canBuyColor;
+            }
+            else
+            {
+                _upgradeImage.color = _cantBuyColor;
+            }
+        }
+        else
+        {
+            _upgradeImage.color = Color.white;
+            _upgradeImage.sprite = _lockedSprite;
+        }
+    }
+
     public void Upgrade()
     {
 
@@ -87,15 +114,22 @@ public class FactoryManagerPanel : MonoBehaviour
             goldManager.Buy(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrice, purchaseName);
 
             _factoryManager.FactoryData.Upgrade();
-            _factoryManager.ApplyStats(_factoryManager.FactoryData);
+            //_factoryManager.ApplyStats(_factoryManager.FactoryData);
+
+            
 
 
             factoryScriptRef.SetUpgradeMesh(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrefab);
+            
 
-            if (factoryInformation != null)
+            if (factoryInformation != null & _factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
             {
                 factoryInformation.SetFactoryData(_factoryManager.FactoryData);
 
+            }
+            else
+            {
+                UpdateTowerUpgrdePossibility();
             }
         }
     }
@@ -119,4 +153,38 @@ public class FactoryManagerPanel : MonoBehaviour
     {
         factoryInformation.FadeOut();
     }
+
+
+
+    //Projectiles
+
+    [Header("Projectiles Informations")]
+    [SerializeField]
+    private RectMask2D _sliderMask;
+    [SerializeField]
+    private Vector2 _sliderMaskMinMax;
+
+    [SerializeField]
+    private Image _sliderImage;
+    [SerializeField]
+    private TextMeshProUGUI _projectileAmmountText;
+
+    [SerializeField]
+    private Color _lowerColor;
+    [SerializeField]
+    private Color _higherColor;
+
+    public void SetProjectileContained(FactoryDatas factoryDatass)
+    {
+
+        float lerpValue = (float)factoryDatass.Ammount / (float)factoryDatass.MaxAmmount;
+
+        _sliderMask.padding = new Vector4(0, 0, 0, Mathf.Lerp(_sliderMaskMinMax.y, _sliderMaskMinMax.x, lerpValue));
+
+        _sliderImage.color = Color.Lerp(_lowerColor, _higherColor, lerpValue);
+
+        _projectileAmmountText.text = factoryDatass.Ammount.ToString();
+    }
+
+
 }
