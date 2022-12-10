@@ -7,12 +7,14 @@ public class WagonHUD : MonoBehaviour
 {
     [Header("Panel components")]
     [SerializeField] private Image _icon = null;
-    [SerializeField] private TextMeshProUGUI _currentStorageValue;
-    [SerializeField] private TextMeshProUGUI _maxStoragevalue;
+    [SerializeField] private TextMeshProUGUI _currentStorageText;
+    [SerializeField] private TextMeshProUGUI _maxStoragevalueText;
     [SerializeField] private Slider _currentStorageValueSlider;
 
     public Image Icon => _icon;
-    public TextMeshProUGUI CurrentStorageValue => _currentStorageValue;
-    public TextMeshProUGUI MaxStorage => _maxStoragevalue;
+    public TextMeshProUGUI CurrentStorageText => _currentStorageText;
+    public TextMeshProUGUI MaxStorageText => _maxStoragevalueText;
     public Slider CurrentStorageValueSlider => _currentStorageValueSlider;
+
+
 }
