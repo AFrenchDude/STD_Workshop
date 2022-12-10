@@ -8,6 +8,9 @@ public class TrainUpgradePanel : MonoBehaviour
     private List<WagonHUD> _wagonHUDList = new List<WagonHUD>();
     private int _indexLocomotiveDisplayed = 0;
 
+    private int currentSlidervalue = 0;
+    private int maxSlidervalue = 0;
+
     private List<Locomotive> Locomotives
     {
         get
@@ -49,9 +52,24 @@ public class TrainUpgradePanel : MonoBehaviour
     {
         for (int i = 0; i < _wagonHUDList.Count; i++)
         {
+            _wagonHUDList[i].Icon.sprite = Locomotives[_indexLocomotiveDisplayed].wagons[i].type.icon;
             _wagonHUDList[i].CurrentStorageText.SetText("" + Locomotives[_indexLocomotiveDisplayed].wagons[i].projectiles);
             _wagonHUDList[i].MaxStorageText.SetText("" + Locomotives[_indexLocomotiveDisplayed].wagons[i].MaxWagonStorage);
+            SetSliderValue(Locomotives[_indexLocomotiveDisplayed].wagons[i].projectiles, Locomotives[_indexLocomotiveDisplayed].wagons[i].MaxWagonStorage);
+            _wagonHUDList[i].CurrentStorageValueSlider.value = currentSlidervalue;
+            _wagonHUDList[i].CurrentStorageValueSlider.maxValue = maxSlidervalue;
+
+            _wagonHUDList[i].CurrentProjectileUI.SetUpProjectile(
+                Locomotives[_indexLocomotiveDisplayed].wagons[i].type,
+                Locomotives[_indexLocomotiveDisplayed].wagons[i].projectiles,
+                Locomotives[_indexLocomotiveDisplayed].wagons[i].MaxWagonStorage);
         }
+    }
+
+    private void SetSliderValue(int currentValue, int maxValue)
+    {
+        currentSlidervalue = currentValue;
+        maxSlidervalue = maxValue;
     }
 
     [ContextMenu("UpgradeMaxStorage")]

@@ -128,14 +128,21 @@ public class TowerManagerPanel : MonoBehaviour
 
             towerScriptRef.SetUpgradeMesh(_towerManager.TowersData.UpgradeDatas.UpgradePrefab);
 
-            if (towerInformation != null)
+            if (towerInformation != null & towerHasUpgrade)
             {
                 towerInformation.SetTowerData(_towerManager.TowersData);
                 towerInformation.CanUpgrade(canBuyTower);
 
             }
+            else
+            {
+                UpdateTowerUpgrdePossibility();
+            }
+
+
    
             towerScriptRef.RangeIndicator.UpdateCircle();
+            
         }
     }
 

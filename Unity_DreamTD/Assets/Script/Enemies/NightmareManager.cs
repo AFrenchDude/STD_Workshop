@@ -20,6 +20,9 @@ public class NightmareManager : MonoBehaviour
 
     private List<GameObject> boostedEnemies;
 
+    [SerializeField]
+    private GameObject _boostParticle;
+
     private enum SupportEffect
     {
         None,
@@ -102,10 +105,12 @@ public class NightmareManager : MonoBehaviour
                                 {
                                     testedCollider.AddComponent<Status_Boosted_Heal>();
                                     testedCollider.GetComponent<Status_Boosted_Heal>().AddHeal(_nightmareData.Boost);
+                                    
                                 }
                                 else
                                 {
                                     testedCollider.GetComponent<Status_Boosted_Heal>().ResetTimer();
+                                    
                                 }
                                 break;
 
@@ -114,10 +119,12 @@ public class NightmareManager : MonoBehaviour
                                 {
                                     testedCollider.AddComponent<Status_Boosted_Speed>();
                                     testedCollider.GetComponent<Status_Boosted_Speed>().AddSpeed(_nightmareData.Boost);
+                                    
                                 }
                                 else
                                 {
                                     testedCollider.GetComponent<Status_Boosted_Speed>().ResetTimer();
+                                    
                                 }
                                 break;
 

@@ -166,4 +166,11 @@ public class Projectile
 
     [SerializeField]
     public int MaxProjectilesAmmount;
+
+    public void SetupProjectile(ProjectileType type, int number, int maxAmmount)
+    {
+        ProjectileType = type;
+        ProjectileAmmount = number;
+        MaxProjectilesAmmount = maxAmmount;
+    }
 }
