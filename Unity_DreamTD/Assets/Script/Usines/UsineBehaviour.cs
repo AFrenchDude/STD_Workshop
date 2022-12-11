@@ -32,6 +32,14 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         _price = price;
     }
 
+    [SerializeField]
+    private FactoryManagerPanel _associatedFactoryManager;
+    public void SetFactoryManagerPanel(FactoryManagerPanel factoryPanel)
+    {
+        _associatedFactoryManager = factoryPanel;
+    }
+
+
     //Production
     private void Update()
     {
@@ -45,14 +53,20 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
             LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnProducing);
             _factoryDatas.AddProjectile(1);
             lastProduction = Time.time;
+
+            if(_associatedFactoryManager != null)
+            {
+                _associatedFactoryManager.SetProjectileContained(_factoryDatas);
+            }
         }
     }
     public void Enable(bool isEnabled)
     {
-        _factoryDatas = Instantiate(_factoryDatas);
-        _factoryDatas.ApplyUpgrade();
+        _factoryDatas = GetComponent<FactoryManager>().FactoryData;
+        
         _factoryDatas.SetProductionEnable(isEnabled);
         enabled = isEnabled;
+        ActiveAnimation(true);
         if (isEnabled)
         {
             audioSource.Play();
@@ -144,7 +158,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         else
         {
             Destroy(_parentMeshRenderers.gameObject);
-            _parentMeshRenderers = Instantiate(_factoryDatas.CurrentUpgrade.UpgradePrefab, transform).transform;
+            SetUpgradeMesh(_factoryDatas.CurrentUpgrade.UpgradePrefab);
 
         }
 

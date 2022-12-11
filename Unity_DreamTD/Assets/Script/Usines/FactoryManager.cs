@@ -22,6 +22,7 @@ public class FactoryManager : MonoBehaviour
     public void OnEnable()
     {
         _factory = GetComponent<Factory>();
+
         //Apply statistics to every scripts
         ApplyStats(_factoryDatas);
     }
@@ -33,5 +34,6 @@ public class FactoryManager : MonoBehaviour
         _factoryDatas.ApplyUpgrade();
 
         _factory.SetFactoryDatas(_factoryDatas);
+            
     }
 }
