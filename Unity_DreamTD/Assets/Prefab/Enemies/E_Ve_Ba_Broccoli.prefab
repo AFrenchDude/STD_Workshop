@@ -50,6 +50,8 @@ GameObject:
   - component: {fileID: 7956597382811981190}
   - component: {fileID: 3533058913453316858}
   - component: {fileID: -6530380749409000052}
+  - component: {fileID: 7717319640192627771}
+  - component: {fileID: 8060944432831748278}
   m_Layer: 10
   m_Name: E_Ve_Ba_Broccoli
   m_TagString: Untagged
@@ -65,7 +67,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3194527713467927116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4799995, y: 0, z: 7.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -240,6 +242,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71a1e9703f7a64b4f8335239a7363c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7717319640192627771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194527713467927116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180dd803ae72a2b45a082f0cf0337994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dissolveMat: {fileID: 2100000, guid: 6101f5b6c444a194fa87d7af4dc911da, type: 2}
+  _dissolveSpeed: 1
+  _vfxList:
+  - {fileID: 2946785334819311569, guid: 62084db910931ae4aac3a46b802e31d8, type: 3}
+  _vfxLifetimes:
+  - 2
+  _spawnOnAwake: 0
+--- !u!114 &8060944432831748278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194527713467927116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f749cb617f57694d9b9f302aba51cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8901638330124799045

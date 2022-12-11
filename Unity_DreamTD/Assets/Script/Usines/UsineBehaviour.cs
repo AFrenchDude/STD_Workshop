@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 //Made By Melinon Remy
 public class UsineBehaviour : MonoBehaviour, IPickerGhost
@@ -106,13 +107,21 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         _goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
     }
 
+    [SerializeField]
+    private VisualEffect _upgradeEffect;
+
+    public void ActiveUpgradeVfx()
+    {
+        _upgradeEffect.gameObject.SetActive(true);
+        _upgradeEffect.Play();
+        
+    }
+
     public void SetUpgradeMesh(GameObject mesh)
     {
         Destroy(_parentMeshRenderers.gameObject);
         _parentMeshRenderers = Instantiate(mesh, this.transform).transform;
         _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", true);
-
-
     }
 
     public void ActiveAnimation(bool activted)

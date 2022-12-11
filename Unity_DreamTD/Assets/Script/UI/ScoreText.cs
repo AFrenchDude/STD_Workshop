@@ -41,10 +41,10 @@ public class ScoreText : MonoBehaviour
             //If on win screen
             if(stars.Count > 0)
             {
-                for(int i = 0; i != LevelReferences.Instance.ScoreManager.starScore.Count; i++)
+                for(int i = 0; i != LevelReferences.Instance.ScoreManager.levelSave.starScore.Count; i++)
                 {
                     //Check for star
-                    if (score >= LevelReferences.Instance.ScoreManager.starScore[i] && stars[i].gameObject != null)
+                    if (score >= LevelReferences.Instance.ScoreManager.levelSave.starScore[i] && stars[i].gameObject != null)
                     {
                         stars[i].gameObject.SetActive(true);
                         GiveStar(i + 1);

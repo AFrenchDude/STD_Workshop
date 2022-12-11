@@ -59,7 +59,6 @@ public class OptionsBehaviour : MonoBehaviour
         {
             string option = resolution[i].width + "x" + resolution[i].height;
             options.Add(option);
-            Debug.Log(resolution[i]);
             if (resolution[i].width == Screen.currentResolution.width && resolution[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIdex = i;
@@ -85,13 +84,13 @@ public class OptionsBehaviour : MonoBehaviour
         }
     }
     //Wait to avoid earing half of the click sound
-    IEnumerator MuteCoroutine()
+    public IEnumerator MuteCoroutine()
     {
         yield return new WaitForSeconds(0.1f);
         sfxSlider.value = -40;
         musicSlider.value = -40;
     }
-    IEnumerator UnmuteCoroutine()
+    public IEnumerator UnmuteCoroutine()
     {
         yield return new WaitForSeconds(0.1f);
         sfxSlider.value = lastSFXvalue;

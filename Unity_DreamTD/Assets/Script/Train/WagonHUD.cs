@@ -18,4 +18,10 @@ public class WagonHUD : MonoBehaviour
     public Slider CurrentStorageValueSlider => _currentStorageValueSlider;
     public CurrentProjectileUI CurrentProjectileUI => _currentProjectileUI;
 
+    public void SetSliderValue(int currentValue, int maxValue)
+    {
+        _currentStorageValueSlider.value = currentValue;
+        _currentStorageValueSlider.maxValue = maxValue;
+    }
+
 }

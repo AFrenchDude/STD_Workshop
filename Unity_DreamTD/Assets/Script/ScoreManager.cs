@@ -5,9 +5,7 @@ using System.Collections.Generic;
 public class ScoreManager : MonoBehaviour
 {
     public LevelSave levelSave;
-    public int score = 0;
-    //Score to reach to get stars
-    public List<int> starScore;
+    [HideInInspector] public int score = 0;
 
     private void Start()
     {

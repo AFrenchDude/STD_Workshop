@@ -110,7 +110,7 @@ public class TowersDatas : ScriptableObject
         _damage = _currentUpgrade.UpgradeDamage;
         _fireRate = _currentUpgrade.UpgradeFireRate;
         _range = _currentUpgrade.UpgradeRange;
-        _maxProjectilesAmmount = _currentUpgrade.UpgradeMaxProjectiles;
+        _maxProjectilesAmmount = Mathf.CeilToInt((float)_currentUpgrade.UpgradeMaxProjectiles / (float)_projectileTypeList.Count);
         _aoeRadius = _currentUpgrade.UpgradeAOERadius;
 
         foreach(Projectile projectile in _projectileTypeList)

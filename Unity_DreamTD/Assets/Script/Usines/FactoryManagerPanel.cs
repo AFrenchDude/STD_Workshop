@@ -120,7 +120,9 @@ public class FactoryManagerPanel : MonoBehaviour
 
 
             factoryScriptRef.SetUpgradeMesh(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrefab);
-            
+            factoryScriptRef.ActiveUpgradeVfx();
+
+
 
             if (factoryInformation != null & _factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
             {
