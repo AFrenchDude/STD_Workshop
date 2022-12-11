@@ -23,8 +23,14 @@ public class Damageable : MonoBehaviour
 
     public int MaxHP => _maxHealth;
     public float CurrentHealth => _health;
+    public bool DestroyOnDeath => _destroyOnDeath;
     public Transform TargetAnchor => _targetAnchor;
     public Transform HeadAnchor => _headAnchor;
+
+    public void SetDestroyOnDeath(bool destroyOnDeath)
+    {
+        _destroyOnDeath = destroyOnDeath;
+    }
 
     public void setMaxHp(float maxHp, bool shouldRestoreLife, bool shouldKeepPercent)
     {

@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 7956597382811981190}
   - component: {fileID: 3533058913453316858}
   - component: {fileID: -6530380749409000052}
+  - component: {fileID: 6759367960057470404}
   m_Layer: 10
   m_Name: E_Ve_Fl_Carrot
   m_TagString: Untagged
@@ -242,6 +243,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a1e9703f7a64b4f8335239a7363c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6759367960057470404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194527713467927116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180dd803ae72a2b45a082f0cf0337994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dissolveMat: {fileID: 2100000, guid: 6101f5b6c444a194fa87d7af4dc911da, type: 2}
+  _dissolveSpeed: 1
+  _vfxList:
+  - {fileID: 2946785334819311569, guid: 62084db910931ae4aac3a46b802e31d8, type: 3}
+  _vfxLifetimes:
+  - 2
+  _spawnOnAwake: 0
 --- !u!1 &8901638330124799045
 GameObject:
   m_ObjectHideFlags: 0
