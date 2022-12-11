@@ -45,6 +45,12 @@ public class UI_TowerPanelManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _upgradeRange;
 
+    [Header("Capacity")]
+    [SerializeField]
+    private TextMeshProUGUI _currentCapacity;
+    [SerializeField]
+    private TextMeshProUGUI _upgradeCapacity;
+
     [Header("Price")]
     [SerializeField]
     private TextMeshProUGUI _price;
@@ -89,6 +95,7 @@ public class UI_TowerPanelManager : MonoBehaviour
             SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeDamage, false);
             SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeFireRate, true);
             SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeRange, false);
+            SetUpUpgrade(_currentCapacity, _upgradeCapacity, _towerDatas.MaxProjectilesAmmount, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeMaxProjectiles, false);
 
             _price.text = _towerDatas.UpgradeDatas.UpgradePrice.ToString();
 

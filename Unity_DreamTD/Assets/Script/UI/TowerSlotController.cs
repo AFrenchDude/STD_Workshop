@@ -48,6 +48,7 @@ public class TowerSlotController : MonoBehaviour
     private void TowerSlotController_OnTowerSlotClicked(TowerSlot sender)
     {
         CancelTowerDrag();
+        LevelReferences.Instance.Player.GetComponent<UIManager>().DestroyAllUpgradeChildren();
         LevelReferences.Instance.Player.GetComponentInChildren<UsineSlotController>().CancelUsineDrag();
         if (_state == State.Available)
         {

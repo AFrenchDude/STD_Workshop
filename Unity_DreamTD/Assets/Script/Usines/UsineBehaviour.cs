@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 //Made By Melinon Remy
 public class UsineBehaviour : MonoBehaviour, IPickerGhost
@@ -32,6 +33,14 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         _price = price;
     }
 
+    [SerializeField]
+    private FactoryManagerPanel _associatedFactoryManager;
+    public void SetFactoryManagerPanel(FactoryManagerPanel factoryPanel)
+    {
+        _associatedFactoryManager = factoryPanel;
+    }
+
+
     //Production
     private void Update()
     {
@@ -45,14 +54,20 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
             LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnProducing);
             _factoryDatas.AddProjectile(1);
             lastProduction = Time.time;
+
+            if(_associatedFactoryManager != null)
+            {
+                _associatedFactoryManager.SetProjectileContained(_factoryDatas);
+            }
         }
     }
     public void Enable(bool isEnabled)
     {
-        _factoryDatas = Instantiate(_factoryDatas);
-        _factoryDatas.ApplyUpgrade();
+        _factoryDatas = GetComponent<FactoryManager>().FactoryData;
+        
         _factoryDatas.SetProductionEnable(isEnabled);
         enabled = isEnabled;
+        ActiveAnimation(true);
         if (isEnabled)
         {
             audioSource.Play();
@@ -92,13 +107,21 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         _goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
     }
 
+    [SerializeField]
+    private VisualEffect _upgradeEffect;
+
+    public void ActiveUpgradeVfx()
+    {
+        _upgradeEffect.gameObject.SetActive(true);
+        _upgradeEffect.Play();
+        
+    }
+
     public void SetUpgradeMesh(GameObject mesh)
     {
         Destroy(_parentMeshRenderers.gameObject);
         _parentMeshRenderers = Instantiate(mesh, this.transform).transform;
         _parentMeshRenderers.GetComponent<Animator>().SetBool("Activated", true);
-
-
     }
 
     public void ActiveAnimation(bool activted)
@@ -144,7 +167,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         else
         {
             Destroy(_parentMeshRenderers.gameObject);
-            _parentMeshRenderers = Instantiate(_factoryDatas.CurrentUpgrade.UpgradePrefab, transform).transform;
+            SetUpgradeMesh(_factoryDatas.CurrentUpgrade.UpgradePrefab);
 
         }
 

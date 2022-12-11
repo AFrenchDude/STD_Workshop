@@ -39,8 +39,9 @@ public class UsineSlotController : MonoBehaviour
     }
 
     private void UsineSlotController_OnUsineSlotClicked(UsineSlot sender)
-    {
+    {        
         CancelUsineDrag();
+        LevelReferences.Instance.Player.GetComponent<UIManager>().DestroyAllUpgradeChildren();
         LevelReferences.Instance.Player.GetComponentInChildren<TowerSlotController>().CancelTowerDrag();
         if (_state == State.Available)
         {

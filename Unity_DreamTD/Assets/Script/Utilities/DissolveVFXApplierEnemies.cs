@@ -14,6 +14,7 @@ public class DissolveVFXApplierEnemies : MonoBehaviour
     private float _counter = 0.0f;
     private List<SkinnedMeshRenderer> _meshRendererList = new List<SkinnedMeshRenderer>();
 
+    public float DissolveSpeed => _dissolveSpeed;
     private void Awake()
     {
         if (_spawnOnAwake)
@@ -38,7 +39,7 @@ public class DissolveVFXApplierEnemies : MonoBehaviour
         _waitingToDissolve = true;
     }
 
-    public void SpawnVFXs()
+    private void SpawnVFXs()
     {
         for (int i = 0; i < _vfxList.Count; i++)
         {

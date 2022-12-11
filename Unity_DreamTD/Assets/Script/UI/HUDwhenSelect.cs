@@ -20,40 +20,24 @@ public class HUDwhenSelect : MonoBehaviour
     //Display HUD
     public void OnSelect()
     {
-        //If click on train
-        if (hudRef.GetComponent<TrainsHUD>() != null)
-        {
-            hudRef.SetActive(true);
-            hudRef.GetComponent<TrainsHUD>().PickTrain(transform.parent.gameObject);
-        }
+
         //If click on usine
-        else if (gameObject.GetComponent<FactoryManager>() != null)
+        if (gameObject.transform.root.GetComponent<FactoryManager>() != null)
         {
             _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
         }
         //If click on tower
-        else if (gameObject.GetComponent<Tower>() != null && gameObject.GetComponent<Tower>().enabled) //enabled == false => isDragging => prevent CreatePanel
+        else if (gameObject.transform.root.GetComponent<Tower>() != null && gameObject.GetComponent<Tower>().enabled) //enabled == false => isDragging => prevent CreatePanel
         {
             _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
             gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
-        }
-        //If click on station
-        else if (hudRef.GetComponent<TowerHUD>() == null)
-        {
-            hudRef.SetActive(true);
         }
     }
 
     public void OnDeselect()
     {
-        //If train
-        if (hudRef.GetComponent<TrainsHUD>() != null)
-        {
-            hudRef.GetComponent<TrainsHUD>().Unpick();
-            hudRef.SetActive(false);
-        }
         //If usine
-        else if (gameObject.GetComponent<Factory>() != null)
+        if (gameObject.GetComponent<Factory>() != null)
         {
             //hudRef.GetComponent<UsineHUD>().OnUnpick();
             //hudRef.SetActive(false);
@@ -74,11 +58,6 @@ public class HUDwhenSelect : MonoBehaviour
             {
                 gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(false);
             }
-        }
-        //If station
-        else if (hudRef.GetComponent<TowerHUD>() == null)
-        {
-            hudRef.SetActive(false);
         }
     }
 }

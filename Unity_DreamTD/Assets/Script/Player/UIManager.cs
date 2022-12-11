@@ -111,4 +111,22 @@ public class UIManager : MonoBehaviour
     {
         upgradeTowerPanel.FadeOut();
     }
+
+
+    public void DestroyAllUpgradeChildren()
+    {
+        for (int i = 0; i < _upgradePanelsContainer.transform.childCount; i++)
+        {
+            Transform child = _upgradePanelsContainer.transform.GetChild(i);
+
+            if (child.GetComponent<TowerManagerPanel>() != null)
+            {
+                child.GetComponent<TowerManagerPanel>().ClosePanel();
+            }
+            else if (child.GetComponent<FactoryManagerPanel>() != null)
+            {
+                child.GetComponent<FactoryManagerPanel>().ClosePanel();
+            }
+        }
+    }
 }

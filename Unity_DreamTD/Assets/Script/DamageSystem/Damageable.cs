@@ -23,8 +23,14 @@ public class Damageable : MonoBehaviour
 
     public int MaxHP => _maxHealth;
     public float CurrentHealth => _health;
+    public bool DestroyOnDeath => _destroyOnDeath;
     public Transform TargetAnchor => _targetAnchor;
     public Transform HeadAnchor => _headAnchor;
+
+    public void SetDestroyOnDeath(bool destroyOnDeath)
+    {
+        _destroyOnDeath = destroyOnDeath;
+    }
 
     public void setMaxHp(float maxHp, bool shouldRestoreLife, bool shouldKeepPercent)
     {
@@ -50,11 +56,7 @@ public class Damageable : MonoBehaviour
         if (_health <= 0)
         {
             LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnDeath);
-            if (_healthBar != null)
-            {
-                Destroy(_healthBar.gameObject);
-            }
-
+            DestroyHealthBar();
             Death();
         }
         else
@@ -63,6 +65,7 @@ public class Damageable : MonoBehaviour
             {
                 UIManager uiManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
                 _healthBar = uiManager.CreateEnemiesHealthBar(_headAnchor);
+                _healthBar.SetPathFollower(GetComponent<PathFollower>());
             }
 
             if (_healthBar != null)
@@ -70,6 +73,14 @@ public class Damageable : MonoBehaviour
                 _healthBar.UpdateLife(_health, _maxHealth);
 
             }
+        }
+    }
+
+    public void DestroyHealthBar()
+    {
+        if (_healthBar != null)
+        {
+            Destroy(_healthBar.gameObject);
         }
     }
 
