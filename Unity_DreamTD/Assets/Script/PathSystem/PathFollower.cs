@@ -94,6 +94,7 @@ public class PathFollower : MonoBehaviour
         }
         else
         {
+            //GetComponent<Damageable>().DestroyHealthBar();
             Destroy(gameObject);
         }
     }

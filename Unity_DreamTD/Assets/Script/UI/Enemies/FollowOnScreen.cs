@@ -12,6 +12,8 @@ public class FollowOnScreen : MonoBehaviour
     private Camera _camera;
     private Canvas _canvas;
 
+    public Transform Target => _target;
+
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
