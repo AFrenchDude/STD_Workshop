@@ -112,6 +112,7 @@ public class TrainUpgradePanel : MonoBehaviour
     {
         Locomotives[_indexLocomotiveDisplayed].wagons[wagonIndex].type = newType;
         Locomotives[_indexLocomotiveDisplayed].wagons[wagonIndex].SetWagonMesh();
+        Locomotives[_indexLocomotiveDisplayed].wagons[wagonIndex].projectiles = 0;
     }
 
 
