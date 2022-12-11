@@ -34,10 +34,15 @@ public class ProjectileType : ScriptableObject
     [SerializeField]
     private GameObject _hitAOE;
 
+    [Header("Visual")]
+    [SerializeField]
+    private GameObject _wagonMesh;
+
     public Color ProjectileColor => _projectileColor;
     public Sprite Icon => _icon;
     public GameObject HitFX => _hitFX;
     public GameObject HitAOE => _hitAOE;
+    public GameObject WagonMesh => _wagonMesh;  
 
     public NightmareData.NighmareType convertProjectileToNightmare()
     {

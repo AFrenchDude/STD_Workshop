@@ -51,7 +51,7 @@ public class CurrentProjectileUI : MonoBehaviour
     public void SetUpProjectile(Projectile projectile)
     {
         _projectile = projectile;
-        ProjectileCreated.Invoke();
+        //ProjectileCreated.Invoke();
         ApplyProjectileType();
     }
 

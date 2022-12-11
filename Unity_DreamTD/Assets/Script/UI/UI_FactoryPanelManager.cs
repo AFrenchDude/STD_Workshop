@@ -113,7 +113,6 @@ public class UI_FactoryPanelManager : MonoBehaviour
         _isFadeOut = true;
         if (GetComponent<Animator>() != null)
         {
-
             GetComponent<Animator>().SetBool("Close", _isFadeOut);
         }
     }
