@@ -18,6 +18,7 @@ public class PathFollower : MonoBehaviour
 
     public float Speed => _movementSpeed;
     public float OGSpeed => _originalMovementSpeed;
+    public bool Loop => _loop;
 
     public UnityEvent<PathFollower> LastWaypointReached;
     public void SetOriginalSpeed(float speed)
