@@ -111,6 +111,7 @@ public class TrainUpgradePanel : MonoBehaviour
     public void SetNewProjectileType(int wagonIndex, ProjectileType newType)
     {
         Locomotives[_indexLocomotiveDisplayed].wagons[wagonIndex].type = newType;
+        Locomotives[_indexLocomotiveDisplayed].wagons[wagonIndex].projectiles = 0;
     }
 
 

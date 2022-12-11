@@ -55,6 +55,7 @@ public class Locomotive : MonoBehaviour
         SetIsParked(false);
 
         LevelReferences.Instance.LocomotiveManager.AddLocomotiveToList(this);
+        splineFollower.spline = LevelReferences.Instance.RailSpline;
     }
     private void Start()
     {
@@ -395,7 +396,7 @@ public class Locomotive : MonoBehaviour
     }
     public void UpdateSpeed()
     {
-            splineFollower.SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
+        splineFollower.SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
     }
     #endregion
 
