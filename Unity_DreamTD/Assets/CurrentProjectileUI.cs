@@ -77,8 +77,14 @@ public class CurrentProjectileUI : MonoBehaviour
     {
         _iconImage.sprite = _projectile.ProjectileType.Icon;
 
-        _backgroundImage.color = _projectile.ProjectileType.ProjectileColor;
-        _ammountImage.color = _projectile.ProjectileType.ProjectileColor * new Color(0.5f, 0.5f, 0.5f, 1f);
+        if (_backgroundImage != null)
+        {
+            _backgroundImage.color = _projectile.ProjectileType.ProjectileColor;
+        }
+        if (_ammountImage != null)
+        {
+            _ammountImage.color = _projectile.ProjectileType.ProjectileColor * new Color(0.5f, 0.5f, 0.5f, 1f);
+        }
     }
 
     [Header("ChangingPanel")]
@@ -98,9 +104,9 @@ public class CurrentProjectileUI : MonoBehaviour
         if (_projTypeList.Count == 0)
         {
 
-            foreach(CurrentProjectileUI currentProjectileUI in _otherProjectilesSelector)
+            foreach (CurrentProjectileUI currentProjectileUI in _otherProjectilesSelector)
             {
-                if(currentProjectileUI != this)
+                if (currentProjectileUI != this)
                 {
                     currentProjectileUI.CloseSelector();
                 }
@@ -137,14 +143,14 @@ public class CurrentProjectileUI : MonoBehaviour
 
     public void ChangeProjectile(ProjectileType projectileType)
     {
-        if(_towerDatas != null)
+        if (_towerDatas != null)
         {
             _towerDatas.SetProjectileType(_projectileIndex, projectileType);
             SetUpProjectile(_towerDatas.Projectiles[_projectileIndex]);
         }
-        else if(_trainUpgradePanel != null)
+        else if (_trainUpgradePanel != null)
         {
-            _trainUpgradePanel.SetNewProjectileType(_wagonLinkedIndex, projectileType); 
+            _trainUpgradePanel.SetNewProjectileType(_wagonLinkedIndex, projectileType);
         }
 
 
@@ -154,7 +160,7 @@ public class CurrentProjectileUI : MonoBehaviour
 
     public void DestroyAllSelectorType()
     {
-        foreach(SelectorTypeOfProjectile selector in _projTypeList)
+        foreach (SelectorTypeOfProjectile selector in _projTypeList)
         {
             Destroy(selector.gameObject);
         }
@@ -163,7 +169,7 @@ public class CurrentProjectileUI : MonoBehaviour
 
     private void Update()
     {
-        if (_projectile != null)
+        if (_projectile != null & _ammountText != null)
         {
             _ammountText.text = _projectile.ProjectileAmmount.ToString();
         }

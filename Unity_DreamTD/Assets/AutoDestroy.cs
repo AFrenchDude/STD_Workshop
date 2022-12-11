@@ -15,7 +15,7 @@ public class AutoDestroy : MonoBehaviour
     }
     private void Update()
     {
-        if( _startTime + _timeBeforeDestroy < _timeBeforeDestroy)
+        if( _startTime + _timeBeforeDestroy < Time.time)
         {
             Destroy(gameObject);
         }

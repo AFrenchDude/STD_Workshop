@@ -44,7 +44,7 @@ public class PathFollower : MonoBehaviour
 
     public float getPathDistance
     {
-        get{return _waypointIndex * 10000 + (_pathWaypoints[_waypointIndex] - transform.position).magnitude;}
+        get{return _waypointIndex * 10000 + (_pathWaypoints[_waypointIndex+1] - transform.position).magnitude;}
     }
 
     private void Update()

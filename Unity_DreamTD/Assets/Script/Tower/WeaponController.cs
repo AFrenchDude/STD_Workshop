@@ -187,7 +187,10 @@ public class WeaponController : MonoBehaviour
         }
 
 
-        
+        spawnedProjectile.GetComponent<Damager>().SetFireType(_towersData.FireType);
+
+
+
 
 
     }

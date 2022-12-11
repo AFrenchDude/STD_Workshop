@@ -26,6 +26,9 @@ public class ProjectileType : ScriptableObject
     private Color _projectileColor;
 
     [SerializeField]
+    private Sprite _projectileBackgroundSprite;
+
+    [SerializeField]
     private Sprite _icon;
 
     [Header("FX")]
@@ -39,6 +42,7 @@ public class ProjectileType : ScriptableObject
     private GameObject _wagonMesh;
 
     public Color ProjectileColor => _projectileColor;
+    public Sprite PrjectileBackgroundSprite => _projectileBackgroundSprite;
     public Sprite Icon => _icon;
     public GameObject HitFX => _hitFX;
     public GameObject HitAOE => _hitAOE;

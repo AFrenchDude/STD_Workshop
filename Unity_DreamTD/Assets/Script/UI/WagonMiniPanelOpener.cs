@@ -18,10 +18,7 @@ public class WagonMiniPanelOpener : MonoBehaviour, IPointerEnterHandler, IPointe
     [SerializeField]
     private CurrentProjectileUI currentProjectileUI;
 
-    private void Awake()
-    {
-        selectedBackground.enabled = false;
-    }
+    
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -34,14 +31,14 @@ public class WagonMiniPanelOpener : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OpenInfoPanel()
     {
-        selectedBackground.GetComponent<Image>().enabled = true;
+        selectedBackground.GetComponent<Image>().color = new Color(0.9803922f, 0.9176471f, 0.578f,1);
         animator.SetBool("Close", true);
     }
 
     public void CloseInfoPanel()
     {
         currentProjectileUI.CloseSelector();
-        selectedBackground.GetComponent<Image>().enabled = false;
+        selectedBackground.GetComponent<Image>().color = new Color(1, 1, 1, 1);
         animator.SetBool("Close", false);
     }
 }

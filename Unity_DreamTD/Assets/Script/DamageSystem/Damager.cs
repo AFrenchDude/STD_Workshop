@@ -7,6 +7,7 @@ public class Damager : MonoBehaviour
     [SerializeField] private float _attack = 1;
     [SerializeField] ProjectileType _attackType;
     [SerializeField] private float _mortarRadius;
+    [SerializeField] private TowersDatas.fireType _fireType;
 
     //Equilibrium
     private bool _miraculousBullet = false;
@@ -31,6 +32,10 @@ public class Damager : MonoBehaviour
     public void SetMortarRadius(float radius)
     {
         _mortarRadius = radius;
+    }
+    public void SetFireType(TowersDatas.fireType fire)
+    {
+        _fireType = fire;
     }
 
     public ProjectileType AttackType => _attackType;
@@ -84,22 +89,47 @@ public class Damager : MonoBehaviour
         NightmareData.NighmareType projectileNightmareWeak = _attackType.convertProjectileToNightmare();
         NightmareData.NighmareType projectileNightmareResisted = _attackType.convertProjectileToNightmareResistance();
 
+        float highBoost = 2f;
+        float normalBoost = 1.25f;
+        float debuffBoost = .75f;
+
+        switch (_fireType)
+        {
+            case (TowersDatas.fireType.Direct):
+                highBoost = 1.5f;
+                normalBoost = 1f;
+                debuffBoost = 1f;
+                break;
+
+
+            case (TowersDatas.fireType.Mortar):
+                highBoost = 1.75f;
+                normalBoost = 1f;
+                debuffBoost = .75f;
+                break;
+
+            case (TowersDatas.fireType.DoubleCanon):
+                highBoost = 2f;
+                normalBoost = 1.25f;
+                debuffBoost = .75f;
+                break;
+        }
 
 
         if (projectileNightmareWeak == otherNightmareType)
         {
             Debug.Log("Strong");
-            newdamage = _attack * 2f;
+            newdamage = _attack * highBoost;
         }
         else if (projectileNightmareResisted != otherNightmareType & projectileNightmareResisted != NightmareData.NighmareType.Neutral)
         {
             Debug.Log("Normal");
-            newdamage = _attack * 1.25f;
+            newdamage = _attack * normalBoost;
         }
         else
         {
             Debug.Log("Weak");
-            newdamage = _attack * 0.75f;
+            newdamage = _attack * debuffBoost;
         }
 
         //Test if it's last projectile

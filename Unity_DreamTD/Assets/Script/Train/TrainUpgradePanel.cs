@@ -54,6 +54,9 @@ public class TrainUpgradePanel : MonoBehaviour
 
 
             _wagonHUDList[i].Icon.sprite = Locomotives[_indexLocomotiveDisplayed].wagons[i].type.icon;
+            _wagonHUDList[i].Background.sprite = Locomotives[_indexLocomotiveDisplayed].wagons[i].type.PrjectileBackgroundSprite;
+            _wagonHUDList[i].CurrentStorageValueSlider.image.color = Locomotives[_indexLocomotiveDisplayed].wagons[i].type.ProjectileColor - new Color(.5f,.5f,.5f,0f);
+
             _wagonHUDList[i].CurrentStorageText.SetText("" + Locomotives[_indexLocomotiveDisplayed].wagons[i].projectiles);
             _wagonHUDList[i].MaxStorageText.SetText("" + Locomotives[_indexLocomotiveDisplayed].wagons[i].MaxWagonStorage);
             _wagonHUDList[i].SetSliderValue(Locomotives[_indexLocomotiveDisplayed].wagons[i].projectiles, Locomotives[_indexLocomotiveDisplayed].wagons[i].MaxWagonStorage);
@@ -73,6 +76,7 @@ public class TrainUpgradePanel : MonoBehaviour
     public void UpgradeWagonCount()
     {
         Locomotives[_indexLocomotiveDisplayed].UpgradeWagonCountLevel();
+        UpdateHUDValues();
     }
 
     [ContextMenu("UpgradeMaxStorage")]
