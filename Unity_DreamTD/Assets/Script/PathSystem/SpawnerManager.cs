@@ -120,7 +120,7 @@ public class SpawnerManager : MonoBehaviour
         _currentWaveSetIndex += 1;
         var waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
 
-        LevelReferences.Instance.DebugDataSaver.CreateNewWave(_currentWaveRunning);
+        LevelReferences.Instance.DebugDataSaver.CreateNewWave(_currentWaveSetIndex);
 
         if (waveDatabase.Waves.Count > _currentWaveSetIndex)
         {
