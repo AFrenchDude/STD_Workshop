@@ -133,7 +133,6 @@ public class TowersDatas : ScriptableObject
     }
 
     //Set Projectlile Type
-
     public void SetProjectileType(int index, ProjectileType projectileType)
     {
         _projectileTypeList[index].ProjectileType = projectileType;

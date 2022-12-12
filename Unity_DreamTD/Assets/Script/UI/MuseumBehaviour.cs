@@ -117,12 +117,13 @@ public class MuseumBehaviour : MonoBehaviour
         nameText.SetText("Name: " + nightmare.Name);
         descriptionText.SetText("Description: " + nightmare.Description + "<br>" +
             "Type: " + nightmare.NightmareData.nighmareType + "<br>" +
-            "Role: " + nightmare.NightmareData.nightmareFunction + "<br><br>" +
+            "Role: " + nightmare.NightmareData.nightmareFunction + "<br>" +
+            "Weakness: " + nightmare.NightmareData.weakness + "<br><br>" +
             "Speed: " + nightmare.NightmareData.speed + "<br>" + 
             "Gold reward: " + nightmare.NightmareData.rewardGold + "<br>" + 
             "Max life: " + nightmare.NightmareData.maxLife + "<br><br>" + 
-            "Killcount: " + nightmare.NightmareData.KillCount);
-        Set3Dmodel(nightmare.EnemyModel, new Vector3(0, -180, 0));
+            "Killcount: " + nightmare.NightmareData.KillCount + " killed");
+        Set3Dmodel(nightmare.EnemyModel, new Vector3(30, -220, -15), 10);
     }
 
     //Pick new tower
@@ -133,14 +134,14 @@ public class MuseumBehaviour : MonoBehaviour
             currentTowerUpgrade = towersDatas.UpgradeDatas;
         }
         //Set text of enemy name and description
-        nameText.SetText("Name: " + towersDatas.Name +" (" + currentTowerUpgrade.UpgradeName + ")");
+        nameText.SetText("Name: " + towersDatas.Name + " (" + currentTowerUpgrade.UpgradeName + ")");
         descriptionText.SetText("Description: " + towersDatas.Description + "<br>" +
-            "Type: " + towersDatas.Type + "<br>" +
+            "Type: " + towersDatas.Type + "<br><br>" +
             "Damage: " + currentTowerUpgrade.UpgradeDamage+ "<br>" +
-            "Fire rate: " + currentTowerUpgrade.UpgradeFireRate + "<br>" +
+            "Fire cooldown: " + currentTowerUpgrade.UpgradeFireRate + "s" + "<br>" +
             "Max projectiles: " + currentTowerUpgrade.UpgradeMaxProjectiles + "<br>" +
             "Range: " + currentTowerUpgrade.UpgradeRange);
-        Set3Dmodel(currentTowerUpgrade.UpgradePrefab, new Vector3(15, 220, 20));
+        Set3Dmodel(currentTowerUpgrade.UpgradePrefab, new Vector3(30, 110, -35), 6);
     }
 
     //Pick new usine
@@ -154,21 +155,21 @@ public class MuseumBehaviour : MonoBehaviour
         nameText.SetText("Name: " + factoryUpgradeData.Name + " (" + currentFactoryUpgrade.UpgradeName + ")");
         descriptionText.SetText("Description: " + factoryUpgradeData.UpgradeDescription + "<br>" +
             "Type: " + factoryUpgradeData.Type + "<br><br>" +
-            "Production rate: " + currentFactoryUpgrade.UpgradeCooldown + "<br>" +
+            "Production rate: " + currentFactoryUpgrade.UpgradeCooldown + "s" + "<br>" +
             "Price: " + currentFactoryUpgrade.UpgradePrice + "<br>" +
             "Max resources: " + currentFactoryUpgrade.UpgradeMaxResource);
-        Set3Dmodel(currentFactoryUpgrade.UpgradePrefab, new Vector3(-15, -70, 15));
+        Set3Dmodel(currentFactoryUpgrade.UpgradePrefab, new Vector3(-15, -70, 15), 6);
     }
 
     //Model 3D
-    void Set3Dmodel(GameObject model, Vector3 rotation)
+    void Set3Dmodel(GameObject model, Vector3 rotation, int scale)
     {
         //Destroy last enemy modelPositionRef if not null
         DestroyModel();
         //Create new enemy modelPositionRef
         var instantiatedNightmare = Instantiate(model, modelPositionRef.position, Quaternion.identity);
         //Set modelPositionRef settings
-        instantiatedNightmare.transform.localScale *= 6;
+        instantiatedNightmare.transform.localScale *= scale;
         instantiatedNightmare.transform.eulerAngles = rotation;
         //Play animation
         if (instantiatedNightmare.GetComponent<Animator>() != null)
