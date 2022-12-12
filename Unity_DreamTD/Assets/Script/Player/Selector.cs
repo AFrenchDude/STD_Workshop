@@ -14,7 +14,6 @@ public class Selector : MonoBehaviour
     public bool IsMouseOnUI => isMouseOnUI;
     public void Select(InputAction.CallbackContext obj)
     {
-
         //when button is pressed
         if (obj.phase == InputActionPhase.Canceled)
         {
@@ -24,17 +23,20 @@ public class Selector : MonoBehaviour
             {
                 if (openHUDref != null)
                 {
+                    Debug.Log("deselect1");
                     openHUDref.OnDeselect();
                     openHUDref = null;
                 }
                 if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
                 {
+                    Debug.Log("coucou");
                     openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
                     openHUDref.OnSelect();
                 }
             }
             else if (openHUDref != null && !isMouseOnUI)
             {
+                Debug.Log("deselect2");
                 openHUDref.OnDeselect();
                 openHUDref = null;
             }
