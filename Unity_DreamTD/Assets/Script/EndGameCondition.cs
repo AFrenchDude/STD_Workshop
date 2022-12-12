@@ -21,7 +21,6 @@ public class EndGameCondition : Singleton<EndGameCondition>
     public void PlayerVictory()
     {
         LevelReferences.Instance.Player.GetComponent<GoldManager>().ExportPurchaseToCSV();
-
         victoryScreen.SetActive(true);
         victoryScreen.GetComponent<ScoreText>().Activate();
     }
