@@ -7,6 +7,9 @@ public class NightmareManager : MonoBehaviour
     [SerializeField]
     private NightmareData _nightmareData;
 
+    [SerializeField]
+    private NightmareBestiaryData _bestiaryNightmareData = null;
+
     private NightmareData _nightmareDataOriginal;
 
     private GoldDrop _goldDrop;
@@ -16,6 +19,7 @@ public class NightmareManager : MonoBehaviour
     [SerializeField]
     private MeshRenderer _meshRenderer;
     public NightmareData NightmareData => _nightmareData;
+    public NightmareBestiaryData BestiaryNightmareData => _bestiaryNightmareData;
     public NightmareData OriginalNightmareData => _nightmareDataOriginal;
 
     private List<GameObject> boostedEnemies;
@@ -41,13 +45,17 @@ public class NightmareManager : MonoBehaviour
         _goldDrop = GetComponent<GoldDrop>();
         _pathFollower = GetComponent<PathFollower>();
         _damageable = GetComponent<Damageable>();
-
+        UnlockBestiaryNightmareData();
         if (_nightmareData.nightmareFunction == NightmareData.NightmareFunction.Support)
         {
 
         }
     }
 
+    private void UnlockBestiaryNightmareData()
+    {
+        _bestiaryNightmareData.UnlockBestiaryData();
+    }
     public void SetEnemyData(NightmareData nightmareData)
     {
         _nightmareData = nightmareData;
