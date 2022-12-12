@@ -59,12 +59,14 @@ public class MuseumBehaviour : MonoBehaviour
                 }
                 else if (button.GetComponent<MuseumButton>().FactoryData != null)
                 {
+                    lastButton = button.gameObject;
                     ChangeUsineDescription(button.GetComponent<MuseumButton>().FactoryData);
                     levelButtons.SetActive(true);
                     break;
                 }
                 else if (button.GetComponent<MuseumButton>().TowersDatas != null)
                 {
+                    lastButton = button.gameObject;
                     ChangeTowerDescription(button.GetComponent<MuseumButton>().TowersDatas);
                     levelButtons.SetActive(true);
                     break;

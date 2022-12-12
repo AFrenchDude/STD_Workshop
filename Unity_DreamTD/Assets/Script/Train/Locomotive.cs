@@ -366,8 +366,9 @@ public class Locomotive : MonoBehaviour
             child = Instantiate(_trainStats.MeshList[_meshIndex], transform);
             child.transform.SetLocalPositionAndRotation(childLocalPosition, childLocalRotation);
             child.transform.localScale = childLocalScale;
+
         }
-        
+
     }
 
     #region WagonCountUpgrades
