@@ -52,30 +52,21 @@ public class UIManager : MonoBehaviour
 
     public TowerManagerPanel CreateTowerPanel(TowerManager towerManager)
     {
-        if(towerManagerPanel == null)
-        {
-            towerManagerPanel = Instantiate(_towerManagerPanel, _upgradePanelsContainer);
+        towerManagerPanel = Instantiate(_towerManagerPanel, _upgradePanelsContainer);
 
-            towerManagerPanel.CreatePanel(towerManager);
+        towerManagerPanel.CreatePanel(towerManager);
 
-            return (towerManagerPanel);
-        }
-        return null;
+        return (towerManagerPanel);
         
     }
 
     public FactoryManagerPanel CreateFactoryPanel(FactoryManager factoryManager)
     {
-        if (factoryManagerPanel == null)
-        {
-            factoryManagerPanel = Instantiate(_factoryManagerPanel, _upgradePanelsContainer);
+        factoryManagerPanel = Instantiate(_factoryManagerPanel, _upgradePanelsContainer);
 
-            factoryManagerPanel.CreatePanel(factoryManager);
+        factoryManagerPanel.CreatePanel(factoryManager);
 
-            return (factoryManagerPanel);
-        }
-        return null;
-
+        return (factoryManagerPanel);
     }
 
 
@@ -122,6 +113,7 @@ public class UIManager : MonoBehaviour
             if (child.GetComponent<TowerManagerPanel>() != null)
             {
                 child.GetComponent<TowerManagerPanel>().ClosePanel();
+                child.GetComponent<TowerManagerPanel>().TowerManager.gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(false);
             }
             else if (child.GetComponent<FactoryManagerPanel>() != null)
             {
