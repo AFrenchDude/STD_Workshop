@@ -9370,7 +9370,19 @@ MonoBehaviour:
   _isWaitingForLastEntityDeath: 0
   WaveStatusChanged_UnityEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 954836857}
+        m_TargetAssemblyTypeName: WavePreviewerManager, Assembly-CSharp
+        m_MethodName: StartNextWave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &217049174
 Transform:
   m_ObjectHideFlags: 0
@@ -47946,6 +47958,18 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &954836857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6827948793982289171, guid: 2085885483a13104c9cd897da10014a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 957839223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75cb69afd8fff8428234aecb92c83b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &956928573
 Mesh:
   m_ObjectHideFlags: 0
@@ -48927,7 +48951,7 @@ PrefabInstance:
     - target: {fileID: 6915876480799765719, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 49.999878
       objectReference: {fileID: 0}
     - target: {fileID: 7191939512673699153, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
@@ -49146,6 +49170,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52d47322efeb4a442b7f4031fb94ff78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &957839229 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7385737655880493142, guid: 2085885483a13104c9cd897da10014a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 957839223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820601644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66088834170b8f84ca1ee5a81303e1f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!43 &960193682
@@ -63457,6 +63493,7 @@ GameObject:
   - component: {fileID: 1204795297}
   - component: {fileID: 1204795299}
   - component: {fileID: 1204795300}
+  - component: {fileID: 1204795301}
   m_Layer: 0
   m_Name: LevelReferences
   m_TagString: Untagged
@@ -63544,6 +63581,7 @@ MonoBehaviour:
   _musicPlayer: {fileID: 217049175}
   _scoreManager: {fileID: 1204795299}
   _locomotiveManager: {fileID: 1204795300}
+  _debugDataSaver: {fileID: 1204795301}
 --- !u!114 &1204795299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63573,6 +63611,29 @@ MonoBehaviour:
   LocomotiveListUpdated:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1204795301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204795293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28af1c7d24fd9c84fb14018ac5f8e74b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _waves: []
+  _currentWaveData:
+    waveIndex: 0
+    beginFortune: 0
+    endFortune: 0
+    beginLife: 0
+    endLife: 0
+    towerOfWave: []
+    enemiesOfWave: []
+  _allTowersRef: []
+  goldManager: {fileID: 957839229}
 --- !u!1 &1207483050
 GameObject:
   m_ObjectHideFlags: 0
