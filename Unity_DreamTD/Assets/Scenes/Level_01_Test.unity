@@ -21187,6 +21187,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3343950334517636285, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3406245782007702038, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -21326,6 +21331,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5956311707956430240, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -79.16666
       objectReference: {fileID: 0}
     - target: {fileID: 6013331572490249499, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
@@ -24315,7 +24325,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1204795301}
         m_TargetAssemblyTypeName: DataSaver, Assembly-CSharp
         m_MethodName: SendData
         m_Mode: 1
@@ -28164,6 +28174,7 @@ MonoBehaviour:
     towerOfWave: []
     enemiesOfWave: []
   _allTowersRef: []
+  _allFactoryRef: []
   goldManager: {fileID: 957839229}
 --- !u!1 &1207483050
 GameObject:
@@ -46865,7 +46876,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1204795301}
         m_TargetAssemblyTypeName: DataSaver, Assembly-CSharp
         m_MethodName: SetFilename
         m_Mode: 2
@@ -46895,7 +46906,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1204795301}
         m_TargetAssemblyTypeName: DataSaver, Assembly-CSharp
         m_MethodName: SetFilename
         m_Mode: 2
