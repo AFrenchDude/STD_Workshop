@@ -4,7 +4,6 @@ using UnityEngine;
 public class HUDwhenSelect : MonoBehaviour
 {
     public GameObject hudRef;
-
     private UIManager _uIManager;
 
     private void Awake()

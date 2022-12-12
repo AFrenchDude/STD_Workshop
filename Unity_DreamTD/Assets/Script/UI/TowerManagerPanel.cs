@@ -36,6 +36,8 @@ public class TowerManagerPanel : MonoBehaviour
     [SerializeField]
     private Color _cantBuyColor;
 
+    public TowerManager TowerManager => _towerManager;
+
     private void Awake()
     {
         goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
