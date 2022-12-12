@@ -36,6 +36,7 @@ public class WavePreviewerManager : MonoBehaviour
 
         foreach (WaveSet waveSet in _waveDatabase.Waves)
         {
+            
             WavePreviewElement wavePreviewElement = Instantiate(_previewElementPrefab, transform);
 
             wavePreviewElement.SetWave(waveSet);
@@ -44,9 +45,13 @@ public class WavePreviewerManager : MonoBehaviour
         SetUpCurrentWave();
     }
 
-    public void StartNextWave()
+    public void TestIfHeCanStartNextWave(SpawnerManager currentSpawnerManager)
     {
 
+    }
+    public void StartNextWave()
+    {
+        Debug.LogWarning("Stars Next Wave Preview");
         SetUpCurrentWave();
 
         _startButtonScript.EndWave();

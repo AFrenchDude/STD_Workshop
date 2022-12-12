@@ -54,7 +54,7 @@ public class SpawnerManager : MonoBehaviour
     public UnityEvent<SpawnerManager, SpawnerStatus, int> WaveStatusChanged_UnityEvent = null;
 
     public delegate void SpawnerEvent(SpawnerManager sender, SpawnerStatus status, int runningWaveCount);
-    public event SpawnerEvent WaveStatusChanged = null; 
+    public event SpawnerEvent WaveStatusChanged = null;
 
     private void Awake()
     {
@@ -76,7 +76,7 @@ public class SpawnerManager : MonoBehaviour
                 _spawnerState = SpawnerStatus.Inactive;
             }
         }
-        else if(_waveEntityListCount <= 0)
+        else if (_waveEntityListCount <= 0)
         {
             _spawnerState = SpawnerStatus.Inactive;
         }
@@ -112,6 +112,7 @@ public class SpawnerManager : MonoBehaviour
 
     public void StartNewWaveSet()
     {
+
         if (LevelReferences.Instance.MusicPlayer != null)
         {
             LevelReferences.Instance.MusicPlayer.Play();
@@ -125,7 +126,10 @@ public class SpawnerManager : MonoBehaviour
         if (waveDatabase.Waves.Count > _currentWaveSetIndex)
         {
             WaveSet waveSet = waveDatabase.Waves[_currentWaveSetIndex];
+            _currentWaveSet = waveSet;
             List<Wave> waves = waveSet.Waves;
+
+            EntitySpawner spawner = null;
 
             for (int i = 0, length = _spawners.Count; i < length; i++)
             {
@@ -140,42 +144,74 @@ public class SpawnerManager : MonoBehaviour
                     break;
                 }
                 _currentWaveRunning += 1;
-                var spawner = _spawners[i];
+                spawner = _spawners[i];
                 spawner.StartWave(waves[i]);
+
                 spawner.WaveEnded.RemoveListener(Spawner_OnWaveEnded);
                 spawner.WaveEnded.AddListener(Spawner_OnWaveEnded);
 
-                //WaveStatusChanged?.Invoke(this, SpawnerStatus.WaveRunning, _currentWaveRunning);
-                //WaveStatusChanged_UnityEvent?.Invoke(this, SpawnerStatus.WaveRunning, _currentWaveRunning);
+
             }
+
+
+
+
+
+
+            //WaveStatusChanged?.Invoke(this, SpawnerStatus.WaveRunning, _currentWaveRunning);
+            //WaveStatusChanged_UnityEvent?.Invoke(this, SpawnerStatus.WaveRunning, _currentWaveRunning);
         }
         else
         {
             _isWaitingForLastEntityDeath = true; //No Waves left => Set flag to wait for game's end
         }
 
-        
+
     }
 
+    public bool AnotherEntityRemaining()
+    {
+        bool remains = true;
+        foreach (EntitySpawner spawner in _spawners)
+        {
+            if (spawner.hasWaveElementLeft)
+            {
+                remains = false;
+            }
+        }
+       
+
+        return remains;
+    }
+
+    
+
+    private WaveSet _currentWaveSet;
     private void Spawner_OnWaveEnded(EntitySpawner entitySpawner, Wave wave)
     {
+        Debug.LogWarning("Spawning new wave set");
+
+
         //LevelReferences.Instance.MusicPlayer.Stop();
         entitySpawner.WaveEnded.RemoveListener(Spawner_OnWaveEnded);
 
         _currentWaveRunning -= 1;
 
-        WaveStatusChanged?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
-        WaveStatusChanged_UnityEvent?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
-
-        // should we run a new wave?
-        if (_autoStartNextWaves == true && _currentWaveRunning <= 0)
+        if (AnotherEntityRemaining())
         {
-            // prevent overlapping routines
-            if (_waitForNextWaveCoroutine != null)
+            WaveStatusChanged?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
+            WaveStatusChanged_UnityEvent?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
+
+            // should we run a new wave?
+            if (_autoStartNextWaves == true && _currentWaveRunning <= 0)
             {
-                StopCoroutine(_waitForNextWaveCoroutine);
+                // prevent overlapping routines
+                if (_waitForNextWaveCoroutine != null)
+                {
+                    StopCoroutine(_waitForNextWaveCoroutine);
+                }
+                _waitForNextWaveCoroutine = StartCoroutine(WaitForNewWaveSet());
             }
-            _waitForNextWaveCoroutine = StartCoroutine(WaitForNewWaveSet());
         }
     }
 

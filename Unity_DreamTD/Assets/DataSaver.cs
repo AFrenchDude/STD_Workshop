@@ -105,7 +105,7 @@ public class DataSaver : MonoBehaviour
     //Methods
     public void CreateNewWave(int index)
     {
-        Debug.Log(index);
+        //Debug.Log(index);
         if (index > 0)
         {
             EndWave();

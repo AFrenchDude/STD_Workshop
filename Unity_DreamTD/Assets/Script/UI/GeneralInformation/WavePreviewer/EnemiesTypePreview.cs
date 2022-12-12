@@ -16,5 +16,7 @@ public class EnemiesTypePreview : MonoBehaviour
     {
         _icon.sprite = icon;
         _ammountText.text = "x" + quantities.ToString();
+
+        
     }
 }

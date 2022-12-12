@@ -18,6 +18,7 @@ public class EntitySpawner : MonoBehaviour
 
     [System.NonSerialized]
     private Wave _wave = null;
+    public Wave SpawnerWave => _wave;
 
     [System.NonSerialized]
     private List<WaveEntity> _runtimeWaveEntities = new List<WaveEntity>();
@@ -42,6 +43,11 @@ public class EntitySpawner : MonoBehaviour
         _runtimeWaveEntities.Add(entityInstance);
         EntitySpawned?.Invoke(this, entityInstance);
         return entityInstance;
+    }
+
+    public bool hasWaveElementLeft
+    {
+        get { return _wave.HasWaveElementsLeft; }
     }
 
     private void InstantiateNextWaveElement()
