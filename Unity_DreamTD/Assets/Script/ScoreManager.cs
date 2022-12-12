@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 //Made by Melinon Remy
 public class ScoreManager : MonoBehaviour
