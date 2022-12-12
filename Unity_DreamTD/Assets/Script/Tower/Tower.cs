@@ -129,6 +129,8 @@ public class Tower : MonoBehaviour, IPickerGhost
         string objectName = _datas.name + "_Create_Lvl0";
         _goldManager.Buy(_price, objectName);
         _towerDescription.IncreasePrice();
+
+        LevelReferences.Instance.DebugDataSaver.AddTurret(_datas);
     }
 
     public void EnableDragNDropVFX(bool enable)
