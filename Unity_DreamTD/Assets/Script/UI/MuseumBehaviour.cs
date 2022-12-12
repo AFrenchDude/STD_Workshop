@@ -113,7 +113,7 @@ public class MuseumBehaviour : MonoBehaviour
     //Pick new enemies
     public void ChangeEnemyDescription(NightmareBestiaryData nightmare)
     {
-        //Set text of enemy name and description
+        //Set text of enemy _name and description
         nameText.SetText("Name: " + nightmare.Name);
         descriptionText.SetText("Description: " + nightmare.Description + "<br>" +
             "Type: " + nightmare.NightmareData.nighmareType + "<br>" +
@@ -133,7 +133,7 @@ public class MuseumBehaviour : MonoBehaviour
         {
             currentTowerUpgrade = towersDatas.UpgradeDatas;
         }
-        //Set text of enemy name and description
+        //Set text of enemy _name and description
         nameText.SetText("Name: " + towersDatas.Name + " (" + currentTowerUpgrade.UpgradeName + ")");
         descriptionText.SetText("Description: " + towersDatas.Description + "<br>" +
             "Type: " + towersDatas.Type + "<br><br>" +
@@ -151,7 +151,7 @@ public class MuseumBehaviour : MonoBehaviour
         {
             currentFactoryUpgrade = factoryUpgradeData.CurrentUpgrade;
         }
-        //Set text of enemy name and description
+        //Set text of enemy _name and description
         nameText.SetText("Name: " + factoryUpgradeData.Name + " (" + currentFactoryUpgrade.UpgradeName + ")");
         descriptionText.SetText("Description: " + factoryUpgradeData.UpgradeDescription + "<br>" +
             "Type: " + factoryUpgradeData.Type + "<br><br>" +
