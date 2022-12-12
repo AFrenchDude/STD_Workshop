@@ -19,6 +19,7 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        Enable(false);
 
     }
 

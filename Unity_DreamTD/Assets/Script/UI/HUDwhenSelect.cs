@@ -20,14 +20,21 @@ public class HUDwhenSelect : MonoBehaviour
     //Display HUD
     public void OnSelect()
     {
+        if (LevelReferences.Instance.PlayerDrag.IsDragging == false)
+        {
+            OpenSelectedHUD();
+        }
+    }
 
+    private void OpenSelectedHUD()
+    {
         //If click on usine
         if (gameObject.transform.root.GetComponent<FactoryManager>() != null)
         {
             _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
         }
         //If click on tower
-        else if (gameObject.transform.root.GetComponent<Tower>() != null && gameObject.GetComponent<Tower>().enabled) //enabled == false => isDragging => prevent CreatePanel
+        else if (gameObject.transform.root.GetComponent<Tower>() != null)
         {
             _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
             gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
