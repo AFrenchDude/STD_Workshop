@@ -84,7 +84,7 @@ public class Locomotive : MonoBehaviour
         //Collide with tower
         if (other.CompareTag("TowerTrain"))
         {
-            UnityEngine.Debug.Log(other.transform.root.gameObject.ToString() + " / " + (other.transform.root.GetComponent<TowerManager>() != null).ToString());
+           // UnityEngine.Debug.Log(other.transform.root.gameObject.ToString() + " / " + (other.transform.root.GetComponent<TowerManager>() != null).ToString());
 
 
             objectCollided.Add(other.gameObject);
