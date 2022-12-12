@@ -120,6 +120,8 @@ public class SpawnerManager : MonoBehaviour
         _currentWaveSetIndex += 1;
         var waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
 
+        LevelReferences.Instance.DebugDataSaver.CreateNewWave(_currentWaveSetIndex);
+
         if (waveDatabase.Waves.Count > _currentWaveSetIndex)
         {
             WaveSet waveSet = waveDatabase.Waves[_currentWaveSetIndex];
@@ -151,6 +153,8 @@ public class SpawnerManager : MonoBehaviour
         {
             _isWaitingForLastEntityDeath = true; //No Waves left => Set flag to wait for game's end
         }
+
+        
     }
 
     private void Spawner_OnWaveEnded(EntitySpawner entitySpawner, Wave wave)

@@ -57,6 +57,11 @@ public class FactoryDatas : ScriptableObject
     public FactoryUpgradeData CurrentUpgrade => _currentUpgrade;
     public bool IsUnlocked => _factoryDataUnlocked;
 
+    public bool canUpgrade
+    {
+        get { return _currentUpgrade.NextUpgrade != null; }
+    }
+
     public void UnlockFactoryrData()
     {
         _factoryDataUnlocked = true;
