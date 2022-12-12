@@ -61,7 +61,11 @@ public class FactoryManagerPanel : MonoBehaviour
             if (factoryInformation != null)
             {
                 factoryInformation.transform.parent = transform.parent;
-                factoryInformation.FadeOut();
+                if(factoryInformation.gameObject.active == true)
+                {
+                    factoryInformation.FadeOut();
+                }
+                
             }
 
             Destroy(gameObject);
@@ -116,7 +120,7 @@ public class FactoryManagerPanel : MonoBehaviour
             _factoryManager.FactoryData.Upgrade();
             //_factoryManager.ApplyStats(_factoryManager.FactoryData);
 
-            
+
 
 
             factoryScriptRef.SetUpgradeMesh(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrefab);
@@ -142,18 +146,24 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void CreateFactoryUpgradeInformation()
     {
-        if (factoryInformation == null)
+        if (_factoryManager.FactoryData.canUpgrade)
         {
-            factoryInformation = Instantiate(_factoryInfoPrefab, _infoParent);
+            if (factoryInformation == null)
+            {
+                factoryInformation = Instantiate(_factoryInfoPrefab, _infoParent);
 
-            factoryInformation.SetFactoryData(_factoryManager.FactoryData);
+                factoryInformation.SetFactoryData(_factoryManager.FactoryData);
+
+            }
 
         }
     }
 
     public void RemoveFactoryUpgradeInformation()
     {
+
         factoryInformation.FadeOut();
+        
     }
 
 

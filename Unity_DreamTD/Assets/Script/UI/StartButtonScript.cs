@@ -93,6 +93,4 @@ public class StartButtonScript : MonoBehaviour
             }
         }
     }
-
-
 }

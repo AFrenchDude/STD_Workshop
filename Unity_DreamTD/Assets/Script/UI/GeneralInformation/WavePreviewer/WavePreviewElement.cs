@@ -48,5 +48,9 @@ public class WavePreviewElement : MonoBehaviour
 
             enemiesTypePreview.SetWaveData(data.icon, _nightmaresInWave[data]);
         }
+
+        //Etat mental : Check
+        //Etat physique : Check
+        //Fatigue : Critique (Veuillez redemarrer)
     }
 }
