@@ -111,9 +111,14 @@ public class UI_FactoryPanelManager : MonoBehaviour
     public void FadeOut()
     {
         _isFadeOut = true;
-        if (GetComponent<Animator>() != null)
+        if (this != null) // Bah enfaite le boulanger ma dit qu'il n'existait pas...
         {
-            GetComponent<Animator>().SetBool("Close", _isFadeOut);
+            if (transform.TryGetComponent(out Animator animator))
+            {
+
+                GetComponent<Animator>().SetBool("Close", _isFadeOut);
+            }
+
         }
     }
 
