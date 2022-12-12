@@ -25,9 +25,6 @@ public class InfoFactoryManager : MonoBehaviour
     private TextMeshProUGUI capacity = null;
 
     [SerializeField]
-    private Image moneySprite = null;
-
-    [SerializeField]
     private TextMeshProUGUI moneyNecessary = null;
     #endregion Variables
 
@@ -36,9 +33,8 @@ public class InfoFactoryManager : MonoBehaviour
         sprite.sprite = factoryDescription.FactoryDatas.Icon;
         name.text = factoryDescription.FactoryDatas.Name;
         type.text = factoryDescription.FactoryDatas.Type;
-        production.text = "Production : " + factoryDescription.FactoryDatas.ProductionRate + "/s";
-        capacity.text = "Storage : " + factoryDescription.FactoryDatas.MaxAmmount;
-        moneySprite.sprite = factoryDescription.moneySprite;
-        moneyNecessary.text = " " + factoryDescription.FactoryDatas.SellPrice + " G ";
+        production.text = factoryDescription.FactoryDatas.ProductionRate + "/s";
+        capacity.text = factoryDescription.FactoryDatas.MaxAmmount.ToString();
+        moneyNecessary.text = factoryDescription.FactoryDatas.SellPrice + " ";
     }
 }
