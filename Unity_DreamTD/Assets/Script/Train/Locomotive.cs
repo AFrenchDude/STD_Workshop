@@ -10,6 +10,7 @@ public class Locomotive : MonoBehaviour
     private int _currentWagonCountLevel = 1;
     private int _currentSpeedLevel = 1;
     private int _currentStorageLevel = 1;
+    private int _meshIndex = 0;
 
     public List<Wagon> wagons;
 
@@ -344,6 +345,29 @@ public class Locomotive : MonoBehaviour
         UpdateSpeed();
         UpdateWagonCount();
         UpdateWagonMaxStorage();
+    }
+
+    public void UpgradeMeshVisual()
+    {
+        _meshIndex++;
+        SetNewMeshVisual();
+    }
+
+    public void SetNewMeshVisual()
+    {
+        if (transform.childCount > 0)
+        {
+            GameObject child = transform.GetChild(0).gameObject;
+            Vector3 childLocalPosition = child.transform.localPosition;
+            Quaternion childLocalRotation = child.transform.localRotation;
+            Vector3 childLocalScale = child.transform.localScale;
+
+            Destroy(child);
+            child = Instantiate(_trainStats.MeshList[_meshIndex], transform);
+            child.transform.SetLocalPositionAndRotation(childLocalPosition, childLocalRotation);
+            child.transform.localScale = childLocalScale;
+        }
+        
     }
 
     #region WagonCountUpgrades
