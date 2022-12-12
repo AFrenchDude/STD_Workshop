@@ -13,6 +13,8 @@ public class StartButtonScript : MonoBehaviour
     private StationBehaviour _trainStation;
     [SerializeField]
     private WavePreviewerManager _wavePreviewerManager;
+    [SerializeField]
+    private TrainUpgradePanel _trainUpgradePanel;
 
     private Animator _animator;
     private SpawnerManager _spawnerManager;
@@ -46,9 +48,12 @@ public class StartButtonScript : MonoBehaviour
 
         _startTime = Time.time;
         _delayValue = _waveDatabase.DelayBetweenWave;
+        _trainUpgradePanel.NewWavePassed();
         _canStartWave = true;
     }
 
+
+    [ContextMenu("StartWave")]
     public void StartWave()
     {
         if (_canStartWave)
