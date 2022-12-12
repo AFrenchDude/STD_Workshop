@@ -52,30 +52,21 @@ public class UIManager : MonoBehaviour
 
     public TowerManagerPanel CreateTowerPanel(TowerManager towerManager)
     {
-        if(towerManagerPanel == null)
-        {
-            towerManagerPanel = Instantiate(_towerManagerPanel, _upgradePanelsContainer);
+        towerManagerPanel = Instantiate(_towerManagerPanel, _upgradePanelsContainer);
 
-            towerManagerPanel.CreatePanel(towerManager);
+        towerManagerPanel.CreatePanel(towerManager);
 
-            return (towerManagerPanel);
-        }
-        return null;
+        return (towerManagerPanel);
         
     }
 
     public FactoryManagerPanel CreateFactoryPanel(FactoryManager factoryManager)
     {
-        if (factoryManagerPanel == null)
-        {
-            factoryManagerPanel = Instantiate(_factoryManagerPanel, _upgradePanelsContainer);
+        factoryManagerPanel = Instantiate(_factoryManagerPanel, _upgradePanelsContainer);
 
-            factoryManagerPanel.CreatePanel(factoryManager);
+        factoryManagerPanel.CreatePanel(factoryManager);
 
-            return (factoryManagerPanel);
-        }
-        return null;
-
+        return (factoryManagerPanel);
     }
 
 
@@ -110,5 +101,24 @@ public class UIManager : MonoBehaviour
     public void RemoveTowerUpgradeInformation()
     {
         upgradeTowerPanel.FadeOut();
+    }
+
+
+    public void DestroyAllUpgradeChildren()
+    {
+        for (int i = 0; i < _upgradePanelsContainer.transform.childCount; i++)
+        {
+            Transform child = _upgradePanelsContainer.transform.GetChild(i);
+
+            if (child.GetComponent<TowerManagerPanel>() != null)
+            {
+                child.GetComponent<TowerManagerPanel>().ClosePanel();
+                child.GetComponent<TowerManagerPanel>().TowerManager.gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(false);
+            }
+            else if (child.GetComponent<FactoryManagerPanel>() != null)
+            {
+                child.GetComponent<FactoryManagerPanel>().ClosePanel();
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class CurrentProjectileUI : MonoBehaviour
 {
@@ -23,9 +24,17 @@ public class CurrentProjectileUI : MonoBehaviour
     private Projectile _projectile;
 
     private TowersDatas _towerDatas;
+    private TrainUpgradePanel _trainUpgradePanel = null;
+    private int _wagonLinkedIndex;
+
+
     private int _projectileIndex;
 
     private Animator _animator;
+
+    public Projectile Projectile => _projectile;
+
+    public UnityEvent ProjectileCreated;
 
     private void Awake()
     {
@@ -42,7 +51,21 @@ public class CurrentProjectileUI : MonoBehaviour
     public void SetUpProjectile(Projectile projectile)
     {
         _projectile = projectile;
+        //ProjectileCreated.Invoke();
         ApplyProjectileType();
+    }
+
+    public void SetUpProjectile(ProjectileType type, int number, int maxAmmount)
+    {
+        Projectile createdProjectile = new Projectile();
+        createdProjectile.SetupProjectile(type, number, maxAmmount);
+        SetUpProjectile(createdProjectile);
+    }
+
+    public void SetRefToTrainPanel(TrainUpgradePanel trainUpgradePanel, int wagonIndex)
+    {
+        _trainUpgradePanel = trainUpgradePanel;
+        _wagonLinkedIndex = wagonIndex;
     }
 
     public void SetOtherProjectilesPreview(List<CurrentProjectileUI> listOtherProjectiles)
@@ -54,8 +77,14 @@ public class CurrentProjectileUI : MonoBehaviour
     {
         _iconImage.sprite = _projectile.ProjectileType.Icon;
 
-        _backgroundImage.color = _projectile.ProjectileType.ProjectileColor;
-        _ammountImage.color = _projectile.ProjectileType.ProjectileColor * new Color(0.5f, 0.5f, 0.5f, 1f);
+        if (_backgroundImage != null)
+        {
+            _backgroundImage.color = _projectile.ProjectileType.ProjectileColor;
+        }
+        if (_ammountImage != null)
+        {
+            _ammountImage.color = _projectile.ProjectileType.ProjectileColor * new Color(0.5f, 0.5f, 0.5f, 1f);
+        }
     }
 
     [Header("ChangingPanel")]
@@ -75,9 +104,9 @@ public class CurrentProjectileUI : MonoBehaviour
         if (_projTypeList.Count == 0)
         {
 
-            foreach(CurrentProjectileUI currentProjectileUI in _otherProjectilesSelector)
+            foreach (CurrentProjectileUI currentProjectileUI in _otherProjectilesSelector)
             {
-                if(currentProjectileUI != this)
+                if (currentProjectileUI != this)
                 {
                     currentProjectileUI.CloseSelector();
                 }
@@ -114,16 +143,24 @@ public class CurrentProjectileUI : MonoBehaviour
 
     public void ChangeProjectile(ProjectileType projectileType)
     {
+        if (_towerDatas != null)
+        {
+            _towerDatas.SetProjectileType(_projectileIndex, projectileType);
+            SetUpProjectile(_towerDatas.Projectiles[_projectileIndex]);
+        }
+        else if (_trainUpgradePanel != null)
+        {
+            _trainUpgradePanel.SetNewProjectileType(_wagonLinkedIndex, projectileType);
+        }
 
-        _towerDatas.SetProjectileType(_projectileIndex, projectileType);
-        SetUpProjectile(_towerDatas.Projectiles[_projectileIndex]);
+
 
         _animator.SetBool("Open", false);
     }
 
     public void DestroyAllSelectorType()
     {
-        foreach(SelectorTypeOfProjectile selector in _projTypeList)
+        foreach (SelectorTypeOfProjectile selector in _projTypeList)
         {
             Destroy(selector.gameObject);
         }
@@ -132,7 +169,7 @@ public class CurrentProjectileUI : MonoBehaviour
 
     private void Update()
     {
-        if (_projectile != null)
+        if (_projectile != null & _ammountText != null)
         {
             _ammountText.text = _projectile.ProjectileAmmount.ToString();
         }

@@ -10,6 +10,10 @@ public class PlayerDrag : MonoBehaviour
     private IPickerGhost _ghost = null;
     private bool _isDragging = false;
     private bool _isSnappedToRail = false;
+    private float _endDragTime = 0.0f;
+
+    public bool IsDragging => _isDragging;
+    public float EndDragTime => _endDragTime;
 
     private void Update()
     {
@@ -81,6 +85,10 @@ public class PlayerDrag : MonoBehaviour
     public void ActivateDrag(bool enable)
     {
         _isDragging = enable;
+        if (enable == false)
+        {
+            _endDragTime = Time.time;
+        }
     }
     public void DestroyDraggedItem()
     {

@@ -14,30 +14,37 @@ public class Selector : MonoBehaviour
     public bool IsMouseOnUI => isMouseOnUI;
     public void Select(InputAction.CallbackContext obj)
     {
-
         //when button is pressed
         if (obj.phase == InputActionPhase.Canceled)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, float.MaxValue, interactibleLayer) && !isMouseOnUI)
+            if (Time.time >= LevelReferences.Instance.PlayerDrag.EndDragTime + 0.1f)
             {
-                if (openHUDref != null)
-                {
-                    openHUDref.OnDeselect();
-                    openHUDref = null;
-                }
-                if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
-                {
-                    openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
-                    openHUDref.OnSelect();
-                }
+                RaycastToOpenHUDRef();
             }
-            else if (openHUDref != null && !isMouseOnUI)
+        }
+    }
+
+    private void RaycastToOpenHUDRef()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, float.MaxValue, interactibleLayer) && !isMouseOnUI)
+        {
+            if (openHUDref != null)
             {
                 openHUDref.OnDeselect();
                 openHUDref = null;
             }
+            if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
+            {
+                openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
+                openHUDref.OnSelect();
+            }
+        }
+        else if (openHUDref != null && !isMouseOnUI)
+        {
+            openHUDref.OnDeselect();
+            openHUDref = null;
         }
     }
 

@@ -36,6 +36,8 @@ public class TowerManagerPanel : MonoBehaviour
     [SerializeField]
     private Color _cantBuyColor;
 
+    public TowerManager TowerManager => _towerManager;
+
     private void Awake()
     {
         goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
@@ -123,19 +125,26 @@ public class TowerManagerPanel : MonoBehaviour
 
             _towerManager.TowersData.Upgrade();
             _towerManager.ApplyStats(_towerManager.TowersData);
-            
+
 
 
             towerScriptRef.SetUpgradeMesh(_towerManager.TowersData.UpgradeDatas.UpgradePrefab);
 
-            if (towerInformation != null)
+            if (towerInformation != null & towerHasUpgrade)
             {
                 towerInformation.SetTowerData(_towerManager.TowersData);
                 towerInformation.CanUpgrade(canBuyTower);
 
             }
-   
+            else
+            {
+                UpdateTowerUpgrdePossibility();
+            }
+
+
+
             towerScriptRef.RangeIndicator.UpdateCircle();
+
         }
     }
 
@@ -179,6 +188,7 @@ public class TowerManagerPanel : MonoBehaviour
 
     public void CreateProjectiles()
     {
+        List<CurrentProjectileUI> createdUi = new List<CurrentProjectileUI>();
         int i = 0;
         foreach (Projectile projectile in _towerManager.TowersData.Projectiles)
         {
@@ -187,9 +197,18 @@ public class TowerManagerPanel : MonoBehaviour
             newProjectile.SetUpProjectile(projectile);
             newProjectile.KeepReferences(_towerManager.TowersData, i);
 
+            createdUi.Add(newProjectile);
 
             i++;
         }
+
+        foreach (CurrentProjectileUI projectile in createdUi)
+        {
+            {
+                projectile.SetOtherProjectilesPreview(createdUi);
+            }
+        }
+
     }
 
 }

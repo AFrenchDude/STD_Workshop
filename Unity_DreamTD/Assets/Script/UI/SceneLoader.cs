@@ -46,7 +46,7 @@ public class SceneLoader : MonoBehaviour
         // Making the loading screen persistent after we unloaded the scene
         DontDestroyOnLoad(loadingScreenInstance);
         //wait for animation
-        yield return new WaitForSecondsRealtime(0.15f);
+        yield return new WaitForSecondsRealtime(0.3f);
 
         // Start loading the scene in the background
         var loading = SceneManager.LoadSceneAsync(scene);
@@ -64,21 +64,14 @@ public class SceneLoader : MonoBehaviour
             // If the scene loaded at 90% (which means 100% in Unity)
             if (loading.progress >= 0.9f)
             {
+                //Debug wait for not seeing old scene
+                yield return new WaitForSecondsRealtime(0.1f);
                 // Make the new scene visible
                 loading.allowSceneActivation = true;
-                if (currentAnimTime > 2)
-                {
-                    // Wait for the end of the appearing animation before switching scenes
-                    yield return new WaitForSecondsRealtime(currentAnimTime);
-                    // Launch the disappear animation
-                    loadingAnimator.SetTrigger("Disapear");
-                }
-                else
-                {
-                    yield return new WaitForSecondsRealtime(2);
-                    // Launch the disappear animation
-                    loadingAnimator.SetTrigger("Disapear");
-                }
+                // Launch the disappear animation
+                loadingAnimator.SetTrigger("Disapear");
+                // Wait for the end of the appearing animation before showing scene
+                yield return new WaitForSecondsRealtime(currentAnimTime);
             }
         }
     }

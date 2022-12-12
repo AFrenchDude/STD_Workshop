@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 759477359177722491}
   - component: {fileID: 3774022510723684348}
   - component: {fileID: -151024879439833008}
+  - component: {fileID: -873506257101410477}
   m_Layer: 13
   m_Name: Projectile.Food
   m_TagString: Untagged
@@ -75,7 +76,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2685485626335918881}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5.812}
+  m_LocalPosition: {x: 0, y: 0, z: -2.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destroyOnAttack: 1
   _movementSpeed: 10
-  _heightSwitch: 50
+  _heightSwitch: 25
   fireType: 0
 --- !u!114 &2685485626335918887
 MonoBehaviour:
@@ -116,6 +117,7 @@ MonoBehaviour:
   _attack: 1
   _attackType: {fileID: 11400000, guid: 877bcdfaa9dc7f945bce6b30dcbe218a, type: 2}
   _mortarRadius: 0
+  _fireType: 0
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
@@ -177,6 +179,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dotEffectData: {fileID: 11400000, guid: 9568d29ef8da58f4a99f331bdb63fe8b, type: 2}
   _projectileUpgrade: 2
+--- !u!114 &-873506257101410477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b0a76a81d372f46ae09d55bd34ce42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeBeforeDestroy: 3
 --- !u!1001 &2058051837824510419
 PrefabInstance:
   m_ObjectHideFlags: 0

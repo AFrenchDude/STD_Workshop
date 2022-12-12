@@ -1,12 +1,10 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 //Made by Melinon Remy
 public class ScoreManager : MonoBehaviour
 {
-    public int score = 0;
-    //Score to reach to get stars
-    public List<int> starScore;
+    public LevelSave levelSave;
+    [HideInInspector] public int score = 0;
 
     private void Start()
     {

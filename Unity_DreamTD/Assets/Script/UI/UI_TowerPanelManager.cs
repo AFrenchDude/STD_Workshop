@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -45,6 +43,12 @@ public class UI_TowerPanelManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _upgradeRange;
 
+    [Header("Capacity")]
+    [SerializeField]
+    private TextMeshProUGUI _currentCapacity;
+    [SerializeField]
+    private TextMeshProUGUI _upgradeCapacity;
+
     [Header("Price")]
     [SerializeField]
     private TextMeshProUGUI _price;
@@ -89,6 +93,7 @@ public class UI_TowerPanelManager : MonoBehaviour
             SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeDamage, false);
             SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeFireRate, true);
             SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeRange, false);
+            SetUpUpgrade(_currentCapacity, _upgradeCapacity, _towerDatas.MaxProjectilesAmmount, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeMaxProjectiles, false);
 
             _price.text = _towerDatas.UpgradeDatas.UpgradePrice.ToString();
 
@@ -102,8 +107,21 @@ public class UI_TowerPanelManager : MonoBehaviour
                 _backgroundImage.color = _cantBuyBackColor;
                 _price.color = _lowColor;
             }
-
         }
+        //else
+        //{
+        //    _towerIcon.sprite = _towerDatas.Icon;
+        //    _name.text = _towerDatas.UpgradeDatas.UpgradeName;
+
+        //    SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.UpgradeDamage, false);
+        //    SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.UpgradeFireRate, true);
+        //    SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.UpgradeRange, false);
+        //    SetUpUpgrade(_currentCapacity, _upgradeCapacity, _towerDatas.MaxProjectilesAmmount, _towerDatas.UpgradeDatas.UpgradeMaxProjectiles, false);
+
+        //    _price.SetText("");
+        //    _backgroundImage.color = _cantBuyBackColor;
+        //    _price.color = _lowColor;
+        //}
     }
 
     private void SetUpUpgrade(TextMeshProUGUI previous, TextMeshProUGUI next, float previousValue, float nextValue, bool invert)
@@ -120,7 +138,6 @@ public class UI_TowerPanelManager : MonoBehaviour
             }
             else
             {
-
                 previous.color = _lowColor;
                 next.color = _upColor;
             }

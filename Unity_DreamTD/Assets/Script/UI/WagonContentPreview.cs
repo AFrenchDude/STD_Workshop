@@ -34,11 +34,12 @@ public class WagonContentPreview : MonoBehaviour
     public void SetWagonContent(Wagon wagon)
     {
         _associatedWagon = wagon;
+        UpdateWagonData();
     }
 
     public void UpdateWagonData()
     {
-        _backgroundImage.color = _associatedWagon.type.ProjectileColor;
+        _backgroundImage.sprite = _associatedWagon.type.PrjectileBackgroundSprite;
 
         _iconImage.sprite = _associatedWagon.type.icon;
 

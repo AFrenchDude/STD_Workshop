@@ -98,6 +98,11 @@ public class DamageableDetector : MonoBehaviour
         }
         for (int i = 0; i < _damageablesInRange.Count; i++)
         {
+            if (_damageablesInRange[i] == null)
+            {
+                _damageablesInRange.RemoveAt(i);
+                break;
+            }
             NightmareManager nightmareManager = _damageablesInRange[i].GetComponent<NightmareManager>();
 
             if (foundRightType == false || nightmareManager.getNighmareType == projectileNightmareType || projectileNightmareType == NightmareData.NighmareType.Neutral)

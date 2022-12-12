@@ -478,6 +478,9 @@ MonoBehaviour:
   _backgroundImage: {fileID: 693614919186679304}
   _ammountImage: {fileID: 3344237083383817726}
   _ammountText: {fileID: 998019430572453887}
+  ProjectileCreated:
+    m_PersistentCalls:
+      m_Calls: []
   _allProjectiles:
   - {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
   - {fileID: 11400000, guid: 877bcdfaa9dc7f945bce6b30dcbe218a, type: 2}
@@ -501,7 +504,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 93139e30a434048459c6909f75c2227f, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
