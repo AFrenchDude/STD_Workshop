@@ -157,6 +157,8 @@ public class UsineBehaviour : MonoBehaviour, IPickerGhost
         }
         string objectName = _factoryDatas.name + "_Create_Lvl0";
         _goldManager.Buy(_price, objectName);
+
+        LevelReferences.Instance.DebugDataSaver.AddFactory(_factoryDatas);
     }
 
     public void EnableDragNDropVFX(bool enable)
