@@ -6,19 +6,26 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
-
     //Ref to new scene to load
     [SerializeField] private string sceneToLoad;
+
     //Load new scene
     public void SceneLoad()
     {
-        if(loadingScreen != null)
+        if(Application.CanStreamedLevelBeLoaded(sceneToLoad))
         {
-            StartCoroutine(LoadSceneCoroutine(sceneToLoad));
+            if (loadingScreen != null)
+            {
+                StartCoroutine(LoadSceneCoroutine(sceneToLoad));
+            }
+            else
+            {
+                SceneManager.LoadScene(sceneToLoad);
+            }
         }
         else
         {
-            SceneManager.LoadScene(sceneToLoad);
+            SceneManager.LoadScene("Menu");
         }
     }
     //Reload current scene
