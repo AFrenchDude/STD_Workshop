@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.IO;
 
 public class GoldManager : MonoBehaviour
 {
@@ -16,10 +17,18 @@ public class GoldManager : MonoBehaviour
     [SerializeField]
     private List<PurchaseHistory> _purchaseHistory = new List<PurchaseHistory>();
 
+
+    string filename = "";
+
     private void Start()
     {
         _currentFortune = _startFortune;
         SetGoldDisplayValue();
+
+        string date = System.DateTime.Now.Month.ToString() + "-" + System.DateTime.Now.Day.ToString() + "_" + System.DateTime.Now.Hour.ToString() + "-" + System.DateTime.Now.Minute.ToString();
+
+        filename = Application.dataPath + "/EconomyDatas" + "/purchaseHistory_" + date + ".csv";
+        
     }
 
     public int getFortune // Return current fortune
@@ -59,8 +68,31 @@ public class GoldManager : MonoBehaviour
         purchaseHistory.name = name;
         purchaseHistory.time = Time.time;
         purchaseHistory.previousFortune = _currentFortune + price;
+        purchaseHistory.waveIndex = LevelReferences.Instance.SpawnerManager.getCurrentWave;
 
         return purchaseHistory;
+    }
+
+    [ContextMenu("ExportPurchaseToCSV")]
+    public void ExportPurchaseToCSV()
+    {
+        
+        if (_purchaseHistory.Count > 0)
+        {
+            TextWriter tw = new StreamWriter(filename, false);
+            tw.WriteLine("Name, Price, Previous Fortune, Wave Number, Time"); 
+            tw.Close();
+
+            tw = new StreamWriter(filename, true);
+
+            for(int i = 0; i < _purchaseHistory.Count; i++)
+            {
+                tw.WriteLine(_purchaseHistory[i].name + "," + _purchaseHistory[i].price + "," + _purchaseHistory[i].previousFortune + "," + _purchaseHistory[i].waveIndex + "," + _purchaseHistory[i].time);
+            }
+            tw.Close();
+
+            Debug.Log("Data save to : " + Application.dataPath);
+        }
     }
 
 
@@ -72,6 +104,7 @@ public class GoldManager : MonoBehaviour
         public string name;
         public float time;
         public float previousFortune;
+        public int waveIndex;
 
     }
 }

@@ -20,11 +20,15 @@ public class EndGameCondition : Singleton<EndGameCondition>
     }
     public void PlayerVictory()
     {
+        LevelReferences.Instance.Player.GetComponent<GoldManager>().ExportPurchaseToCSV();
+
         victoryScreen.SetActive(true);
         victoryScreen.GetComponent<ScoreText>().Activate();
     }
     public void PlayerDefeat()
     {
+        GetComponent<GoldManager>().ExportPurchaseToCSV();
+
         gameOverScreen.SetActive(true);
         gameOverScreen.GetComponent<ScoreText>().Activate();
     }
