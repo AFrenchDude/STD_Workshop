@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -109,8 +107,21 @@ public class UI_TowerPanelManager : MonoBehaviour
                 _backgroundImage.color = _cantBuyBackColor;
                 _price.color = _lowColor;
             }
-
         }
+        //else
+        //{
+        //    _towerIcon.sprite = _towerDatas.Icon;
+        //    _name.text = _towerDatas.UpgradeDatas.UpgradeName;
+
+        //    SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.UpgradeDamage, false);
+        //    SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.UpgradeFireRate, true);
+        //    SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.UpgradeRange, false);
+        //    SetUpUpgrade(_currentCapacity, _upgradeCapacity, _towerDatas.MaxProjectilesAmmount, _towerDatas.UpgradeDatas.UpgradeMaxProjectiles, false);
+
+        //    _price.SetText("");
+        //    _backgroundImage.color = _cantBuyBackColor;
+        //    _price.color = _lowColor;
+        //}
     }
 
     private void SetUpUpgrade(TextMeshProUGUI previous, TextMeshProUGUI next, float previousValue, float nextValue, bool invert)
@@ -127,7 +138,6 @@ public class UI_TowerPanelManager : MonoBehaviour
             }
             else
             {
-
                 previous.color = _lowColor;
                 next.color = _upColor;
             }
