@@ -14,7 +14,6 @@ public class Selector : MonoBehaviour
     public bool IsMouseOnUI => isMouseOnUI;
     public void Select(InputAction.CallbackContext obj)
     {
-
         //when button is pressed
         if (obj.phase == InputActionPhase.Canceled)
         {
