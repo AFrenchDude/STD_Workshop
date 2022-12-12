@@ -27,7 +27,7 @@ public class EndGameCondition : Singleton<EndGameCondition>
     }
     public void PlayerDefeat()
     {
-        GetComponent<GoldManager>().ExportPurchaseToCSV();
+        LevelReferences.Instance.Player.GetComponent<GoldManager>().ExportPurchaseToCSV();
 
         gameOverScreen.SetActive(true);
         gameOverScreen.GetComponent<ScoreText>().Activate();
