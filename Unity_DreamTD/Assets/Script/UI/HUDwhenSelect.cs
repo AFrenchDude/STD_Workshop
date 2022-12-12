@@ -14,7 +14,6 @@ public class HUDwhenSelect : MonoBehaviour
     //References
     FactoryManagerPanel _currentFactoryManagerPanel = null;
     TowerManagerPanel _currentTowerManagerPanel = null;
-    //FactoryManager
 
     //Display HUD
     public void OnSelect()

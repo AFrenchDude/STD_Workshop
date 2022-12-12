@@ -20,12 +20,21 @@ public class NightmareData : ScriptableObject
         Support,
         Fly
     }
+    public enum Weakness
+    {
+        Pizza,
+        Stars,
+        Gum
+    }
 
     [SerializeField]
     private NighmareType _nighmareType;
 
     [SerializeField]
     private NightmareFunction _nightmareFunction;
+
+    [SerializeField]
+    private Weakness _weakness;
 
     [SerializeField]
     private float _speed;
@@ -52,6 +61,7 @@ public class NightmareData : ScriptableObject
 
     public NighmareType nighmareType => _nighmareType;
     public NightmareFunction nightmareFunction => _nightmareFunction;
+    public Weakness weakness => _weakness;
     public float speed => _speed;
     public int rewardGold => _rewardGold;
     public float maxLife => _maxLife;
