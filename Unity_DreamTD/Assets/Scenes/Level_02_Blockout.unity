@@ -9324,7 +9324,6 @@ GameObject:
   m_Component:
   - component: {fileID: 217049174}
   - component: {fileID: 217049173}
-  - component: {fileID: 217049172}
   - component: {fileID: 217049175}
   m_Layer: 0
   m_Name: SpawnerManager
@@ -9333,18 +9332,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &217049172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 217049171}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4305119c8a9e07245bbc1314b9412893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &217049173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48951,7 +48938,7 @@ PrefabInstance:
     - target: {fileID: 6915876480799765719, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 49.999878
+      value: 49.999756
       objectReference: {fileID: 0}
     - target: {fileID: 7191939512673699153, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
@@ -63633,6 +63620,7 @@ MonoBehaviour:
     towerOfWave: []
     enemiesOfWave: []
   _allTowersRef: []
+  _allFactoryRef: []
   goldManager: {fileID: 957839229}
 --- !u!1 &1207483050
 GameObject:
@@ -73421,7 +73409,19 @@ MonoBehaviour:
       m_Calls: []
   WaveEnded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 217049171}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   EntitySpawned:
     m_PersistentCalls:
       m_Calls: []
