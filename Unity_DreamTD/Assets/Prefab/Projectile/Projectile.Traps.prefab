@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 2685485626335918880}
   - component: {fileID: 3572344455183819755}
   - component: {fileID: 4657986383582066743}
+  - component: {fileID: 4048842737064488289}
   m_Layer: 13
   m_Name: Projectile.Traps
   m_TagString: Untagged
@@ -115,6 +116,7 @@ MonoBehaviour:
   _attack: 1
   _attackType: {fileID: 11400000, guid: 367a0bf78a749da4a971d34b6512c6a9, type: 2}
   _mortarRadius: 0
+  _fireType: 0
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
@@ -162,6 +164,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gumAreaData: {fileID: 11400000, guid: 552b832190ef7164fa9070682f8a8807, type: 2}
   _projectileUpgrade: 1
+--- !u!114 &4048842737064488289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b0a76a81d372f46ae09d55bd34ce42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeBeforeDestroy: 3
 --- !u!1001 &4054656696802270434
 PrefabInstance:
   m_ObjectHideFlags: 0
