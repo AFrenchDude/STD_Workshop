@@ -146,9 +146,9 @@ public class WeaponController : MonoBehaviour
         spawnedProjectile.transform.position = _canonMuzzle[_muzzleIndx].transform.position;
         spawnedProjectile.transform.rotation = _canonMuzzle[_muzzleIndx].transform.rotation;
 
+        spawnedProjectile.GetComponent<AProjectile>().SetFireType(_towersData.FireType);
         spawnedProjectile.GetComponent<AProjectile>().SetTarget(_target[_muzzleIndx].TargetAnchor);
         spawnedProjectile.GetComponent<AProjectile>().SetSpeed(_towersData.ProjectileSpeed);
-        spawnedProjectile.GetComponent<AProjectile>().SetFireType(_towersData.FireType);
 
         Damager projectileDamager = spawnedProjectile.GetComponent<Damager>();
 

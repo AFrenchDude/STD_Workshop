@@ -1,4 +1,4 @@
-//By ALBERT Esteban
+//By ALBERT Esteban, HP bar by ALEXANDRE Dorian, score by MELINON Remy
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +13,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] private Transform _headAnchor = null;
     public int scoreToGiveOnDeath;
     [SerializeField] private float _health = 100;
+    [SerializeField] private bool _doNotGiveScore = false;
 
     [SerializeField]
     private EnemiesHealthBar _healthBar = null;
@@ -36,7 +37,7 @@ public class Damageable : MonoBehaviour
     {
         float healthPercentage = _health / _maxHealth;
         _maxHealth = (int)maxHp;
-        if(shouldRestoreLife)
+        if (shouldRestoreLife)
         {
             _health = _maxHealth;
         }
@@ -48,7 +49,11 @@ public class Damageable : MonoBehaviour
 
     public void TakeDamage(float damage, out float health)
     {
-        LevelReferences.Instance.ScoreManager.AddScore((int)damage*10);
+        if (!_doNotGiveScore)
+        {
+            LevelReferences.Instance.ScoreManager.AddScore((int)damage * 10);
+        }
+
         _health -= damage;
         health = _health;
         OnDamageTaken.Invoke(_health);
