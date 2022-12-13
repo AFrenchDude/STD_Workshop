@@ -63,6 +63,11 @@ public class SpawnerManager : MonoBehaviour
         _spawnerState = SpawnerStatus.Inactive;
     }
 
+    private void Start()
+    {
+        SetUpOriginPreviewForAllSpawner();
+    }
+
     public bool isWaveRunning
     {
         get { return _spawnerState == SpawnerStatus.WaveRunning; }
@@ -204,6 +209,8 @@ public class SpawnerManager : MonoBehaviour
 
             _waveEnded = true;
 
+            SetUpOriginPreviewForAllSpawner();
+
 
             // should we run a new wave?
             if (_autoStartNextWaves == true && _currentWaveRunning <= 0)
@@ -214,6 +221,28 @@ public class SpawnerManager : MonoBehaviour
                     StopCoroutine(_waitForNextWaveCoroutine);
                 }
                 _waitForNextWaveCoroutine = StartCoroutine(WaitForNewWaveSet());
+            }
+        }
+    }
+
+    private void SetUpOriginPreviewForAllSpawner()
+    {
+        //Set wave origin to next wave
+
+        var waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
+        EntitySpawner spawner = null;
+
+        if (waveDatabase.Waves.Count > _currentWaveSetIndex + 1)
+        {
+            WaveSet waveSet = waveDatabase.Waves[_currentWaveSetIndex + 1];
+            List<Wave> waves = waveSet.Waves;
+
+            for (int i = 0, length = _spawners.Count; i < length; i++)
+            {
+
+                spawner = _spawners[i];
+                spawner.SetOriginActivationForNextWave(waves[i]);
+
             }
         }
     }
@@ -236,4 +265,5 @@ public class SpawnerManager : MonoBehaviour
 
         StartNewWaveSet();
     }
+ 
 }
