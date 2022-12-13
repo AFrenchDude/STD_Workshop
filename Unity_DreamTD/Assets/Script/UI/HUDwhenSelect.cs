@@ -57,10 +57,23 @@ public class HUDwhenSelect : MonoBehaviour
         //If click on usine
         if (gameObject.transform.root.GetComponent<FactoryManager>() != null)
         {
-
             _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
 
             LevelReferences.Instance.Player.GetComponentInChildren<FactoryManagerPanel>().SetInfoFactoryAnchor(_anchor);
+
+            if (currentPanel != gameObject)
+            {
+                Destroy(currentPanel.gameObject);
+
+                LevelReferences.Instance.Player.GetComponentInChildren<FactoryManagerPanel>().CreateInfoPanel();
+            }
+            else
+            {
+                currentPanel = gameObject;
+
+                LevelReferences.Instance.Player.GetComponentInChildren<FactoryManagerPanel>().CreateInfoPanel();
+            }
+
             //currentPanel = Instantiate(infoCurrentFactory, _anchor);
             //SetInfoFactory();
             //ConnectToEvent();
@@ -86,8 +99,9 @@ public class HUDwhenSelect : MonoBehaviour
 
             if (_currentFactoryManagerPanel != null)
             {
-                Debug.Log("Deselecting");
+                //Debug.Log("Deselecting");
                 _currentFactoryManagerPanel.ClosePanel();
+
                 //Destroy(currentPanel.gameObject);
             }
         }
