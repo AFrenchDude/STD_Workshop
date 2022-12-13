@@ -15,6 +15,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Transform _upgradePanelsContainer;
 
+    [SerializeField]
+    private Transform _anchorInfoPanel;
+
     [Header("Prefab")]
     [SerializeField]
     private GameObject _healthBarPrefab;
@@ -30,7 +33,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private FactoryManagerPanel _factoryManagerPanel;
-    
 
     //References
     private UI_TowerPanelManager upgradeTowerPanel = null;
@@ -38,6 +40,7 @@ public class UIManager : MonoBehaviour
 
     private TowerManagerPanel towerManagerPanel;
     private FactoryManagerPanel factoryManagerPanel;
+    private FactoryManagerPanel curentFactoryInfoPanel;
 
     public EnemiesHealthBar CreateEnemiesHealthBar(Transform target)
     {
@@ -60,11 +63,11 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public FactoryManagerPanel CreateFactoryPanel(FactoryManager factoryManager)
+    public FactoryManagerPanel CreateFactoryPanel(FactoryManager factoryManager, Transform infoFactoryAnchor)
     {
         factoryManagerPanel = Instantiate(_factoryManagerPanel, _upgradePanelsContainer);
 
-        factoryManagerPanel.CreatePanel(factoryManager);
+        factoryManagerPanel.CreatePanel(factoryManager, infoFactoryAnchor);
         
         return (factoryManagerPanel);
     }

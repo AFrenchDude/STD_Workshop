@@ -14,6 +14,7 @@ public class HUDwhenSelect : MonoBehaviour
     private GameObject currentPanel;
 
     private Transform _anchor;
+    public Transform Anchor => _anchor;
 
     public FactoryManagerPanel FactoryManagerPanel
     {
@@ -32,17 +33,6 @@ public class HUDwhenSelect : MonoBehaviour
     FactoryManagerPanel _currentFactoryManagerPanel = null;
     TowerManagerPanel _currentTowerManagerPanel = null;
 
-    //Event Connexions
-    //public void ConnectToEvent()
-    //{
-    //    FactoryManagerPanel?.updateUpgradefactory.RemoveListener(OnUpdateUpgradeFactory);
-    //    FactoryManagerPanel?.updateUpgradefactory.AddListener(OnUpdateUpgradeFactory);
-    //}
-    //public void DisconnectToEvents() //Selector removes ref too quickly, need to forcefully call it before ref clear
-    //{
-    //    FactoryManagerPanel?.updateUpgradefactory.RemoveListener(OnUpdateUpgradeFactory);
-    //}
-
     //Display HUD
     public void OnSelect()
     {
@@ -57,26 +47,8 @@ public class HUDwhenSelect : MonoBehaviour
         //If click on usine
         if (gameObject.transform.root.GetComponent<FactoryManager>() != null)
         {
-            _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
-
-            LevelReferences.Instance.Player.GetComponentInChildren<FactoryManagerPanel>().SetInfoFactoryAnchor(_anchor);
-
-            if (currentPanel != gameObject)
-            {
-                Destroy(currentPanel.gameObject);
-
-                LevelReferences.Instance.Player.GetComponentInChildren<FactoryManagerPanel>().CreateInfoPanel();
-            }
-            else
-            {
-                currentPanel = gameObject;
-
-                LevelReferences.Instance.Player.GetComponentInChildren<FactoryManagerPanel>().CreateInfoPanel();
-            }
-
-            //currentPanel = Instantiate(infoCurrentFactory, _anchor);
-            //SetInfoFactory();
-            //ConnectToEvent();
+            _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>(), _anchor);
+            FactoryManagerPanel.SetInfoFactory();
         }
         //If click on tower
         else if (gameObject.transform.root.GetComponent<Tower>() != null)
@@ -84,8 +56,6 @@ public class HUDwhenSelect : MonoBehaviour
             _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
             gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
         }
-
-
     }
 
     public void OnDeselect()
