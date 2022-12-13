@@ -116,6 +116,7 @@ public class UIManager : MonoBehaviour
             }
             else if (child.GetComponent<FactoryManagerPanel>() != null)
             {
+                Debug.Log("destroying all children");
                 child.GetComponent<FactoryManagerPanel>().ClosePanel();
             }
         }

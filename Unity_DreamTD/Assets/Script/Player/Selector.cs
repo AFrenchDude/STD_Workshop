@@ -33,6 +33,7 @@ public class Selector : MonoBehaviour
             if (openHUDref != null)
             {
                 openHUDref.OnDeselect();
+                //openHUDref.DisconnectToEvents();
                 openHUDref = null;
             }
             if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
