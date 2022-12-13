@@ -14,9 +14,12 @@ public class Damageable : MonoBehaviour
     public int scoreToGiveOnDeath;
     [SerializeField] private float _health = 100;
     [SerializeField] private bool _doNotGiveScore = false;
+    [SerializeField] private bool _isUndetectable = false;
 
     [SerializeField]
     private EnemiesHealthBar _healthBar = null;
+
+    public bool IsUndetectable => _isUndetectable;
 
     public NightmareData.NighmareType NightmareType => _nightmareType;
     public UnityEvent<float> OnDamageTaken;

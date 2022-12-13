@@ -46,7 +46,7 @@ public class TowersDatas : ScriptableObject
     [SerializeField]
     private TowerUpgradeData _currentUpgrade;
 
-    [Header("Projectiles")]
+    [Header("ProjectilesList")]
     [SerializeField]
     private List<Projectile> _projectileTypeList = new List<Projectile>();
 
@@ -74,7 +74,7 @@ public class TowersDatas : ScriptableObject
 
     public TowerUpgradeData UpgradeDatas => _currentUpgrade;
 
-    public List<Projectile> Projectiles => _projectileTypeList;
+    public List<Projectile> ProjectilesList => _projectileTypeList;
 
     public int MaxProjectilesAmmount => _maxProjectilesAmmount;
 

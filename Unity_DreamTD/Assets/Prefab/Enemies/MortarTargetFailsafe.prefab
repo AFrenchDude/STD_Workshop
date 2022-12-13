@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5206527694898187724}
+  - component: {fileID: -1148462902640671666}
+  - component: {fileID: -2541573507662607672}
   - component: {fileID: 968074418369726444}
   - component: {fileID: 3277403136700963079}
-  - component: {fileID: 2523100121794712794}
-  - component: {fileID: -2541573507662607672}
   m_Layer: 0
   m_Name: MortarTargetFailsafe
   m_TagString: Untagged
@@ -35,6 +35,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1148462902640671666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823514851054664591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec8fac3035a26264eb7ee9207ee7ad07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nightmareType: 3
+  _maxHealth: 0
+  _destroyOnDeath: 1
+  _targetAnchor: {fileID: 5206527694898187724}
+  _headAnchor: {fileID: 5206527694898187724}
+  scoreToGiveOnDeath: 0
+  _health: 0
+  _doNotGiveScore: 1
+  _isUndetectable: 1
+  _healthBar: {fileID: 0}
+  OnDamageTaken:
+    m_PersistentCalls:
+      m_Calls: []
+  Died:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-2541573507662607672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823514851054664591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b0a76a81d372f46ae09d55bd34ce42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeBeforeDestroy: 3
 --- !u!54 &968074418369726444
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -64,44 +105,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2523100121794712794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823514851054664591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec8fac3035a26264eb7ee9207ee7ad07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _nightmareType: 3
-  _maxHealth: 0
-  _destroyOnDeath: 1
-  _targetAnchor: {fileID: 5206527694898187724}
-  _headAnchor: {fileID: 5206527694898187724}
-  scoreToGiveOnDeath: 0
-  _health: 0
-  _doNotGiveScore: 1
-  _healthBar: {fileID: 3031231317914120457, guid: 223ca409835dcb5428af00c04eac6dc9,
-    type: 3}
-  OnDamageTaken:
-    m_PersistentCalls:
-      m_Calls: []
-  Died:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &-2541573507662607672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823514851054664591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01b0a76a81d372f46ae09d55bd34ce42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeBeforeDestroy: 3
