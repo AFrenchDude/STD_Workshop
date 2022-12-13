@@ -17,6 +17,7 @@ public class FactoryManagerPanel : MonoBehaviour
 
     [SerializeField]
     private GameObject _infoCurrentFactoryPrefab = null;
+    private GameObject _infoCurrentFactoryInstance = null;
 
     private Transform _infoFactoryAnchor;
 
@@ -67,9 +68,9 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void DestroyPanel()
     {
-        DestroyImmediate(_infoCurrentFactoryPrefab);
         if (_animator.GetBool("Close"))
         {
+            //Debug.Log("Try destroy: " + (_infoFactoryAnchor.GetChild(_infoFactoryAnchor.childCount - 1).gameObject));
 
             if (factoryInformation != null)
             {
@@ -86,6 +87,9 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void ClosePanel()
     {
+        Debug.Log("Try destroy: " + (currentPanel.gameObject));
+
+        Destroy(currentPanel.gameObject);
         _animator.SetBool("Close", true);
     }
 
@@ -94,7 +98,7 @@ public class FactoryManagerPanel : MonoBehaviour
         goldManager.CollectMoney(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrice / 3);
         Destroy(_factoryManager.gameObject);
         //updateUpgradefactory.Invoke(false);
-        Debug.Log("selling");
+        //Debug.Log("selling");
         ClosePanel();
     }
 
@@ -132,6 +136,7 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void Upgrade()
     {
+
         UsineBehaviour factoryScriptRef = _factoryManager.transform.GetComponent<UsineBehaviour>();
         if (goldManager.getFortune >= _factoryManager.FactoryData.CurrentUpgrade.UpgradePrice & _factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
         {
@@ -153,16 +158,16 @@ public class FactoryManagerPanel : MonoBehaviour
                 UpdateTowerUpgradePossibility();
             }
         }
+
         SetInfoFactory();
         //updateUpgradefactory.Invoke(true);
     }
 
     public void SetInfoFactoryAnchor(Transform infoFactoryAnchor) // See HUDWhen Select calls
     {
-        Debug.Log("Set Anchor");
         _infoFactoryAnchor = infoFactoryAnchor;
         currentPanel = Instantiate(_infoCurrentFactoryPrefab, _infoFactoryAnchor);
-        Debug.Log("Instantiated object? " + currentPanel);
+        //Debug.Log("Instantiated object? " + currentPanel);
         SetInfoFactory();
         //currentPanel.transform.parent = _infoFactoryAnchor;
         //currentPanel.transform.localPosition = new Vector3(0,0,0);
@@ -173,7 +178,7 @@ public class FactoryManagerPanel : MonoBehaviour
     public void SetInfoFactory()// See HUDWhen Select
     {
         InfoCurrentFactory infoCurrentFactory = currentPanel.GetComponent<InfoCurrentFactory>();
-        Debug.Log("Set info capable? " + (infoCurrentFactory != null));
+        //Debug.Log("Set info capable? " + (infoCurrentFactory != null));
 
         infoCurrentFactory.Name.text = _factoryManager.FactoryData.Name;
         infoCurrentFactory.Production.text = _factoryManager.FactoryData.ProductionRate.ToString();

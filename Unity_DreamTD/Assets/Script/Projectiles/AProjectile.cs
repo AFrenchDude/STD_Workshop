@@ -133,6 +133,7 @@ public abstract class AProjectile : MonoBehaviour
             pathFollower.LastWaypointReached.RemoveListener(SetTargetPathFollower);
         }
         InstantiateFailSafeTarget(target.transform);
+
     }
 
     private void SetTargetPathFollower(PathFollower target)//If base reached then get a new target position
@@ -150,7 +151,7 @@ public abstract class AProjectile : MonoBehaviour
         Debug.Log("Instantiate Failsafe");
         GameObject failSafeTarget = Instantiate(_failSafeTargetPrefab);
         failSafeTarget.transform.position = target.transform.position;
-        _target = failSafeTarget.transform;
+        SetTarget(failSafeTarget.transform);
     }
 
     public void SetDestroyOnAttack(bool destroyOnAttack)
