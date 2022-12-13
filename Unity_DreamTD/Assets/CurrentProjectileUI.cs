@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -146,15 +145,12 @@ public class CurrentProjectileUI : MonoBehaviour
         if (_towerDatas != null)
         {
             _towerDatas.SetProjectileType(_projectileIndex, projectileType);
-            SetUpProjectile(_towerDatas.Projectiles[_projectileIndex]);
+            SetUpProjectile(_towerDatas.ProjectilesList[_projectileIndex]);
         }
         else if (_trainUpgradePanel != null)
         {
             _trainUpgradePanel.SetNewProjectileType(_wagonLinkedIndex, projectileType);
         }
-
-
-
         _animator.SetBool("Open", false);
     }
 

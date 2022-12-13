@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 7251261724152086745}
   - component: {fileID: 2303298581653008101}
   m_Layer: 5
-  m_Name: DamageValue
+  m_Name: ProductionValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 3055821606926852820}
   - component: {fileID: 4724210032608040707}
   m_Layer: 5
-  m_Name: DamageValue
+  m_Name: MaxStorageValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -621,7 +621,7 @@ GameObject:
   - component: {fileID: 7477378086086502488}
   - component: {fileID: 4761690229289817521}
   m_Layer: 5
-  m_Name: CurrentStorage
+  m_Name: CurrentMaxStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -759,6 +759,7 @@ GameObject:
   - component: {fileID: 8291940215144828612}
   - component: {fileID: 3936497495577630168}
   - component: {fileID: 4038337814199664873}
+  - component: {fileID: 2090459729365899679}
   m_Layer: 5
   m_Name: InfoFactory
   m_TagString: Untagged
@@ -828,6 +829,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2090459729365899679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7171008903406003786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6055f54a7c221bb4da9dd300e9c1b287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: {fileID: 588562765712506260}
+  _production: {fileID: 2303298581653008101}
+  _maxStorage: {fileID: 4724210032608040707}
+  _position: {fileID: 0}
 --- !u!1 &7246533639386799393
 GameObject:
   m_ObjectHideFlags: 0
