@@ -69,7 +69,6 @@ public class UIManager : MonoBehaviour
         return (factoryManagerPanel);
     }
 
-
     //Information
     public UI_TowerPanelManager CreateTowerUpgradeInformation(TowersDatas towerToUp)
     {

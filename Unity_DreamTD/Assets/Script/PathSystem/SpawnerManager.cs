@@ -56,6 +56,8 @@ public class SpawnerManager : MonoBehaviour
     public delegate void SpawnerEvent(SpawnerManager sender, SpawnerStatus status, int runningWaveCount);
     public event SpawnerEvent WaveStatusChanged = null;
 
+    private bool _waveEnded;
+
     private void Awake()
     {
         _spawnerState = SpawnerStatus.Inactive;
@@ -76,10 +78,12 @@ public class SpawnerManager : MonoBehaviour
                 _spawnerState = SpawnerStatus.Inactive;
             }
         }
-        else if (_waveEntityListCount <= 0)
+
+        else if (_waveEntityListCount <= 0 & _waveEnded)
         {
             _spawnerState = SpawnerStatus.Inactive;
         }
+
     }
 
     public void AddWaveEntityToList(WaveEntity waveEntity)
@@ -103,9 +107,11 @@ public class SpawnerManager : MonoBehaviour
         // Start a new wave set only if there are no currently a wave running
         if (_currentWaveRunning <= 0)
         {
-            StartNewWaveSet();
+            _waveEnded = false;
             _spawnerState = SpawnerStatus.WaveRunning;
+            StartNewWaveSet();            
         }
+            
     }
 
     public void StartNewWaveSet()
@@ -147,8 +153,6 @@ public class SpawnerManager : MonoBehaviour
 
                 spawner.WaveEnded.RemoveListener(Spawner_OnWaveEnded);
                 spawner.WaveEnded.AddListener(Spawner_OnWaveEnded);
-
-
             }
 
 
@@ -197,6 +201,9 @@ public class SpawnerManager : MonoBehaviour
             Debug.Log("Start next wave preview information send");
             WaveStatusChanged?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
             WaveStatusChanged_UnityEvent?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
+
+            _waveEnded = true;
+
 
             // should we run a new wave?
             if (_autoStartNextWaves == true && _currentWaveRunning <= 0)
