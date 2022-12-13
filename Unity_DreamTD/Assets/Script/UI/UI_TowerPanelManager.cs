@@ -78,6 +78,7 @@ public class UI_TowerPanelManager : MonoBehaviour
     public void CanUpgrade(bool canUpgrade)
     {
         _canUpgrade = canUpgrade;
+        UpdateCanUpgrade();
     }
 
     private void SetUpStat()
@@ -85,7 +86,7 @@ public class UI_TowerPanelManager : MonoBehaviour
         if (_towerDatas.canUpgrade)
         {
             _towerIcon.sprite = _towerDatas.Icon;
-            _name.text = _towerDatas.UpgradeDatas.UpgradeName; 
+            _name.text = _towerDatas.UpgradeDatas.UpgradeName;
 
             SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeDamage, false);
             SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeFireRate, true);
@@ -94,16 +95,21 @@ public class UI_TowerPanelManager : MonoBehaviour
 
             _price.text = _towerDatas.UpgradeDatas.UpgradePrice.ToString();
 
-            if (_canUpgrade)
-            {
-                _backgroundImage.color = _canBuyBackColor;
-                _price.color = _upColor;
-            }
-            else
-            {
-                _backgroundImage.color = _cantBuyBackColor;
-                _price.color = _lowColor;
-            }
+            UpdateCanUpgrade();
+        }
+    }
+
+    private void UpdateCanUpgrade()
+    {
+        if (_canUpgrade)
+        {
+            _backgroundImage.color = _canBuyBackColor;
+            _price.color = _upColor;
+        }
+        else
+        {
+            _backgroundImage.color = _cantBuyBackColor;
+            _price.color = _lowColor;
         }
     }
 

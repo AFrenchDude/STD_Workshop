@@ -88,7 +88,7 @@ public class HUDwhenSelect : MonoBehaviour
             {
                 Debug.Log("Deselecting");
                 _currentFactoryManagerPanel.ClosePanel();
-                Destroy(currentPanel.gameObject);
+                //Destroy(currentPanel.gameObject);
             }
         }
         //If tower
