@@ -34,7 +34,7 @@ public class UsineSlot : MonoBehaviour
 
         _icon.sprite = usineDescription.Icon;
         _icon.color = usineDescription.IconColor;
-        _priceTxt.SetText(usineDescription.Price + "$");
+        _priceTxt.SetText(usineDescription.Price.ToString());
     }
 
     private void OnEnable()
