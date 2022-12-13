@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: Train_Stats
   m_EditorClassIdentifier: 
   _maxWagonCount: 3
-  _wagonDistanceMargin: 4
+  _wagonDistanceMargin: 2.5
   _speed:
-  - 20
-  - 30
-  - 50
+  - 11
+  - 18
+  - 24
   _waitTimeBetweenTransfers: 0.1
-  _wagonMaxStorage: 140000002800000050000000
+  _wagonMaxStorage: 140000001e00000032000000
   _scoreOnTransfer: 2
   _scoreOnUpgrade: 2000
+  _meshList:
+  - {fileID: 6513120706086594031, guid: 719bb990e7e87f44dbf9dfcf9cd75fb9, type: 3}
+  - {fileID: 4902415385732529794, guid: 3d179f680df17394e8986144075d8d58, type: 3}
+  - {fileID: 6753783375561141041, guid: 95d585e799ad4634cabc0d97864f27b8, type: 3}

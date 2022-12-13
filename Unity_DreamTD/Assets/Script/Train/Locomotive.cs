@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-//Made By Melinon Remy, modified by ALBERT Esteban to update stats via S.O and for UpdateWagonLocationOnSpline
+//Made By Melinon Remy, modified by ALBERT Esteban to update stats via S.O and UpdateWagonLocationOnSpline
 public class Locomotive : MonoBehaviour
 {
     [SerializeField] private TrainStats _trainStats = null;
     private int _currentWagonCountLevel = 1;
     private int _currentSpeedLevel = 1;
     private int _currentStorageLevel = 1;
+    private int _meshIndex = 0;
 
     public List<Wagon> wagons;
 
@@ -53,6 +54,9 @@ public class Locomotive : MonoBehaviour
         //Set spline and speed
         splineFollower = GetComponent<SplineFollower>();
         SetIsParked(false);
+
+        LevelReferences.Instance.LocomotiveManager.AddLocomotiveToList(this);
+        splineFollower.spline = LevelReferences.Instance.RailSpline;
     }
     private void Start()
     {
@@ -63,7 +67,7 @@ public class Locomotive : MonoBehaviour
     {
 
         //Collide with train
-        if (other.tag == "Train" && other.GetComponent<MeshRenderer>().enabled == true)
+        if (other.tag == "Train" && other.gameObject.active == true)
         {
             if (other.transform.root.gameObject != transform.root.gameObject)
             {
@@ -80,7 +84,7 @@ public class Locomotive : MonoBehaviour
         //Collide with tower
         if (other.CompareTag("TowerTrain"))
         {
-            UnityEngine.Debug.Log(other.transform.root.gameObject.ToString() + " / " + (other.transform.root.GetComponent<TowerManager>() != null).ToString());
+           // UnityEngine.Debug.Log(other.transform.root.gameObject.ToString() + " / " + (other.transform.root.GetComponent<TowerManager>() != null).ToString());
 
 
             objectCollided.Add(other.gameObject);
@@ -108,7 +112,7 @@ public class Locomotive : MonoBehaviour
             {
                 foreach (Wagon wagon in wagons)
                 {
-                    if (wagon.type.typeSelected == factoryData.ProjectileType.typeSelected && wagon.projectiles < wagon.MaxWagonStorage && wagon.GetComponent<MeshRenderer>().enabled == true)
+                    if (wagon.type.typeSelected == factoryData.ProjectileType.typeSelected && wagon.projectiles < wagon.MaxWagonStorage && wagon.gameObject.active == true)
                     {
                         wagonsToCheck.Add(wagon);
                     }
@@ -147,7 +151,7 @@ public class Locomotive : MonoBehaviour
             {
                 if (wagon.projectiles > 0)
                 {
-                    foreach (Projectile projectile in towerDatas.Projectiles)
+                    foreach (Projectile projectile in towerDatas.ProjectilesList)
                     {
                         if (wagon.type == projectile.ProjectileType & projectile.ProjectileAmmount < projectile.MaxProjectilesAmmount)
                         {
@@ -343,6 +347,30 @@ public class Locomotive : MonoBehaviour
         UpdateWagonMaxStorage();
     }
 
+    public void UpgradeMeshVisual()
+    {
+        _meshIndex++;
+        SetNewMeshVisual();
+    }
+
+    public void SetNewMeshVisual()
+    {
+        if (transform.childCount > 0)
+        {
+            GameObject child = transform.GetChild(0).gameObject;
+            Vector3 childLocalPosition = child.transform.localPosition;
+            Quaternion childLocalRotation = child.transform.localRotation;
+            Vector3 childLocalScale = child.transform.localScale;
+
+            Destroy(child);
+            child = Instantiate(_trainStats.MeshList[_meshIndex], transform);
+            child.transform.SetLocalPositionAndRotation(childLocalPosition, childLocalRotation);
+            child.transform.localScale = childLocalScale;
+
+        }
+
+    }
+
     #region WagonCountUpgrades
     public void SetWagonCountLevel(int newWagonCountLevel)
     {
@@ -363,7 +391,7 @@ public class Locomotive : MonoBehaviour
         {
             if (!wagons[i].hasTriggered)
             {
-                wagons[i].GetComponent<MeshRenderer>().enabled = true;
+                wagons[i].gameObject.SetActive(true);
                 wagons[i].GetComponent<BoxCollider>().enabled = true;
             }
         }
@@ -371,8 +399,7 @@ public class Locomotive : MonoBehaviour
         {
             if (wagons[i].hasTriggered)
             {
-                wagons[i].GetComponent<MeshRenderer>().enabled = false;
-                wagons[i].GetComponent<BoxCollider>().enabled = false;
+                wagons[i].gameObject.SetActive(false);
             }
         }
     }
@@ -394,7 +421,7 @@ public class Locomotive : MonoBehaviour
     }
     public void UpdateSpeed()
     {
-            splineFollower.SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
+        splineFollower.SetSpeed(_trainStats.SpeedLevels[_currentSpeedLevel - 1]);
     }
     #endregion
 

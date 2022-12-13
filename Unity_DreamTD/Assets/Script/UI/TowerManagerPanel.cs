@@ -36,6 +36,8 @@ public class TowerManagerPanel : MonoBehaviour
     [SerializeField]
     private Color _cantBuyColor;
 
+    public TowerManager TowerManager => _towerManager;
+
     private void Awake()
     {
         goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
@@ -49,11 +51,16 @@ public class TowerManagerPanel : MonoBehaviour
 
         CreateProjectiles();
 
-        UpdateTowerUpgrdePossibility();
-
+        int i = 0;
+        foreach (Projectile projectile in _towerManager.TowersData.ProjectilesList)
+        {
+            _projectilePrefab.SetUpProjectile(_towerManager.TowersData.ProjectilesList[i]);
+            i++;
+        }
+        UpdateTowerUpgradePossibility();
     }
 
-    public void UpdateTowerUpgrdePossibility()
+    public void UpdateTowerUpgradePossibility()
     {
         if (towerHasUpgrade)
         {
@@ -107,7 +114,6 @@ public class TowerManagerPanel : MonoBehaviour
 
     public void SellTower()
     {
-
         goldManager.CollectMoney(_towerManager.TowersData.UpgradeDatas.UpgradePrice / 3);
         Destroy(_towerManager.gameObject);
         ClosePanel();
@@ -123,48 +129,53 @@ public class TowerManagerPanel : MonoBehaviour
 
             _towerManager.TowersData.Upgrade();
             _towerManager.ApplyStats(_towerManager.TowersData);
-            towerScriptRef.RangeIndicator.UpdateCircle();
-
 
             towerScriptRef.SetUpgradeMesh(_towerManager.TowersData.UpgradeDatas.UpgradePrefab);
 
-            if (towerInformation != null)
+            if (towerInformation != null & towerHasUpgrade)
             {
                 towerInformation.SetTowerData(_towerManager.TowersData);
                 towerInformation.CanUpgrade(canBuyTower);
-
+                CreateProjectiles();
             }
+            else
+            {
+                UpdateTowerUpgradePossibility();
+            }
+
+            towerScriptRef.RangeIndicator.UpdateCircle();
         }
     }
 
     //Informations
-
     private UI_TowerPanelManager towerInformation;
 
     public void CreateTowerUpgradeInformation()
     {
         if (towerHasUpgrade)
         {
-
             if (towerInformation == null)
             {
                 towerInformation = Instantiate(_towerInfoPrefab, _infoParent);
 
                 towerInformation.SetTowerData(_towerManager.TowersData);
                 towerInformation.CanUpgrade(canBuyTower);
-
+                UpdateTowerUpgradePossibility();
             }
         }
     }
 
     public void RemoveTowerUpgradeInformation()
     {
-        towerInformation.FadeOut();
+        if (towerInformation != null)
+        {
+            towerInformation.FadeOut();
+        }
     }
 
 
-    //Projectiles
-    [Header("Projectiles")]
+    //ProjectilesList
+    [Header("ProjectilesList")]
 
     [SerializeField]
     private CurrentProjectileUI _projectilePrefab;
@@ -174,17 +185,27 @@ public class TowerManagerPanel : MonoBehaviour
 
     public void CreateProjectiles()
     {
+        List<CurrentProjectileUI> createdUi = new List<CurrentProjectileUI>();
         int i = 0;
-        foreach (Projectile projectile in _towerManager.TowersData.Projectiles)
+        foreach (Projectile projectile in _towerManager.TowersData.ProjectilesList)
         {
             CurrentProjectileUI newProjectile = Instantiate(_projectilePrefab, _projectileContainers[i].transform);
 
             newProjectile.SetUpProjectile(projectile);
             newProjectile.KeepReferences(_towerManager.TowersData, i);
 
+            createdUi.Add(newProjectile);
 
             i++;
         }
+
+        foreach (CurrentProjectileUI projectile in createdUi)
+        {
+            {
+                projectile.SetOtherProjectilesPreview(createdUi);
+            }
+        }
+
     }
 
 }

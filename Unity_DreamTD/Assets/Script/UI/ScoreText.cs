@@ -7,17 +7,36 @@ using System.Collections;
 //Made by Melinon Remy
 public class ScoreText : MonoBehaviour
 {
+    [SerializeField] bool isVictory = false;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private List<Image> stars;
+    [SerializeField] private GameObject newRecordImage;
+    [SerializeField] private List<GameObject> objectsToDisableOnVictory;
+
+    //Score
     private int score = 0;
     private int scoreReached;
+    float lerp = 0f;
+    float duration = 2.5f;
     private bool isDisplaying = false;
+
+    //Level save
+    private int starCompar = 0;
+    private bool isCheckingForBestScore = true;
+
 
     //On activation
     public void Activate()
     {
-        scoreReached = LevelReferences.Instance.ScoreManager.score;
-        StartCoroutine(LittleWait());
+        foreach (var gameobject in objectsToDisableOnVictory)
+        {
+            gameobject.SetActive(false);
+        }
+        if (isVictory)
+        {
+            scoreReached = LevelReferences.Instance.ScoreManager.score;
+            StartCoroutine(LittleWait());
+        }
     }
     private IEnumerator LittleWait()
     {
@@ -30,24 +49,46 @@ public class ScoreText : MonoBehaviour
     //Score display increase
     private void Update()
     {
-        if(isDisplaying && score <= scoreReached)
+        if (isVictory)
         {
-            //Set score text
-            text.SetText("Score: " + score);
-            //If on win screen
-            if(stars.Count > 0)
+            if (isDisplaying && score <= scoreReached)
             {
-                for(int i = 0; i != LevelReferences.Instance.ScoreManager.starScore.Count; i++)
+                lerp += Time.deltaTime / duration;
+                score = (int)Mathf.Lerp(0, scoreReached, lerp);
+                text.SetText("Score: " + score);
+                //If on win screen
+                if (stars.Count > 0)
                 {
-                    //Check for star
-                    if (score >= LevelReferences.Instance.ScoreManager.starScore[i] && stars[i].gameObject != null)
+                    for (int i = 0; i != LevelReferences.Instance.ScoreManager.levelSave.starScore.Count; i++)
                     {
-                        stars[i].gameObject.SetActive(true);
+                        //Check for star
+                        if (score >= LevelReferences.Instance.ScoreManager.levelSave.starScore[i] && stars[i].gameObject != null)
+                        {
+                            stars[i].color = new Color(255, 255, 255);
+                            GiveStar(i + 1);
+                        }
                     }
                 }
             }
-            //Increase score
-            score += 2;
+            //Best score
+            if (score >= scoreReached && isCheckingForBestScore)
+            {
+                isCheckingForBestScore = false;
+                LevelReferences.Instance.ScoreManager.levelSave.CheckForNewRecord(scoreReached, out bool gotBool);
+                if (gotBool)
+                {
+                    newRecordImage.SetActive(true);
+                }
+            }
+        }
+    }
+
+    void GiveStar(int starToGive)
+    {
+        if (starToGive > starCompar)
+        {
+            starCompar++;
+            LevelReferences.Instance.ScoreManager.levelSave.CheckToAddStar(starToGive);
         }
     }
 }

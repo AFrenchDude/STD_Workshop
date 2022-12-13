@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 1990845605837971208}
   - component: {fileID: 7334364941534631678}
   - component: {fileID: 5121579706429966096}
+  - component: {fileID: 8469918829131244588}
   m_Layer: 13
   m_Name: Projectile.Test
   m_TagString: Untagged
@@ -152,7 +153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destroyOnAttack: 1
   _movementSpeed: 10
-  _heightSwitch: 30
+  _failSafeTargetPrefab: {fileID: 1823514851054664591, guid: a7813d90b9040a24f87da265cfe8f59a,
+    type: 3}
+  _heightSwitch: 25
   fireType: 0
 --- !u!114 &2685485626335918887
 MonoBehaviour:
@@ -169,6 +172,7 @@ MonoBehaviour:
   _attack: 99
   _attackType: {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
   _mortarRadius: 10
+  _fireType: 0
   DamageDone:
     m_PersistentCalls:
       m_Calls: []
@@ -201,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedProjectileType: 0
-  _upgradeManager: {fileID: 0}
+  _upgradeManager: {fileID: 11400000, guid: 0a461dc62b8fcbc45bde1c3077d9dc74, type: 2}
 --- !u!114 &1049926090172982761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,3 +370,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &8469918829131244588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2685485626335918881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b0a76a81d372f46ae09d55bd34ce42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeBeforeDestroy: 3

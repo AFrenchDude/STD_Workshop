@@ -1,4 +1,4 @@
-    //By ALBERT Esteban
+//By ALBERT Esteban
 using UnityEngine;
 
 public class PlayerDrag : MonoBehaviour
@@ -10,6 +10,10 @@ public class PlayerDrag : MonoBehaviour
     private IPickerGhost _ghost = null;
     private bool _isDragging = false;
     private bool _isSnappedToRail = false;
+    private float _endDragTime = 0.0f;
+
+    public bool IsDragging => _isDragging;
+    public float EndDragTime => _endDragTime;
 
     private void Update()
     {
@@ -17,7 +21,10 @@ public class PlayerDrag : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             bool hasFoundSurface = Physics.Raycast(ray, out RaycastHit cursorHit, float.MaxValue, _interactibleLayer);
-            BuildingDragNDrop(hasFoundSurface, cursorHit);
+            if (Time.timeScale > 0)
+            {
+                BuildingDragNDrop(hasFoundSurface, cursorHit);
+            }
         }
     }
 
@@ -65,9 +72,26 @@ public class PlayerDrag : MonoBehaviour
 
     private void SnapDraggedItemToRail(Vector3 towerSnapLocation, SplineDone.Point nearestSplinePoint)
     {
-        _ghost.GetTransform().position = towerSnapLocation;
+        
+        RaycastHit hit;
+
         _ghost.GetTransform().LookAt(nearestSplinePoint.position);
+
+        if (Physics.Raycast(towerSnapLocation + new Vector3(0, 10, 0), Vector3.down, out hit, 100f, LayerMask.GetMask(LayerMask.LayerToName(0))))
+        {
+            _ghost.GetTransform().position = new Vector3(towerSnapLocation.x, hit.point.y + 0.1f, towerSnapLocation.z);
+
+            Quaternion rotationToFloor = Quaternion.FromToRotation(transform.up, hit.normal) * _ghost.GetTransform().rotation;        
+            _ghost.GetTransform().rotation.SetEulerAngles(rotationToFloor.x, _ghost.GetTransform().rotation.eulerAngles.y, rotationToFloor.z);
+        }
+        else
+        {
+            _ghost.GetTransform().position = towerSnapLocation;
+        }
+
+        
         _isSnappedToRail = true;
+
     }
     public void ActivateWithGhost(IPickerGhost ghost)
     {
@@ -78,6 +102,10 @@ public class PlayerDrag : MonoBehaviour
     public void ActivateDrag(bool enable)
     {
         _isDragging = enable;
+        if (enable == false)
+        {
+            _endDragTime = Time.time;
+        }
     }
     public void DestroyDraggedItem()
     {

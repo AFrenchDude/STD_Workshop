@@ -13,6 +13,7 @@ public class TrainStats : ScriptableObject
     [SerializeField] private List<int> _wagonMaxStorage = new List<int>();
     [SerializeField] private int _scoreOnTransfer = 1;
     [SerializeField] private int _scoreOnUpgrade = 1000;
+    [SerializeField] private List<GameObject> _meshList;
 
     public int MaxWagonCount => _maxWagonCount;
     public float WagonMargin => _wagonDistanceMargin;
@@ -21,4 +22,5 @@ public class TrainStats : ScriptableObject
     public float WaitTime => _waitTimeBetweenTransfers;
     public int ScoreOnTransfer => _scoreOnTransfer;
     public int ScoreOnUpgrade => _scoreOnUpgrade;
+    public List<GameObject> MeshList => _meshList;
 }

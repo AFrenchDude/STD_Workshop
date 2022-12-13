@@ -18,10 +18,12 @@ public class WavePreviewElement : MonoBehaviour
         ExtractWaveDatas();
     }
 
+    private int index = 0;
     public void ExtractWaveDatas()
     {
         foreach(Wave wave in associateWave.Waves)
         {
+            index++;
             foreach(WaveEntityDescription waveEntity in wave.WaveEntitiesDescription)
             {
                 NightmareData data = waveEntity.NightmareData;
@@ -48,5 +50,9 @@ public class WavePreviewElement : MonoBehaviour
 
             enemiesTypePreview.SetWaveData(data.icon, _nightmaresInWave[data]);
         }
+
+        //Etat mental : Check
+        //Etat physique : Check
+        //Fatigue : Critique (Veuillez redemarrer)
     }
 }

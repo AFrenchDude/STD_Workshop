@@ -22,6 +22,9 @@ public class TowersDatas : ScriptableObject
     private string _name = null;
 
     [SerializeField]
+    private string _description = null;
+
+    [SerializeField]
     private string _type = null;
 
     [SerializeField]
@@ -43,7 +46,7 @@ public class TowersDatas : ScriptableObject
     [SerializeField]
     private TowerUpgradeData _currentUpgrade;
 
-    [Header("Projectiles")]
+    [Header("ProjectilesList")]
     [SerializeField]
     private List<Projectile> _projectileTypeList = new List<Projectile>();
 
@@ -56,8 +59,11 @@ public class TowersDatas : ScriptableObject
 
     [SerializeField] private int scoreToGiveOnUpgrade;
 
+    [SerializeField] private bool _towerDataUnlocked = false;
+
     public Sprite Icon => _sprite;
     public string Name => _name;
+    public string Description => _description;
     public string Type => _type;
 
     public float Damage => _damage;
@@ -65,20 +71,35 @@ public class TowersDatas : ScriptableObject
     public float Range => _range;
     public float ProjectileSpeed => _projectileSpeed;
     public fireType FireType => _fireType;
-    
+
     public TowerUpgradeData UpgradeDatas => _currentUpgrade;
 
-    public List<Projectile> Projectiles => _projectileTypeList;
+    public List<Projectile> ProjectilesList => _projectileTypeList;
 
     public int MaxProjectilesAmmount => _maxProjectilesAmmount;
 
     public float AOERadius => _aoeRadius;
-    
+    public bool IsUnlocked => _towerDataUnlocked;
+
+    public void UnlockTowerData()
+    {
+        _towerDataUnlocked = true;
+    }
+
     public void Upgrade()
     {
         if(_currentUpgrade.NextUpgrade != null)
         {
             _currentUpgrade = _currentUpgrade.NextUpgrade;
+            ApplyUpgrade();
+        }
+    }
+    public void ManualUpgrade(TowerUpgradeData upgradeToApply)
+    {
+        if (upgradeToApply != null)
+        {
+            _currentUpgrade = upgradeToApply;
+
             ApplyUpgrade();
         }
     }
@@ -89,7 +110,7 @@ public class TowersDatas : ScriptableObject
         _damage = _currentUpgrade.UpgradeDamage;
         _fireRate = _currentUpgrade.UpgradeFireRate;
         _range = _currentUpgrade.UpgradeRange;
-        _maxProjectilesAmmount = _currentUpgrade.UpgradeMaxProjectiles;
+        _maxProjectilesAmmount = Mathf.CeilToInt((float)_currentUpgrade.UpgradeMaxProjectiles / (float)_projectileTypeList.Count);
         _aoeRadius = _currentUpgrade.UpgradeAOERadius;
 
         foreach(Projectile projectile in _projectileTypeList)
@@ -112,7 +133,6 @@ public class TowersDatas : ScriptableObject
     }
 
     //Set Projectlile Type
-
     public void SetProjectileType(int index, ProjectileType projectileType)
     {
         _projectileTypeList[index].ProjectileType = projectileType;
@@ -145,4 +165,11 @@ public class Projectile
 
     [SerializeField]
     public int MaxProjectilesAmmount;
+
+    public void SetupProjectile(ProjectileType type, int number, int maxAmmount)
+    {
+        ProjectileType = type;
+        ProjectileAmmount = number;
+        MaxProjectilesAmmount = maxAmmount;
+    }
 }

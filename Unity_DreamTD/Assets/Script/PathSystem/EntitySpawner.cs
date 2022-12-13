@@ -18,6 +18,7 @@ public class EntitySpawner : MonoBehaviour
 
     [System.NonSerialized]
     private Wave _wave = null;
+    public Wave SpawnerWave => _wave;
 
     [System.NonSerialized]
     private List<WaveEntity> _runtimeWaveEntities = new List<WaveEntity>();
@@ -31,9 +32,16 @@ public class EntitySpawner : MonoBehaviour
     public void StartWave(Wave wave)
     {
         _wave = new Wave(wave);
-        _timer.Set(wave.DurationBetweenSpawnedEntity).Start();
+        _timer.Set(wave.DurationBetweenSpawnedEntity + wave.DurationBetweenSpawnedEntity).Start();
         WaveStarted?.Invoke(this, wave);
-        InstantiateNextWaveElement();
+
+        //var nextEntity = _wave.PeekNextWaveElement();
+        //_timer.Set(nextEntity.ExtraDurationBeforeSpawned).Start();
+        if(wave.DurationBetweenSpawnedEntity == 0)
+        {
+            InstantiateNextWaveElement();
+        }
+        
     }
 
     private WaveEntity InstantiateEntity(WaveEntity entityPrefab)
@@ -44,8 +52,14 @@ public class EntitySpawner : MonoBehaviour
         return entityInstance;
     }
 
+    public bool hasWaveElementLeft
+    {
+        get { return _wave.HasWaveElementsLeft; }
+    }
+
     private void InstantiateNextWaveElement()
     {
+        
         if (_wave.HasWaveElementsLeft == true)
         {
             var nextEntity = _wave.GetNextWaveElement();
@@ -85,6 +99,7 @@ public class EntitySpawner : MonoBehaviour
     {
         if (_timer != null)
         {
+            
             bool shouldInstantiateEntity = _timer.Update();
 
             if (shouldInstantiateEntity == true)

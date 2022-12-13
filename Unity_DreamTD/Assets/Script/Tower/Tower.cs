@@ -1,6 +1,8 @@
-//By ALBERT Esteban
+//By ALBERT Esteban, modified by a lot of people
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
+
 
 public class Tower : MonoBehaviour, IPickerGhost
 {
@@ -61,7 +63,7 @@ public class Tower : MonoBehaviour, IPickerGhost
             }
 
             allTargetedDamageable.Clear();
-            foreach (Projectile projectile in _datas.Projectiles)
+            foreach (Projectile projectile in _datas.ProjectilesList)
             {
                 allTargetedDamageable.Add(_damageableDetector.GetDamageable(_targetPriority, projectile.ProjectileType.convertProjectileToNightmare()));
             }
@@ -127,6 +129,8 @@ public class Tower : MonoBehaviour, IPickerGhost
         string objectName = _datas.name + "_Create_Lvl0";
         _goldManager.Buy(_price, objectName);
         _towerDescription.IncreasePrice();
+
+        LevelReferences.Instance.DebugDataSaver.AddTurret(_datas);
     }
 
     public void EnableDragNDropVFX(bool enable)
@@ -179,6 +183,10 @@ public class Tower : MonoBehaviour, IPickerGhost
             {
                 _weaponController.AddMuzzle(child);
             }
+            if(child.GetComponent<VisualEffect>() != null)
+            {
+                _weaponController.AddFireEffect(child.GetComponent<VisualEffect>());
+            }
 
             if (child.childCount > 0)
             {
@@ -226,6 +234,10 @@ public class Tower : MonoBehaviour, IPickerGhost
         Gizmos.DrawWireSphere(transform.position, _collisionCheckRadius);
     }
 
+
+    [SerializeField]
+    private VisualEffect _upgradeEffect;
+
     public void SetUpgradeMesh(GameObject mesh)
     {
         Destroy(_parentMeshRenderers.gameObject);
@@ -235,6 +247,11 @@ public class Tower : MonoBehaviour, IPickerGhost
 
         FindPivotAndMuzzle(_parentMeshRenderers);
 
+        if(_upgradeEffect.gameObject.active == false)
+        {
+            _upgradeEffect.gameObject.SetActive(true);
+        }
+        _upgradeEffect.Play();
     }
     #endregion
 }

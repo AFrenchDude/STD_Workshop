@@ -1,6 +1,7 @@
 //By ALBERT Esteban & ALEXANDRE Dorian
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class WeaponController : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     private List<Transform> _canonMuzzle = new List<Transform>();
     private int _muzzleIndx = 0;
+
+    [SerializeField]
+    private List<VisualEffect> _fireBoom = new List<VisualEffect>();
 
     [SerializeField]
     private List<Transform> _canonPivot = new List<Transform>();
@@ -42,6 +46,7 @@ public class WeaponController : MonoBehaviour
     {
         _canonMuzzle.Clear();
         _canonPivot.Clear();
+        _fireBoom.Clear();
     }
 
     public void AddMuzzle(Transform transform)
@@ -52,6 +57,11 @@ public class WeaponController : MonoBehaviour
     public void AddPivot(Transform pivot)
     {
         _canonPivot.Add(pivot);
+    }
+
+    public void AddFireEffect(VisualEffect vfx)
+    {
+        _fireBoom.Add(vfx);
     }
 
     private void FixedUpdate()
@@ -103,12 +113,15 @@ public class WeaponController : MonoBehaviour
         }
         AProjectile spawnedProjectile = null;
 
-        if (_towersData.Projectiles.Count > 0)
+        if (_towersData.ProjectilesList.Count > 0)
         {
             if (_towersData.hasProjectiles(_muzzleIndx))
             {
-                ProjectileType currentProjectile = _towersData.Projectiles[_muzzleIndx].ProjectileType;
+                ProjectileType currentProjectile = _towersData.ProjectilesList[_muzzleIndx].ProjectileType;
                 spawnedProjectile = Instantiate(currentProjectile.projectile.GetComponent<AProjectile>());
+
+                
+
                 _towersData.ReduceProjAmmount(_muzzleIndx, 1);
             }
             else
@@ -122,6 +135,8 @@ public class WeaponController : MonoBehaviour
                     return;
                 }
             }
+
+
         }
         else
         {
@@ -131,9 +146,9 @@ public class WeaponController : MonoBehaviour
         spawnedProjectile.transform.position = _canonMuzzle[_muzzleIndx].transform.position;
         spawnedProjectile.transform.rotation = _canonMuzzle[_muzzleIndx].transform.rotation;
 
+        spawnedProjectile.GetComponent<AProjectile>().SetFireType(_towersData.FireType);
         spawnedProjectile.GetComponent<AProjectile>().SetTarget(_target[_muzzleIndx].TargetAnchor);
         spawnedProjectile.GetComponent<AProjectile>().SetSpeed(_towersData.ProjectileSpeed);
-        spawnedProjectile.GetComponent<AProjectile>().SetFireType(_towersData.FireType);
 
         Damager projectileDamager = spawnedProjectile.GetComponent<Damager>();
 
@@ -145,7 +160,14 @@ public class WeaponController : MonoBehaviour
         {
             projectileDamager.ActiveMiraculousBullet();
         }
-        
+
+        //Fire boom effect
+
+        if (_fireBoom[_muzzleIndx].gameObject.active == false)
+        {
+            _fireBoom[_muzzleIndx].gameObject.SetActive(true);
+        }
+        _fireBoom[_muzzleIndx].Play();
 
         //Set up muzzle index (For Double canon)
 
@@ -165,11 +187,17 @@ public class WeaponController : MonoBehaviour
         }
 
 
+        spawnedProjectile.GetComponent<Damager>().SetFireType(_towersData.FireType);
+
+
+
+
+
     }
 
     public ProjectileType getCurrentProjectileType
     {
-        get { return _towersData.Projectiles[_muzzleIndx].ProjectileType; }
+        get { return _towersData.ProjectilesList[_muzzleIndx].ProjectileType; }
     }
 
 }

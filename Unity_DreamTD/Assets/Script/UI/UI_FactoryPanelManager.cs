@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 
 public class UI_FactoryPanelManager : MonoBehaviour
 {
@@ -49,7 +46,11 @@ public class UI_FactoryPanelManager : MonoBehaviour
     {
         _factoryDatas = factoryData;
 
-        SetUpStat();
+        if (_factoryDatas.CurrentUpgrade.NextUpgrade != null)
+        {
+
+            SetUpStat();
+        }
     }
 
     private void SetUpStat()
@@ -57,8 +58,8 @@ public class UI_FactoryPanelManager : MonoBehaviour
         _towerIcon.sprite = _factoryDatas.Icon;
         _name.text = _factoryDatas.CurrentUpgrade.UpgradeName;
 
-        SetUpUpgrade(_currentMaxAmmount, _upgradeMaxAmmount, _factoryDatas.MaxAmmount, _factoryDatas.CurrentUpgrade.NextUpgrade.UpgradeMaxResource, true);
-        SetUpUpgrade(_currentProductionRate, _upgradeProductionRate, _factoryDatas.ProductionRate, _factoryDatas.CurrentUpgrade.NextUpgrade.UpgradeCooldown, false);
+        SetUpUpgrade(_currentMaxAmmount, _upgradeMaxAmmount, _factoryDatas.MaxAmmount, _factoryDatas.CurrentUpgrade.NextUpgrade.UpgradeMaxResource, false);
+        SetUpUpgrade(_currentProductionRate, _upgradeProductionRate, _factoryDatas.ProductionRate, _factoryDatas.CurrentUpgrade.NextUpgrade.UpgradeCooldown, true);
 
         _price.text = _factoryDatas.CurrentUpgrade.UpgradePrice.ToString();
     }
@@ -107,10 +108,14 @@ public class UI_FactoryPanelManager : MonoBehaviour
     public void FadeOut()
     {
         _isFadeOut = true;
-        if (GetComponent<Animator>() != null)
+        if (this != null) // Bah enfaite le boulanger ma dit qu'il n'existait pas...
         {
+            if (transform.TryGetComponent(out Animator animator))
+            {
 
-            GetComponent<Animator>().SetBool("Close", _isFadeOut);
+                GetComponent<Animator>().SetBool("Close", _isFadeOut);
+            }
+
         }
     }
 

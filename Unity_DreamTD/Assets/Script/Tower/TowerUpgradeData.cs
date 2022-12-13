@@ -1,6 +1,4 @@
 //By ALEXANDRE Dorian
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -41,7 +39,6 @@ public class TowerUpgradeData : ScriptableObject
     private TowerUpgradeData _nextUpgrade;
 
     //Public references
-
     public string UpgradeName => _upgradeName;
 
     public float UpgradeDamage => _upgradeDamage;
@@ -52,5 +49,4 @@ public class TowerUpgradeData : ScriptableObject
     public int UpgradePrice => _upgradePrice;
     public GameObject UpgradePrefab => _upgradePrefab;
     public TowerUpgradeData NextUpgrade => _nextUpgrade;
-
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -20,6 +19,12 @@ public class WavePreviewerManager : MonoBehaviour
     [SerializeField]
     private float _speed = 1f;
 
+    private StartButtonScript _startButtonScript;
+    public void SetStartButton(StartButtonScript startButton)
+    {
+        _startButtonScript = startButton;
+    }
+
     //Ui text
     [SerializeField]
     private TextMeshProUGUI _waveIndexIndicator;
@@ -31,6 +36,7 @@ public class WavePreviewerManager : MonoBehaviour
 
         foreach (WaveSet waveSet in _waveDatabase.Waves)
         {
+            
             WavePreviewElement wavePreviewElement = Instantiate(_previewElementPrefab, transform);
 
             wavePreviewElement.SetWave(waveSet);
@@ -39,10 +45,17 @@ public class WavePreviewerManager : MonoBehaviour
         SetUpCurrentWave();
     }
 
-    public void StartNextWave()
+    public void TestIfHeCanStartNextWave(SpawnerManager currentSpawnerManager)
     {
 
+    }
+    public void StartNextWave()
+    {
+        Debug.LogWarning("Stars Next Wave Preview");
         SetUpCurrentWave();
+
+        _startButtonScript.EndWave();
+
         StartCoroutine(MovementCoroutine(_rectTransform.anchoredPosition.x , 0));
         
     }

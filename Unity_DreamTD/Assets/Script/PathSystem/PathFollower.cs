@@ -1,5 +1,4 @@
 //By ALBERT Esteban
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,6 +18,7 @@ public class PathFollower : MonoBehaviour
 
     public float Speed => _movementSpeed;
     public float OGSpeed => _originalMovementSpeed;
+    public bool Loop => _loop;
 
     public UnityEvent<PathFollower> LastWaypointReached;
     public void SetOriginalSpeed(float speed)
@@ -44,7 +44,7 @@ public class PathFollower : MonoBehaviour
 
     public float getPathDistance
     {
-        get{return _waypointIndex * 10000 + (_pathWaypoints[_waypointIndex] - transform.position).magnitude;}
+        get{return _waypointIndex * 10000 + (_pathWaypoints[_waypointIndex+1] - transform.position).magnitude;}
     }
 
     private void Update()
@@ -94,6 +94,7 @@ public class PathFollower : MonoBehaviour
         }
         else
         {
+            //GetComponent<Damageable>().DestroyHealthBar();
             Destroy(gameObject);
         }
     }
@@ -107,5 +108,10 @@ public class PathFollower : MonoBehaviour
         float currentPathProgress = targetToThisDistance / lastWaypointToTargetDistance;
 
         return generalProgress * 2.0f + currentPathProgress;
+    }
+
+    public void SetNewSpeed(float newSpeed)
+    {
+        _movementSpeed = newSpeed;
     }
 }

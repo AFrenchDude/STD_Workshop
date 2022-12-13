@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -45,6 +43,12 @@ public class UI_TowerPanelManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _upgradeRange;
 
+    [Header("Capacity")]
+    [SerializeField]
+    private TextMeshProUGUI _currentCapacity;
+    [SerializeField]
+    private TextMeshProUGUI _upgradeCapacity;
+
     [Header("Price")]
     [SerializeField]
     private TextMeshProUGUI _price;
@@ -65,12 +69,9 @@ public class UI_TowerPanelManager : MonoBehaviour
 
 
     //Functions
-
     public void SetTowerData(TowersDatas towerData)
     {
         _towerDatas = towerData;
-
-
         SetUpStat();
     }
 
@@ -89,6 +90,7 @@ public class UI_TowerPanelManager : MonoBehaviour
             SetUpUpgrade(_currentDamage, _upgradeDamage, _towerDatas.Damage, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeDamage, false);
             SetUpUpgrade(_currentFireRate, _upgradeFireRate, _towerDatas.FireRate, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeFireRate, true);
             SetUpUpgrade(_currentRange, _upgradeRange, _towerDatas.Range, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeRange, false);
+            SetUpUpgrade(_currentCapacity, _upgradeCapacity, _towerDatas.MaxProjectilesAmmount, _towerDatas.UpgradeDatas.NextUpgrade.UpgradeMaxProjectiles, false);
 
             _price.text = _towerDatas.UpgradeDatas.UpgradePrice.ToString();
 
@@ -102,7 +104,6 @@ public class UI_TowerPanelManager : MonoBehaviour
                 _backgroundImage.color = _cantBuyBackColor;
                 _price.color = _lowColor;
             }
-
         }
     }
 
@@ -120,7 +121,6 @@ public class UI_TowerPanelManager : MonoBehaviour
             }
             else
             {
-
                 previous.color = _lowColor;
                 next.color = _upColor;
             }
@@ -149,6 +149,7 @@ public class UI_TowerPanelManager : MonoBehaviour
     private bool _isFadeOut = false;
     public void FadeOut()
     {
+        
         _isFadeOut = true;
         if (GetComponent<Animator>() != null)
         {

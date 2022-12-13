@@ -1,7 +1,6 @@
-//By ALBERT Esteban
+//By ALBERT Esteban, HP bar by ALEXANDRE Dorian, score by MELINON Remy
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,10 +12,14 @@ public class Damageable : MonoBehaviour
     [SerializeField] private Transform _targetAnchor = null;
     [SerializeField] private Transform _headAnchor = null;
     public int scoreToGiveOnDeath;
-    private float _health = 100;
+    [SerializeField] private float _health = 100;
+    [SerializeField] private bool _doNotGiveScore = false;
+    [SerializeField] private bool _isUndetectable = false;
 
     [SerializeField]
     private EnemiesHealthBar _healthBar = null;
+
+    public bool IsUndetectable => _isUndetectable;
 
     public NightmareData.NighmareType NightmareType => _nightmareType;
     public UnityEvent<float> OnDamageTaken;
@@ -24,18 +27,36 @@ public class Damageable : MonoBehaviour
 
     public int MaxHP => _maxHealth;
     public float CurrentHealth => _health;
+    public bool DestroyOnDeath => _destroyOnDeath;
     public Transform TargetAnchor => _targetAnchor;
     public Transform HeadAnchor => _headAnchor;
 
-    public void setMaxHp(float maxHp)
+    public void SetDestroyOnDeath(bool destroyOnDeath)
     {
+        _destroyOnDeath = destroyOnDeath;
+    }
+
+    public void setMaxHp(float maxHp, bool shouldRestoreLife, bool shouldKeepPercent)
+    {
+        float healthPercentage = _health / _maxHealth;
         _maxHealth = (int)maxHp;
-        _health = _maxHealth;
+        if (shouldRestoreLife)
+        {
+            _health = _maxHealth;
+        }
+        else if (shouldKeepPercent)
+        {
+            _health = _maxHealth * healthPercentage;
+        }
     }
 
     public void TakeDamage(float damage, out float health)
     {
-        LevelReferences.Instance.ScoreManager.AddScore((int)damage*10);
+        if (!_doNotGiveScore)
+        {
+            LevelReferences.Instance.ScoreManager.AddScore((int)damage * 10);
+        }
+
         _health -= damage;
         health = _health;
         OnDamageTaken.Invoke(_health);
@@ -43,11 +64,7 @@ public class Damageable : MonoBehaviour
         if (_health <= 0)
         {
             LevelReferences.Instance.ScoreManager.AddScore(scoreToGiveOnDeath);
-            if (_healthBar != null)
-            {
-                Destroy(_healthBar.gameObject);
-            }
-
+            DestroyHealthBar();
             Death();
         }
         else
@@ -56,6 +73,7 @@ public class Damageable : MonoBehaviour
             {
                 UIManager uiManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
                 _healthBar = uiManager.CreateEnemiesHealthBar(_headAnchor);
+                _healthBar.SetPathFollower(GetComponent<PathFollower>());
             }
 
             if (_healthBar != null)
@@ -63,6 +81,14 @@ public class Damageable : MonoBehaviour
                 _healthBar.UpdateLife(_health, _maxHealth);
 
             }
+        }
+    }
+
+    public void DestroyHealthBar()
+    {
+        if (_healthBar != null)
+        {
+            Destroy(_healthBar.gameObject);
         }
     }
 
@@ -74,6 +100,4 @@ public class Damageable : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    
 }

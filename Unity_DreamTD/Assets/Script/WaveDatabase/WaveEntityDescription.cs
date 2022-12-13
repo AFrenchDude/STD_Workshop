@@ -7,6 +7,8 @@ public class WaveEntityDescription
     [SerializeField]
     private NightmareData _nightmareData = null;
 
+
+
     [SerializeField]
     private float _extraDurationAfterSpawned = 0;
 
@@ -21,7 +23,6 @@ public class WaveEntityDescription
             return _nightmareData;
         }
     }
-
     public float ExtraDurationAfterSpawned
     {
         get

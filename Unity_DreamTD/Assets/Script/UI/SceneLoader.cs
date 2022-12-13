@@ -6,24 +6,38 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
-
     //Ref to new scene to load
-    [SerializeField] private string sceneToLoad;
+    private string sceneToLoad;
+
+
+    public void SetUpScene(string levelName)
+    {
+        sceneToLoad = levelName;
+    }
     //Load new scene
     public void SceneLoad()
     {
-        if(loadingScreen != null)
+        Debug.Log(sceneToLoad);
+        if(Application.CanStreamedLevelBeLoaded(sceneToLoad))
         {
-            StartCoroutine(LoadSceneCoroutine(sceneToLoad));
+            if (loadingScreen != null)
+            {
+                StartCoroutine(LoadSceneCoroutine(sceneToLoad));
+            }
+            else
+            {
+                SceneManager.LoadScene(sceneToLoad);
+            }
         }
         else
         {
-            SceneManager.LoadScene(sceneToLoad);
+            SceneManager.LoadScene("Menu");
         }
     }
     //Reload current scene
     public void ReloadScene()
     {
+        Time.timeScale = 1.0f;
         //Get current scene
         string thisScene = SceneManager.GetActiveScene().name;
         if (loadingScreen != null)
@@ -39,12 +53,13 @@ public class SceneLoader : MonoBehaviour
     // Loads a scene asynchronously and display loading screen
     private IEnumerator LoadSceneCoroutine(string scene)
     {
+        Time.timeScale = 1.0f;
         // Making the loading screen appear
         var loadingScreenInstance = Instantiate(loadingScreen);
         // Making the loading screen persistent after we unloaded the scene
         DontDestroyOnLoad(loadingScreenInstance);
         //wait for animation
-        yield return new WaitForSecondsRealtime(0.15f);
+        yield return new WaitForSecondsRealtime(0.3f);
 
         // Start loading the scene in the background
         var loading = SceneManager.LoadSceneAsync(scene);
@@ -62,21 +77,14 @@ public class SceneLoader : MonoBehaviour
             // If the scene loaded at 90% (which means 100% in Unity)
             if (loading.progress >= 0.9f)
             {
+                //Debug wait for not seeing old scene
+                yield return new WaitForSecondsRealtime(0.1f);
                 // Make the new scene visible
                 loading.allowSceneActivation = true;
-                if (currentAnimTime > 2)
-                {
-                    // Wait for the end of the appearing animation before switching scenes
-                    yield return new WaitForSecondsRealtime(currentAnimTime);
-                    // Launch the disappear animation
-                    loadingAnimator.SetTrigger("Disapear");
-                }
-                else
-                {
-                    yield return new WaitForSecondsRealtime(2);
-                    // Launch the disappear animation
-                    loadingAnimator.SetTrigger("Disapear");
-                }
+                // Launch the disappear animation
+                loadingAnimator.SetTrigger("Disapear");
+                // Wait for the end of the appearing animation before showing scene
+                yield return new WaitForSecondsRealtime(currentAnimTime);
             }
         }
     }

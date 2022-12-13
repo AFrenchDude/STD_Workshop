@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "DreamTD/Factories/FactoryDatas", fileName = "FactoryDatas")]
@@ -11,6 +8,9 @@ public class FactoryDatas : ScriptableObject
 
     [SerializeField]
     private string _name = null;
+
+    [SerializeField]
+    private string _description;
 
     [SerializeField]
     private string _type = null;
@@ -39,10 +39,13 @@ public class FactoryDatas : ScriptableObject
 
     [SerializeField] private int scoreToGiveOnUpgrade;
 
+    [SerializeField] private bool _factoryDataUnlocked = false;
+
 
     //References
     public Sprite Icon => _sprite;
     public string Name => _name;
+    public string UpgradeDescription => _description;
     public string Type => _type;
     
     public ProjectileType ProjectileType => _projectileType;
@@ -52,6 +55,21 @@ public class FactoryDatas : ScriptableObject
     public bool IsProducing => _isProduction;
     public int SellPrice => _sellPrice;
     public FactoryUpgradeData CurrentUpgrade => _currentUpgrade;
+    public bool IsUnlocked => _factoryDataUnlocked;
+
+    public bool canUpgrade
+    {
+        get { return _currentUpgrade.NextUpgrade != null; }
+    }
+
+    public void UnlockFactoryrData()
+    {
+        _factoryDataUnlocked = true;
+    }
+    public void ResetStats()
+    {
+        _factoryDataUnlocked = false;
+    }
 
     private void Awake()
     {
@@ -84,6 +102,16 @@ public class FactoryDatas : ScriptableObject
         if(_currentUpgrade.NextUpgrade != null)
         {
             _currentUpgrade = _currentUpgrade.NextUpgrade;
+
+            ApplyUpgrade();
+        }
+    }
+
+    public void ManualUpgrade(FactoryUpgradeData upgradeToApply)
+    {
+        if (upgradeToApply != null)
+        {
+            _currentUpgrade = upgradeToApply;
 
             ApplyUpgrade();
         }
