@@ -21142,6 +21142,7 @@ GameObject:
   - component: {fileID: 1204795299}
   - component: {fileID: 1204795300}
   - component: {fileID: 1204795301}
+  - component: {fileID: 1204795302}
   m_Layer: 0
   m_Name: LevelReferences
   m_TagString: Untagged
@@ -21230,6 +21231,7 @@ MonoBehaviour:
   _scoreManager: {fileID: 1204795299}
   _locomotiveManager: {fileID: 1204795300}
   _debugDataSaver: {fileID: 1204795301}
+  _levelUnlocker: {fileID: 1204795302}
 --- !u!114 &1204795299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21283,6 +21285,19 @@ MonoBehaviour:
   _allTowersRef: []
   _allFactoryRef: []
   goldManager: {fileID: 957839229}
+--- !u!114 &1204795302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204795293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ace0b3b94017fc4b92b8fc0e61e2255, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelSaveToUnlock: {fileID: 11400000, guid: 5a89e2956e553fc46abe6cc903429868, type: 2}
 --- !u!1 &1207483050
 GameObject:
   m_ObjectHideFlags: 0
