@@ -9,7 +9,7 @@ public class TrainLevelUpRequirements : ScriptableObject
 {
     [SerializeField] private List<TrainUpgradeStructure> _trainLevelUpList = new List<TrainUpgradeStructure>();
     [SerializeField] private List<GameObject> _locomotiveMeshes;
-    [SerializeField] private int _levelUpIndex = 0;
+    private int _levelUpIndex = 0;
     private int _locoMeshIndex = 0;
 
     [Serializable]

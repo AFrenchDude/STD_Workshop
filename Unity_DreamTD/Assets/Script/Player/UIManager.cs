@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour
         factoryManagerPanel = Instantiate(_factoryManagerPanel, _upgradePanelsContainer);
 
         factoryManagerPanel.CreatePanel(factoryManager);
-
+        
         return (factoryManagerPanel);
     }
 
