@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class FactoryManagerPanel : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class FactoryManagerPanel : MonoBehaviour
     private Color _canBuyColor;
     [SerializeField]
     private Color _cantBuyColor;
+
+    public UnityEvent<bool> updateUpgradefactory;
 
     private void Awake()
     {
@@ -83,6 +86,7 @@ public class FactoryManagerPanel : MonoBehaviour
 
         goldManager.CollectMoney(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrice / 3);
         Destroy(_factoryManager.gameObject);
+        updateUpgradefactory.Invoke(false);
         ClosePanel();
     }
 
@@ -135,13 +139,14 @@ public class FactoryManagerPanel : MonoBehaviour
             if (factoryInformation != null & _factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
             {
                 factoryInformation.SetFactoryData(_factoryManager.FactoryData);
-
             }
             else
             {
                 UpdateTowerUpgradePossibility();
             }
         }
+
+        updateUpgradefactory.Invoke(true);
     }
 
     //Informations
