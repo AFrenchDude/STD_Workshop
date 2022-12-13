@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -51,6 +50,8 @@ public class FactoryManagerPanel : MonoBehaviour
         SetProjectileContained(towerManager.FactoryData);
 
         transform.GetComponent<FollowOnScreen>().SetTarget(towerManager.CenterOfMass);
+
+        UpdateTowerUpgradePossibility();
     }
 
     public void DestroyPanel()
@@ -61,7 +62,7 @@ public class FactoryManagerPanel : MonoBehaviour
             if (factoryInformation != null)
             {
                 factoryInformation.transform.parent = transform.parent;
-                if(factoryInformation.gameObject.active == true)
+                if(factoryInformation.gameObject.activeSelf == true)
                 {
                     factoryInformation.FadeOut();
                 }
@@ -85,13 +86,13 @@ public class FactoryManagerPanel : MonoBehaviour
         ClosePanel();
     }
 
-    public void UpdateTowerUpgrdePossibility()
+    public void UpdateTowerUpgradePossibility()
     {
-        if (_factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
+        if (factoryHasUpgrade)
         {
             _upgradeImage.sprite = _upgradeSprite;
 
-            if (goldManager.getFortune >= _factoryManager.FactoryData.CurrentUpgrade.UpgradePrice)
+            if (canBuyFactory)
             {
                 _upgradeImage.color = _canBuyColor;
             }
@@ -107,10 +108,18 @@ public class FactoryManagerPanel : MonoBehaviour
         }
     }
 
+    public bool canBuyFactory
+    {
+        get { return _factoryManager.FactoryData.CurrentUpgrade.UpgradePrice <= goldManager.getFortune; }
+    }
+
+    public bool factoryHasUpgrade
+    {
+        get { return _factoryManager.FactoryData.canUpgrade; }
+    }
+
     public void Upgrade()
     {
-
-
         UsineBehaviour factoryScriptRef = _factoryManager.transform.GetComponent<UsineBehaviour>();
         if (goldManager.getFortune >= _factoryManager.FactoryData.CurrentUpgrade.UpgradePrice & _factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
         {
@@ -120,13 +129,8 @@ public class FactoryManagerPanel : MonoBehaviour
             _factoryManager.FactoryData.Upgrade();
             //_factoryManager.ApplyStats(_factoryManager.FactoryData);
 
-
-
-
             factoryScriptRef.SetUpgradeMesh(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrefab);
             factoryScriptRef.ActiveUpgradeVfx();
-
-
 
             if (factoryInformation != null & _factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
             {
@@ -135,7 +139,7 @@ public class FactoryManagerPanel : MonoBehaviour
             }
             else
             {
-                UpdateTowerUpgrdePossibility();
+                UpdateTowerUpgradePossibility();
             }
         }
     }
@@ -153,9 +157,7 @@ public class FactoryManagerPanel : MonoBehaviour
                 factoryInformation = Instantiate(_factoryInfoPrefab, _infoParent);
 
                 factoryInformation.SetFactoryData(_factoryManager.FactoryData);
-
             }
-
         }
     }
 
@@ -168,9 +170,9 @@ public class FactoryManagerPanel : MonoBehaviour
 
 
 
-    //Projectiles
+    //ProjectilesList
 
-    [Header("Projectiles Informations")]
+    [Header("ProjectilesList Informations")]
     [SerializeField]
     private RectMask2D _sliderMask;
     [SerializeField]

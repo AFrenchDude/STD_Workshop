@@ -113,11 +113,11 @@ public class WeaponController : MonoBehaviour
         }
         AProjectile spawnedProjectile = null;
 
-        if (_towersData.Projectiles.Count > 0)
+        if (_towersData.ProjectilesList.Count > 0)
         {
             if (_towersData.hasProjectiles(_muzzleIndx))
             {
-                ProjectileType currentProjectile = _towersData.Projectiles[_muzzleIndx].ProjectileType;
+                ProjectileType currentProjectile = _towersData.ProjectilesList[_muzzleIndx].ProjectileType;
                 spawnedProjectile = Instantiate(currentProjectile.projectile.GetComponent<AProjectile>());
 
                 
@@ -197,7 +197,7 @@ public class WeaponController : MonoBehaviour
 
     public ProjectileType getCurrentProjectileType
     {
-        get { return _towersData.Projectiles[_muzzleIndx].ProjectileType; }
+        get { return _towersData.ProjectilesList[_muzzleIndx].ProjectileType; }
     }
 
 }
