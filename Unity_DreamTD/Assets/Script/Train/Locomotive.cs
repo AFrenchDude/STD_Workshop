@@ -151,7 +151,7 @@ public class Locomotive : MonoBehaviour
             {
                 if (wagon.projectiles > 0)
                 {
-                    foreach (Projectile projectile in towerDatas.Projectiles)
+                    foreach (Projectile projectile in towerDatas.ProjectilesList)
                     {
                         if (wagon.type == projectile.ProjectileType & projectile.ProjectileAmmount < projectile.MaxProjectilesAmmount)
                         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,11 +52,16 @@ public class TowerManagerPanel : MonoBehaviour
 
         CreateProjectiles();
 
-        UpdateTowerUpgrdePossibility();
-
+        int i = 0;
+        foreach (Projectile projectile in _towerManager.TowersData.ProjectilesList)
+        {
+            _projectilePrefab.SetUpProjectile(_towerManager.TowersData.ProjectilesList[i]);
+            i++;
+        }
+        UpdateTowerUpgradePossibility();
     }
 
-    public void UpdateTowerUpgrdePossibility()
+    public void UpdateTowerUpgradePossibility()
     {
         if (towerHasUpgrade)
         {
@@ -126,8 +132,6 @@ public class TowerManagerPanel : MonoBehaviour
             _towerManager.TowersData.Upgrade();
             _towerManager.ApplyStats(_towerManager.TowersData);
 
-
-
             towerScriptRef.SetUpgradeMesh(_towerManager.TowersData.UpgradeDatas.UpgradePrefab);
 
             if (towerInformation != null & towerHasUpgrade)
@@ -138,32 +142,27 @@ public class TowerManagerPanel : MonoBehaviour
             }
             else
             {
-                UpdateTowerUpgrdePossibility();
+                UpdateTowerUpgradePossibility();
             }
 
-
-
             towerScriptRef.RangeIndicator.UpdateCircle();
-
         }
     }
 
     //Informations
-
     private UI_TowerPanelManager towerInformation;
 
     public void CreateTowerUpgradeInformation()
     {
         if (towerHasUpgrade)
         {
-
             if (towerInformation == null)
             {
                 towerInformation = Instantiate(_towerInfoPrefab, _infoParent);
 
                 towerInformation.SetTowerData(_towerManager.TowersData);
                 towerInformation.CanUpgrade(canBuyTower);
-
+                UpdateTowerUpgradePossibility();
             }
         }
     }
@@ -177,8 +176,8 @@ public class TowerManagerPanel : MonoBehaviour
     }
 
 
-    //Projectiles
-    [Header("Projectiles")]
+    //ProjectilesList
+    [Header("ProjectilesList")]
 
     [SerializeField]
     private CurrentProjectileUI _projectilePrefab;
@@ -190,7 +189,7 @@ public class TowerManagerPanel : MonoBehaviour
     {
         List<CurrentProjectileUI> createdUi = new List<CurrentProjectileUI>();
         int i = 0;
-        foreach (Projectile projectile in _towerManager.TowersData.Projectiles)
+        foreach (Projectile projectile in _towerManager.TowersData.ProjectilesList)
         {
             CurrentProjectileUI newProjectile = Instantiate(_projectilePrefab, _projectileContainers[i].transform);
 

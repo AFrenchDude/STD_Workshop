@@ -23,7 +23,6 @@ public class WavePreviewElement : MonoBehaviour
     {
         foreach(Wave wave in associateWave.Waves)
         {
-            Debug.Log(index);
             index++;
             foreach(WaveEntityDescription waveEntity in wave.WaveEntitiesDescription)
             {
