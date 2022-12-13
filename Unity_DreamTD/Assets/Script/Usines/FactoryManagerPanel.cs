@@ -15,9 +15,16 @@ public class FactoryManagerPanel : MonoBehaviour
     [SerializeField]
     private Transform _infoParent;
 
+    [SerializeField]
+    private GameObject _infoCurrentFactoryPrefab = null;
+
+    private Transform _infoFactoryAnchor;
+
 
     private GoldManager goldManager;
     private Animator _animator;
+    [SerializeField]
+    private GameObject currentPanel = null;
 
     [Header("UI Economy")]
     [SerializeField]
@@ -37,7 +44,7 @@ public class FactoryManagerPanel : MonoBehaviour
     [SerializeField]
     private Color _cantBuyColor;
 
-    public UnityEvent<bool> updateUpgradefactory;
+    //public UnityEvent<bool> updateUpgradefactory;
 
     private void Awake()
     {
@@ -50,6 +57,7 @@ public class FactoryManagerPanel : MonoBehaviour
         _factoryManager = towerManager;
         _factoryManager.GetComponent<UsineBehaviour>().SetFactoryManagerPanel(this);
 
+
         SetProjectileContained(towerManager.FactoryData);
 
         transform.GetComponent<FollowOnScreen>().SetTarget(towerManager.CenterOfMass);
@@ -59,19 +67,19 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void DestroyPanel()
     {
+        DestroyImmediate(_infoCurrentFactoryPrefab);
         if (_animator.GetBool("Close"))
         {
 
             if (factoryInformation != null)
             {
                 factoryInformation.transform.parent = transform.parent;
-                if(factoryInformation.gameObject.activeSelf == true)
+                if (factoryInformation.gameObject.activeSelf == true)
                 {
                     factoryInformation.FadeOut();
                 }
-                
-            }
 
+            }
             Destroy(gameObject);
         }
     }
@@ -83,10 +91,10 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void SellTower()
     {
-
         goldManager.CollectMoney(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrice / 3);
         Destroy(_factoryManager.gameObject);
-        updateUpgradefactory.Invoke(false);
+        //updateUpgradefactory.Invoke(false);
+        Debug.Log("selling");
         ClosePanel();
     }
 
@@ -145,8 +153,31 @@ public class FactoryManagerPanel : MonoBehaviour
                 UpdateTowerUpgradePossibility();
             }
         }
+        SetInfoFactory();
+        //updateUpgradefactory.Invoke(true);
+    }
 
-        updateUpgradefactory.Invoke(true);
+    public void SetInfoFactoryAnchor(Transform infoFactoryAnchor) // See HUDWhen Select calls
+    {
+        Debug.Log("Set Anchor");
+        _infoFactoryAnchor = infoFactoryAnchor;
+        currentPanel = Instantiate(_infoCurrentFactoryPrefab, _infoFactoryAnchor);
+        Debug.Log("Instantiated object? " + currentPanel);
+        SetInfoFactory();
+        //currentPanel.transform.parent = _infoFactoryAnchor;
+        //currentPanel.transform.localPosition = new Vector3(0,0,0);
+        //currentPanel.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //currentPanel.transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    public void SetInfoFactory()// See HUDWhen Select
+    {
+        InfoCurrentFactory infoCurrentFactory = currentPanel.GetComponent<InfoCurrentFactory>();
+        Debug.Log("Set info capable? " + (infoCurrentFactory != null));
+
+        infoCurrentFactory.Name.text = _factoryManager.FactoryData.Name;
+        infoCurrentFactory.Production.text = _factoryManager.FactoryData.ProductionRate.ToString();
+        infoCurrentFactory.MaxStorage.text = _factoryManager.FactoryData.MaxAmmount.ToString();
     }
 
     //Informations
@@ -168,9 +199,7 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void RemoveFactoryUpgradeInformation()
     {
-
         factoryInformation.FadeOut();
-        
     }
 
 

@@ -13,10 +13,4 @@ public class InfoCurrentFactory : MonoBehaviour
     public TextMeshProUGUI Name => _name;
     public TextMeshProUGUI Production => _production;
     public TextMeshProUGUI MaxStorage => _maxStorage;
-
-    //public void ApplyUpdateFactory(FactoryDatas datas)
-    //{
-    //    _name.text = datas.Name.ToString();
-
-    //}
 }
