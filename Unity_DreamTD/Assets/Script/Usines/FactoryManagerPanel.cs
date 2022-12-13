@@ -193,6 +193,7 @@ public class FactoryManagerPanel : MonoBehaviour
                 factoryInformation = Instantiate(_factoryInfoPrefab, _infoParent);
 
                 factoryInformation.SetFactoryData(_factoryManager.FactoryData);
+                factoryInformation.CanUpgrade(canBuyFactory);
             }
         }
     }

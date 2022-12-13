@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -115,7 +114,6 @@ public class TowerManagerPanel : MonoBehaviour
 
     public void SellTower()
     {
-
         goldManager.CollectMoney(_towerManager.TowersData.UpgradeDatas.UpgradePrice / 3);
         Destroy(_towerManager.gameObject);
         ClosePanel();
@@ -138,7 +136,7 @@ public class TowerManagerPanel : MonoBehaviour
             {
                 towerInformation.SetTowerData(_towerManager.TowersData);
                 towerInformation.CanUpgrade(canBuyTower);
-
+                CreateProjectiles();
             }
             else
             {
