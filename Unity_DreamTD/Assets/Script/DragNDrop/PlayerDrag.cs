@@ -81,8 +81,8 @@ public class PlayerDrag : MonoBehaviour
         {
             _ghost.GetTransform().position = new Vector3(towerSnapLocation.x, hit.point.y + 0.1f, towerSnapLocation.z);
 
-            Quaternion rotationToFloor = Quaternion.FromToRotation(transform.up, hit.normal) * _ghost.GetTransform().rotation;        
-            _ghost.GetTransform().rotation.SetEulerAngles(rotationToFloor.x, _ghost.GetTransform().rotation.eulerAngles.y, rotationToFloor.z);
+            //Quaternion rotationToFloor = Quaternion.FromToRotation(transform.up, hit.normal) * _ghost.GetTransform().rotation;        
+            _ghost.GetTransform().rotation = Quaternion.Euler(new Vector3(0, _ghost.GetTransform().rotation.eulerAngles.y,0));
         }
         else
         {
