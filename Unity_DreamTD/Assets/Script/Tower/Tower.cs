@@ -63,7 +63,7 @@ public class Tower : MonoBehaviour, IPickerGhost
             }
 
             allTargetedDamageable.Clear();
-            foreach (Projectile projectile in _datas.Projectiles)
+            foreach (Projectile projectile in _datas.ProjectilesList)
             {
                 allTargetedDamageable.Add(_damageableDetector.GetDamageable(_targetPriority, projectile.ProjectileType.convertProjectileToNightmare()));
             }
