@@ -33,6 +33,10 @@ public class DissolveVFXApplierObjects : MonoBehaviour
     [ContextMenu("Dissolve")]
     public void Dissolve()
     {
+        if (_waitingToDissolve)
+        {
+            return;
+        }
         SpawnVFXs();
         SetDissolveMaterial();
         _waitingToDissolve = true;
