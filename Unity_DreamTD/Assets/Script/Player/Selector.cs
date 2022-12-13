@@ -10,7 +10,7 @@ public class Selector : MonoBehaviour
     [SerializeField] LayerMask interactibleLayer;
     private HUDwhenSelect openHUDref;
     private bool isMouseOnUI;
-
+    [SerializeField] private Transform anchor = null;
     public bool IsMouseOnUI => isMouseOnUI;
     public void Select(InputAction.CallbackContext obj)
     {
@@ -38,6 +38,7 @@ public class Selector : MonoBehaviour
             if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
             {
                 openHUDref = hit.transform.gameObject.GetComponent<HUDwhenSelect>();
+                openHUDref.SetAnchor(anchor);
                 openHUDref.OnSelect();
             }
         }
