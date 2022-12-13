@@ -123,7 +123,7 @@ public class MuseumBehaviour : MonoBehaviour
             "Gold reward: " + nightmare.NightmareData.rewardGold + "<br>" + 
             "Max life: " + nightmare.NightmareData.maxLife + "<br><br>" + 
             "Killcount: " + nightmare.NightmareData.KillCount + " killed");
-        Set3Dmodel(nightmare.EnemyModel, new Vector3(30, -220, -15), 10);
+        Set3Dmodel(nightmare.EnemyModel, new Vector3(30, -220, -15), 3);
     }
 
     //Pick new tower
@@ -141,7 +141,7 @@ public class MuseumBehaviour : MonoBehaviour
             "Fire cooldown: " + currentTowerUpgrade.UpgradeFireRate + "s" + "<br>" +
             "Max projectiles: " + currentTowerUpgrade.UpgradeMaxProjectiles + "<br>" +
             "Range: " + currentTowerUpgrade.UpgradeRange);
-        Set3Dmodel(currentTowerUpgrade.UpgradePrefab, new Vector3(30, 110, -35), 6);
+        Set3Dmodel(currentTowerUpgrade.UpgradePrefab, new Vector3(-20, -50, 20), 3);
     }
 
     //Pick new usine
@@ -158,7 +158,7 @@ public class MuseumBehaviour : MonoBehaviour
             "Production rate: " + currentFactoryUpgrade.UpgradeCooldown + "s" + "<br>" +
             "Price: " + currentFactoryUpgrade.UpgradePrice + "<br>" +
             "Max resources: " + currentFactoryUpgrade.UpgradeMaxResource);
-        Set3Dmodel(currentFactoryUpgrade.UpgradePrefab, new Vector3(-15, -70, 15), 6);
+        Set3Dmodel(currentFactoryUpgrade.UpgradePrefab, new Vector3(-15, -70, 15), 2);
     }
 
     //Model 3D
@@ -200,12 +200,12 @@ public class MuseumBehaviour : MonoBehaviour
             //Move vertical rotation
             float moveX = 0;
             moveX = -(moverRef.transform.position.y - lastmove.y);
-            Vector3 rotationY = new Vector3(moveX * -4, 0, 0);
+            Vector3 rotationY = new Vector3(moveX * -10, 0, 0);
             lastInstantiate.transform.Rotate(rotationY, Space.World);
             //Move horizontal rotation
             float moveY = 0;
             moveY = -(moverRef.transform.position.x - lastmove.x);
-            Vector3 rotationX = new Vector3(0, moveY * 4, 0);
+            Vector3 rotationX = new Vector3(0, moveY * 10, 0);
             lastInstantiate.transform.Rotate(rotationX);
             //Set actual position of mover as the last saved
             lastmove = new Vector2(moverRef.transform.position.x, moverRef.transform.position.y);
