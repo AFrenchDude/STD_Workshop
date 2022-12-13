@@ -69,6 +69,7 @@ public class UI_FactoryPanelManager : MonoBehaviour
     public void CanUpgrade(bool canUpgrade)
     {
         _canUpgrade = canUpgrade;
+        UpdateCanUpgrade();
     }
 
     private void SetUpStat()
@@ -81,6 +82,11 @@ public class UI_FactoryPanelManager : MonoBehaviour
 
         _price.text = _factoryDatas.CurrentUpgrade.UpgradePrice.ToString();
 
+        UpdateCanUpgrade();
+    }
+
+    private void UpdateCanUpgrade()
+    {
         if (_canUpgrade)
         {
             _backgroundImage.color = _canBuyBackColor;

@@ -44,6 +44,16 @@ public class TowerManagerPanel : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        goldManager.FortuneChanged.RemoveListener(UpdateTowerUpgradePossibility);
+        goldManager.FortuneChanged.AddListener(UpdateTowerUpgradePossibility);
+    }
+    private void OnDisable()
+    {
+        goldManager.FortuneChanged.RemoveListener(UpdateTowerUpgradePossibility);
+    }
+
     public void CreatePanel(TowerManager towerManager)
     {
         _towerManager = towerManager;
@@ -80,6 +90,7 @@ public class TowerManagerPanel : MonoBehaviour
             _upgradeImage.color = Color.white;
             _upgradeImage.sprite = _lockedSprite;
         }
+        towerInformation?.CanUpgrade(canBuyTower);
     }
 
 
