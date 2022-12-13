@@ -48671,6 +48671,12 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5885089845667794453, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: _trainUpgradeLevelUpRequirements
+      value: 
+      objectReference: {fileID: 11400000, guid: 375aefb0faaf57a47a742c6d9a6f4fe1,
+        type: 2}
     - target: {fileID: 5956311707956430240, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -48896,6 +48902,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6915876480799765719, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50.000244
+      objectReference: {fileID: 0}
     - target: {fileID: 7191939512673699153, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -48959,8 +48970,13 @@ PrefabInstance:
     - target: {fileID: 7385737655880493142, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: _startFortune
-      value: 450
+      value: 410
       objectReference: {fileID: 0}
+    - target: {fileID: 7722957640369262592, guid: 2085885483a13104c9cd897da10014a0,
+        type: 3}
+      propertyPath: _trainStation
+      value: 
+      objectReference: {fileID: 1035321841}
     - target: {fileID: 7723927472350822194, guid: 2085885483a13104c9cd897da10014a0,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -53478,6 +53494,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 532474932}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1035321841 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3390545719885691655, guid: ed5cc9a3c748fec4e919b5a98d91cc1e,
+    type: 3}
+  m_PrefabInstance: {fileID: 532474932}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035321839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d2ec0906ccfc344ea15072409107f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1039937880
 Mesh:
   m_ObjectHideFlags: 0
