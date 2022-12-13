@@ -17,9 +17,11 @@ public class FactoryManagerPanel : MonoBehaviour
 
     [SerializeField]
     private GameObject _infoCurrentFactoryPrefab = null;
+    private GameObject _infoCurrentFactoryInstance = null;
 
     private Transform _infoFactoryAnchor;
-
+    private float _infoFactorySetupTime = 0.0f;
+    private bool _isWaitingForInfoFactory = false;
 
     private GoldManager goldManager;
     private Animator _animator;
@@ -48,8 +50,34 @@ public class FactoryManagerPanel : MonoBehaviour
 
     private void Awake()
     {
+        _isWaitingForInfoFactory = false;
         goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
         _animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        goldManager.FortuneChanged.RemoveListener(UpdateTowerUpgradePossibility);
+        goldManager.FortuneChanged.AddListener(UpdateTowerUpgradePossibility);
+    }
+    private void OnDisable()
+    {
+        goldManager.FortuneChanged.RemoveListener(UpdateTowerUpgradePossibility);
+    }
+
+    private void Update()
+    {
+        //if (_isWaitingForInfoFactory)
+        //{
+        //    Debug.Log("Is Waiting");
+        //    if (Time.time >= _infoFactorySetupTime + 1f)
+        //    {
+        //        currentPanel = Instantiate(_infoCurrentFactoryPrefab, _infoFactoryAnchor);
+        //        Debug.Log("Has setup panel: " + currentPanel);
+        //        SetInfoFactory();
+        //        _isWaitingForInfoFactory = false;
+        //    }
+        //}
     }
 
     public void CreatePanel(FactoryManager towerManager)
@@ -67,9 +95,9 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void DestroyPanel()
     {
-        DestroyImmediate(_infoCurrentFactoryPrefab);
         if (_animator.GetBool("Close"))
         {
+            //Debug.Log("Try destroy: " + (_infoFactoryAnchor.GetChild(_infoFactoryAnchor.childCount - 1).gameObject));
 
             if (factoryInformation != null)
             {
@@ -86,6 +114,9 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void ClosePanel()
     {
+        Debug.Log("Try my destroy: " + (currentPanel.gameObject));
+        Destroy(currentPanel.gameObject);
+
         _animator.SetBool("Close", true);
     }
 
@@ -94,7 +125,7 @@ public class FactoryManagerPanel : MonoBehaviour
         goldManager.CollectMoney(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrice / 3);
         Destroy(_factoryManager.gameObject);
         //updateUpgradefactory.Invoke(false);
-        Debug.Log("selling");
+        //Debug.Log("selling");
         ClosePanel();
     }
 
@@ -118,6 +149,7 @@ public class FactoryManagerPanel : MonoBehaviour
             _upgradeImage.color = Color.white;
             _upgradeImage.sprite = _lockedSprite;
         }
+        factoryInformation?.CanUpgrade(canBuyFactory);
     }
 
     public bool canBuyFactory
@@ -132,6 +164,7 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void Upgrade()
     {
+
         UsineBehaviour factoryScriptRef = _factoryManager.transform.GetComponent<UsineBehaviour>();
         if (goldManager.getFortune >= _factoryManager.FactoryData.CurrentUpgrade.UpgradePrice & _factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
         {
@@ -153,27 +186,47 @@ public class FactoryManagerPanel : MonoBehaviour
                 UpdateTowerUpgradePossibility();
             }
         }
+
         SetInfoFactory();
         //updateUpgradefactory.Invoke(true);
     }
 
     public void SetInfoFactoryAnchor(Transform infoFactoryAnchor) // See HUDWhen Select calls
     {
-        Debug.Log("Set Anchor");
         _infoFactoryAnchor = infoFactoryAnchor;
+        ClearOtherInfoCurrentFactory();
+        _infoFactorySetupTime = Time.time;
+        _isWaitingForInfoFactory = true;
         currentPanel = Instantiate(_infoCurrentFactoryPrefab, _infoFactoryAnchor);
-        Debug.Log("Instantiated object? " + currentPanel);
+
+
+        //Debug.Log("Instantiated object? " + currentPanel);
         SetInfoFactory();
+
+
         //currentPanel.transform.parent = _infoFactoryAnchor;
         //currentPanel.transform.localPosition = new Vector3(0,0,0);
         //currentPanel.transform.localRotation = Quaternion.Euler(0, 0, 0);
         //currentPanel.transform.localScale = new Vector3(1, 1, 1);
     }
 
+    private void ClearOtherInfoCurrentFactory()
+    {
+        Debug.Log("Anchor has: " + _infoFactoryAnchor.childCount + "children");
+        for (int i = 0; i < _infoFactoryAnchor.childCount; i++)
+        {
+            Debug.Log("Try destroy child: " + (_infoFactoryAnchor.GetChild(i).gameObject));
+            if (_infoFactoryAnchor.GetChild(i).GetComponent<InfoCurrentFactory>() != null)
+            {
+                Destroy(_infoFactoryAnchor.GetChild(i).gameObject);
+            }
+        }
+    }
+
     public void SetInfoFactory()// See HUDWhen Select
     {
         InfoCurrentFactory infoCurrentFactory = currentPanel.GetComponent<InfoCurrentFactory>();
-        Debug.Log("Set info capable? " + (infoCurrentFactory != null));
+        //Debug.Log("Set info capable? " + (infoCurrentFactory != null));
 
         infoCurrentFactory.Name.text = _factoryManager.FactoryData.Name;
         infoCurrentFactory.Production.text = _factoryManager.FactoryData.ProductionRate.ToString();
