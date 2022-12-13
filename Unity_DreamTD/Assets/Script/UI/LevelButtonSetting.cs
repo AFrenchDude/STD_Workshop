@@ -27,6 +27,17 @@ public class LevelButtonSetting : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    public void StartLevel()
+    {
+        SceneLoader sceneLoader = GetComponent<SceneLoader>();
+
+        if(levelSave.IsLock == false)
+        {
+            sceneLoader.SetUpScene(levelSave.LevelName);
+            sceneLoader.SceneLoad();
+        }
+    }
+
     public void Hover()
     {
         _animator.SetBool("Overlap",true);
