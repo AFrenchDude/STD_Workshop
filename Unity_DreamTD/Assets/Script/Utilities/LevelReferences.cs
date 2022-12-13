@@ -13,6 +13,7 @@ public class LevelReferences : Singleton<LevelReferences>
     [SerializeField] ScoreManager _scoreManager = null;
     [SerializeField] LocomotiveManager _locomotiveManager = null;
     [SerializeField] DataSaver _debugDataSaver = null;
+    [SerializeField] LevelUnlocker _levelUnlocker = null;
 
     public Camera UICamera => _uiCamera;
     public SpawnerManager SpawnerManager => _spawnerManager;
@@ -23,5 +24,6 @@ public class LevelReferences : Singleton<LevelReferences>
     public AudioSource MusicPlayer => _musicPlayer;
     public ScoreManager ScoreManager => _scoreManager;
     public LocomotiveManager LocomotiveManager => _locomotiveManager;
-    public DataSaver DebugDataSaver => _debugDataSaver; 
+    public DataSaver DebugDataSaver => _debugDataSaver;
+    public LevelUnlocker LevelUnlocker => _levelUnlocker;
 }

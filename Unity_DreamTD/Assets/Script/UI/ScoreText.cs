@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-//Made by Melinon Remy
+//Made by Melinon Remy, modified by ALBERT Esteban to pass score saving outside of update and animation
 public class ScoreText : MonoBehaviour
 {
     [SerializeField] bool isVictory = false;
@@ -27,18 +27,26 @@ public class ScoreText : MonoBehaviour
 
     private void Start()
     {
+        if (isVictory)
+        {
+            CheckAndSaveScore();
+        }
+    }
+
+    private void CheckAndSaveScore()
+    {
         List<int> starScore = LevelReferences.Instance.ScoreManager.levelSave.starScore;
         for (int i = 0; i < starScore.Count; i++)
         {
             if (LevelReferences.Instance.ScoreManager.score >= starScore[i])
             {
                 GiveStar(i + 1); //Method takes an index, not a number of stars to add
-                Debug.LogWarning("New Star added");
             }
         }
         LevelReferences.Instance.ScoreManager.levelSave.CheckForNewRecord(scoreReached, out bool gotBool);
         gotNewHighscore = gotBool;
-        Debug.LogWarning("New Highscore?: " + gotBool);
+
+        LevelReferences.Instance.LevelUnlocker.UnlockLevel();
     }
 
 
