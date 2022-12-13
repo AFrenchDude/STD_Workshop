@@ -8,6 +8,7 @@ public class WaveOriginPreview : MonoBehaviour
     [SerializeField]
     private List<VisualEffect> effects = new List<VisualEffect>();
 
+
     public void SetFireActivation(bool isActive)
     {
         Debug.Log(isActive);
@@ -18,12 +19,14 @@ public class WaveOriginPreview : MonoBehaviour
                 effect.playRate = 1;
             }
         }
-        else
+
+    }
+
+    public void ResetFireActivation()
+    {
+        foreach (VisualEffect effect in effects)
         {
-            foreach (VisualEffect effect in effects)
-            {
-                effect.playRate = 0;
-            }
+            effect.playRate = 0;
         }
     }
 }
