@@ -10,7 +10,7 @@ public class TrainUpgradePanel : MonoBehaviour
     [SerializeField] Slider _trainEXPSlider = null;
     private List<WagonHUD> _wagonHUDList = new List<WagonHUD>();
     private int _indexLocomotiveDisplayed = 0;
-    private int _waveSurvivedCounter = 0;
+	[SerializeField] private int _waveSurvivedCounter = 0;
     private bool _hasANextUpgrade = true;
 
 
