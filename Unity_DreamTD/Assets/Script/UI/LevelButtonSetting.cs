@@ -40,6 +40,10 @@ public class LevelButtonSetting : MonoBehaviour
 
     public void Hover()
     {
+        if (levelSave.IsLock == false)
+        {
+            _animator.SetBool("Unlock", true);          
+        }
         _animator.SetBool("Overlap",true);
     }
     public void Unhover()
@@ -69,9 +73,8 @@ public class LevelButtonSetting : MonoBehaviour
 
         if (levelSave.IsLock == false)
         {
-
-            Destroy(_lockContainer);
             _animator.SetBool("Unlock", true);
+            Destroy(_lockContainer);
 
         }
         else
