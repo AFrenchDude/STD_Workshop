@@ -9,29 +9,64 @@ public class LevelButtonSetting : MonoBehaviour
     [SerializeField] private LevelSave levelSave;
 
     //Display save on
-    [SerializeField] private Image imageLevel; 
-    [SerializeField] private GameObject imagesStars; 
+    [SerializeField] private Image imageLevel;
+    [SerializeField] private GameObject imagesStars;
     [SerializeField] private TextMeshProUGUI bestScoreText;
 
+    [SerializeField] GameObject _lockContainer;
+
     //Star images ref
-    [SerializeField] private Sprite emptyStar;
-    [SerializeField] private Sprite Star;
+    [SerializeField] private Color _emptyMoonColor;
+    [SerializeField] private Color _fullMoonColor;
+
+    //
+    private Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
+    public void Hover()
+    {
+        _animator.SetBool("Overlap",true);
+    }
+    public void Unhover()
+    {
+        _animator.SetBool("Overlap", false);
+    }
+
 
     //Set
     void Start()
     {
-        bestScoreText.SetText("Best Score: " + levelSave.BestScore);
+        bestScoreText.SetText(levelSave.BestScore.ToString());
         imageLevel.sprite = levelSave.LevelImage;
         for (int i = 0; i != imagesStars.transform.childCount; i++)
         {
-            if(levelSave.StarNumber > i + 1 && imagesStars.transform.GetChild(i).GetComponent<Image>() != null)
+            if (levelSave.StarNumber > i + 1 && imagesStars.transform.GetChild(i).GetComponent<Image>() != null)
             {
-                imagesStars.transform.GetChild(i).GetComponent<Image>().sprite = Star;
+                imagesStars.transform.GetChild(i).GetComponent<Image>().color = _fullMoonColor;
             }
             else
             {
-                imagesStars.transform.GetChild(i).GetComponent<Image>().sprite = emptyStar;
+                imagesStars.transform.GetChild(i).GetComponent<Image>().color = _emptyMoonColor;
             }
+        }
+
+        
+
+        if (levelSave.IsLock == false)
+        {
+
+            Destroy(_lockContainer);
+            _animator.SetBool("Unlock", true);
+
+        }
+        else
+        {
+            _lockContainer.gameObject.SetActive(false);
+            _animator.SetBool("Unlock", false);
         }
     }
 }

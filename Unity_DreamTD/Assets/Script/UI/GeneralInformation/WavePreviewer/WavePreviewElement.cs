@@ -18,10 +18,13 @@ public class WavePreviewElement : MonoBehaviour
         ExtractWaveDatas();
     }
 
+    private int index = 0;
     public void ExtractWaveDatas()
     {
         foreach(Wave wave in associateWave.Waves)
         {
+            Debug.Log(index);
+            index++;
             foreach(WaveEntityDescription waveEntity in wave.WaveEntitiesDescription)
             {
                 NightmareData data = waveEntity.NightmareData;
