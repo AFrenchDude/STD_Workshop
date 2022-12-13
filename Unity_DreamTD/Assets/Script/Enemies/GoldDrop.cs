@@ -13,7 +13,6 @@ public class GoldDrop : MonoBehaviour
     }
     public void DropGold()
     {
-        Debug.Log("Add gold");
         if (LevelReferences.Instance.Player.GetComponent<GoldManager>() != null)
         {
             LevelReferences.Instance.Player.GetComponent<GoldManager>().CollectMoney(_goldDropped);

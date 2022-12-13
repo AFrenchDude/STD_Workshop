@@ -170,6 +170,7 @@ public class SpawnerManager : MonoBehaviour
         bool remains = true;
         foreach (EntitySpawner spawner in _spawners)
         {
+            Debug.Log(spawner.name + spawner.hasWaveElementLeft.ToString());
             if (spawner.hasWaveElementLeft)
             {
                 remains = false;
@@ -193,6 +194,7 @@ public class SpawnerManager : MonoBehaviour
 
         if (NoEntityLeftToSpawn() && _isLastWave == false)
         {
+            Debug.Log("Start next wave preview information send");
             WaveStatusChanged?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
             WaveStatusChanged_UnityEvent?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
 
