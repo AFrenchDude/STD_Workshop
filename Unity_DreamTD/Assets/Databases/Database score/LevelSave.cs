@@ -11,9 +11,13 @@ public class LevelSave : ScriptableObject
 
     [SerializeField] private Sprite levelImage;
 
+    [SerializeField] private bool _isLock;
+
     public int BestScore => bestScore;
     public int StarNumber => starNumber;
     public Sprite LevelImage => levelImage;
+
+    public bool IsLock => _isLock;
 
     //Score to reach to get stars
     public List<int> starScore;

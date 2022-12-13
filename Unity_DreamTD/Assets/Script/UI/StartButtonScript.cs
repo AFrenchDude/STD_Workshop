@@ -47,7 +47,7 @@ public class StartButtonScript : MonoBehaviour
         _animator.SetBool("WaveStarted", false);
 
         _startTime = Time.time;
-        _delayValue = _waveDatabase.DelayBetweenWave;
+        _delayValue = _waveDatabase.DelayBetweenWave + 1;
         _trainUpgradePanel.NewWavePassed();
         _canStartWave = true;
     }
@@ -56,6 +56,7 @@ public class StartButtonScript : MonoBehaviour
     [ContextMenu("StartWave")]
     public void StartWave()
     {
+        Debug.LogWarning("Start wave");
         if (_canStartWave)
         {
             _canStartWave = false;

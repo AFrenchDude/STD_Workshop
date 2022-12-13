@@ -99,6 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destroyOnAttack: 1
   _movementSpeed: 10
+  _failSafeTargetPrefab: {fileID: 1823514851054664591, guid: a7813d90b9040a24f87da265cfe8f59a,
+    type: 3}
   _heightSwitch: 25
   fireType: 0
 --- !u!114 &2685485626335918887
@@ -149,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedProjectileType: 2
-  _upgradeManager: {fileID: 0}
+  _upgradeManager: {fileID: 11400000, guid: 0a461dc62b8fcbc45bde1c3077d9dc74, type: 2}
 --- !u!114 &191104363171241968
 MonoBehaviour:
   m_ObjectHideFlags: 0

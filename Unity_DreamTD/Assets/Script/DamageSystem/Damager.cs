@@ -118,17 +118,17 @@ public class Damager : MonoBehaviour
 
         if (projectileNightmareWeak == otherNightmareType)
         {
-            Debug.Log("Strong");
+            //Debug.Log("Strong");
             newdamage = _attack * highBoost;
         }
         else if (projectileNightmareResisted != otherNightmareType & projectileNightmareResisted != NightmareData.NighmareType.Neutral)
         {
-            Debug.Log("Normal");
+            //Debug.Log("Normal");
             newdamage = _attack * normalBoost;
         }
         else
         {
-            Debug.Log("Weak");
+            //Debug.Log("Weak");
             newdamage = _attack * debuffBoost;
         }
 
