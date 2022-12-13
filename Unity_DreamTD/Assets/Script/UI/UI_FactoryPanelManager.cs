@@ -4,6 +4,7 @@ using TMPro;
 
 public class UI_FactoryPanelManager : MonoBehaviour
 {
+    private bool _canUpgrade;
 
     [SerializeField]
     private FactoryDatas _factoryDatas;
@@ -40,6 +41,18 @@ public class UI_FactoryPanelManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _price;
 
+    [Space(10)]
+
+    [Header("Personaization")]
+
+    [SerializeField]
+    private Color _canBuyBackColor;
+    [SerializeField]
+    private Color _cantBuyBackColor;
+
+    [SerializeField]
+    private Image _backgroundImage;
+
     //Functions
 
     public void SetFactoryData(FactoryDatas factoryData)
@@ -53,6 +66,11 @@ public class UI_FactoryPanelManager : MonoBehaviour
         }
     }
 
+    public void CanUpgrade(bool canUpgrade)
+    {
+        _canUpgrade = canUpgrade;
+    }
+
     private void SetUpStat()
     {
         _towerIcon.sprite = _factoryDatas.Icon;
@@ -62,6 +80,17 @@ public class UI_FactoryPanelManager : MonoBehaviour
         SetUpUpgrade(_currentProductionRate, _upgradeProductionRate, _factoryDatas.ProductionRate, _factoryDatas.CurrentUpgrade.NextUpgrade.UpgradeCooldown, true);
 
         _price.text = _factoryDatas.CurrentUpgrade.UpgradePrice.ToString();
+
+        if (_canUpgrade)
+        {
+            _backgroundImage.color = _canBuyBackColor;
+            _price.color = _upColor;
+        }
+        else
+        {
+            _backgroundImage.color = _cantBuyBackColor;
+            _price.color = _lowColor;
+        }
     }
 
     private void SetUpUpgrade(TextMeshProUGUI previous, TextMeshProUGUI next, float previousValue, float nextValue, bool invert)
