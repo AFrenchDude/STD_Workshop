@@ -72,9 +72,26 @@ public class PlayerDrag : MonoBehaviour
 
     private void SnapDraggedItemToRail(Vector3 towerSnapLocation, SplineDone.Point nearestSplinePoint)
     {
-        _ghost.GetTransform().position = towerSnapLocation;
+        
+        RaycastHit hit;
+
         _ghost.GetTransform().LookAt(nearestSplinePoint.position);
+
+        if (Physics.Raycast(towerSnapLocation + new Vector3(0, 10, 0), Vector3.down, out hit, 100f, LayerMask.GetMask(LayerMask.LayerToName(0))))
+        {
+            _ghost.GetTransform().position = new Vector3(towerSnapLocation.x, hit.point.y + 0.1f, towerSnapLocation.z);
+
+            Quaternion rotationToFloor = Quaternion.FromToRotation(transform.up, hit.normal) * _ghost.GetTransform().rotation;        
+            _ghost.GetTransform().rotation.SetEulerAngles(rotationToFloor.x, _ghost.GetTransform().rotation.eulerAngles.y, rotationToFloor.z);
+        }
+        else
+        {
+            _ghost.GetTransform().position = towerSnapLocation;
+        }
+
+        
         _isSnappedToRail = true;
+
     }
     public void ActivateWithGhost(IPickerGhost ghost)
     {
