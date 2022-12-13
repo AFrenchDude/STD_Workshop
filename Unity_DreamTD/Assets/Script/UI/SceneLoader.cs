@@ -17,8 +17,8 @@ public class SceneLoader : MonoBehaviour
     //Load new scene
     public void SceneLoad()
     {
-        Debug.Log(sceneToLoad);
-        if(Application.CanStreamedLevelBeLoaded(sceneToLoad))
+        Time.timeScale = 1.0f;
+        if (Application.CanStreamedLevelBeLoaded(sceneToLoad))
         {
             if (loadingScreen != null)
             {
