@@ -29,6 +29,27 @@ public class EntitySpawner : MonoBehaviour
 
     //public event System.Action<EntitySpawner, WaveEntity> EntityDestroyed = null;
 
+    [Header("Previsualisation")]
+    [SerializeField]
+    private WaveOriginPreview waveOriginPreview;
+
+    public void SetOriginActivationForNextWave(Wave nextWave)
+    {
+        if (waveOriginPreview != null)
+        {
+            waveOriginPreview.SetFireActivation(nextWave.IsWaveContainsEnemies);
+        }
+        else
+        {
+            Debug.LogError("Wave Origine not founded : " + gameObject.name);
+        }
+    }
+
+    public void ResetOriginActivation()
+    {
+        waveOriginPreview.ResetFireActivation();
+    }
+
     public void StartWave(Wave wave)
     {
         _wave = new Wave(wave);
@@ -37,11 +58,11 @@ public class EntitySpawner : MonoBehaviour
 
         //var nextEntity = _wave.PeekNextWaveElement();
         //_timer.Set(nextEntity.ExtraDurationBeforeSpawned).Start();
-        if(wave.DurationBetweenSpawnedEntity == 0)
+        if (wave.DurationBetweenSpawnedEntity == 0)
         {
             InstantiateNextWaveElement();
         }
-        
+
     }
 
     private WaveEntity InstantiateEntity(WaveEntity entityPrefab)
@@ -59,7 +80,7 @@ public class EntitySpawner : MonoBehaviour
 
     private void InstantiateNextWaveElement()
     {
-        
+
         if (_wave.HasWaveElementsLeft == true)
         {
             var nextEntity = _wave.GetNextWaveElement();
@@ -72,9 +93,17 @@ public class EntitySpawner : MonoBehaviour
                 //Rotate to path direction at spawning
                 outEntity.transform.rotation = Quaternion.LookRotation(_path.getStartDirection);
 
-                outEntity.SetPath(_path.LanesList[nextEntity.SpawningLane-1]);
+                if(_path.LanesList.Count <= nextEntity.SpawningLane & nextEntity.SpawningLane > 0)
+                {
+                    outEntity.SetPath(_path.LanesList[nextEntity.SpawningLane - 1]);
+                }
+                else
+                {
+                    outEntity.SetPath(_path.LanesList[0]);
+                }
                 
-                
+
+
 
                 _timer.Set(_wave.DurationBetweenSpawnedEntity + nextEntity.ExtraDurationAfterSpawned).Start();
             }
@@ -99,7 +128,7 @@ public class EntitySpawner : MonoBehaviour
     {
         if (_timer != null)
         {
-            
+
             bool shouldInstantiateEntity = _timer.Update();
 
             if (shouldInstantiateEntity == true)

@@ -31,6 +31,11 @@ public class Wave
         }
     }
 
+    public bool IsWaveContainsEnemies
+    {
+        get { return _waveEntitiesDescriptions.Count > 0; }
+    }
+
     public bool HasWaveElementsLeft
     {
         get
