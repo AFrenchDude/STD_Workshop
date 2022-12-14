@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
+//Made by Alexandre Dorian
 public class OnMouseHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private RectTransform _rectTransform;
