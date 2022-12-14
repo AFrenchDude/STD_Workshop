@@ -125,7 +125,7 @@ public class MuseumBehaviour : MonoBehaviour
             "Gold reward: " + nightmare.NightmareData.rewardGold + "<br>" + 
             "Max life: " + nightmare.NightmareData.maxLife + "<br><br>" + 
             "Killcount: " + nightmare.NightmareData.KillCount + " killed");
-        Set3Dmodel(nightmare.EnemyModel, new Vector3(30, -220, -15), 3);
+        Set3Dmodel(nightmare.EnemyModel, new Vector3(30, -220, -15), 2.5f);
     }
 
     //Pick new tower
