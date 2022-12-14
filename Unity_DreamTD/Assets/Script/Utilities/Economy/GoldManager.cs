@@ -27,9 +27,9 @@ public class GoldManager : MonoBehaviour
         _currentFortune = _startFortune;
         SetGoldDisplayValue();
 
-        string date = System.DateTime.Now.Month.ToString() + "-" + System.DateTime.Now.Day.ToString() + "_" + System.DateTime.Now.Hour.ToString() + "-" + System.DateTime.Now.Minute.ToString();
+        //string date = System.DateTime.Now.Month.ToString() + "-" + System.DateTime.Now.Day.ToString() + "_" + System.DateTime.Now.Hour.ToString() + "-" + System.DateTime.Now.Minute.ToString();
 
-        filename = Application.dataPath + "/EconomyDatas" + "/purchaseHistory_" + date + ".csv";
+        //filename = Application.dataPath + "/EconomyDatas" + "/purchaseHistory_" + date + ".csv";
         
     }
 
@@ -81,22 +81,22 @@ public class GoldManager : MonoBehaviour
     public void ExportPurchaseToCSV()
     {
         
-        if (_purchaseHistory.Count > 0)
-        {
-            TextWriter tw = new StreamWriter(filename, false);
-            tw.WriteLine("Name, Price, Previous Fortune, Wave Number, Time"); 
-            tw.Close();
+        //if (_purchaseHistory.Count > 0)
+        //{
+        //    TextWriter tw = new StreamWriter(filename, false);
+        //    tw.WriteLine("Name, Price, Previous Fortune, Wave Number, Time"); 
+        //    tw.Close();
 
-            tw = new StreamWriter(filename, true);
+        //    tw = new StreamWriter(filename, true);
 
-            for(int i = 0; i < _purchaseHistory.Count; i++)
-            {
-                tw.WriteLine(_purchaseHistory[i].name + "," + _purchaseHistory[i].price + "," + _purchaseHistory[i].previousFortune + "," + _purchaseHistory[i].waveIndex + "," + _purchaseHistory[i].time);
-            }
-            tw.Close();
+        //    for(int i = 0; i < _purchaseHistory.Count; i++)
+        //    {
+        //        tw.WriteLine(_purchaseHistory[i].name + "," + _purchaseHistory[i].price + "," + _purchaseHistory[i].previousFortune + "," + _purchaseHistory[i].waveIndex + "," + _purchaseHistory[i].time);
+        //    }
+        //    tw.Close();
 
-            Debug.Log("Data save to : " + Application.dataPath);
-        }
+        //    Debug.Log("Data save to : " + Application.dataPath);
+        //}
     }
 
 
