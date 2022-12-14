@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.IO;
+using UnityEngine.Events;
 
 public class GoldManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GoldManager : MonoBehaviour
 
 
     string filename = "";
+    public UnityEvent FortuneChanged;
 
     private void Start()
     {
@@ -46,12 +48,14 @@ public class GoldManager : MonoBehaviour
         _currentFortune -= price;
 
         _purchaseHistory.Add(CreatePurchase(price, ObjectName));
+        FortuneChanged.Invoke();
         SetGoldDisplayValue();
     }
 
     public void CollectMoney(int money) //Obtain money
     {
         _currentFortune += money;
+        FortuneChanged.Invoke();
         SetGoldDisplayValue();
     }
 

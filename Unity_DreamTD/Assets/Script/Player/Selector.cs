@@ -11,6 +11,7 @@ public class Selector : MonoBehaviour
     private HUDwhenSelect openHUDref;
     private bool isMouseOnUI;
     [SerializeField] private Transform anchor = null;
+    [SerializeField] private HUDAnimationController hudAnimationController;
     public bool IsMouseOnUI => isMouseOnUI;
     public void Select(InputAction.CallbackContext obj)
     {
@@ -33,6 +34,7 @@ public class Selector : MonoBehaviour
             if (openHUDref != null)
             {
                 openHUDref.OnDeselect();
+                //openHUDref.DisconnectToEvents();
                 openHUDref = null;
             }
             if (hit.transform.gameObject.GetComponent<HUDwhenSelect>() != null)
@@ -60,5 +62,10 @@ public class Selector : MonoBehaviour
         {
             isMouseOnUI = false;
         }
+    }
+
+    public void SwapHUD()
+    {
+        hudAnimationController.HUDswaper();
     }
 }

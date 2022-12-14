@@ -21,6 +21,11 @@ public class UsineDescription : ScriptableObject
     public Color IconColor => _iconColor;
     public int Price => _price;
 
+    [SerializeField]
+    private FactoryDatas _factoryDatas;
+
+    public FactoryDatas FactoryDatas => _factoryDatas;
+
     public UsineBehaviour Instantiate()
     {
         _prefab.getFactoryData.UnlockFactoryrData();

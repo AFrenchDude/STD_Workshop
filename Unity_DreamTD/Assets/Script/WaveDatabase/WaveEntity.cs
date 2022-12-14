@@ -16,14 +16,14 @@ public class WaveEntity : MonoBehaviour
     {
         if (LevelReferences.HasInstance)
         {
-            LevelReferences.Instance.SpawnerManager.AddWaveEntityToList(this);
+            LevelReferences.Instance.SpawnerManager?.AddWaveEntityToList(this);
         }
     }
     private void OnDestroy()
     {
         if (LevelReferences.HasInstance)
         {
-            LevelReferences.Instance.SpawnerManager.RemoveWaveEntityToList(this);
+            LevelReferences.Instance.SpawnerManager?.RemoveWaveEntityToList(this);
         }
     }
 }

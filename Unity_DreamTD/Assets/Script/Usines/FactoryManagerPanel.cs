@@ -15,9 +15,18 @@ public class FactoryManagerPanel : MonoBehaviour
     [SerializeField]
     private Transform _infoParent;
 
+    [SerializeField]
+    private GameObject _infoCurrentFactoryPrefab = null;
+    private GameObject _infoCurrentFactoryInstance = null;
+
+    private Transform _infoFactoryAnchor;
+    private float _infoFactorySetupTime = 0.0f;
+    private bool _isWaitingForInfoFactory = false;
 
     private GoldManager goldManager;
     private Animator _animator;
+    [SerializeField]
+    private GameObject currentPanel = null;
 
     [Header("UI Economy")]
     [SerializeField]
@@ -37,18 +46,34 @@ public class FactoryManagerPanel : MonoBehaviour
     [SerializeField]
     private Color _cantBuyColor;
 
-    public UnityEvent<bool> updateUpgradefactory;
+    //public UnityEvent<bool> updateUpgradefactory;
 
     private void Awake()
     {
+        _isWaitingForInfoFactory = false;
         goldManager = LevelReferences.Instance.Player.GetComponent<GoldManager>();
         _animator = GetComponent<Animator>();
     }
 
-    public void CreatePanel(FactoryManager towerManager)
+    private void OnEnable()
+    {
+        goldManager.FortuneChanged.RemoveListener(UpdateTowerUpgradePossibility);
+        goldManager.FortuneChanged.AddListener(UpdateTowerUpgradePossibility);
+    }
+    private void OnDisable()
+    {
+        goldManager.FortuneChanged.RemoveListener(UpdateTowerUpgradePossibility);
+    }
+
+    public void CreatePanel(FactoryManager towerManager, Transform infoFactoryAnchor)
     {
         _factoryManager = towerManager;
+        _infoFactoryAnchor = infoFactoryAnchor;
+
         _factoryManager.GetComponent<UsineBehaviour>().SetFactoryManagerPanel(this);
+
+        currentPanel = Instantiate(_infoCurrentFactoryPrefab, _infoFactoryAnchor);
+        SetInfoFactory();
 
         SetProjectileContained(towerManager.FactoryData);
 
@@ -61,32 +86,36 @@ public class FactoryManagerPanel : MonoBehaviour
     {
         if (_animator.GetBool("Close"))
         {
+            //Debug.Log("Try destroy: " + (_infoFactoryAnchor.GetChild(_infoFactoryAnchor.childCount - 1).gameObject));
 
             if (factoryInformation != null)
             {
                 factoryInformation.transform.parent = transform.parent;
-                if(factoryInformation.gameObject.activeSelf == true)
+                if (factoryInformation.gameObject.activeSelf == true)
                 {
                     factoryInformation.FadeOut();
                 }
-                
-            }
 
+            }
             Destroy(gameObject);
         }
     }
 
     public void ClosePanel()
     {
+        Debug.Log("Try my destroy: " + (currentPanel.gameObject));
+
+        Destroy(currentPanel.gameObject);
+
         _animator.SetBool("Close", true);
     }
 
     public void SellTower()
     {
-
         goldManager.CollectMoney(_factoryManager.FactoryData.CurrentUpgrade.UpgradePrice / 3);
         Destroy(_factoryManager.gameObject);
-        updateUpgradefactory.Invoke(false);
+        //updateUpgradefactory.Invoke(false);
+        //Debug.Log("selling");
         ClosePanel();
     }
 
@@ -110,6 +139,7 @@ public class FactoryManagerPanel : MonoBehaviour
             _upgradeImage.color = Color.white;
             _upgradeImage.sprite = _lockedSprite;
         }
+        factoryInformation?.CanUpgrade(canBuyFactory);
     }
 
     public bool canBuyFactory
@@ -124,6 +154,7 @@ public class FactoryManagerPanel : MonoBehaviour
 
     public void Upgrade()
     {
+
         UsineBehaviour factoryScriptRef = _factoryManager.transform.GetComponent<UsineBehaviour>();
         if (goldManager.getFortune >= _factoryManager.FactoryData.CurrentUpgrade.UpgradePrice & _factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
         {
@@ -139,6 +170,7 @@ public class FactoryManagerPanel : MonoBehaviour
             if (factoryInformation != null & _factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
             {
                 factoryInformation.SetFactoryData(_factoryManager.FactoryData);
+                factoryInformation.CanUpgrade(canBuyFactory);
             }
             else
             {
@@ -146,7 +178,38 @@ public class FactoryManagerPanel : MonoBehaviour
             }
         }
 
-        updateUpgradefactory.Invoke(true);
+        SetInfoFactory();
+    }
+
+    public void SetInfoFactoryAnchor(Transform infoFactoryAnchor) // See HUDWhen Select calls
+    {
+        _infoFactoryAnchor = infoFactoryAnchor;
+        ClearOtherInfoCurrentFactory();
+        _infoFactorySetupTime = Time.time;
+        _isWaitingForInfoFactory = true;
+    }
+
+    private void ClearOtherInfoCurrentFactory()
+    {
+        //Debug.Log("Anchor has: " + _infoFactoryAnchor.childCount + "children");
+        for (int i = 0; i < _infoFactoryAnchor.childCount; i++)
+        {
+            Debug.Log("Try destroy child: " + (_infoFactoryAnchor.GetChild(i).gameObject));
+            if (_infoFactoryAnchor.GetChild(i).GetComponent<InfoCurrentFactory>() != null)
+            {
+                Destroy(_infoFactoryAnchor.GetChild(i).gameObject);
+            }
+        }
+    }
+
+    public void SetInfoFactory()// See HUDWhen Select
+    {
+        //Debug.Log("Set info capable? " + (currentPanel.name));
+        InfoCurrentFactory infoCurrentFactory = currentPanel.GetComponent<InfoCurrentFactory>();
+
+        infoCurrentFactory.Name.text = _factoryManager.FactoryData.CurrentUpgrade.UpgradeName;
+        infoCurrentFactory.Production.text = _factoryManager.FactoryData.ProductionRate.ToString();
+        infoCurrentFactory.MaxStorage.text = _factoryManager.FactoryData.MaxAmmount.ToString();
     }
 
     //Informations
@@ -162,15 +225,14 @@ public class FactoryManagerPanel : MonoBehaviour
                 factoryInformation = Instantiate(_factoryInfoPrefab, _infoParent);
 
                 factoryInformation.SetFactoryData(_factoryManager.FactoryData);
+                factoryInformation.CanUpgrade(canBuyFactory);
             }
         }
     }
 
     public void RemoveFactoryUpgradeInformation()
     {
-
         factoryInformation.FadeOut();
-        
     }
 
 

@@ -18,6 +18,9 @@ public class UsineSlot : MonoBehaviour
     public delegate void UsineSlotEvent(UsineSlot sender);
     public event UsineSlotEvent OnUsineSlotClicked = null;
 
+    [SerializeField]
+    private InfoFactoryManager infoFactoryManager;
+
     private void Awake()
     {
         UpdateSlot();
@@ -34,7 +37,8 @@ public class UsineSlot : MonoBehaviour
 
         _icon.sprite = usineDescription.Icon;
         _icon.color = usineDescription.IconColor;
-        _priceTxt.SetText(usineDescription.Price + "$");
+        _priceTxt.SetText(usineDescription.Price.ToString());
+        infoFactoryManager.MoneyNecessary.text = _priceTxt.text;
     }
 
     private void OnEnable()
@@ -50,6 +54,7 @@ public class UsineSlot : MonoBehaviour
 
     private void OnButtonClicked()
     {
+        LevelReferences.Instance.Player.GetComponentInChildren<HUDAnimationController>().HUDswaper();
         OnUsineSlotClicked?.Invoke(this);
     }
 }

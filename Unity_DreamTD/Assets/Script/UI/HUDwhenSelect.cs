@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //Made by Melinon Remy, modified by ALBERT Esteban
@@ -12,12 +14,21 @@ public class HUDwhenSelect : MonoBehaviour
     private GameObject currentPanel;
 
     private Transform _anchor;
+    public Transform Anchor => _anchor;
 
     public FactoryManagerPanel FactoryManagerPanel
     {
         get
         {
             return LevelReferences.Instance.Player.GetComponentInChildren<FactoryManagerPanel>();
+        }
+    }
+
+    public TowerManagerPanel TowerManagerPanel
+    {
+        get
+        {
+            return LevelReferences.Instance.Player.GetComponentInChildren<TowerManagerPanel>();
         }
     }
 
@@ -44,20 +55,16 @@ public class HUDwhenSelect : MonoBehaviour
         //If click on usine
         if (gameObject.transform.root.GetComponent<FactoryManager>() != null)
         {
-            _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
-            currentPanel = Instantiate(infoCurrentFactory, _anchor);
-            SetInfoFactory();
-            FactoryManagerPanel.updateUpgradefactory.RemoveListener(OnUpdateUpgradeFactory);
-            FactoryManagerPanel.updateUpgradefactory.AddListener(OnUpdateUpgradeFactory);
+            _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>(), _anchor);
+            FactoryManagerPanel.SetInfoFactory();
         }
         //If click on tower
         else if (gameObject.transform.root.GetComponent<Tower>() != null)
         {
-            _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
+            _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>(), _anchor);
+            TowerManagerPanel.SetInfoTower();
             gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
         }
-
-
     }
 
     public void OnDeselect()
@@ -65,15 +72,16 @@ public class HUDwhenSelect : MonoBehaviour
         //If usine
         if (gameObject.GetComponent<Factory>() != null)
         {
-            FactoryManagerPanel.updateUpgradefactory.RemoveListener(OnUpdateUpgradeFactory);
+
             //hudRef.GetComponent<UsineHUD>().OnUnpick();
             //hudRef.SetActive(false);
 
             if (_currentFactoryManagerPanel != null)
             {
-
+                //Debug.Log("Deselecting");
                 _currentFactoryManagerPanel.ClosePanel();
-                
+
+                //Destroy(currentPanel.gameObject);
             }
         }
         //If tower
@@ -88,8 +96,6 @@ public class HUDwhenSelect : MonoBehaviour
                 gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(false);
             }
         }
-
-        Destroy(currentPanel);
     }
 
     public void SetAnchor(Transform anchor)
@@ -97,23 +103,23 @@ public class HUDwhenSelect : MonoBehaviour
         _anchor = anchor;
     }
 
-    private void OnUpdateUpgradeFactory(bool isAUpdate)
-    {
-        if (isAUpdate)
-        {
-            SetInfoFactory();
-            return;
-        }
-        OnDeselect();
-    }
+    //private void OnUpdateUpgradeFactory(bool isUpdate)
+    //{
+    //    if (isUpdate)
+    //    {
+    //        SetInfoFactory();
+    //        return;
+    //    }
+    //    OnDeselect();
+    //}
 
-    public void SetInfoFactory()
-    {
-        currentPanel.GetComponent<InfoCurrentFactory>().Name.text =
-            gameObject.transform.root.GetComponent<FactoryManager>().FactoryData.Name;
-        currentPanel.GetComponent<InfoCurrentFactory>().Production.text =
-            gameObject.transform.root.GetComponent<FactoryManager>().FactoryData.ProductionRate.ToString();
-        currentPanel.GetComponent<InfoCurrentFactory>().MaxStorage.text =
-            gameObject.transform.root.GetComponent<FactoryManager>().FactoryData.MaxAmmount.ToString();
-    }
+    //public void SetInfoFactory()
+    //{
+    //    currentPanel.GetComponent<InfoCurrentFactory>().Name.text =
+    //        gameObject.transform.root.GetComponent<FactoryManager>().FactoryData.Name;
+    //    currentPanel.GetComponent<InfoCurrentFactory>().Production.text =
+    //        gameObject.transform.root.GetComponent<FactoryManager>().FactoryData.ProductionRate.ToString();
+    //    currentPanel.GetComponent<InfoCurrentFactory>().MaxStorage.text =
+    //        gameObject.transform.root.GetComponent<FactoryManager>().FactoryData.MaxAmmount.ToString();
+    //}
 }
