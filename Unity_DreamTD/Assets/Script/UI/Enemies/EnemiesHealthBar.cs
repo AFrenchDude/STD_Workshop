@@ -1,11 +1,4 @@
-// CE FICHIER A ETE CODE PAR L4INCROYABLE DORIAN ALEXANDRE (le grand)
-// Enfait, Esteban l'a aidé : lol
-// C'est vrai ?
-// Oui...
-// Bon et bien on kill le projet...
-
-using System.Collections;
-using System.Collections.Generic;
+// Made by Dorian Alexandre & Albert Esteban
 using UnityEngine;
 using UnityEngine.UI;
 

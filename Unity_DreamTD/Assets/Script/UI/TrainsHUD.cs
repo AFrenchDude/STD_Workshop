@@ -10,7 +10,6 @@ public class TrainsHUD : MonoBehaviour
     [SerializeField] private GameObject wagonsHUD;
     [SerializeField] private GameObject changeTypeHUD;
     [SerializeField] private GameObject upgradeButton;
-    private TrainLevel trainLevel;
     private Locomotive _pickedLocomotive = null;
 
     //HUD info
@@ -18,7 +17,6 @@ public class TrainsHUD : MonoBehaviour
     {
         train = pickedTrain;
         _pickedLocomotive = train.GetComponentInChildren<Locomotive>();
-        trainLevel = train.transform.GetComponentInChildren<TrainLevel>();
         //text.SetText("Level " + trainLevel.currentLevel);
         text.SetText("Level " + _pickedLocomotive.CurrentSpeedLevel);
         for (var i = 0; i != _pickedLocomotive.wagons.Count; i++)

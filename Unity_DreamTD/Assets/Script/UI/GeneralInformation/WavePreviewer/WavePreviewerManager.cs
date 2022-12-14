@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
+//Made by Alexandre Dorian
 public class WavePreviewerManager : MonoBehaviour
 {
     private WaveDatabase _waveDatabase;

@@ -1,6 +1,4 @@
 //From Seyed Morteza Kamali (https://gamedev.stackexchange.com/questions/126427/draw-circle-around-gameobject-to-indicate-radius) modified by ALBERT Esteban
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
