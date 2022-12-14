@@ -93,7 +93,15 @@ public class EntitySpawner : MonoBehaviour
                 //Rotate to path direction at spawning
                 outEntity.transform.rotation = Quaternion.LookRotation(_path.getStartDirection);
 
-                outEntity.SetPath(_path.LanesList[nextEntity.SpawningLane - 1]);
+                if(_path.LanesList.Count <= nextEntity.SpawningLane & nextEntity.SpawningLane > 0)
+                {
+                    outEntity.SetPath(_path.LanesList[nextEntity.SpawningLane - 1]);
+                }
+                else
+                {
+                    outEntity.SetPath(_path.LanesList[0]);
+                }
+                
 
 
 
