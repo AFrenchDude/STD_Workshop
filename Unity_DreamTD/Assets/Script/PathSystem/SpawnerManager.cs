@@ -56,9 +56,17 @@ public class SpawnerManager : MonoBehaviour
     public delegate void SpawnerEvent(SpawnerManager sender, SpawnerStatus status, int runningWaveCount);
     public event SpawnerEvent WaveStatusChanged = null;
 
+    private bool _waveEnded;
+    private bool _updateExternalEnded;
+
     private void Awake()
     {
         _spawnerState = SpawnerStatus.Inactive;
+    }
+
+    private void Start()
+    {
+        SetUpOriginPreviewForAllSpawner();
     }
 
     public bool isWaveRunning
@@ -76,10 +84,12 @@ public class SpawnerManager : MonoBehaviour
                 _spawnerState = SpawnerStatus.Inactive;
             }
         }
-        else if (_waveEntityListCount <= 0)
+
+        else if (_waveEntityListCount <= 0 & _waveEnded)
         {
             _spawnerState = SpawnerStatus.Inactive;
         }
+
     }
 
     public void AddWaveEntityToList(WaveEntity waveEntity)
@@ -103,9 +113,12 @@ public class SpawnerManager : MonoBehaviour
         // Start a new wave set only if there are no currently a wave running
         if (_currentWaveRunning <= 0)
         {
-            StartNewWaveSet();
+            _waveEnded = false;
             _spawnerState = SpawnerStatus.WaveRunning;
+            _updateExternalEnded = false;
+            StartNewWaveSet();            
         }
+            
     }
 
     public void StartNewWaveSet()
@@ -147,8 +160,6 @@ public class SpawnerManager : MonoBehaviour
 
                 spawner.WaveEnded.RemoveListener(Spawner_OnWaveEnded);
                 spawner.WaveEnded.AddListener(Spawner_OnWaveEnded);
-
-
             }
 
 
@@ -170,6 +181,7 @@ public class SpawnerManager : MonoBehaviour
         bool remains = true;
         foreach (EntitySpawner spawner in _spawners)
         {
+            Debug.Log(spawner.name + spawner.hasWaveElementLeft.ToString());
             if (spawner.hasWaveElementLeft)
             {
                 remains = false;
@@ -191,10 +203,17 @@ public class SpawnerManager : MonoBehaviour
 
         _currentWaveRunning -= 1;
 
-        if (NoEntityLeftToSpawn() && _isLastWave == false)
+        if (NoEntityLeftToSpawn() && _isLastWave == false && _updateExternalEnded == false)
         {
+            _updateExternalEnded = true;
+            Debug.Log("Start next wave preview information send");
             WaveStatusChanged?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
             WaveStatusChanged_UnityEvent?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
+
+            _waveEnded = true;
+
+            SetUpOriginPreviewForAllSpawner();
+
 
             // should we run a new wave?
             if (_autoStartNextWaves == true && _currentWaveRunning <= 0)
@@ -205,6 +224,37 @@ public class SpawnerManager : MonoBehaviour
                     StopCoroutine(_waitForNextWaveCoroutine);
                 }
                 _waitForNextWaveCoroutine = StartCoroutine(WaitForNewWaveSet());
+            }
+        }
+    }
+
+    private void SetUpOriginPreviewForAllSpawner()
+    {
+        //Set wave origin to next wave
+
+        var waveDatabase = WaveDatabaseManager.Instance.WaveDatabase;
+        EntitySpawner spawner = null;
+
+        if (waveDatabase.Waves.Count > _currentWaveSetIndex + 1)
+        {
+            WaveSet waveSet = waveDatabase.Waves[_currentWaveSetIndex + 1];
+            List<Wave> waves = waveSet.Waves;
+
+            for (int i = 0, length = _spawners.Count; i < length; i++)
+            {
+
+                spawner = _spawners[i];
+
+                spawner.ResetOriginActivation();
+
+            }
+            for (int i = 0, length = _spawners.Count; i < length; i++)
+            {
+
+                spawner = _spawners[i];
+
+                spawner.SetOriginActivationForNextWave(waves[i]);
+
             }
         }
     }
@@ -227,4 +277,5 @@ public class SpawnerManager : MonoBehaviour
 
         StartNewWaveSet();
     }
+ 
 }

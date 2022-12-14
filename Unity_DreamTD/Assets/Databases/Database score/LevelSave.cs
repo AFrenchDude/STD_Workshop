@@ -5,6 +5,10 @@ using UnityEngine.UI;
 [CreateAssetMenu(menuName = "DreamTD/LevelSave", fileName = "LevelSave")]
 public class LevelSave : ScriptableObject
 {
+    [Header("Name")]
+    [SerializeField] private string _levelName;
+
+    [Header("Info")]
     [SerializeField] private PlayerScoreSave playerScoreSave;
     [SerializeField] private int bestScore = 0;
     [SerializeField] private int starNumber = 0;
@@ -13,6 +17,7 @@ public class LevelSave : ScriptableObject
 
     [SerializeField] private bool _isLock;
 
+    public string LevelName => _levelName;
     public int BestScore => bestScore;
     public int StarNumber => starNumber;
     public Sprite LevelImage => levelImage;
@@ -42,5 +47,10 @@ public class LevelSave : ScriptableObject
         {
             isNewRecord = false;
         }
+    }
+
+    public void SetIsLock(bool isLock)
+    {
+        _isLock = isLock;
     }
 }

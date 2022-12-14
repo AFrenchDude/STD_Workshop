@@ -30,11 +30,14 @@ public class DamageableDetector : MonoBehaviour
 
         if (damageable != null && _damageablesInRange.Contains(damageable) == false)
         {
-            damageable.Died.RemoveListener(Damageable_OnDied);
-            damageable.Died.AddListener(Damageable_OnDied);
-            damageable.GetComponent<PathFollower>().LastWaypointReached.RemoveListener(PathFollower_OnLastWaypoint);
-            damageable.GetComponent<PathFollower>().LastWaypointReached.AddListener(PathFollower_OnLastWaypoint);
-            _damageablesInRange.Add(damageable);
+            if (damageable.IsUndetectable == false)
+            {
+                damageable.Died.RemoveListener(Damageable_OnDied);
+                damageable.Died.AddListener(Damageable_OnDied);
+                damageable.GetComponent<PathFollower>().LastWaypointReached.RemoveListener(PathFollower_OnLastWaypoint);
+                damageable.GetComponent<PathFollower>().LastWaypointReached.AddListener(PathFollower_OnLastWaypoint);
+                _damageablesInRange.Add(damageable);
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -44,7 +47,6 @@ public class DamageableDetector : MonoBehaviour
 
         if (damageable != null && _damageablesInRange.Contains(damageable) == true)
         {
-            Debug.Log(other);
             damageable.Died.RemoveListener(Damageable_OnDied);
             damageable.GetComponent<PathFollower>().LastWaypointReached.RemoveListener(PathFollower_OnLastWaypoint);
             _damageablesInRange.Remove(damageable);

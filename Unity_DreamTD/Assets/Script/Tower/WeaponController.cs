@@ -75,16 +75,11 @@ public class WeaponController : MonoBehaviour
                 {
                     Vector3 targetDirection = _target[i].TargetAnchor.transform.position - _canonPivot[i].transform.position;
 
-                    if (_towersData.FireType == TowersDatas.fireType.Mortar || _towersData.FireType == TowersDatas.fireType.DoubleCanon)
-                    {
-                        Quaternion Rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, Quaternion.LookRotation(targetDirection).eulerAngles.y, transform.rotation.eulerAngles.z);
-                        _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Rotation, Time.deltaTime * _rotationSpeed);
-                    }
-                    else
-                    {
-                        _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Quaternion.LookRotation(targetDirection), Time.deltaTime * _rotationSpeed);
 
-                    }
+                    Quaternion Rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, Quaternion.LookRotation(targetDirection).eulerAngles.y, transform.rotation.eulerAngles.z);
+                    _canonPivot[i].transform.rotation = Quaternion.Slerp(_canonPivot[i].transform.rotation, Rotation, Time.deltaTime * _rotationSpeed);
+
+
                 }
             }
         }
@@ -113,14 +108,14 @@ public class WeaponController : MonoBehaviour
         }
         AProjectile spawnedProjectile = null;
 
-        if (_towersData.Projectiles.Count > 0)
+        if (_towersData.ProjectilesList.Count > 0)
         {
             if (_towersData.hasProjectiles(_muzzleIndx))
             {
-                ProjectileType currentProjectile = _towersData.Projectiles[_muzzleIndx].ProjectileType;
+                ProjectileType currentProjectile = _towersData.ProjectilesList[_muzzleIndx].ProjectileType;
                 spawnedProjectile = Instantiate(currentProjectile.projectile.GetComponent<AProjectile>());
 
-                
+
 
                 _towersData.ReduceProjAmmount(_muzzleIndx, 1);
             }
@@ -181,7 +176,7 @@ public class WeaponController : MonoBehaviour
         }
 
         //Set up Mortar AOE
-        if(_towersData.FireType == TowersDatas.fireType.Mortar)
+        if (_towersData.FireType == TowersDatas.fireType.Mortar)
         {
             spawnedProjectile.GetComponent<Damager>().SetMortarRadius(_towersData.AOERadius);
         }
@@ -197,7 +192,7 @@ public class WeaponController : MonoBehaviour
 
     public ProjectileType getCurrentProjectileType
     {
-        get { return _towersData.Projectiles[_muzzleIndx].ProjectileType; }
+        get { return _towersData.ProjectilesList[_muzzleIndx].ProjectileType; }
     }
 
 }

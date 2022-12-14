@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //Made by Melinon Remy, modified by ALBERT Esteban
@@ -5,6 +7,30 @@ public class HUDwhenSelect : MonoBehaviour
 {
     public GameObject hudRef;
     private UIManager _uIManager;
+
+    [SerializeField]
+    private GameObject infoCurrentFactory;
+
+    private GameObject currentPanel;
+
+    private Transform _anchor;
+    public Transform Anchor => _anchor;
+
+    public FactoryManagerPanel FactoryManagerPanel
+    {
+        get
+        {
+            return LevelReferences.Instance.Player.GetComponentInChildren<FactoryManagerPanel>();
+        }
+    }
+
+    public TowerManagerPanel TowerManagerPanel
+    {
+        get
+        {
+            return LevelReferences.Instance.Player.GetComponentInChildren<TowerManagerPanel>();
+        }
+    }
 
     private void Awake()
     {
@@ -29,12 +55,14 @@ public class HUDwhenSelect : MonoBehaviour
         //If click on usine
         if (gameObject.transform.root.GetComponent<FactoryManager>() != null)
         {
-            _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>());
+            _currentFactoryManagerPanel = _uIManager.CreateFactoryPanel(GetComponent<FactoryManager>(), _anchor);
+            FactoryManagerPanel.SetInfoFactory();
         }
         //If click on tower
         else if (gameObject.transform.root.GetComponent<Tower>() != null)
         {
-            _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
+            _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>(), _anchor);
+            TowerManagerPanel.SetInfoTower();
             gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
         }
     }
@@ -44,12 +72,16 @@ public class HUDwhenSelect : MonoBehaviour
         //If usine
         if (gameObject.GetComponent<Factory>() != null)
         {
+
             //hudRef.GetComponent<UsineHUD>().OnUnpick();
             //hudRef.SetActive(false);
 
             if (_currentFactoryManagerPanel != null)
             {
+                //Debug.Log("Deselecting");
                 _currentFactoryManagerPanel.ClosePanel();
+
+                //Destroy(currentPanel.gameObject);
             }
         }
         //If tower
@@ -65,4 +97,29 @@ public class HUDwhenSelect : MonoBehaviour
             }
         }
     }
+
+    public void SetAnchor(Transform anchor)
+    {
+        _anchor = anchor;
+    }
+
+    //private void OnUpdateUpgradeFactory(bool isUpdate)
+    //{
+    //    if (isUpdate)
+    //    {
+    //        SetInfoFactory();
+    //        return;
+    //    }
+    //    OnDeselect();
+    //}
+
+    //public void SetInfoFactory()
+    //{
+    //    currentPanel.GetComponent<InfoCurrentFactory>().Name.text =
+    //        gameObject.transform.root.GetComponent<FactoryManager>().FactoryData.Name;
+    //    currentPanel.GetComponent<InfoCurrentFactory>().Production.text =
+    //        gameObject.transform.root.GetComponent<FactoryManager>().FactoryData.ProductionRate.ToString();
+    //    currentPanel.GetComponent<InfoCurrentFactory>().MaxStorage.text =
+    //        gameObject.transform.root.GetComponent<FactoryManager>().FactoryData.MaxAmmount.ToString();
+    //}
 }

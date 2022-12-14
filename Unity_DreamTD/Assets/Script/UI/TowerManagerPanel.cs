@@ -14,9 +14,16 @@ public class TowerManagerPanel : MonoBehaviour
     [SerializeField]
     private Transform _infoParent;
 
+    [SerializeField]
+    private GameObject _infoCurrentTowerPrefab = null;
+
+    private Transform _infoFactoryAnchor;
+    private float _infoFactorySetupTime = 0.0f;
+    private bool _isWaitingForInfoFactory = false;
 
     private GoldManager goldManager;
     private Animator _animator;
+    private GameObject currentPanel = null;
 
     [Header("UI Economy")]
     [SerializeField]
@@ -44,18 +51,38 @@ public class TowerManagerPanel : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void CreatePanel(TowerManager towerManager)
+    private void OnEnable()
+    {
+        goldManager.FortuneChanged.RemoveListener(UpdateTowerUpgradePossibility);
+        goldManager.FortuneChanged.AddListener(UpdateTowerUpgradePossibility);
+    }
+    private void OnDisable()
+    {
+        goldManager.FortuneChanged.RemoveListener(UpdateTowerUpgradePossibility);
+    }
+
+    public void CreatePanel(TowerManager towerManager, Transform infoTowerAnchor)
     {
         _towerManager = towerManager;
+        _infoFactoryAnchor = infoTowerAnchor;
+
+        currentPanel = Instantiate(_infoCurrentTowerPrefab, _infoFactoryAnchor);
+        SetInfoTower();
+
         transform.GetComponent<FollowOnScreen>().SetTarget(towerManager.CenterOfMass);
 
         CreateProjectiles();
 
-        UpdateTowerUpgrdePossibility();
-
+        int i = 0;
+        foreach (Projectile projectile in _towerManager.TowersData.ProjectilesList)
+        {
+            _projectilePrefab.SetUpProjectile(_towerManager.TowersData.ProjectilesList[i]);
+            i++;
+        }
+        UpdateTowerUpgradePossibility();
     }
 
-    public void UpdateTowerUpgrdePossibility()
+    public void UpdateTowerUpgradePossibility()
     {
         if (towerHasUpgrade)
         {
@@ -75,6 +102,7 @@ public class TowerManagerPanel : MonoBehaviour
             _upgradeImage.color = Color.white;
             _upgradeImage.sprite = _lockedSprite;
         }
+        towerInformation?.CanUpgrade(canBuyTower);
     }
 
 
@@ -90,6 +118,8 @@ public class TowerManagerPanel : MonoBehaviour
 
     public void ClosePanel()
     {
+        Destroy(currentPanel.gameObject);
+
         _animator.SetBool("Close", true);
     }
 
@@ -109,7 +139,6 @@ public class TowerManagerPanel : MonoBehaviour
 
     public void SellTower()
     {
-
         goldManager.CollectMoney(_towerManager.TowersData.UpgradeDatas.UpgradePrice / 3);
         Destroy(_towerManager.gameObject);
         ClosePanel();
@@ -126,44 +155,72 @@ public class TowerManagerPanel : MonoBehaviour
             _towerManager.TowersData.Upgrade();
             _towerManager.ApplyStats(_towerManager.TowersData);
 
-
-
             towerScriptRef.SetUpgradeMesh(_towerManager.TowersData.UpgradeDatas.UpgradePrefab);
 
             if (towerInformation != null & towerHasUpgrade)
             {
                 towerInformation.SetTowerData(_towerManager.TowersData);
                 towerInformation.CanUpgrade(canBuyTower);
-
+                CreateProjectiles();
             }
             else
             {
-                UpdateTowerUpgrdePossibility();
+                UpdateTowerUpgradePossibility();
             }
 
-
-
             towerScriptRef.RangeIndicator.UpdateCircle();
+        }
 
+        SetInfoTower();
+    }
+
+    public void SetInfoFactoryAnchor(Transform infoFactoryAnchor) // See HUDWhen Select calls
+    {
+        _infoFactoryAnchor = infoFactoryAnchor;
+        ClearOtherInfoCurrentFactory();
+        _infoFactorySetupTime = Time.time;
+        _isWaitingForInfoFactory = true;
+    }
+
+    private void ClearOtherInfoCurrentFactory()
+    {
+        //Debug.Log("Anchor has: " + _infoFactoryAnchor.childCount + "children");
+        for (int i = 0; i < _infoFactoryAnchor.childCount; i++)
+        {
+            Debug.Log("Try destroy child: " + (_infoFactoryAnchor.GetChild(i).gameObject));
+            if (_infoFactoryAnchor.GetChild(i).GetComponent<InfoCurrentFactory>() != null)
+            {
+                Destroy(_infoFactoryAnchor.GetChild(i).gameObject);
+            }
         }
     }
 
-    //Informations
+    public void SetInfoTower()
+    {
+        //Debug.Log("Set info capable? " + (currentPanel.name));
+        InfoCurrentTower infoCurrentTower = currentPanel.GetComponent<InfoCurrentTower>();
 
+        infoCurrentTower.Name.text = _towerManager.TowersData.UpgradeDatas.UpgradeName;
+        infoCurrentTower.Damage.text = _towerManager.TowersData.Damage.ToString();
+        infoCurrentTower.Firerate.text = _towerManager.TowersData.FireRate.ToString();
+        infoCurrentTower.Range.text = _towerManager.TowersData.Range.ToString();
+    }
+
+
+    //Informations
     private UI_TowerPanelManager towerInformation;
 
     public void CreateTowerUpgradeInformation()
     {
         if (towerHasUpgrade)
         {
-
             if (towerInformation == null)
             {
                 towerInformation = Instantiate(_towerInfoPrefab, _infoParent);
 
                 towerInformation.SetTowerData(_towerManager.TowersData);
                 towerInformation.CanUpgrade(canBuyTower);
-
+                UpdateTowerUpgradePossibility();
             }
         }
     }
@@ -176,9 +233,8 @@ public class TowerManagerPanel : MonoBehaviour
         }
     }
 
-
-    //Projectiles
-    [Header("Projectiles")]
+    //ProjectilesList
+    [Header("ProjectilesList")]
 
     [SerializeField]
     private CurrentProjectileUI _projectilePrefab;
@@ -190,7 +246,7 @@ public class TowerManagerPanel : MonoBehaviour
     {
         List<CurrentProjectileUI> createdUi = new List<CurrentProjectileUI>();
         int i = 0;
-        foreach (Projectile projectile in _towerManager.TowersData.Projectiles)
+        foreach (Projectile projectile in _towerManager.TowersData.ProjectilesList)
         {
             CurrentProjectileUI newProjectile = Instantiate(_projectilePrefab, _projectileContainers[i].transform);
 

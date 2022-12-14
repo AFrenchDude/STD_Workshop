@@ -7,12 +7,18 @@ public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
     //Ref to new scene to load
-    [SerializeField] private string sceneToLoad;
+    private string sceneToLoad;
 
+
+    public void SetUpScene(string levelName)
+    {
+        sceneToLoad = levelName;
+    }
     //Load new scene
     public void SceneLoad()
     {
-        if(Application.CanStreamedLevelBeLoaded(sceneToLoad))
+        Time.timeScale = 1.0f;
+        if (Application.CanStreamedLevelBeLoaded(sceneToLoad))
         {
             if (loadingScreen != null)
             {

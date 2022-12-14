@@ -31,14 +31,14 @@ public class TowerHUD : MonoBehaviour
     //Set resources text and slider
     private void Update()
     {
-        currentResources = tower.GetComponent<TowerManager>().TowersData.Projectiles[0].ProjectileAmmount;
+        currentResources = tower.GetComponent<TowerManager>().TowersData.ProjectilesList[0].ProjectileAmmount;
         text.SetText("Bullet: " + currentResources);
 
-        if (tower.GetComponent<TowerManager>().TowersData.Projectiles.Count > 1)
+        if (tower.GetComponent<TowerManager>().TowersData.ProjectilesList.Count > 1)
         {
-            float secondFireProjectiles = tower.GetComponent<TowerManager>().TowersData.Projectiles[1].ProjectileAmmount;
+            float secondFireProjectiles = tower.GetComponent<TowerManager>().TowersData.ProjectilesList[1].ProjectileAmmount;
             text2.SetText("Bullet: " + secondFireProjectiles);
-            slider2.value = secondFireProjectiles / tower.GetComponent<TowerManager>().TowersData.Projectiles[1].MaxProjectilesAmmount;
+            slider2.value = secondFireProjectiles / tower.GetComponent<TowerManager>().TowersData.ProjectilesList[1].MaxProjectilesAmmount;
         }
 
         if (tower != null && towerGetProjectileScriptRef != null)
@@ -53,7 +53,7 @@ public class TowerHUD : MonoBehaviour
         //if DoubleCanon
         if (tower.GetComponent<TowerManager>().TowersData.FireType == TowersDatas.fireType.DoubleCanon)
         {
-            currentResources2 = tower.GetComponent<TowerManager>().TowersData.Projectiles[1].ProjectileAmmount;
+            currentResources2 = tower.GetComponent<TowerManager>().TowersData.ProjectilesList[1].ProjectileAmmount;
             text2.SetText("Bullet: " + currentResources2);
             slider2.value = (currentResources2 / maxResources);
         }

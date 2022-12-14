@@ -27,8 +27,23 @@ public class LevelButtonSetting : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    public void StartLevel()
+    {
+        SceneLoader sceneLoader = GetComponent<SceneLoader>();
+
+        if(levelSave.IsLock == false)
+        {
+            sceneLoader.SetUpScene(levelSave.LevelName);
+            sceneLoader.SceneLoad();
+        }
+    }
+
     public void Hover()
     {
+        if (levelSave.IsLock == false)
+        {
+            _animator.SetBool("Unlock", true);          
+        }
         _animator.SetBool("Overlap",true);
     }
     public void Unhover()
@@ -44,7 +59,7 @@ public class LevelButtonSetting : MonoBehaviour
         imageLevel.sprite = levelSave.LevelImage;
         for (int i = 0; i != imagesStars.transform.childCount; i++)
         {
-            if (levelSave.StarNumber > i + 1 && imagesStars.transform.GetChild(i).GetComponent<Image>() != null)
+            if (levelSave.StarNumber > i && imagesStars.transform.GetChild(i).GetComponent<Image>() != null)
             {
                 imagesStars.transform.GetChild(i).GetComponent<Image>().color = _fullMoonColor;
             }
@@ -58,9 +73,8 @@ public class LevelButtonSetting : MonoBehaviour
 
         if (levelSave.IsLock == false)
         {
-
-            Destroy(_lockContainer);
             _animator.SetBool("Unlock", true);
+            Destroy(_lockContainer);
 
         }
         else
