@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3776668178494083157}
   - component: {fileID: 903479394229907009}
   - component: {fileID: 5508492655814805566}
-  - component: {fileID: 862806237721286314}
+  - component: {fileID: 7596623531192524944}
   m_Layer: 5
   m_Name: WavePreview
   m_TagString: Untagged
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemiesTypepreviewPrefab: {fileID: 7305916236711573255, guid: 7b88e560bb208ea41a61a0b91a99a506,
     type: 3}
---- !u!114 &862806237721286314
+--- !u!114 &7596623531192524944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,20 +101,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1495041266122148043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 25
-    m_Right: 25
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 2
+    m_Right: 2
+    m_Top: 2
+    m_Bottom: 2
   m_ChildAlignment: 4
-  m_Spacing: 10
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_StartCorner: 0
+  m_StartAxis: 1
+  m_CellSize: {x: 70, y: 40}
+  m_Spacing: {x: 5, y: 5}
+  m_Constraint: 0
+  m_ConstraintCount: 2
