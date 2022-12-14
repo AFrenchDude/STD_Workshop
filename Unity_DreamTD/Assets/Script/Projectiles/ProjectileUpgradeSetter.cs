@@ -68,7 +68,7 @@ public class ProjectileUpgradeSetter : MonoBehaviour
         }
         if (textPrice != null)
         {
-            textPrice.SetText("X" + _price);
+            textPrice.SetText(_price.ToString());
         }
     }
     public void CheckIfUnlocked(List<string> unlockedList, string compareTo)

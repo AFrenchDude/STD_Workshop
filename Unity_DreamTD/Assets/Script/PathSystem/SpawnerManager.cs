@@ -57,6 +57,7 @@ public class SpawnerManager : MonoBehaviour
     public event SpawnerEvent WaveStatusChanged = null;
 
     private bool _waveEnded;
+    private bool _updateExternalEnded;
 
     private void Awake()
     {
@@ -114,6 +115,7 @@ public class SpawnerManager : MonoBehaviour
         {
             _waveEnded = false;
             _spawnerState = SpawnerStatus.WaveRunning;
+            _updateExternalEnded = false;
             StartNewWaveSet();            
         }
             
@@ -201,8 +203,9 @@ public class SpawnerManager : MonoBehaviour
 
         _currentWaveRunning -= 1;
 
-        if (NoEntityLeftToSpawn() && _isLastWave == false)
+        if (NoEntityLeftToSpawn() && _isLastWave == false && _updateExternalEnded == false)
         {
+            _updateExternalEnded = true;
             Debug.Log("Start next wave preview information send");
             WaveStatusChanged?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
             WaveStatusChanged_UnityEvent?.Invoke(this, SpawnerStatus.Inactive, _currentWaveRunning);
