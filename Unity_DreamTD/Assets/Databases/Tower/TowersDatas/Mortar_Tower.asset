@@ -16,8 +16,8 @@ MonoBehaviour:
   _name: Mortar
   _description: Launch explosive bombs in high-arcing ballistic trajectories
   _type: Tower
-  _damage: 0
-  _fireRate: 0
+  _damage: 4
+  _fireRate: 4
   _range: 12
   _projectileSpeed: 30
   _fireType: 2
@@ -25,8 +25,8 @@ MonoBehaviour:
   _projectileTypeList:
   - ProjectileType: {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
     ProjectileAmmount: 0
-    MaxProjectilesAmmount: 0
+    MaxProjectilesAmmount: 5
   _maxProjectilesAmmount: 0
   _aoeRadius: 0
   scoreToGiveOnUpgrade: 0
-  _towerDataUnlocked: 1
+  _towerDataUnlocked: 0
