@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+//Made by Dijoux Kevin
 public class InfoCurrentFactory : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _name = null;

@@ -1,4 +1,4 @@
-//From Template & ALEXANDRE Dorian
+//From Template, modified by ALEXANDRE Dorian
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

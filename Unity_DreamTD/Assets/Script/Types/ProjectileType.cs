@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VFX;
 
 //Made By Melinon Remy
 [CreateAssetMenu(menuName = "Type/Projectile")]

@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Made by Alexandre Dorian
 public class ParticleActivation : MonoBehaviour
 {
     [SerializeField]

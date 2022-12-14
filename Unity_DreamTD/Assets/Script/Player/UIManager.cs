@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
+//Made by Alexandre Dorian, modified by Dijoux Kevin
 public class UIManager : MonoBehaviour
 {
     [Header("References")]
