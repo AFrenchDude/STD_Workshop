@@ -1,6 +1,4 @@
 //By ALEXANDRE Dorian
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "DreamTD/NightmareData", fileName = "NightmareData")]

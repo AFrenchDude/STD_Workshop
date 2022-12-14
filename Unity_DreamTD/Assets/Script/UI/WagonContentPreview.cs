@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//Made by Alexandre Dorian
 public class WagonContentPreview : MonoBehaviour
 {
     private Wagon _associatedWagon;

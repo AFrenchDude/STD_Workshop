@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+//Made by Alexandre Dorian
 public class GeneralInformationManager : MonoBehaviour
 {
     private Animator _animator;

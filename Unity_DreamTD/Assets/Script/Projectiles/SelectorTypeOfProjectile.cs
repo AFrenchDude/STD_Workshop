@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//Made by Alexandre Dorian
 public class SelectorTypeOfProjectile : MonoBehaviour
 {
     [SerializeField]
@@ -23,8 +24,7 @@ public class SelectorTypeOfProjectile : MonoBehaviour
         _icon.sprite = _type.Icon;
     }
 
-    //public void 
-
+    //public void
     public void SelectThisProjectile()
     {
         _projectileUI.ChangeProjectile(_type);

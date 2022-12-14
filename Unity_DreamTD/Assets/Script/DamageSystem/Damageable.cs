@@ -1,6 +1,4 @@
 //By ALBERT Esteban, HP bar by ALEXANDRE Dorian, score by MELINON Remy
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 

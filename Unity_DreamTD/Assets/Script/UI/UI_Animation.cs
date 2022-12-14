@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+//Made by Dijoux Kevin
 public class UI_Animation : MonoBehaviour
 {
     private RectTransform _rectTransform;
@@ -71,6 +71,4 @@ public class UI_Animation : MonoBehaviour
             _rectTransform.anchoredPosition = _basePosition;
         }
     }
-
-
 }

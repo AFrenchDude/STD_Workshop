@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+//Made by Dorian Alexandre
 public class AutoDestroy : MonoBehaviour
 {
     [SerializeField]

@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Made by Dijoux Kevin
 public class UpgradeType : MonoBehaviour
 {
     private GameObject type_;

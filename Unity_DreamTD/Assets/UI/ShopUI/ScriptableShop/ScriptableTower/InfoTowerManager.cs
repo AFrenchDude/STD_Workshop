@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Made by Dijoux Kevin
 public class InfoTowerManager : MonoBehaviour
 {
     #region Variables
