@@ -17,6 +17,7 @@ public class MuseumBehaviour : MonoBehaviour
     private TowerUpgradeData currentTowerUpgrade;
     private FactoryUpgradeData currentFactoryUpgrade;
     [SerializeField] RectTransform moverRef;
+    [SerializeField] float moverRefSensivity = 10.0f;
     private Vector2 lastmove = new Vector2(0, 0);
 
     //On open HUD
@@ -200,12 +201,12 @@ public class MuseumBehaviour : MonoBehaviour
             //Move vertical rotation
             float moveX = 0;
             moveX = -(moverRef.transform.position.y - lastmove.y);
-            Vector3 rotationY = new Vector3(moveX * -10, 0, 0);
+            Vector3 rotationY = new Vector3(moveX * -moverRefSensivity, 0, 0);
             lastInstantiate.transform.Rotate(rotationY, Space.World);
             //Move horizontal rotation
             float moveY = 0;
             moveY = -(moverRef.transform.position.x - lastmove.x);
-            Vector3 rotationX = new Vector3(0, moveY * 10, 0);
+            Vector3 rotationX = new Vector3(0, moveY * moverRefSensivity, 0);
             lastInstantiate.transform.Rotate(rotationX);
             //Set actual position of mover as the last saved
             lastmove = new Vector2(moverRef.transform.position.x, moverRef.transform.position.y);
