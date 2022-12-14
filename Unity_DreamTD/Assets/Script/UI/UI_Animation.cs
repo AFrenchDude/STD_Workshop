@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-//Made by Dijoux Kevin
+//Made by Alexandre Dorian, modified by Melinon Remy
 public class UI_Animation : MonoBehaviour
 {
     private RectTransform _rectTransform;
@@ -36,7 +36,6 @@ public class UI_Animation : MonoBehaviour
         StartCoroutine(PlayRevertAnim(0));
     }
 
-
     public IEnumerator PlayAnim(float lerp)
     {
         yield return new WaitForFixedUpdate();
@@ -70,5 +69,10 @@ public class UI_Animation : MonoBehaviour
         {
             _rectTransform.anchoredPosition = _basePosition;
         }
+    }
+
+    public void ResetAnim()
+    {
+        _rectTransform.anchoredPosition = _basePosition;
     }
 }

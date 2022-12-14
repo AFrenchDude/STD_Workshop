@@ -115,7 +115,7 @@ public class MuseumBehaviour : MonoBehaviour
     public void ChangeEnemyDescription(NightmareBestiaryData nightmare)
     {
         //Set text of enemy _name and description
-        nameText.SetText("Name: " + nightmare.Name);
+        nameText.SetText("" + nightmare.Name);
         descriptionText.SetText("Description: " + nightmare.Description + "<br>" +
             "Type: " + nightmare.NightmareData.nighmareType + "<br>" +
             "Role: " + nightmare.NightmareData.nightmareFunction + "<br>" +
@@ -135,7 +135,7 @@ public class MuseumBehaviour : MonoBehaviour
             currentTowerUpgrade = towersDatas.UpgradeDatas;
         }
         //Set text of enemy _name and description
-        nameText.SetText("Name: " + towersDatas.Name + " (" + currentTowerUpgrade.UpgradeName + ")");
+        nameText.SetText("" + towersDatas.Name + " (" + currentTowerUpgrade.UpgradeName + ")");
         descriptionText.SetText("Description: " + towersDatas.Description + "<br>" +
             "Type: " + towersDatas.Type + "<br><br>" +
             "Damage: " + currentTowerUpgrade.UpgradeDamage+ "<br>" +
@@ -153,7 +153,7 @@ public class MuseumBehaviour : MonoBehaviour
             currentFactoryUpgrade = factoryUpgradeData.CurrentUpgrade;
         }
         //Set text of enemy _name and description
-        nameText.SetText("Name: " + factoryUpgradeData.Name + " (" + currentFactoryUpgrade.UpgradeName + ")");
+        nameText.SetText("" + factoryUpgradeData.Name + " (" + currentFactoryUpgrade.UpgradeName + ")");
         descriptionText.SetText("Description: " + factoryUpgradeData.UpgradeDescription + "<br>" +
             "Type: " + factoryUpgradeData.Type + "<br><br>" +
             "Production rate: " + currentFactoryUpgrade.UpgradeCooldown + "s" + "<br>" +
