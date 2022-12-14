@@ -1,4 +1,5 @@
 //By ALBERT Esteban
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -18,6 +19,15 @@ public class ProjectileUpgradeSetter : MonoBehaviour
     public ProjectileUpgradeData.EnergyUpgrades energyUpgrade => _energyUpgradeSelected;
     public ProjectileUpgradeData.FoodUpgrades foodUpgrade => _foodUpgradeSelected;
     public int Price => _price;
+
+    [SerializeField]
+    private Image _projectileImage;
+
+    [SerializeField]
+    private Color _selectedColor;
+
+    [SerializeField]
+    private ProjectileType _projectileType;
 
     public void SetNeutralUpgrade()
     {
@@ -42,6 +52,7 @@ public class ProjectileUpgradeSetter : MonoBehaviour
         CheckIfUnlocked(_projectileUpgradeData.unlockedTraps, _trapUpgradeSelected + "");
         CheckIfUnlocked(_projectileUpgradeData.unlockedFood, _foodUpgradeSelected + "");
         CheckIfUnlocked(_projectileUpgradeData.unlockedEnergy, _energyUpgradeSelected + "");
+        /*
         foreach (string unlockedTraps in _projectileUpgradeData.unlockedTraps)
         {
             if(unlockedTraps == _trapUpgradeSelected + "")
@@ -66,6 +77,7 @@ public class ProjectileUpgradeSetter : MonoBehaviour
                 break;
             }
         }
+        */
         if (textPrice != null)
         {
             textPrice.SetText(_price.ToString());
@@ -80,9 +92,21 @@ public class ProjectileUpgradeSetter : MonoBehaviour
                 if (unlockedList[i] == compareTo)
                 {
                     Button skillButton = GetComponent<Button>();
-                    skillButton.enabled = false;
+                    ModifySkillOnProjectileAppearance();
                 }
             }
         }
     }
+
+    public void ModifySkillOnProjectileAppearance()
+    {
+        GetComponent<Button>().image.color = _selectedColor;
+        //_projectileImage.color = _selectedColor;
+        _projectileType.icon = _projectileImage.sprite;
+
+        _projectileImage.enabled = true;
+        transform.GetChild(0).gameObject.SetActive(true);
+        
+    }
+
 }

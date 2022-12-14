@@ -1,11 +1,12 @@
-//By ALBERT Esteban
+//By ALBERT Esteban & Dorian ALEXANDRE (Pour 2 lignes)
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EndGameCondition : Singleton<EndGameCondition>
 {
     [SerializeField] GameObject gameOverScreen;
-    [SerializeField] GameObject victoryScreen;
-
+    [SerializeField] private List<GameObject> victoryScreen = new List<GameObject>();
+    
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -22,8 +23,16 @@ public class EndGameCondition : Singleton<EndGameCondition>
     {
         Time.timeScale = 1.0f;
         LevelReferences.Instance.Player.GetComponent<GoldManager>().ExportPurchaseToCSV();
-        victoryScreen.SetActive(true);
-        victoryScreen.GetComponent<ScoreText>().Activate();
+        foreach(GameObject p in victoryScreen)
+        {
+            p.SetActive(true);
+            if(p.TryGetComponent(out ScoreText scoreText) == true)
+            {
+                scoreText.Activate();
+            }
+            
+        }
+        
     }
     public void PlayerDefeat()
     {
