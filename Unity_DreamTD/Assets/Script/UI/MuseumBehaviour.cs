@@ -142,7 +142,7 @@ public class MuseumBehaviour : MonoBehaviour
             "Fire cooldown: " + currentTowerUpgrade.UpgradeFireRate + "s" + "<br>" +
             "Max projectiles: " + currentTowerUpgrade.UpgradeMaxProjectiles + "<br>" +
             "Range: " + currentTowerUpgrade.UpgradeRange);
-        Set3Dmodel(currentTowerUpgrade.UpgradePrefab, new Vector3(-20, -50, 20), 3);
+        Set3Dmodel(currentTowerUpgrade.UpgradePrefab, new Vector3(15, -200, -5), 3);
     }
 
     //Pick new usine
