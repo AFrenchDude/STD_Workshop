@@ -14,9 +14,16 @@ public class TowerManagerPanel : MonoBehaviour
     [SerializeField]
     private Transform _infoParent;
 
+    [SerializeField]
+    private GameObject _infoCurrentTowerPrefab = null;
+
+    private Transform _infoFactoryAnchor;
+    private float _infoFactorySetupTime = 0.0f;
+    private bool _isWaitingForInfoFactory = false;
 
     private GoldManager goldManager;
     private Animator _animator;
+    private GameObject currentPanel = null;
 
     [Header("UI Economy")]
     [SerializeField]
@@ -54,9 +61,14 @@ public class TowerManagerPanel : MonoBehaviour
         goldManager.FortuneChanged.RemoveListener(UpdateTowerUpgradePossibility);
     }
 
-    public void CreatePanel(TowerManager towerManager)
+    public void CreatePanel(TowerManager towerManager, Transform infoTowerAnchor)
     {
         _towerManager = towerManager;
+        _infoFactoryAnchor = infoTowerAnchor;
+
+        currentPanel = Instantiate(_infoCurrentTowerPrefab, _infoFactoryAnchor);
+        SetInfoTower();
+
         transform.GetComponent<FollowOnScreen>().SetTarget(towerManager.CenterOfMass);
 
         CreateProjectiles();
@@ -106,6 +118,8 @@ public class TowerManagerPanel : MonoBehaviour
 
     public void ClosePanel()
     {
+        Destroy(currentPanel.gameObject);
+
         _animator.SetBool("Close", true);
     }
 
@@ -156,7 +170,42 @@ public class TowerManagerPanel : MonoBehaviour
 
             towerScriptRef.RangeIndicator.UpdateCircle();
         }
+
+        SetInfoTower();
     }
+
+    public void SetInfoFactoryAnchor(Transform infoFactoryAnchor) // See HUDWhen Select calls
+    {
+        _infoFactoryAnchor = infoFactoryAnchor;
+        ClearOtherInfoCurrentFactory();
+        _infoFactorySetupTime = Time.time;
+        _isWaitingForInfoFactory = true;
+    }
+
+    private void ClearOtherInfoCurrentFactory()
+    {
+        //Debug.Log("Anchor has: " + _infoFactoryAnchor.childCount + "children");
+        for (int i = 0; i < _infoFactoryAnchor.childCount; i++)
+        {
+            Debug.Log("Try destroy child: " + (_infoFactoryAnchor.GetChild(i).gameObject));
+            if (_infoFactoryAnchor.GetChild(i).GetComponent<InfoCurrentFactory>() != null)
+            {
+                Destroy(_infoFactoryAnchor.GetChild(i).gameObject);
+            }
+        }
+    }
+
+    public void SetInfoTower()
+    {
+        //Debug.Log("Set info capable? " + (currentPanel.name));
+        InfoCurrentTower infoCurrentTower = currentPanel.GetComponent<InfoCurrentTower>();
+
+        infoCurrentTower.Name.text = _towerManager.TowersData.UpgradeDatas.UpgradeName;
+        infoCurrentTower.Damage.text = _towerManager.TowersData.Damage.ToString();
+        infoCurrentTower.Firerate.text = _towerManager.TowersData.FireRate.ToString();
+        infoCurrentTower.Range.text = _towerManager.TowersData.Range.ToString();
+    }
+
 
     //Informations
     private UI_TowerPanelManager towerInformation;
@@ -183,7 +232,6 @@ public class TowerManagerPanel : MonoBehaviour
             towerInformation.FadeOut();
         }
     }
-
 
     //ProjectilesList
     [Header("ProjectilesList")]
