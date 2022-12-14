@@ -59,7 +59,7 @@ public class LevelButtonSetting : MonoBehaviour
         imageLevel.sprite = levelSave.LevelImage;
         for (int i = 0; i != imagesStars.transform.childCount; i++)
         {
-            if (levelSave.StarNumber > i + 1 && imagesStars.transform.GetChild(i).GetComponent<Image>() != null)
+            if (levelSave.StarNumber > i && imagesStars.transform.GetChild(i).GetComponent<Image>() != null)
             {
                 imagesStars.transform.GetChild(i).GetComponent<Image>().color = _fullMoonColor;
             }

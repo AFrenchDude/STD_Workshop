@@ -7,7 +7,7 @@ public class InfoFactoryManager : MonoBehaviour
 {
     #region Variables
     [SerializeField]
-    private InfoFactory factoryDescription = null;
+    private UsineDescription factoryDescription = null;
 
     [SerializeField]
     private Image sprite = null;
@@ -25,8 +25,10 @@ public class InfoFactoryManager : MonoBehaviour
     private TextMeshProUGUI capacity = null;
 
     [SerializeField]
-    private TextMeshProUGUI moneyNecessary = null;
+    private TextMeshProUGUI _moneyNecessary = null;
     #endregion Variables
+
+    public TextMeshProUGUI MoneyNecessary => _moneyNecessary;
 
     private void Start()
     {
@@ -35,6 +37,6 @@ public class InfoFactoryManager : MonoBehaviour
         type.text = factoryDescription.FactoryDatas.Type;
         production.text = factoryDescription.FactoryDatas.ProductionRate + "/s";
         capacity.text = factoryDescription.FactoryDatas.MaxAmmount.ToString();
-        moneyNecessary.text = factoryDescription.FactoryDatas.SellPrice + " ";
+        _moneyNecessary.text = factoryDescription.Price.ToString();
     }
 }

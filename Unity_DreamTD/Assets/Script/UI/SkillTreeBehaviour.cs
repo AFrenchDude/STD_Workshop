@@ -19,7 +19,7 @@ public class SkillTreeBehaviour : MonoBehaviour
 
     public void OnOpenSkillShop()
     {
-        text.SetText("Skill points : " + playerScore.StarNumber);
+        text.SetText(playerScore.StarNumber.ToString());
         //Trap
         SetOptions(trapsDropdown, projectileUpgrade.unlockedTraps, projectileUpgrade.TrapUpgradeSelected + "");
         //Food
