@@ -12,6 +12,9 @@ public class OpenInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField]
     private Animator animator = null;
 
+    [SerializeField]
+    private bool _isUnlock = true;
+
     private void Start()
     {
         info.SetActive(true);
@@ -19,11 +22,18 @@ public class OpenInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        OpenInfoPanel();
+        if (_isUnlock)
+        {
+            OpenInfoPanel();
+        }
+        
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        CloseInfoPanel();
+        if (_isUnlock)
+        {
+            CloseInfoPanel();
+        }    
     }
 
     private void OpenInfoPanel()

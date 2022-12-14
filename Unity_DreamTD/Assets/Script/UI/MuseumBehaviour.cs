@@ -23,8 +23,9 @@ public class MuseumBehaviour : MonoBehaviour
     //On open HUD
     public void OnMuseumOpen()
     {
+        lastmove = new Vector2(moverRef.transform.position.x, moverRef.transform.position.y);
         //Set unlocked enemies buttons
-        foreach(Transform button in buttons)
+        foreach (Transform button in buttons)
         {
             if (button.GetComponent<MuseumButton>().NightmareBestiary != null)
             {
@@ -61,15 +62,15 @@ public class MuseumBehaviour : MonoBehaviour
                 else if (button.GetComponent<MuseumButton>().FactoryData != null)
                 {
                     lastButton = button.gameObject;
-                    ChangeUsineDescription(button.GetComponent<MuseumButton>().FactoryData);
                     levelButtons.SetActive(true);
+                    ChangeUsineDescription(button.GetComponent<MuseumButton>().FactoryData);
                     break;
                 }
                 else if (button.GetComponent<MuseumButton>().TowersDatas != null)
                 {
                     lastButton = button.gameObject;
-                    ChangeTowerDescription(button.GetComponent<MuseumButton>().TowersDatas);
                     levelButtons.SetActive(true);
+                    ChangeTowerDescription(button.GetComponent<MuseumButton>().TowersDatas);
                     break;
                 }
             }
@@ -142,7 +143,7 @@ public class MuseumBehaviour : MonoBehaviour
             "Fire cooldown: " + currentTowerUpgrade.UpgradeFireRate + "s" + "<br>" +
             "Max projectiles: " + currentTowerUpgrade.UpgradeMaxProjectiles + "<br>" +
             "Range: " + currentTowerUpgrade.UpgradeRange);
-        Set3Dmodel(currentTowerUpgrade.UpgradePrefab, new Vector3(15, -200, -5), 3);
+        Set3Dmodel(currentTowerUpgrade.UpgradePrefab, new Vector3(15, -200, -5), 2.5f);
     }
 
     //Pick new usine
@@ -159,11 +160,11 @@ public class MuseumBehaviour : MonoBehaviour
             "Production rate: " + currentFactoryUpgrade.UpgradeCooldown + "s" + "<br>" +
             "Price: " + currentFactoryUpgrade.UpgradePrice + "<br>" +
             "Max resources: " + currentFactoryUpgrade.UpgradeMaxResource);
-        Set3Dmodel(currentFactoryUpgrade.UpgradePrefab, new Vector3(-15, -70, 15), 2);
+        Set3Dmodel(currentFactoryUpgrade.UpgradePrefab, new Vector3(-5, 300, 10), 2.2f);
     }
 
     //Model 3D
-    void Set3Dmodel(GameObject model, Vector3 rotation, int scale)
+    void Set3Dmodel(GameObject model, Vector3 rotation, float scale)
     {
         //Destroy last enemy modelPositionRef if not null
         DestroyModel();
@@ -190,11 +191,7 @@ public class MuseumBehaviour : MonoBehaviour
     }
 
     //Set enemy 3D model rotation
-    private void Start()
-    {
-        lastmove = new Vector2(moverRef.transform.position.x, moverRef.transform.position.y);
-    }
-    public void Update()
+    private void Update()
     {
         if (lastInstantiate != null)
         {
