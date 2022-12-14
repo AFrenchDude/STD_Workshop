@@ -24,6 +24,14 @@ public class HUDwhenSelect : MonoBehaviour
         }
     }
 
+    public TowerManagerPanel TowerManagerPanel
+    {
+        get
+        {
+            return LevelReferences.Instance.Player.GetComponentInChildren<TowerManagerPanel>();
+        }
+    }
+
     private void Awake()
     {
         _uIManager = LevelReferences.Instance.Player.GetComponent<UIManager>();
@@ -53,7 +61,8 @@ public class HUDwhenSelect : MonoBehaviour
         //If click on tower
         else if (gameObject.transform.root.GetComponent<Tower>() != null)
         {
-            _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>());
+            _currentTowerManagerPanel = _uIManager.CreateTowerPanel(GetComponent<TowerManager>(), _anchor);
+            TowerManagerPanel.SetInfoTower();
             gameObject.GetComponent<Tower>().RangeIndicator.EnableRangeIndicator(true);
         }
     }

@@ -178,7 +178,6 @@ public class FactoryManagerPanel : MonoBehaviour
         }
 
         SetInfoFactory();
-        //updateUpgradefactory.Invoke(true);
     }
 
     public void SetInfoFactoryAnchor(Transform infoFactoryAnchor) // See HUDWhen Select calls
@@ -207,7 +206,7 @@ public class FactoryManagerPanel : MonoBehaviour
         //Debug.Log("Set info capable? " + (currentPanel.name));
         InfoCurrentFactory infoCurrentFactory = currentPanel.GetComponent<InfoCurrentFactory>();
 
-        infoCurrentFactory.Name.text = _factoryManager.FactoryData.Name;
+        infoCurrentFactory.Name.text = _factoryManager.FactoryData.CurrentUpgrade.UpgradeName;
         infoCurrentFactory.Production.text = _factoryManager.FactoryData.ProductionRate.ToString();
         infoCurrentFactory.MaxStorage.text = _factoryManager.FactoryData.MaxAmmount.ToString();
     }

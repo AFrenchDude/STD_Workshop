@@ -53,11 +53,11 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public TowerManagerPanel CreateTowerPanel(TowerManager towerManager)
+    public TowerManagerPanel CreateTowerPanel(TowerManager towerManager, Transform infoTowerAnchor)
     {
         towerManagerPanel = Instantiate(_towerManagerPanel, _upgradePanelsContainer);
 
-        towerManagerPanel.CreatePanel(towerManager);
+        towerManagerPanel.CreatePanel(towerManager, infoTowerAnchor);
 
         return (towerManagerPanel);
         
