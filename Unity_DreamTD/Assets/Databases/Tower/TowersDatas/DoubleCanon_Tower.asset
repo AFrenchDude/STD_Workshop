@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04fd985d2ef4c548a81a13c3587d657, type: 3}
+  m_Name: DoubleCanon_Tower
+  m_EditorClassIdentifier: 
+  _sprite: {fileID: 21300000, guid: 243f8223cc8d71a4299ce88d19bf00a8, type: 3}
+  _name: Double Canon
+  _description: Double canon to double tap
+  _type: Tower
+  _damage: 2
+  _fireRate: 1
+  _range: 9
+  _projectileSpeed: 20
+  _fireType: 1
+  _currentUpgrade: {fileID: 11400000, guid: b8415f217b6744a49a705a30ca3f1343, type: 2}
+  _projectileTypeList:
+  - ProjectileType: {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
+    ProjectileAmmount: 0
+    MaxProjectilesAmmount: 5
+  - ProjectileType: {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
+    ProjectileAmmount: 0
+    MaxProjectilesAmmount: 5
+  _maxProjectilesAmmount: 0
+  _aoeRadius: 0
+  scoreToGiveOnUpgrade: 0
+  _towerDataUnlocked: 0

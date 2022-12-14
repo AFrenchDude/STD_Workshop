@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Made by Alexandre Dorian
 public class Factory : MonoBehaviour
 {
     private FactoryDatas _datas;

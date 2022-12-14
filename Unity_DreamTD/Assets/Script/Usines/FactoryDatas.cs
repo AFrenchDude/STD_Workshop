@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Made by Alexandre Dorian
 [CreateAssetMenu(menuName = "DreamTD/Factories/FactoryDatas", fileName = "FactoryDatas")]
 public class FactoryDatas : ScriptableObject
 {

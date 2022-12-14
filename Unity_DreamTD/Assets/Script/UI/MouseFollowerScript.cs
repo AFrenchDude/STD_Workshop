@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+//Made by Alexandre Dorian
 public class MouseFollowerScript : MonoBehaviour
 {
-    
     private RectTransform _canvas;
     private RectTransform _rectTransform;
-
 
     void Start()
     {

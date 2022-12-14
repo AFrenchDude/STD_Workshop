@@ -13,6 +13,8 @@ public class UsineSlot : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _priceTxt = null;
 
+    
+
     public UsineDescription UsineDescription => usineDescription;
 
     public delegate void UsineSlotEvent(UsineSlot sender);
@@ -20,6 +22,11 @@ public class UsineSlot : MonoBehaviour
 
     [SerializeField]
     private InfoFactoryManager infoFactoryManager;
+
+    [Header("Locker")]
+    [SerializeField] private bool _isUnlock = true;
+
+    [SerializeField] private Sprite _lockSprite;
 
     private void Awake()
     {
@@ -35,10 +42,20 @@ public class UsineSlot : MonoBehaviour
             return;
         }
 
-        _icon.sprite = usineDescription.Icon;
-        _icon.color = usineDescription.IconColor;
-        _priceTxt.SetText(usineDescription.Price.ToString());
-        infoFactoryManager.MoneyNecessary.text = _priceTxt.text;
+        if (_isUnlock)
+        {
+            _icon.sprite = usineDescription.Icon;
+            _icon.color = usineDescription.IconColor;
+            _priceTxt.SetText(usineDescription.Price.ToString());
+            infoFactoryManager.MoneyNecessary.text = _priceTxt.text;
+        }
+        else
+        {
+            _icon.sprite = _lockSprite;
+            //_icon.color = usineDescription.IconColor - new Color(0.5f,0.5f,.5f,0f);
+            _priceTxt.SetText("");
+            //infoFactoryManager.MoneyNecessary.text = _priceTxt.text;
+        }
     }
 
     private void OnEnable()
@@ -54,7 +71,10 @@ public class UsineSlot : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        LevelReferences.Instance.Player.GetComponentInChildren<HUDAnimationController>().HUDswaper();
-        OnUsineSlotClicked?.Invoke(this);
+        if (_isUnlock)
+        {
+            LevelReferences.Instance.Player.GetComponentInChildren<HUDAnimationController>().HUDswaper();
+            OnUsineSlotClicked?.Invoke(this);
+        }
     }
 }

@@ -17,7 +17,6 @@ public class Damager : MonoBehaviour
         {
             _miraculousBullet = true;
         }
-
     }
 
     public void SetDamage(float damage)

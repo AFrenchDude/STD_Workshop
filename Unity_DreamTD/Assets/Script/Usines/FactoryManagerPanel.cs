@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Events;
 
+//Made by Alexandre Dorian
 public class FactoryManagerPanel : MonoBehaviour
 {
     [SerializeField]
