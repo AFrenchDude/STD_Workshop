@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Made by Alexandre Dorian
 public class AOE_Dissolve : MonoBehaviour
 {
     private List<Transform> _childs = new List<Transform>();
@@ -42,6 +42,4 @@ public class AOE_Dissolve : MonoBehaviour
             }
         }
     }
-
-    
 }

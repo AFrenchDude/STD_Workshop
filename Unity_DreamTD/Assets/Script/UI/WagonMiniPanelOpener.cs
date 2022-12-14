@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+//Made by Dijoux Kevin
 public class WagonMiniPanelOpener : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]

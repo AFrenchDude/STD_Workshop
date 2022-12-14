@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Made by Alexandre Dorian
 public class StartButtonScript : MonoBehaviour
 {
     [Header("References")]

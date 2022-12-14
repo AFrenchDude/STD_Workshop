@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//Made by Alexandre Dorian
 public class UI_FactoryPanelManager : MonoBehaviour
 {
     private bool _canUpgrade;

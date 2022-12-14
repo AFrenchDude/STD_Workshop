@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Made by Alexandre Dorian
 public class WavePreviewElement : MonoBehaviour
 {
     private WaveSet associateWave;

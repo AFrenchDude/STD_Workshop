@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
+//Made by Alexandre Dorian
 public class WaveOriginPreview : MonoBehaviour
 {
     [SerializeField]
