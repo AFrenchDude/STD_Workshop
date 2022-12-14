@@ -139,6 +139,7 @@ public class FactoryManagerPanel : MonoBehaviour
             if (factoryInformation != null & _factoryManager.FactoryData.CurrentUpgrade.NextUpgrade != null)
             {
                 factoryInformation.SetFactoryData(_factoryManager.FactoryData);
+                factoryInformation.CanUpgrade(canBuyFactory);
             }
             else
             {
