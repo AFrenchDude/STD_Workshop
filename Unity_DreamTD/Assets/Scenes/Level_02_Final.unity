@@ -6771,7 +6771,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1224620748408842504, guid: 08da6b91d03aa604a889c76a08d7339f,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 0d02672daed9d2b4a8ebfbb4088159fc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5ba9ec3e90b736747a6b231c779fe18e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -36318,7 +36318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 421328278}
-  victoryScreen: {fileID: 1788476074}
+  victoryScreen:
+  - {fileID: 0}
 --- !u!114 &1204795296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52811,12 +52812,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1788476074 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1239846671, guid: 2085885483a13104c9cd897da10014a0,
-    type: 3}
-  m_PrefabInstance: {fileID: 957839223}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1789789808
 PrefabInstance:
   m_ObjectHideFlags: 0
