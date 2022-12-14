@@ -241,6 +241,15 @@ public class SpawnerManager : MonoBehaviour
             {
 
                 spawner = _spawners[i];
+
+                spawner.ResetOriginActivation();
+
+            }
+            for (int i = 0, length = _spawners.Count; i < length; i++)
+            {
+
+                spawner = _spawners[i];
+
                 spawner.SetOriginActivationForNextWave(waves[i]);
 
             }

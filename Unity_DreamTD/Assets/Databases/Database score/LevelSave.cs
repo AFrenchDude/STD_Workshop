@@ -48,4 +48,9 @@ public class LevelSave : ScriptableObject
             isNewRecord = false;
         }
     }
+
+    public void SetIsLock(bool isLock)
+    {
+        _isLock = isLock;
+    }
 }

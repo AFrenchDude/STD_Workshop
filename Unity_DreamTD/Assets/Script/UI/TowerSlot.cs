@@ -44,7 +44,7 @@ public class TowerSlot : MonoBehaviour
 
         _icon.sprite = _towerDescription.Icon;
         _icon.color = _towerDescription.IconColor;
-        _priceTxt.SetText(_towerDescription.Price + "$");
+        _priceTxt.SetText(_towerDescription.Price.ToString());
     }
 
     private void OnEnable()

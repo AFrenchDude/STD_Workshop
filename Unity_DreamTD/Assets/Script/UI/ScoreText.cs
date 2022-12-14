@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-//Made by Melinon Remy
+//Made by Melinon Remy, modified by ALBERT Esteban to pass score saving outside of update and animation
 public class ScoreText : MonoBehaviour
 {
     [SerializeField] bool isVictory = false;
@@ -14,15 +14,40 @@ public class ScoreText : MonoBehaviour
     [SerializeField] private List<GameObject> objectsToDisableOnVictory;
 
     //Score
-    private int score = 0;
+    private int visualScore = 0;
     private int scoreReached;
     float lerp = 0f;
     float duration = 2.5f;
     private bool isDisplaying = false;
+    private bool gotNewHighscore = false;
 
     //Level save
     private int starCompar = 0;
     private bool isCheckingForBestScore = true;
+
+    private void Start()
+    {
+        if (isVictory)
+        {
+            CheckAndSaveScore();
+        }
+    }
+
+    private void CheckAndSaveScore()
+    {
+        List<int> starScore = LevelReferences.Instance.ScoreManager.levelSave.starScore;
+        for (int i = 0; i < starScore.Count; i++)
+        {
+            if (LevelReferences.Instance.ScoreManager.score >= starScore[i])
+            {
+                GiveStar(i + 1); //Method takes an index, not a number of stars to add
+            }
+        }
+        LevelReferences.Instance.ScoreManager.levelSave.CheckForNewRecord(scoreReached, out bool gotBool);
+        gotNewHighscore = gotBool;
+
+        LevelReferences.Instance.LevelUnlocker.UnlockLevel();
+    }
 
 
     //On activation
@@ -51,34 +76,30 @@ public class ScoreText : MonoBehaviour
     {
         if (isVictory)
         {
-            if (isDisplaying && score <= scoreReached)
+            if (isDisplaying && visualScore <= scoreReached)
             {
                 lerp += Time.deltaTime / duration;
-                score = (int)Mathf.Lerp(0, scoreReached, lerp);
-                text.SetText("Score: " + score);
+                visualScore = (int)Mathf.Lerp(0, scoreReached, lerp);
+                text.SetText("Score: " + visualScore);
                 //If on win screen
                 if (stars.Count > 0)
                 {
                     for (int i = 0; i != LevelReferences.Instance.ScoreManager.levelSave.starScore.Count; i++)
                     {
                         //Check for star
-                        if (score >= LevelReferences.Instance.ScoreManager.levelSave.starScore[i] && stars[i].gameObject != null)
+                        if (visualScore >= LevelReferences.Instance.ScoreManager.levelSave.starScore[i] && stars[i].gameObject != null)
                         {
                             stars[i].color = new Color(255, 255, 255);
-                            GiveStar(i + 1);
+                            //GiveStar(i + 1);
                         }
                     }
                 }
             }
             //Best score
-            if (score >= scoreReached && isCheckingForBestScore)
+            if (visualScore >= scoreReached && isCheckingForBestScore)
             {
                 isCheckingForBestScore = false;
-                LevelReferences.Instance.ScoreManager.levelSave.CheckForNewRecord(scoreReached, out bool gotBool);
-                if (gotBool)
-                {
-                    newRecordImage.SetActive(true);
-                }
+                newRecordImage.SetActive(gotNewHighscore);
             }
         }
     }

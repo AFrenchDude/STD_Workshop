@@ -45,6 +45,11 @@ public class EntitySpawner : MonoBehaviour
         }
     }
 
+    public void ResetOriginActivation()
+    {
+        waveOriginPreview.ResetFireActivation();
+    }
+
     public void StartWave(Wave wave)
     {
         _wave = new Wave(wave);
