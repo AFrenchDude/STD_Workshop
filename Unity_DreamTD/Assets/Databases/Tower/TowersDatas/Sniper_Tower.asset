@@ -16,8 +16,8 @@ MonoBehaviour:
   _name: Sniper
   _description: High-precision and long-range tower
   _type: Tower
-  _damage: 70
-  _fireRate: 1
+  _damage: 6
+  _fireRate: 3
   _range: 15
   _projectileSpeed: 20
   _fireType: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
   _projectileTypeList:
   - ProjectileType: {fileID: 11400000, guid: fc8ee73b2a8134346a8dd26aa3c0e234, type: 2}
     ProjectileAmmount: 0
-    MaxProjectilesAmmount: 0
+    MaxProjectilesAmmount: 5
   _maxProjectilesAmmount: 0
   _aoeRadius: 0
   scoreToGiveOnUpgrade: 20

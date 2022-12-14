@@ -2679,6 +2679,8 @@ MonoBehaviour:
   _icon: {fileID: 7793023969878878322}
   _priceTxt: {fileID: 1917983136466874239}
   infoFactoryManager: {fileID: 8075656984497605648}
+  _isUnlock: 1
+  _lockSprite: {fileID: 21300000, guid: 2f008093a295948429559b7e5ec39c56, type: 3}
 --- !u!114 &5073922962873605379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2693,6 +2695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info: {fileID: 7965952883194260299}
   animator: {fileID: 5047933357112637939}
+  _isUnlock: 1
 --- !u!61 &7285820085501388781
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3129,7 +3132,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917983137328650385}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00025940442}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0002059704}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3138,7 +3141,7 @@ RectTransform:
   - {fileID: 1917983135796897378}
   - {fileID: 2497295825843099220}
   m_Father: {fileID: 4751722797374117871}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3264,6 +3267,8 @@ MonoBehaviour:
   _icon: {fileID: 425621570337652137}
   _priceTxt: {fileID: 1917983135796897379}
   infoFactoryManager: {fileID: 2695626755302816552}
+  _isUnlock: 1
+  _lockSprite: {fileID: 21300000, guid: 2f008093a295948429559b7e5ec39c56, type: 3}
 --- !u!114 &2686181703963879303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3278,6 +3283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info: {fileID: 5175629163686244309}
   animator: {fileID: 5047933357112637939}
+  _isUnlock: 1
 --- !u!61 &6561104539455430728
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3344,7 +3350,7 @@ RectTransform:
   - {fileID: 1917983136800394369}
   - {fileID: 3877193651488662879}
   m_Father: {fileID: 4751722797374117871}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3470,6 +3476,8 @@ MonoBehaviour:
   _icon: {fileID: 8638762766374078}
   _priceTxt: {fileID: 1917983136800394110}
   infoFactoryManager: {fileID: 5553506517855504451}
+  _isUnlock: 1
+  _lockSprite: {fileID: 21300000, guid: 2f008093a295948429559b7e5ec39c56, type: 3}
 --- !u!114 &1979672035560713041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3484,6 +3492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info: {fileID: 4255553104412671587}
   animator: {fileID: 5047933357112637939}
+  _isUnlock: 1
 --- !u!61 &7296073083563693555
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6615,6 +6624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info: {fileID: 9156040549574134146}
   animator: {fileID: 4189477620438839891}
+  _isUnlock: 1
 --- !u!1 &4111897069784493166
 GameObject:
   m_ObjectHideFlags: 0
@@ -7941,6 +7951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info: {fileID: 3957821305436737236}
   animator: {fileID: 4189477620438839891}
+  _isUnlock: 1
 --- !u!1 &4754586119656875131
 GameObject:
   m_ObjectHideFlags: 0
@@ -10496,6 +10507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info: {fileID: 3519826854446298613}
   animator: {fileID: 4189477620438839891}
+  _isUnlock: 1
 --- !u!1 &6617190590558198905
 GameObject:
   m_ObjectHideFlags: 0
@@ -13683,8 +13695,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1917983136128925762}
-  - {fileID: 1917983137354903804}
   - {fileID: 1917983137328650382}
+  - {fileID: 1917983137354903804}
   m_Father: {fileID: 1917983136627900353}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
