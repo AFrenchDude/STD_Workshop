@@ -65,13 +65,9 @@ public class HUDwhenSelect : MonoBehaviour
         //If usine
         if (gameObject.GetComponent<Factory>() != null)
         {
-            FactoryManagerPanel.updateUpgradefactory.RemoveListener(OnUpdateUpgradeFactory);
-            //hudRef.GetComponent<UsineHUD>().OnUnpick();
-            //hudRef.SetActive(false);
-
             if (_currentFactoryManagerPanel != null)
             {
-
+                FactoryManagerPanel.updateUpgradefactory.RemoveListener(OnUpdateUpgradeFactory);
                 _currentFactoryManagerPanel.ClosePanel();
                 
             }
