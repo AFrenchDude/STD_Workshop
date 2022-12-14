@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+//Made by Alexandre Dorian
 [CreateAssetMenu(menuName = "DreamTD/Factories/FactoryUpgrade", fileName = "FactoryUpgrade")]
 public class FactoryUpgradeData : ScriptableObject
 {

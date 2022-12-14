@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Made by Melinon Remy
 public class UsineSlotController : MonoBehaviour
 {
     [SerializeField]

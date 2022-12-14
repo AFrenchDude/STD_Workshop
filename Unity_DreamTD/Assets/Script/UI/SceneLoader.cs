@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 //Made by Melinon Remy
 public class SceneLoader : MonoBehaviour
 {
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     [SerializeField] private GameObject loadingScreen;
     //Ref to new scene to load
     private string sceneToLoad;
-
 
     public void SetUpScene(string levelName)
     {
