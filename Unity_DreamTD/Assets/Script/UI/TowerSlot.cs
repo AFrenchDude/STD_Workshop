@@ -26,6 +26,9 @@ public class TowerSlot : MonoBehaviour
     public delegate void TowerSlotEvent(TowerSlot sender);
     public event TowerSlotEvent OnTowerSlotClicked = null;
 
+    [SerializeField]
+    private InfoTowerManager infoTowerManager = null;
+
     private void Awake()
     {
         _towerDescription = Instantiate(_towerDescription);
@@ -45,6 +48,7 @@ public class TowerSlot : MonoBehaviour
         _icon.sprite = _towerDescription.Icon;
         _icon.color = _towerDescription.IconColor;
         _priceTxt.SetText(_towerDescription.Price.ToString());
+        infoTowerManager.MoneyNecessary.text = _priceTxt.text;
     }
 
     private void OnEnable()
@@ -60,6 +64,7 @@ public class TowerSlot : MonoBehaviour
 
     private void OnButtonClicked()
     {
+        LevelReferences.Instance.Player.GetComponentInChildren<HUDAnimationController>().HUDswaper();
         OnTowerSlotClicked?.Invoke(this);
     }
 }
