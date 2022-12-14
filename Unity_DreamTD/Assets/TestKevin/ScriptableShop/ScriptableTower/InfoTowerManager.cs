@@ -30,10 +30,12 @@ public class InfoTowerManager : MonoBehaviour
     private TextMeshProUGUI capacity = null;
 
     [SerializeField]
-    private TextMeshProUGUI moneyNecessary = null;
+    private TextMeshProUGUI _moneyNecessary = null;
     #endregion Variables
 
-    private void Awake()
+    public TextMeshProUGUI MoneyNecessary => _moneyNecessary;
+
+    private void Start()
     {
         UpdateInfoPanel();
     }
@@ -47,6 +49,6 @@ public class InfoTowerManager : MonoBehaviour
         firerate.text = towerDescription.TowersDatas.FireRate.ToString();
         range.text = towerDescription.TowersDatas.Range.ToString();
         capacity.text = towerDescription.TowersDatas.MaxProjectilesAmmount.ToString();
-        moneyNecessary.text = towerDescription.Price + " ";
+        _moneyNecessary.text = towerDescription.Price.ToString();
     }
 }

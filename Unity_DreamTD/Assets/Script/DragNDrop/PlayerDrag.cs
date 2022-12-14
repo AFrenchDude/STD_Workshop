@@ -104,6 +104,7 @@ public class PlayerDrag : MonoBehaviour
         _isDragging = enable;
         if (enable == false)
         {
+            LevelReferences.Instance.Player.GetComponentInChildren<HUDAnimationController>().HUDswaper();
             _endDragTime = Time.time;
         }
     }
