@@ -13,19 +13,19 @@ public class SkillTreeBehaviour : MonoBehaviour
     [SerializeField] private ProjectileUpgradeData projectileUpgrade;
     [SerializeField] private PlayerScoreSave playerScore;
     //Dropdowns of selected upgrades
-    [SerializeField] private TMP_Dropdown trapsDropdown;
-    [SerializeField] private TMP_Dropdown energyDropdown;
-    [SerializeField] private TMP_Dropdown pizzaDropdown;
+    //[SerializeField] private TMP_Dropdown trapsDropdown;
+    //[SerializeField] private TMP_Dropdown energyDropdown;
+    //[SerializeField] private TMP_Dropdown pizzaDropdown;
 
     public void OnOpenSkillShop()
     {
         text.SetText(playerScore.StarNumber.ToString());
         //Trap
-        SetOptions(trapsDropdown, projectileUpgrade.unlockedTraps, projectileUpgrade.TrapUpgradeSelected + "");
+        //SetOptions(trapsDropdown, projectileUpgrade.unlockedTraps, projectileUpgrade.TrapUpgradeSelected + "");
         //Food
-        SetOptions(pizzaDropdown, projectileUpgrade.unlockedFood, projectileUpgrade.FoodUpgradeSelected + "");
+        //SetOptions(pizzaDropdown, projectileUpgrade.unlockedFood, projectileUpgrade.FoodUpgradeSelected + "");
         //Energy
-        SetOptions(energyDropdown, projectileUpgrade.unlockedEnergy, projectileUpgrade.EnergyUpgradeSelected + "");
+        //SetOptions(energyDropdown, projectileUpgrade.unlockedEnergy, projectileUpgrade.EnergyUpgradeSelected + "");
     }
 
     //Set alredy unlocked option in HUD
@@ -51,7 +51,7 @@ public class SkillTreeBehaviour : MonoBehaviour
             buttonObject.transform.GetChild(0).gameObject.SetActive(false);
 
             //SetTraps
-            AddOption(projectileUpgrade.unlockedTraps, buttonObject.GetComponent<ProjectileUpgradeSetter>().trapUpgrade + "", trapsDropdown, buttonObject);
+            //AddOption(projectileUpgrade.unlockedTraps, buttonObject.GetComponent<ProjectileUpgradeSetter>().trapUpgrade + "", trapsDropdown, buttonObject);
         }
     }
     public void UnlockFoodSkill(GameObject buttonObject)
@@ -62,7 +62,7 @@ public class SkillTreeBehaviour : MonoBehaviour
             buttonObject.transform.GetChild(0).gameObject.SetActive(false);
 
             //SetFood
-            AddOption(projectileUpgrade.unlockedFood, buttonObject.GetComponent<ProjectileUpgradeSetter>().foodUpgrade + "", pizzaDropdown, buttonObject);
+            //AddOption(projectileUpgrade.unlockedFood, buttonObject.GetComponent<ProjectileUpgradeSetter>().foodUpgrade + "", pizzaDropdown, buttonObject);
         }
     }
     public void UnlockEnergySkill(GameObject buttonObject)
@@ -73,7 +73,7 @@ public class SkillTreeBehaviour : MonoBehaviour
             buttonObject.transform.GetChild(0).gameObject.SetActive(false);
 
             //SetEnergy
-            AddOption(projectileUpgrade.unlockedEnergy, buttonObject.GetComponent<ProjectileUpgradeSetter>().energyUpgrade + "", energyDropdown, buttonObject);
+            //AddOption(projectileUpgrade.unlockedEnergy, buttonObject.GetComponent<ProjectileUpgradeSetter>().energyUpgrade + "", energyDropdown, buttonObject);
         }
     }
 
@@ -103,15 +103,15 @@ public class SkillTreeBehaviour : MonoBehaviour
     //Set currently selected skill
     public void PickTrapSkill(Int32 optionSelected)
     {
-        projectileUpgrade.TrapDropdownValueChanged(trapsDropdown);
+        //projectileUpgrade.TrapDropdownValueChanged(trapsDropdown);
     }
     public void PickFoodSkill(Int32 optionSelected)
     {
-        projectileUpgrade.PizzaDropdownValueChanged(pizzaDropdown);
+        //projectileUpgrade.PizzaDropdownValueChanged(pizzaDropdown);
     }
     public void PickEnergySkill(Int32 optionSelected)
     {
-        projectileUpgrade.EnergyDropdownValueChanged(energyDropdown);
+        //projectileUpgrade.EnergyDropdownValueChanged(energyDropdown);
     }
 
     //Reset all upgrades and gives back skill points
