@@ -97,6 +97,8 @@ MonoBehaviour:
   _headAnchor: {fileID: 5574553189779065027}
   scoreToGiveOnDeath: 100
   _health: 100
+  _doNotGiveScore: 0
+  _isUndetectable: 0
   _healthBar: {fileID: 0}
   OnDamageTaken:
     m_PersistentCalls:
@@ -196,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d373aab58fedeb546a0f410ce0b0ac5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageToBase: 1
+  _damageToBase: 6
 --- !u!114 &3194527713467927126
 MonoBehaviour:
   m_ObjectHideFlags: 0
